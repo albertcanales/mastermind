@@ -1,0 +1,4 @@
+Paràmetres per al gradle
+
+gradle-wrapper.jar
+gradle-wrapper.properties

@@ -1,0 +1,7 @@
+Codi font del projecte i gradle
+
+gradle/
+src/
+.gitignore
+gradlew
+gradlew.bat

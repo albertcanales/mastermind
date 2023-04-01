@@ -1,0 +1,6 @@
+Directori arrel del projecte
+
+DOCS/
+EXE/
+FONTS/
+equip.txt
