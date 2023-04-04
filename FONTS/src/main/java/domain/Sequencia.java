@@ -11,13 +11,12 @@ import java.util.List;
  */
 public class Sequencia {
 
-    static final int NUL = 0;
     private int mida;
 
     private List<Integer> sequencia;
 
     /**
-     * Crea una sequència donada una llista d'enters
+     * Crea una sequència donada una llista d'enters (Boles)
      * 
      * @param list
      */
@@ -25,7 +24,7 @@ public class Sequencia {
         sequencia = list;
         mida = 0;
         for (int i = 0; i < list.size(); ++i) {
-            if (list.get(i) > NUL)
+            if (list.get(i) > Bola.NUL)
                 ++mida;
         }
 
@@ -73,9 +72,9 @@ public class Sequencia {
      * @param bola  enter més gran o igual a 0 que representa la "Bola"
      */
     public void setBola(Integer index, Integer bola) {
-        if ((sequencia.get(index) == NUL) && (bola > NUL))
+        if ((sequencia.get(index) == Bola.NUL) && (bola > Bola.NUL))
             ++mida;
-        else if ((sequencia.get(index) > NUL) && (bola == NUL))
+        else if ((sequencia.get(index) > Bola.NUL) && (bola == Bola.NUL))
             --mida;
         sequencia.set(index, bola);
     }
