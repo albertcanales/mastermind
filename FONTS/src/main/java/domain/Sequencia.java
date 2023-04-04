@@ -79,4 +79,13 @@ public class Sequencia {
         sequencia.set(index, bola);
     }
 
+    /**
+     * Retorna la llista d'enters (Boles) que formen la Seqüència
+     * 
+     * @return una llista d'enters
+     */
+    public List<Integer> flatten() {
+        return sequencia;
+    }
+
 }
