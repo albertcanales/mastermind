@@ -12,12 +12,13 @@ abstract class Dificultat {
      * Getter del nivell de dificultat
      * @author Albert Canales
      */
-    abstract NivellDificultat getDificultat();
+    abstract NivellDificultat getNivellDificultat();
 
     /**
      * Mètode per donar el feedback d'un intent
      * @param solucio és la sequència correcta de la partiad
      * @param intent és l'intent pel qual es vol rebre feedback
+     * @return feedback corresponent a l'intent
      * @author Albert Canales
      */
     abstract List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent);
@@ -47,5 +48,5 @@ enum NivellDificultat {
      * Getter del nombre que representa el valor
      * @author Albert Canales
      */
-    private int number() { return number; }
+    int number() { return number; }
 }
