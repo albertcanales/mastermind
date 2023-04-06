@@ -17,7 +17,7 @@ public class ControladorPartida {
     ControladorPartida(Integer nivellDificultat) {
         partida = new Partida();
         taulell = new Taulell();
-        // TODO Falta la dificultat
+        dificultat = Dificultat.create(nivellDificultat);
     }
 
     /**
@@ -26,13 +26,13 @@ public class ControladorPartida {
      * @param feedbacks llista de les seqüències de feedback de la partida prèvies
      * @param intents llista dels intents previs de la partida previs
      * @param temps duració (en mil·lisegons) actual de la partida
-     * @param temps duració (en mil·lisegons) actual de la partida
      * @author Albert Canales
      */
     ControladorPartida(Integer nivellDificultat, List<List<Integer>> feedbacks, List<List<Integer>> intents, Long temps) {
         this(nivellDificultat);
 
         // TODO Falta el constructor adient per a taulell
+        // taulell = new Taulell(feedbacks, intents);
         partida.setTemps(Duration.ofMillis(temps));
     }
 

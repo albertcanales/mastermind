@@ -9,6 +9,24 @@ import java.util.List;
 abstract class Dificultat {
 
     /**
+     * Mètode per instanciar una subclasse a partir del nombre del nivell de dificultat
+     * @param nivellDificultat nombre del nivell de dificultat desitjat
+     * @return Nova instància de la dificultat desitjada
+     * @author Albert Canales
+     */
+    static Dificultat create(Integer nivellDificultat) {
+        switch (NivellDificultat.findByNumber(nivellDificultat)) {
+            case FACIL:
+                //return new DificultatFacil();
+            case MITJA:
+                //return new DificultatFacil();
+            case DIFICIL:
+                //return new DificultatFacil();
+        }
+        return null;
+    }
+
+    /**
      * Getter del nivell de dificultat
      * @author Albert Canales
      */
@@ -42,6 +60,21 @@ enum NivellDificultat {
      */
     NivellDificultat(int number) {
         this.number = number;
+    }
+
+    /**
+     * Mètode per obtenir en NivellDificultat corresponent a un nombre
+     * @param number és el valor que representa el nivell de dificultat
+     * @return el valor de NivellDificultat corresponent al nombre donat
+     * @author Albert Canales
+     */
+    public static NivellDificultat findByNumber(Integer number){
+        for(NivellDificultat nd : values()){
+            if( nd.number() == number){
+                return nd;
+            }
+        }
+        return null;
     }
 
     /**
