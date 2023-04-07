@@ -17,4 +17,5 @@ public class Bola {
     public static final int ROSA = 6;
     public static final int VERD = 7;
     public static final int GROC = 8;
+    public static final int NUMCOLORS = 6;
 }
