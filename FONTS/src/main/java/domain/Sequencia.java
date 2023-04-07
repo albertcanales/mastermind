@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author Arnau Valls Fusté
  */
-public class Sequencia {
+class Sequencia {
 
     private int mida;
 
@@ -20,7 +20,7 @@ public class Sequencia {
      * 
      * @param list
      */
-    public Sequencia(List<Integer> list) {
+    Sequencia(List<Integer> list) {
         sequencia = list;
         mida = 0;
         for (int i = 0; i < list.size(); ++i) {
@@ -35,7 +35,7 @@ public class Sequencia {
      * 
      * @return un booleà cert o fals depenent de si està plena o no
      */
-    public Boolean isPlena() {
+    Boolean isPlena() {
         if (mida == sequencia.size())
             return true;
         else
@@ -48,7 +48,7 @@ public class Sequencia {
      * 
      * @return un booleà cert o fals depenent de si està buida o no
      */
-    public Boolean isBuida() {
+    Boolean isBuida() {
         if (mida == 0)
             return true;
         else
@@ -61,7 +61,7 @@ public class Sequencia {
      * @param index enter que representa la posició de la "Bola" desitjada
      * @return un Enter que representa una "Bola"
      */
-    public Integer getBola(Integer index) {
+    Integer getBola(Integer index) {
         return sequencia.get(index);
     }
 
@@ -71,7 +71,7 @@ public class Sequencia {
      * @param index enter que representa la posició a establir
      * @param bola  enter més gran o igual a 0 que representa la "Bola"
      */
-    public void setBola(Integer index, Integer bola) {
+    void setBola(Integer index, Integer bola) {
         if ((sequencia.get(index) == Bola.NUL) && (bola > Bola.NUL))
             ++mida;
         else if ((sequencia.get(index) > Bola.NUL) && (bola == Bola.NUL))
@@ -84,7 +84,7 @@ public class Sequencia {
      * 
      * @return una llista d'enters
      */
-    public List<Integer> flatten() {
+    List<Integer> flatten() {
         return sequencia;
     }
 

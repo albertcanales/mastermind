@@ -3,11 +3,15 @@ package domain;
 import java.time.Duration;
 import java.util.List;
 
-public class ControladorPartida {
+/**
+ * Controlador de la partida actual
+ * @author Albert Canales
+ */
+class ControladorPartida {
 
-    Partida partida;
-    Dificultat dificultat;
-    Taulell taulell;
+    private Partida partida;
+    private Dificultat dificultat;
+    private Taulell taulell;
 
     /**
      * Constructor del controlador per a carregar una nova partida

@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * Contenidor que representa l'estat de les Boles del nostre joc
  */
-public class Taulell {
+class Taulell {
 
-    public static final int NUMINTENTS = 12, NUMBOLES = 5;
+    static final int NUMINTENTS = 12, NUMBOLES = 5;
     private int intentActual;
 
     private List<Sequencia> intents;
@@ -20,7 +20,7 @@ public class Taulell {
     /**
      * Crea un Taulell inicialitzat
      */
-    public Taulell() {
+    Taulell() {
         intentActual = 0;
 
         intents = new ArrayList<>(NUMINTENTS);
@@ -53,7 +53,7 @@ public class Taulell {
      * 
      * @return una llista d'enters (Boles)
      */
-    public List<Integer> getUltimIntent() {
+    List<Integer> getUltimIntent() {
         return intents.get(intentActual).flatten();
     }
 
@@ -62,7 +62,7 @@ public class Taulell {
      * 
      * @param feedback llista d'enters que conté boles de color blanc, negre o NUL
      */
-    public void addFeedback(List<Integer> feedback) {
+    void addFeedback(List<Integer> feedback) {
         feedbacks.set(intentActual, new Sequencia(feedback));
         ++intentActual;
     }
@@ -71,7 +71,7 @@ public class Taulell {
      * Mètode que retorna la solució de l'estat actual
      * @return una llista d'enters que representen Boles
      */
-    public List<Integer> getSolucio() {
+    List<Integer> getSolucio() {
         return solucio.flatten();
     }
 
@@ -79,7 +79,7 @@ public class Taulell {
      * Mètode que permet establir la solució 
      * @param sol una llista d'enters que representen Boles
      */
-    public void setSolucio(List<Integer> sol) {
+    void setSolucio(List<Integer> sol) {
         solucio = new Sequencia(sol);
     }
 
@@ -88,7 +88,7 @@ public class Taulell {
      * @param index enter que representa la posició a establir
      * @param bola enter que representa la bola a establir
      */
-    public void setBola(Integer index, Integer bola) {
+    void setBola(Integer index, Integer bola) {
         intents.get(intentActual).setBola(index, bola);
     }
 

@@ -1,8 +1,8 @@
 package domain;
 
-import java.util.List
+import java.util.List;
 
-public class DificultatDificil extends Dificultat {
+class DificultatDificil extends Dificultat {
     @Override
     NivellDificultat getNivellDificultat(){
         return NivellDificultat.DIFICIL;

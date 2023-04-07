@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Mar Gonzàlez Català
  */
-abstract class Genetic extends BotBreaker {
+class Genetic extends BotBreaker {
 
     /**
      * Donada una solució genera la llista d'intents fins arribar a ella si utilitzem un algorisme genetic.
