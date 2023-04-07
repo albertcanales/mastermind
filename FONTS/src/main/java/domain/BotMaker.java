@@ -9,6 +9,12 @@ import java.util.*;
  */
 class BotMaker {
 
+    private final Integer numboles;
+
+    public BotMaker(Integer numboles) {
+        this.numboles = numboles;
+    }
+
     /**
      * Genera una solució.
      *
@@ -16,11 +22,10 @@ class BotMaker {
      * @author Mar Gonzàlez Català
      */
     public ArrayList<Integer> generaSequenciaSolucio(){
-        ArrayList<Integer> solution = new ArrayList<Integer>(Taulell.NUMBOLES);
-        for (int i = 0; i < 4; i++){
-            Random rand = new Random();
+        Random rand = new Random();
+        ArrayList<Integer> solution = new ArrayList<>(numboles);
+        for (int i = 0; i < 4; i++)
             solution.set(i, rand.nextInt(Bola.NUMCOLORS) + 1);
-        }
         return solution;
     }
 }
