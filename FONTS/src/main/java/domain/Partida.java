@@ -29,6 +29,15 @@ class Partida {
     }
 
     /**
+     * Constructor per una partida finalitzada
+     * @author Albert Canales
+     */
+    Partida(Duration temps, LocalDateTime dataFi) {
+        this.temps = temps;
+        this.dataFi = dataFi;
+    }
+
+    /**
      * Getter de temps
      * @author Albert Canales
      */
