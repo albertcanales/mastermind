@@ -1,5 +1,6 @@
 package domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -76,6 +77,24 @@ public class ControladorDomini {
     }
 
     /**
+     * Getter de tots els intents de la partida actual
+     * @return Una llista amb tots els intents de la partida actual
+     * @author Albert Canales
+     */
+    public List<List<Integer>> getIntents() {
+        return controladorPartida.getIntents();
+    }
+
+    /**
+     * Getter de tots els feedbacks de la partida actual
+     * @return Una llista amb tots els feedbacks de la partida actual
+     * @author Albert Canales
+     */
+    public List<List<Integer>> getFeedbacks() {
+        return controladorPartida.getFeedbacks();
+    }
+
+    /**
      * Mètode per a col·locar una bola en l'intent actual de la partida actual
      * @param index La posició on es vol col·locar la bola
      * @param bola La bola que es vol col·locar
@@ -91,6 +110,10 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<Integer> validarSequencia() {
-        return controladorPartida.validarSequencia();
+        List<Integer> feedback = controladorPartida.validarSequencia();
+        if(controladorPartida.isPartidaAcabada()) {
+            // TODO Acabar partida (DataFi, estadístiques usuari, etc)
+        }
+        return feedback;
     }
 }

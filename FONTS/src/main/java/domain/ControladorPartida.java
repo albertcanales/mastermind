@@ -82,6 +82,51 @@ class ControladorPartida {
     }
 
     /**
+     * Getter dels intents de la partida
+     * @author Albert Canales
+     */
+    List<List<Integer>> getIntents() {
+        return taulell.getIntents();
+    }
+
+    /**
+     * Getter dels feedbacks de la partida
+     * @author Albert Canales
+     */
+    List<List<Integer>> getFeedbacks() {
+        return taulell.getFeedbacks();
+    }
+
+    /**
+     * Mètode per saber si una partida està guanyada
+     * @author Albert Canales
+     */
+    Boolean isPartidaGuanyada() {
+        List<Integer> ultimFeedback = taulell.getUltimFeedback();
+        for (Integer bola : ultimFeedback) {
+            if (!bola.equals(Bola.NEGRE.number()))
+                return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
+    }
+
+    /**
+     * Mètode per saber si una partida està perduda
+     * @author Albert Canales
+     */
+    Boolean isPartidaPerduda() {
+        return taulell.getNumeroIntent() >= Taulell.NUMINTENTS;
+    }
+
+    /**
+     * Mètode per saber si una partida està acabada
+     * @author Albert Canales
+     */
+    Boolean isPartidaAcabada() {
+        return isPartidaPerduda() || isPartidaGuanyada();
+    }
+
+    /**
      * Mètode per col·locar una bola en la posició indicada de l'intent actual
      * @param index posició de la bola
      * @param bola bola a col·locar
