@@ -6,7 +6,7 @@ import java.util.*;
  * @brief Contenidor de les funcionalitats d'un BotBreaker que empra l'algorisme Five Guess.
  * @author Mar Gonzàlez Català
  */
-class FiveGuess extends BotBreaker {
+class prova extends BotBreaker {
 
     private final int SEQUENCE_LENGTH = 4;
 
@@ -18,10 +18,10 @@ class FiveGuess extends BotBreaker {
      * @author Mar Gonzàlez Català
      */
     private void initializeSetS(){
-        for (int it1 = 1; it1 <= Bola.numColors(); it1++){
-            for (int it2 = 1; it2 <= Bola.numColors(); it2++){
-                for (int it3 = 1; it3 <= Bola.numColors(); it3++){
-                    for (int it4 = 1; it4 <= Bola.numColors(); it4++){
+        for (int it1 = 1; it1 <= 6; it1++){
+            for (int it2 = 1; it2 <= 6; it2++){
+                for (int it3 = 1; it3 <= 6; it3++){
+                    for (int it4 = 1; it4 <= 6; it4++){
                         possibleSolutions.add(it1*1000+it2*100+it3*10+it4);
                     }
                 }
@@ -47,16 +47,18 @@ class FiveGuess extends BotBreaker {
 
     /**
      * @brief Donades dues llistes retorna el nombre de boles amb color però no posició coincidents.
-     * @param list1 primera llista  a comparar.
+     * @param list1 primera llista a comparar.
      * @param list2 segona llista a comparar.
      * @return Nombre de boles amb color i posició coincidents.
      */
     private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2){
         Integer count = 0;
-        for (int it1 = 0; it1 < SEQUENCE_LENGTH; ++it1){
-            for (int it2 = 0; it2 < it1; it2++) {
-                if ((list1.get(it1).equals(list2.get(it2))) && (!list1.get(it1).equals(list2.get(it2))) && (!Objects.equals(list1.get(it2), list2.get(it2)))) {
-                    count++;
+        for (int it1 = 0; it1 < SEQUENCE_LENGTH; it1++){
+            for (int it2 = 0; it2 < SEQUENCE_LENGTH; it2++) {
+                if ((list1.get(it1).equals(list2.get(it2))) && (it1 != it2)) {
+                    if (!(list1.get(it1).equals(list2.get(it1))) && !(list1.get(it2).equals(list2.get(it2)))) {
+                        count++;
+                    }
                 }
             }
         }
@@ -102,19 +104,20 @@ class FiveGuess extends BotBreaker {
      */
     private ArrayList<Integer> minimax(){
         int currentMinimax = 1297;
+        Boolean isInS = false;
         ArrayList<Integer> currentSeqMinimax = new ArrayList<>();
-        for (int it1 = 1; it1 <= Bola.numColors(); it1++) {
-            for (int it2 = 1; it2 <= Bola.numColors(); it2++) {
-                for (int it3 = 1; it3 <= Bola.numColors(); it3++) {
-                    for (int it4 = 1; it4 <= Bola.numColors(); it4++) {
+        for (int it1 = 1; it1 <= 6; it1++) {
+            for (int it2 = 1; it2 <= 6; it2++) {
+                for (int it3 = 1; it3 <= 6; it3++) {
+                    for (int it4 = 1; it4 <= 6; it4++) {
                         Integer[] finalit = {it1, it2, it3, it4};
                         ArrayList<Integer> sequence = new ArrayList<>(Arrays.asList(finalit));
-                        ArrayList<Integer> counts = new ArrayList<>(Collections.nCopies(17, 0));
+                        ArrayList<Integer> counts = new ArrayList<>(Collections.nCopies(45, 0));
                         for (Integer integer : possibleSolutions) {
                             ArrayList<Integer> seqIteration = getSequence(integer);
                             int black = compareTwoSequencesBlack(seqIteration, sequence);
                             int white = compareTwoSequencesWhite(seqIteration, sequence);
-                            int index = black * 4 + white;
+                            int index = black * 10 + white;
                             Integer value = counts.get(index);
                             value = value + 1;
                             counts.set(index, value);
@@ -128,6 +131,16 @@ class FiveGuess extends BotBreaker {
                         if (currentMax < currentMinimax) {
                             currentMinimax = currentMax;
                             currentSeqMinimax = sequence;
+                            if (possibleSolutions.contains(sequence.get(0)*1000+sequence.get(1)*100+sequence.get(2)*10+sequence.get(3))){
+                                isInS = true;
+                            } else {
+                                isInS = false;
+                            }
+                        } else if ((currentMax == currentMinimax) && !isInS){
+                            if (possibleSolutions.contains(sequence.get(0)*1000+sequence.get(1)*100+sequence.get(2)*10+sequence.get(3))){
+                                currentSeqMinimax = sequence;
+                                isInS = true;
+                            }
                         }
                     }
                 }
@@ -142,7 +155,6 @@ class FiveGuess extends BotBreaker {
      * @return Llista d'intents.
      * @author Mar Gonzàlez Català
      */
-
     public ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution){
         ArrayList<ArrayList<Integer>> guesses = new ArrayList<>();
         boolean won = false;
@@ -154,16 +166,13 @@ class FiveGuess extends BotBreaker {
         //start with initial guess 1122
         ArrayList<Integer> currentGuess = new ArrayList<>();
         currentGuess.add(1); currentGuess.add(1); currentGuess.add(2); currentGuess.add(2);
-
         guesses.add(currentGuess);
 
         //play the guess to get a response of colored and white pegs
-        //TODO get Kamil's function
         int black = compareTwoSequencesBlack(currentGuess,solution);
         int white = compareTwoSequencesWhite(currentGuess,solution);
 
         //if the response is four colored pegs, the game is won
-        //TODO get Kamil's function
         if (black == 4) {
             won = true;
         }
@@ -171,25 +180,22 @@ class FiveGuess extends BotBreaker {
         else {
             eraseNotPossibleSolutionsfromSetS(black, white, currentGuess);
         }
-
         while(!won) {
             //choose next guess with the minimax technique
             currentGuess = minimax();
             guesses.add(currentGuess);
-
             //play the guess to get a response of colored and white pegs
-            //TODO get Kamil's function
             black = compareTwoSequencesBlack(currentGuess,solution);
             white = compareTwoSequencesWhite(currentGuess,solution);
 
             //if the response is four colored pegs, the game is won
-            //TODO get Kamil's function
             if (black == 4) {
                 won = true;
             }
             //remove from S any code that would not give the same response
             else {
                 eraseNotPossibleSolutionsfromSetS(black, white, currentGuess);
+                System.out.println("Mida set "+ possibleSolutions.size());
             }
         }
         return guesses;
