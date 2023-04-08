@@ -59,4 +59,14 @@ enum Bola {
         return (values().length - 1); // no considerem NUL com un color
     }
 
+    /**
+     * Mètode per saber si un número representa un color vàlid no nul
+     *
+     * @param num un enter representa un color
+     * @return un booleà cert si el color és vàlid i no nul
+     */
+    public static boolean isColor(int num) {
+        return (num > NUL.number()) && (num <= numColors());
+    }
+
 }
