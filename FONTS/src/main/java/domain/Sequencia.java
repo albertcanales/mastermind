@@ -24,7 +24,7 @@ class Sequencia {
         sequencia = list;
         mida = 0;
         for (int i = 0; i < list.size(); ++i) {
-            if (list.get(i) > Bola.NUL)
+            if (list.get(i) > Bola.NUL.number())
                 ++mida;
         }
 
@@ -72,9 +72,9 @@ class Sequencia {
      * @param bola  enter més gran o igual a 0 que representa la "Bola"
      */
     void setBola(Integer index, Integer bola) {
-        if ((sequencia.get(index) == Bola.NUL) && (bola > Bola.NUL))
+        if ((sequencia.get(index) == Bola.NUL.number()) && (bola > Bola.NUL.number()))
             ++mida;
-        else if ((sequencia.get(index) > Bola.NUL) && (bola == Bola.NUL))
+        else if ((sequencia.get(index) > Bola.NUL.number()) && (bola == Bola.NUL.number()))
             --mida;
         sequencia.set(index, bola);
     }

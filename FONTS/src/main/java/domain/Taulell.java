@@ -31,8 +31,8 @@ class Taulell {
             List<Integer> feedbacks_seqbuida = new ArrayList<>(NUMBOLES);
 
             for (int j = 0; j < NUMBOLES; ++j) {
-                intents_seqbuida.add(Bola.NUL);
-                feedbacks_seqbuida.add(Bola.NUL);
+                intents_seqbuida.add(Bola.NUL.number());
+                feedbacks_seqbuida.add(Bola.NUL.number());
             }
 
             intents.add(new Sequencia(intents_seqbuida));
@@ -41,7 +41,7 @@ class Taulell {
 
         List<Integer> solucio_seqbuida = new ArrayList<>(NUMBOLES);
         for (int i = 0; i < NUMBOLES; ++i) {
-            solucio_seqbuida.add(Bola.NUL);
+            solucio_seqbuida.add(Bola.NUL.number());
         }
         solucio = new Sequencia(solucio_seqbuida);
 
