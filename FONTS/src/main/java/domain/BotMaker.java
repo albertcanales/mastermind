@@ -25,7 +25,7 @@ class BotMaker {
         Random rand = new Random();
         ArrayList<Integer> solution = new ArrayList<>(numboles);
         for (int i = 0; i < 4; i++)
-            solution.set(i, rand.nextInt(Bola.NUMCOLORS) + 1);
+            solution.set(i, rand.nextInt(Bola.numColors()) + 1);
         return solution;
     }
 }

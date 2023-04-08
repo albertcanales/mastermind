@@ -8,9 +8,8 @@ import java.util.*;
  * @author Mar Gonzàlez Català
  */
 abstract class BotBreaker {
-
     /**
-     * Donada una solució genera la llista d'intents fins arribar a ella.
+     * Donada una solució genera la llista d'intents fins a arribar a ella.
      *
      * @param solution
      * @return Llista d'intents.

@@ -3,8 +3,7 @@ package domain;
 import java.util.*;
 
 /**
- * Contenidor de les funcionalitats d'un BotBreaker que empra l'algorisme Five Guess.
- *
+ * @brief Contenidor de les funcionalitats d'un BotBreaker que empra l'algorisme Five Guess.
  * @author Mar Gonzàlez Català
  */
 class FiveGuess extends BotBreaker {
@@ -16,14 +15,13 @@ class FiveGuess extends BotBreaker {
 
     /**
      * @brief Inicialitza el conjunt S de 1296 codis possibles.
-     *
      * @author Mar Gonzàlez Català
      */
     private void initializeSetS(){
-        for (int it1 = 1; it1 <= Bola.NUMCOLORS; it1++){
-            for (int it2 = 1; it2 <= Bola.NUMCOLORS; it2++){
-                for (int it3 = 1; it3 <= Bola.NUMCOLORS; it3++){
-                    for (int it4 = 1; it4 <= Bola.NUMCOLORS; it4++){
+        for (int it1 = 1; it1 <= Bola.numColors(); it1++){
+            for (int it2 = 1; it2 <= Bola.numColors(); it2++){
+                for (int it3 = 1; it3 <= Bola.numColors(); it3++){
+                    for (int it4 = 1; it4 <= Bola.numColors(); it4++){
                         possibleSolutions.add(it1*1000+it2*100+it3*10+it4);
                     }
                 }
@@ -33,8 +31,8 @@ class FiveGuess extends BotBreaker {
 
     /**
      * @brief Donades dues llistes retorna el nombre de boles amb color i posició coincidents.
-     *
-     * @param list1, list2 a comparar.
+     * @param list1 primera llista  a comparar.
+     * @param list2 segona llista a comparar.
      * @return Nombre de boles amb color i posició coincidents.
      */
     private Integer compareTwoSequencesBlack(ArrayList<Integer> list1, ArrayList<Integer> list2){
@@ -49,8 +47,8 @@ class FiveGuess extends BotBreaker {
 
     /**
      * @brief Donades dues llistes retorna el nombre de boles amb color però no posició coincidents.
-     *
-     * @param list1, list2 a comparar.
+     * @param list1 primera llista  a comparar.
+     * @param list2 segona llista a comparar.
      * @return Nombre de boles amb color i posició coincidents.
      */
     private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2){
@@ -67,8 +65,8 @@ class FiveGuess extends BotBreaker {
 
     /**
      * @brief Donat un enter el converteix en un vector de dígits
-     *
      * @return Vector de dígits de l'enter.
+     * @author Mar Gonzàlez Català
      */
     private ArrayList<Integer> getSequence(Integer intToTranslate){
         ArrayList<Integer> digits = new ArrayList<>();
@@ -80,10 +78,11 @@ class FiveGuess extends BotBreaker {
     }
 
     /**
-     * @brief Donat un feedback i una seqüència elimina de S qualsevol dels codis que de ser solució no rebriem
+     * @brief Donat un feedback i una seqüència elimina de S qualsevol dels codis que de ser solució no rebríem
      * aquest feedback si enviéssim com a intent la seqüència.
-     *
-     * @param black,white feedback (nombre de boles negres i nombre de boles blanques) i una seqüència.
+     * @param black nombre de boles negres en el feedback.
+     * @param white nombre de boles blanques en el feedback.
+     * @param sequence seqüència donada
      * @author Mar Gonzàlez Català
      */
     private void eraseNotPossibleSolutionsfromSetS(int black, int white, ArrayList<Integer> sequence){
@@ -98,17 +97,16 @@ class FiveGuess extends BotBreaker {
 
     /**
      * @brief Escull la següent seqüència mitjançant la tècnica minimax.
-     *
      * @return Següent seqüència
      * @author Mar Gonzàlez Català
      */
     private ArrayList<Integer> minimax(){
         int currentMinimax = 1297;
         ArrayList<Integer> currentSeqMinimax = new ArrayList<>();
-        for (int it1 = 1; it1 <= Bola.NUMCOLORS; it1++) {
-            for (int it2 = 1; it2 <= Bola.NUMCOLORS; it2++) {
-                for (int it3 = 1; it3 <= Bola.NUMCOLORS; it3++) {
-                    for (int it4 = 1; it4 <= Bola.NUMCOLORS; it4++) {
+        for (int it1 = 1; it1 <= Bola.numColors(); it1++) {
+            for (int it2 = 1; it2 <= Bola.numColors(); it2++) {
+                for (int it3 = 1; it3 <= Bola.numColors(); it3++) {
+                    for (int it4 = 1; it4 <= Bola.numColors(); it4++) {
                         Integer[] finalit = {it1, it2, it3, it4};
                         ArrayList<Integer> sequence = new ArrayList<>(Arrays.asList(finalit));
                         ArrayList<Integer> counts = new ArrayList<>(Collections.nCopies(17, 0));
@@ -139,9 +137,8 @@ class FiveGuess extends BotBreaker {
     }
 
     /**
-     * @brief Donada una solució genera la llista d'intents fins arribar a ella si utilitzem l'algorisme Five Guess.
-     *
-     * @param solution
+     * @brief Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem l'algorisme Five Guess.
+     * @param solution codi ocult que volem endevinar.
      * @return Llista d'intents.
      * @author Mar Gonzàlez Català
      */
