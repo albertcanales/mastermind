@@ -156,7 +156,7 @@ class FiveGuess extends BotBreaker {
      * @return Llista d'intents.
      * @author Mar Gonzàlez Català
      */
-    @override
+    @Override
     public ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution){
         ArrayList<ArrayList<Integer>> guesses = new ArrayList<>();
         boolean won = false;
