@@ -3,7 +3,7 @@ package domain;
 /**
  * Representació de les "Boles" del joc en enters.
  * El NUL (0) indica que no hi ha bola, i els colors són enters positius, però
- * només farem servir de l'1 al 8.
+ * només farem servir de l'1 al 6.
  * 
  * @author Arnau Valls Fusté
  */
@@ -14,9 +14,7 @@ enum Bola {
     VERMELL(3),
     BLAU(4),
     TARONJA(5),
-    ROSA(6),
-    VERD(7),
-    GROC(8);
+    ROSA(6);
 
 
     private final int number;
