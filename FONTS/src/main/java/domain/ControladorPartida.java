@@ -1,6 +1,7 @@
 package domain;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,32 +13,69 @@ class ControladorPartida {
     private Partida partida;
     private Dificultat dificultat;
     private Taulell taulell;
+    private BotBreaker botBreaker;
+    private BotMaker botMaker;
 
     /**
-     * Constructor del controlador per a carregar una nova partida
-     * @param nivellDificultat nombre corresponent a la dificultat de la partida
+     * Mètode que crea una nova partida actual on el jugador és el maker
+     * @param solucio solució de la partida proporcionada pel jugador
+     * @param algorisme enter que representa l'algorisme escollit com a breaker
      * @author Albert Canales
      */
-    ControladorPartida(Integer nivellDificultat) {
+    void novaPartidaMaker(List<Integer> solucio, Integer algorisme) {
         partida = new Partida();
-        taulell = new Taulell();
-        dificultat = Dificultat.create(nivellDificultat);
+        taulell = new Taulell(solucio);
+        botBreaker = BotBreaker.create(algorisme, Taulell.NUMBOLES);
+        botMaker = null;
+        dificultat = null;
     }
 
     /**
-     * Constructor del controlador per a carregar una partida existent
-     * @param nivellDificultat nombre corresponent a la dificultat de la partida
-     * @param feedbacks llista de les seqüències de feedback de la partida prèvies
-     * @param intents llista dels intents previs de la partida previs
-     * @param temps duració (en mil·lisegons) actual de la partida
+     * Mètode que crea una nova partida actual on el jugador és el breaker
+     * @param nivellDificultat enter que representa el nivell de dificultat de la partida
      * @author Albert Canales
      */
-    ControladorPartida(Integer nivellDificultat, List<List<Integer>> feedbacks, List<List<Integer>> intents, Long temps) {
-        this(nivellDificultat);
+    void novaPartidaBreaker(Integer nivellDificultat) {
+        partida = new Partida();
+        botMaker = new BotMaker(Taulell.NUMBOLES);
+        taulell = new Taulell(botMaker.generaSequenciaSolucio());
+        dificultat = Dificultat.create(nivellDificultat);
+        botBreaker = null;
+    }
 
-        // TODO Falta el constructor adient per a taulell
-        // taulell = new Taulell(feedbacks, intents);
-        partida.setTemps(Duration.ofMillis(temps));
+    /**
+     * Mètode que carrega una partida pendent on el jugador feia de maker
+     * @param nivellDificultat enter que representa el nivell de dificultat de la partida
+     * @param intents intents de la partida existent
+     * @param feedback feedbacks de la partida existent
+     * @param solucio solucio de la partida existent
+     * @author Albert Canales
+     */
+    void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
+                              List<Integer> solucio) {
+        partida = new Partida();
+        botMaker = new BotMaker(Taulell.NUMBOLES);
+        taulell = new Taulell(solucio, intents, feedback);
+        dificultat = Dificultat.create(nivellDificultat);
+        botBreaker = null;
+    }
+
+    /**
+     * Mètode que carrega una partida pendent on el jugador feia de breaker
+     * @param nivellDificultat enter que representa el nivell de dificultat de la partida
+     * @param intents intents de la partida existent
+     * @param feedback feedbacks de la partida existent
+     * @param solucio solucio de la partida existent
+     * @param temps temps transcorregut de la partida existent
+     * @author Albert Canales
+     */
+    void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
+                                List<Integer> solucio, Duration temps) {
+        partida = new Partida(temps);
+        botMaker = new BotMaker(Taulell.NUMBOLES);
+        taulell = new Taulell(solucio, intents, feedback);
+        dificultat = Dificultat.create(nivellDificultat);
+        botBreaker = null;
     }
 
     /**
@@ -53,6 +91,15 @@ class ControladorPartida {
 
         taulell.addFeedback(feedback);
         return feedback;
+    }
+
+    /**
+     * Mètode perquè el bot jugui la partida
+     * @author Albert Canales
+     */
+    void botSolve() {
+        List<Integer> solution = taulell.getSolucio();
+        botBreaker.solve(new ArrayList<>(solution));
     }
 
     /**

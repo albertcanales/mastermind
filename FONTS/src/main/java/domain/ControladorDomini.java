@@ -1,6 +1,6 @@
 package domain;
 
-import java.time.LocalDateTime;
+import java.time.Duration;
 import java.util.List;
 
 /**
@@ -10,6 +10,76 @@ import java.util.List;
 public class ControladorDomini {
 
     ControladorPartida controladorPartida;
+
+    /**
+     * Constructor del Controlador de Domini
+     * @author Albert Canales
+     */
+    ControladorDomini() {
+        controladorPartida = new ControladorPartida();
+    }
+
+    /**
+     * Mètode per iniciar una nova partida amb el jugador com a maker
+     * @param solucio solucio de la partida
+     * @param algorisme enter que representa l'algorisme escollit per al breaker
+     * @author Albert Canales
+     */
+    public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) {
+        controladorPartida.novaPartidaMaker(solucio, algorisme);
+    }
+
+    /**
+     * Mètode per iniciar una nova partida amb el jugador com a breaker
+     * @param nivellDificultat nivell de dificultat escollit pel jugador
+     * @author Albert Canales
+     */
+    public void novaPartidaBreaker(Integer nivellDificultat) {
+        controladorPartida.novaPartidaBreaker(nivellDificultat);
+    }
+
+    /**
+     * Mètode per comprovar si existeix una partida guardada
+     * @return Booleà indicant si existeix una partida guardada
+     * @author Albert Canales
+     */
+    public Boolean existsPartida() {
+        return controladorPersistencia.existsPartidaGuardada();
+    }
+
+    /**
+     * Mètode per carregar la partida guardada
+     * @author Albert Canales
+     */
+    public void carregarPartida() {
+        Integer nivellDificultat = controladorPersistencia.getNivellDificultatPartidaGuardada();
+        List<List<Integer>> intents = controladorPersistencia.getIntentsPartidaGuardada();
+        List<List<Integer>> feedback = controladorPersistencia.getFeedbackPartidaGuardada();
+        List<Integer> solucio = controladorPersistencia.getSolucioPartidaGuardada();
+        if(controladorPersistencia.isBreakerPartidaGuardada())
+            this.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio);
+        else
+            this.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio);
+    }
+
+    /**
+     * Mètode per carregar la partida guardada on el jugador és breaker
+     * @author Albert Canales
+     */
+    private void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents,
+                                        List<List<Integer>> feedback, List<Integer> solucio) {
+        Duration temps = controladorPersistencia.getTempsPasrtidaGuardada();
+        controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps);
+    }
+
+    /**
+     * Mètode per carregar la partida guardada on el jugador és maker
+     * @author Albert Canales
+     */
+    private void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents,
+                                      List<List<Integer>> feedback, List<Integer> solucio) {;
+        controladorPartida.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio);
+    }
 
     /**
      * Getter del rànquing de les millors partides d'una dificultat concreta
@@ -59,8 +129,17 @@ public class ControladorDomini {
     }
 
     /**
+     * Getter de mitjana d'intents com a breaker
+     * @return Una llista amb la mitjana d'intents per a cada dificultat
+     * @author Albert Canales
+     */
+    public List<Double> getAverageAsBreaker() {
+        return null;
+    }
+
+    /**
      * Getter de mitjana d'intents com a maker
-     * @return Una llista amb la mitjana d'intents que ha necessitat la màquina per a cada dificultat
+     * @return Una llista amb la mitjana d'intents que ha necessitat la màquina per a cada algorisme
      * @author Albert Canales
      */
     public List<Double> getAverageAsMaker() {
@@ -115,5 +194,13 @@ public class ControladorDomini {
             // TODO Acabar partida (DataFi, estadístiques usuari, etc)
         }
         return feedback;
+    }
+
+    /**
+     * Mètode perquè el bot jugui la partida
+     * @author Albert Canales
+     */
+    void botSolve() {
+        controladorPartida.botSolve();
     }
 }
