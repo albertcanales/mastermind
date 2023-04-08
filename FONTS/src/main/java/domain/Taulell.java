@@ -50,7 +50,7 @@ class Taulell {
 
         boolean foundEmpty = false;
         for (int i = 0; i < NUMINTENTS; ++i) {
-            if (!foundEmpty && !new Sequencia(inten.get(i)).isPlena())
+            if (!foundEmpty && new Sequencia(feed.get(i)).isBuida())
             {
                 intentActual = i;
                 foundEmpty = true;
