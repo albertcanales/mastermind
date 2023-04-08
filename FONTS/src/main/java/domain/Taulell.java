@@ -18,33 +18,50 @@ class Taulell {
     private Sequencia solucio;
 
     /**
-     * Crea un Taulell inicialitzat
+     * Crea un Taulell buit
+     * @param sol una llista d'enters representant la solució del Taulell
      */
-    Taulell() {
+    Taulell(List <Integer> sol) {
+        //per exceptions -> if (sol.size() != NUMBOLES)
         intentActual = 0;
 
         intents = new ArrayList<>(NUMINTENTS);
         feedbacks = new ArrayList<>(NUMINTENTS);
 
         for (int i = 0; i < NUMINTENTS; ++i) {
-            List<Integer> intents_seqbuida = new ArrayList<>(NUMBOLES);
-            List<Integer> feedbacks_seqbuida = new ArrayList<>(NUMBOLES);
+            intents.add(new Sequencia(NUMBOLES));
+            feedbacks.add(new Sequencia(NUMBOLES));
+        }
 
-            for (int j = 0; j < NUMBOLES; ++j) {
-                intents_seqbuida.add(Bola.NUL.number());
-                feedbacks_seqbuida.add(Bola.NUL.number());
+        solucio = new Sequencia(sol);
+    }
+
+    /**
+     * Crea un Taulell inicialitzat amb els paràmetres donats
+     * @param sol una llista d'enters representant la solució del Taulell
+     * @param inten una llista d'una llista d'enters representant els intents realitzats
+     * @param feed una llista d'una llista d'enters representant els feedbacks rebuts
+     */
+    Taulell(List <Integer> sol, List<List<Integer>> inten, List<List<Integer>> feed) {
+        //per exceptions -> if (sol.size() != NUMBOLES || inten.size() != NUMINTENTS || inten.get(0).size() != NUMBOLES || feed.size() != NUMINTENTS || feed.get(0).size() != NUMBOLES)
+
+        intents = new ArrayList<>(NUMINTENTS);
+        feedbacks = new ArrayList<>(NUMINTENTS);
+
+        boolean foundEmpty = false;
+        for (int i = 0; i < NUMINTENTS; ++i) {
+            if (!foundEmpty && !new Sequencia(inten.get(i)).isPlena())
+            {
+                intentActual = i;
+                foundEmpty = true;
             }
-
-            intents.add(new Sequencia(intents_seqbuida));
-            feedbacks.add(new Sequencia(feedbacks_seqbuida));
+            intents.add(new Sequencia(inten.get(i)));
+            feedbacks.add(new Sequencia(feed.get(i)));
         }
 
-        List<Integer> solucio_seqbuida = new ArrayList<>(NUMBOLES);
-        for (int i = 0; i < NUMBOLES; ++i) {
-            solucio_seqbuida.add(Bola.NUL.number());
-        }
-        solucio = new Sequencia(solucio_seqbuida);
+        if (!foundEmpty) intentActual = NUMINTENTS - 1;
 
+        solucio = new Sequencia(sol);
     }
 
     /**
@@ -63,6 +80,7 @@ class Taulell {
      * @param feedback llista d'enters que conté boles de color blanc, negre o NUL
      */
     void addFeedback(List<Integer> feedback) {
+        //per exceptions -> if (feedback.size() != NUMBOLES)
         feedbacks.set(intentActual, new Sequencia(feedback));
         ++intentActual;
     }
@@ -76,19 +94,12 @@ class Taulell {
     }
 
     /**
-     * Mètode que permet establir la solució 
-     * @param sol una llista d'enters que representen Boles
-     */
-    void setSolucio(List<Integer> sol) {
-        solucio = new Sequencia(sol);
-    }
-
-    /**
      * Mètode que col·loca una Bola a la posició desitjada de l'intent actual
      * @param index enter que representa la posició a establir
      * @param bola enter que representa la bola a establir
      */
     void setBola(Integer index, Integer bola) {
+        //bola valid i index
         intents.get(intentActual).setBola(index, bola);
     }
 
