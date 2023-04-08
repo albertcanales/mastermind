@@ -75,6 +75,56 @@ class Taulell {
     }
 
     /**
+     * Mètode que retorna una llista que conté totes les "Boles" del feedback actual
+     * (últim)
+     *
+     * @return una llista d'enters (Boles)
+     */
+    List<Integer> getUltimFeedback() {
+        // intentActual ha de ser > 0
+        return feedbacks.get(intentActual - 1).flatten();
+    }
+
+    /**
+     * Mètode que retorna una llista que conté tots els intents del taulell
+     *
+     * @return una llista d'una llista d'enters
+     */
+    List<List<Integer>> getIntents() {
+        List<List<Integer>> inten = new ArrayList<>(NUMINTENTS);
+
+        for (int i = 0; i < NUMINTENTS; ++i) {
+            inten.add(intents.get(i).flatten());
+        }
+
+        return inten;
+    }
+
+    /**
+     * Mètode que retorna una llista que conté tots els feedbacks del taulell
+     *
+     * @return una llista d'una llista d'enters
+     */
+    List<List<Integer>> getFeedbacks() {
+        List<List<Integer>> feeds = new ArrayList<>(NUMINTENTS);
+
+        for (int i = 0; i < NUMINTENTS; ++i) {
+            feeds.add(feedbacks.get(i).flatten());
+        }
+
+        return feeds;
+    }
+
+    /**
+     * Mètode que retorna l'intent actual del taulell
+     *
+     * @return un enter amb l'intent actual
+     */
+    int getNumeroIntent() {
+        return intentActual;
+    }
+
+    /**
      * Mètode que permet afegir el feedback corresponent per l'intent actual
      * 
      * @param feedback llista d'enters que conté boles de color blanc, negre o NUL
