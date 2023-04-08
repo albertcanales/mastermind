@@ -10,14 +10,21 @@ import java.util.*;
 class BotMaker {
 
     private final Integer numboles;
+    private final Integer numcolors;
 
-    public BotMaker(Integer numboles) {
+    /**
+     * @brief Constructor de BotMaker.
+     * @param numboles llargada de la seqüència solució.
+     * @param numcolors nombre de colors.
+     * @author Mar Gonzàlez Català
+     */
+    public BotMaker(Integer numboles, Integer numcolors) {
         this.numboles = numboles;
+        this.numcolors = numcolors;
     }
 
     /**
-     * Genera una solució.
-     *
+     * @brief Genera una solució.
      * @return Solució.
      * @author Mar Gonzàlez Català
      */
@@ -25,7 +32,7 @@ class BotMaker {
         Random rand = new Random();
         ArrayList<Integer> solution = new ArrayList<>(numboles);
         for (int i = 0; i < 4; i++)
-            solution.set(i, rand.nextInt(Bola.numColors()) + 1);
+            solution.set(i, rand.nextInt(numcolors) + 1);
         return solution;
     }
 }

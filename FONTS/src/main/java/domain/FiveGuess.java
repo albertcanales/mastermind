@@ -6,11 +6,11 @@ import java.util.*;
  * @brief Contenidor de les funcionalitats d'un BotBreaker que empra l'algorisme Five Guess.
  * @author Mar Gonzàlez Català
  */
-class prova extends BotBreaker {
+class FiveGuess extends BotBreaker {
+    private static Integer numboles;
+    private static Integer numcolors;
 
-    private final int SEQUENCE_LENGTH = 4;
-
-    //conjunt de codis possibles (S a wikipedia)
+    //conjunt de codis possibles (S a la viquipèdia)
     private HashSet<Integer> possibleSolutions;
 
     /**
@@ -18,10 +18,10 @@ class prova extends BotBreaker {
      * @author Mar Gonzàlez Català
      */
     private void initializeSetS(){
-        for (int it1 = 1; it1 <= 6; it1++){
-            for (int it2 = 1; it2 <= 6; it2++){
-                for (int it3 = 1; it3 <= 6; it3++){
-                    for (int it4 = 1; it4 <= 6; it4++){
+        for (int it1 = 1; it1 <= this.numcolors; it1++){
+            for (int it2 = 1; it2 <= this.numcolors; it2++){
+                for (int it3 = 1; it3 <= this.numcolors; it3++){
+                    for (int it4 = 1; it4 <= this.numcolors; it4++){
                         possibleSolutions.add(it1*1000+it2*100+it3*10+it4);
                     }
                 }
@@ -37,7 +37,7 @@ class prova extends BotBreaker {
      */
     private Integer compareTwoSequencesBlack(ArrayList<Integer> list1, ArrayList<Integer> list2){
         Integer count = 0;
-        for (int it = 0; it < SEQUENCE_LENGTH; ++it){
+        for (int it = 0; it < this.numboles; ++it){
             if (Objects.equals(list1.get(it), list2.get(it))){
                 count++;
             }
@@ -53,8 +53,8 @@ class prova extends BotBreaker {
      */
     private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2){
         Integer count = 0;
-        for (int it1 = 0; it1 < SEQUENCE_LENGTH; it1++){
-            for (int it2 = 0; it2 < SEQUENCE_LENGTH; it2++) {
+        for (int it1 = 0; it1 < this.numboles; it1++){
+            for (int it2 = 0; it2 < this.numboles; it2++) {
                 if ((list1.get(it1).equals(list2.get(it2))) && (it1 != it2)) {
                     if (!(list1.get(it1).equals(list2.get(it1))) && !(list1.get(it2).equals(list2.get(it2)))) {
                         count++;
@@ -72,7 +72,7 @@ class prova extends BotBreaker {
      */
     private ArrayList<Integer> getSequence(Integer intToTranslate){
         ArrayList<Integer> digits = new ArrayList<>();
-        for (int it = 0; it < SEQUENCE_LENGTH; it++){
+        for (int it = 0; it < this.numboles; it++){
             digits.add(0,intToTranslate%10);
             intToTranslate = intToTranslate/10;
         }
@@ -84,7 +84,7 @@ class prova extends BotBreaker {
      * aquest feedback si enviéssim com a intent la seqüència.
      * @param black nombre de boles negres en el feedback.
      * @param white nombre de boles blanques en el feedback.
-     * @param sequence seqüència donada
+     * @param sequence seqüència donada.
      * @author Mar Gonzàlez Català
      */
     private void eraseNotPossibleSolutionsfromSetS(int black, int white, ArrayList<Integer> sequence){
@@ -106,10 +106,10 @@ class prova extends BotBreaker {
         int currentMinimax = 1297;
         Boolean isInS = false;
         ArrayList<Integer> currentSeqMinimax = new ArrayList<>();
-        for (int it1 = 1; it1 <= 6; it1++) {
-            for (int it2 = 1; it2 <= 6; it2++) {
-                for (int it3 = 1; it3 <= 6; it3++) {
-                    for (int it4 = 1; it4 <= 6; it4++) {
+        for (int it1 = 1; it1 <= this.numcolors; it1++) {
+            for (int it2 = 1; it2 <= this.numcolors; it2++) {
+                for (int it3 = 1; it3 <= this.numcolors; it3++) {
+                    for (int it4 = 1; it4 <= this.numcolors; it4++) {
                         Integer[] finalit = {it1, it2, it3, it4};
                         ArrayList<Integer> sequence = new ArrayList<>(Arrays.asList(finalit));
                         ArrayList<Integer> counts = new ArrayList<>(Collections.nCopies(45, 0));
@@ -149,12 +149,14 @@ class prova extends BotBreaker {
         return currentSeqMinimax;
     }
 
+
     /**
      * @brief Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem l'algorisme Five Guess.
-     * @param solution codi ocult que volem endevinar.
+     * @param solution seqüència oculta que volem endevinar.
      * @return Llista d'intents.
      * @author Mar Gonzàlez Català
      */
+    @override
     public ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution){
         ArrayList<ArrayList<Integer>> guesses = new ArrayList<>();
         boolean won = false;
