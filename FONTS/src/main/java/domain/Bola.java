@@ -69,4 +69,14 @@ enum Bola {
         return (num > NUL.number()) && (num <= numColors());
     }
 
+    /**
+     * Mètode per saber si un número representa una Bola vàlida (inclou NUL!)
+     *
+     * @param num un enter representa una bola
+     * @return un booleà cert si la bola és vàlida
+     */
+    public static boolean isValid(int num) {
+        return (num >= NUL.number()) && (num <= numColors());
+    }
+
 }
