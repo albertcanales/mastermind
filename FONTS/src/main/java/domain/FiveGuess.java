@@ -51,15 +51,14 @@ class FiveGuess extends BotBreaker {
      * @return Nombre de boles amb color i posició coincidents.
      */
     private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2){
-        boolean added;
         Integer count = 0;
         for (int it1 = 0; it1 < this.numboles; it1++){
-            added = false;
-            for (int it2 = 0; it2 < this.numboles && !added; it2++) {
-                if ((list1.get(it1).equals(list2.get(it2))) && (it1 != it2)) {
+            ArrayList<Integer> added = new ArrayList<>(Collections.nCopies(4, 0));
+            for (int it2 = 0; it2 < this.numboles; it2++) {
+                if ((list1.get(it1).equals(list2.get(it2))) && (it1 != it2) && (added.get(it2).equals(0))) {
                     if (!(list1.get(it1).equals(list2.get(it1))) && !(list1.get(it2).equals(list2.get(it2)))) {
                         count++;
-                        added = true;
+                        added.set(it2, 1);
                     }
                 }
             }
@@ -160,7 +159,6 @@ class FiveGuess extends BotBreaker {
      */
     @Override
     public ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution){
-
         numboles = solution.size();
 
         ArrayList<ArrayList<Integer>> guesses = new ArrayList<>();
@@ -202,26 +200,8 @@ class FiveGuess extends BotBreaker {
             //remove from S any code that would not give the same response
             else {
                 eraseNotPossibleSolutionsfromSetS(black, white, currentGuess);
-                System.out.println("Mida set "+ possibleSolutions.size());
             }
         }
         return guesses;
-    }
-
-    public static void main(String[] args) throws Exception {
-        ArrayList<Integer> solution = new ArrayList<Integer>() {{
-            add(6);
-            add(5);
-            add(4);
-            add(6);
-        }};
-        ArrayList<ArrayList<Integer>> sortidaFiveGuess = (new FiveGuess()).solve(solution);
-
-        for (int i = 0; i < sortidaFiveGuess.size(); i++){
-            for (int j = 0; j < sortidaFiveGuess.get(i).size(); j++){
-                System.out.println("Al torn " + i + " bola " + j + " és :" + sortidaFiveGuess.get(i).get(j));
-            }
-            System.out.println();
-        }
     }
 }

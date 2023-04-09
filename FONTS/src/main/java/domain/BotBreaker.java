@@ -12,8 +12,6 @@ abstract class BotBreaker {
     /**
      * @brief Constructor de BotMaker.
      * @param tipusAlgorisme tipus d'Algorisme.
-     * @param numboles llargada de la seqüència solució.
-     * @param numcolors nombre de colors.
      * @author Mar Gonzàlez Català
      */
     static BotBreaker create(Integer tipusAlgorisme) {
