@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DificultatFacil extends Dificultat {
+
+    DificultatFacil(){ //Cal canviar tal que rebi i fixi els valors
+        NUMBOLES = 4;
+        NUMCOLORS = 6;
+        BolaNegra = 2;
+        BolaBlanca = 1;
+        BolaNula = 0;
+    }
     @Override
     NivellDificultat getNivellDificultat(){
         return NivellDificultat.FACIL;
@@ -30,11 +38,11 @@ class DificultatFacil extends Dificultat {
             Integer color = intent.get(i);
             Integer color_count = Color_count.get(color);
             if (color_count > 0) {
-                if (solucio.get(i) == color) feedback.set(i, Bola.NEGRE.number());
-                else feedback.set(i, Bola.BLANC.number());
+                if (solucio.get(i) == color) feedback.set(i, BolaNegra);
+                else feedback.set(i, BolaBlanca);
                 Integer count = Color_count.get(color); count--;
                 Color_count.set(color, count);
-            }
+            } else feedback.set(i, BolaNula);
         }
 
         return feedback;

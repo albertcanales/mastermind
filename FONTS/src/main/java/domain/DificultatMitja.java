@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DificultatMitja extends Dificultat {
+
+    DificultatMitja(){ //Cal que rebi el valors dels atributs de Dificultat
+        NUMBOLES = 4;
+        NUMCOLORS = 6;
+        BolaNegra = 2;
+        BolaBlanca = 1;
+        BolaNula = 0;
+    }
     @Override
     NivellDificultat getNivellDificultat(){
         return NivellDificultat.MITJA;
@@ -33,6 +41,7 @@ class DificultatMitja extends Dificultat {
         }
         for (int i = 0; i < Negres; ++i) feedback.add(BolaNegra);
         for (int i = 0; i < Blanques; ++i) feedback.add(BolaBlanca);
+        for (int i = Negres+Blanques; i < NUMBOLES; ++i) feedback.add(BolaNula);
 
         return feedback;
     }

@@ -12,13 +12,15 @@ abstract class Dificultat {
     protected int NUMCOLORS;
     protected Integer BolaNegra;
     protected Integer BolaBlanca;
+    protected Integer BolaNula;
+
     /**
      * Mètode per instanciar una subclasse a partir del nombre del nivell de dificultat
      * @param nivellDificultat nombre del nivell de dificultat desitjat
      * @return Nova instància de la dificultat desitjada
      * @author Albert Canales
      */
-    static Dificultat create(Integer nivellDificultat) { //Cal que li passin NUMBOLES, NUMCOLORS, BolaNEGRA, BolaBLANCA
+    static Dificultat create(Integer nivellDificultat) { //Cal que rebi NUMBOLES, NUMCOLORS, BolaNegra, BolaBlanca, BolaNula
         switch (NivellDificultat.findByNumber(nivellDificultat)) { //Es crea cada subclasse amb aquests parametres
             case FACIL:
                 return new DificultatFacil();
