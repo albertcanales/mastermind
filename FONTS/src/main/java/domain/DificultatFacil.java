@@ -17,11 +17,9 @@ class DificultatFacil extends Dificultat {
      */
     @Override
     List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent){
-        Integer NUMBOLES = solucio.size();
-        Integer NUMCOLORS = Bola.numColors(); //Provisional
 
-        List<Integer> Color_count = new ArrayList<>(NUMBOLES);
-        for (int i = 0; i < NUMBOLES; i++) Color_count.add(0);
+        List<Integer> Color_count = new ArrayList<>(NUMCOLORS);
+        for (int i = 0; i < NUMCOLORS; i++) Color_count.add(0);
         for (Integer color_sol : solucio){
             Integer count = Color_count.get(color_sol); count++;
             Color_count.set(color_sol, count);
