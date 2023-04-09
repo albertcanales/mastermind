@@ -31,7 +31,7 @@ class Sequencia {
     /**
      * Crea una seqüència donada una llista d'enters (Boles)
      * 
-     * @param list 
+     * @param list una llista d'enters (Boles) a utilitzar per inicialitzar la seqüència
      */
     Sequencia(List<Integer> list) {
         sequencia = list;
@@ -58,16 +58,6 @@ class Sequencia {
      */
     Boolean isBuida() {
         return mida == 0;
-    }
-
-    /**
-     * Retorna un enter més gran o igual a 0 que representa la "Bola" desitjada
-     * 
-     * @param index enter que representa la posició de la "Bola" desitjada
-     * @return un Enter que representa una "Bola"
-     */
-    Integer getBola(Integer index) {
-        return sequencia.get(index);
     }
 
     /**
