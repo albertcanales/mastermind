@@ -53,11 +53,14 @@ class FiveGuess extends BotBreaker {
      */
     private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2){
         Integer count = 0;
+        Boolean added = false;
         for (int it1 = 0; it1 < this.numboles; it1++){
-            for (int it2 = 0; it2 < this.numboles; it2++) {
+            added = false;
+            for (int it2 = 0; it2 < this.numboles && !added; it2++) {
                 if ((list1.get(it1).equals(list2.get(it2))) && (it1 != it2)) {
                     if (!(list1.get(it1).equals(list2.get(it1))) && !(list1.get(it2).equals(list2.get(it2)))) {
                         count++;
+                        added = true;
                     }
                 }
             }
@@ -201,5 +204,22 @@ class FiveGuess extends BotBreaker {
             }
         }
         return guesses;
+    }
+
+    public static void main(String[] args) throws Exception {
+        ArrayList<Integer> solution = new ArrayList<Integer>() {{
+            add(6);
+            add(5);
+            add(4);
+            add(6);
+        }};
+        ArrayList<ArrayList<Integer>> sortidaFiveGuess = (new FiveGuess()).solve(solution);
+
+        for (int i = 0; i < sortidaFiveGuess.size(); i++){
+            for (int j = 0; j < sortidaFiveGuess.get(i).size(); j++){
+                System.out.println("Al torn " + i + " bola " + j + " és :" + sortidaFiveGuess.get(i).get(j));
+            }
+            System.out.println();
+        }
     }
 }
