@@ -23,7 +23,7 @@ class Sequencia {
     Sequencia(Integer size) {
         sequencia = new ArrayList<>(size);
         mida = 0;
-        for (Integer bola : sequencia) {
+        for (int i = 0; i < size ; ++i) {
             sequencia.add(Bola.NUL.number());
         }
     }
@@ -31,7 +31,7 @@ class Sequencia {
     /**
      * Crea una seqüència donada una llista d'enters (Boles)
      * 
-     * @param list
+     * @param list 
      */
     Sequencia(List<Integer> list) {
         sequencia = list;
