@@ -1,5 +1,6 @@
 package domain;
 
+import domain.exceptions.invalidEnumValue;
 import persistance.ControladorPersistencia;
 
 import java.time.Duration;
@@ -180,9 +181,10 @@ public class ControladorDomini {
      * Mètode per a col·locar una bola en l'intent actual de la partida actual
      * @param index La posició on es vol col·locar la bola
      * @param bola La bola que es vol col·locar
+     * @throws invalidEnumValue si bola no és una Bola vàlida
      * @author Albert Canales
      */
-    public void setBola(Integer index, Integer bola) {
+    public void setBola(Integer index, Integer bola) throws invalidEnumValue {
         controladorPartida.setBola(index, bola);
     }
 

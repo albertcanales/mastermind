@@ -1,5 +1,6 @@
 package domain;
 
+import domain.exceptions.invalidEnumValue;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -266,7 +267,7 @@ public class TaulellTest {
     }
 
     @Test
-    public void setBola() {
+    public void setBola() throws invalidEnumValue {
         List<Integer> solucio = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
         Taulell taulell = new Taulell(solucio);
 

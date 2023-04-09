@@ -1,5 +1,6 @@
 package domain;
 
+import domain.exceptions.invalidEnumValue;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -30,7 +31,7 @@ public class SequenciaTest {
     }
 
     @Test
-    public void isPlena() {
+    public void isPlena() throws invalidEnumValue  {
         List<Integer> initBoles = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
         Sequencia sequencia = new Sequencia(initBoles);
         assertEquals(true,sequencia.isPlena());
@@ -40,7 +41,7 @@ public class SequenciaTest {
     }
 
     @Test
-    public void isBuida() {
+    public void isBuida() throws invalidEnumValue {
         List<Integer> initBoles = new ArrayList<>(List.of(Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number()));
         Sequencia sequencia = new Sequencia(initBoles);
         assertEquals(true,sequencia.isBuida());
@@ -50,7 +51,7 @@ public class SequenciaTest {
     }
 
     @Test
-    public void setBola() {
+    public void setBola() throws invalidEnumValue {
         Sequencia sequencia = new Sequencia(5);
         sequencia.setBola(0, Bola.ROSA.number());
         sequencia.setBola(3, Bola.BLAU.number());
@@ -67,13 +68,13 @@ public class SequenciaTest {
         });
     }
 
-    /*@Test TODO exception invalidbola
+    @Test
     public void setWrongBola() {
         Sequencia sequencia = new Sequencia(5);
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            sequencia.setBola(-1, Bola.ROSA.number());
+        assertThrows(invalidEnumValue.class, () -> {
+            sequencia.setBola(0, -1);
         });
-    }*/
+    }
 
     @Test
     public void flatten() {
