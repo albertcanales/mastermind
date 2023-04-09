@@ -4,11 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DificultatMitja extends Dificultat {
+    /**
+     * Getter del nivell de dificultat de dificultat Mitja
+     * */
     @Override
     NivellDificultat getNivellDificultat(){
         return NivellDificultat.MITJA;
     }
 
+    /**
+     * Mètode per generar el feedback corresponent a un intent en una partida de dificultat mitja
+     * @param solucio solució de la partida
+     * @param intent intent del jugador
+     * @return feedback de l'intent en funció de la solució: una bola negre per cada posició on hi ha el mateix color, una blanca per on el color es a una altra posició, i la resta buides
+     */
     @Override
     List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent){
 

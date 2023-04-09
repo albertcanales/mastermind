@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DificultatFacil extends Dificultat {
+    /**
+     * Getter del nivell de dificultat de dificultat Fàcil
+     * */
     @Override
     NivellDificultat getNivellDificultat(){
         return NivellDificultat.FACIL;
     }
 
     /**
-     * Mètode per generar el feedback correponent a un intent en una partida facil
-     * @param solucio solucio de la partida
+     * Mètode per generar el feedback corresponent a un intent en una partida de dificultat fàcil
+     * @param solucio solució de la partida
      * @param intent intent del jugador
-     * @return feedback de l'intent en funcio de la solucio: a cada posició bola negre si hi ha el mateix color, blanca si el color es a una altra posició, i altrament buida
+     * @return feedback de l'intent en funció de la solució: a cada posició bola negre si hi ha el mateix color, blanca si el color es a una altra posició, i altrament buida
      */
     @Override
     List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent){
