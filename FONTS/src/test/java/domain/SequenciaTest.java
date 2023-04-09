@@ -17,6 +17,13 @@ public class SequenciaTest {
     }
 
     @Test
+    public void newSequenciaBuidaWrongSize() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Sequencia sequencia = new Sequencia(-1);
+        });
+    }
+
+    @Test
     public void newSequenciaInit() {
         Sequencia sequencia = new Sequencia(List.of(1,0,5,0,0));
         assertEquals((List.of(1,0,5,0,0)),sequencia.flatten());
@@ -51,6 +58,22 @@ public class SequenciaTest {
         List<Integer> expectedBoles = new ArrayList<>(List.of(Bola.ROSA.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.BLAU.number(),Bola.NUL.number()));
         assertEquals(expectedBoles,sequencia.flatten());
     }
+
+    @Test
+    public void setWrongIndexBola() {
+        Sequencia sequencia = new Sequencia(5);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            sequencia.setBola(-1, Bola.ROSA.number());
+        });
+    }
+
+    /*@Test TODO exception invalidbola
+    public void setWrongBola() {
+        Sequencia sequencia = new Sequencia(5);
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            sequencia.setBola(-1, Bola.ROSA.number());
+        });
+    }*/
 
     @Test
     public void flatten() {
