@@ -7,8 +7,7 @@ import java.util.*;
  * @author Mar Gonzàlez Català
  */
 class FiveGuess extends BotBreaker {
-    private static Integer numboles;
-    private static Integer numcolors;
+    private Integer numboles;
 
     //conjunt de codis possibles (S a la viquipèdia)
     private HashSet<Integer> possibleSolutions;
@@ -18,10 +17,10 @@ class FiveGuess extends BotBreaker {
      * @author Mar Gonzàlez Català
      */
     private void initializeSetS(){
-        for (int it1 = 1; it1 <= this.numcolors; it1++){
-            for (int it2 = 1; it2 <= this.numcolors; it2++){
-                for (int it3 = 1; it3 <= this.numcolors; it3++){
-                    for (int it4 = 1; it4 <= this.numcolors; it4++){
+        for (int it1 = 1; it1 <= Bola.numColors(); it1++){
+            for (int it2 = 1; it2 <= Bola.numColors(); it2++){
+                for (int it3 = 1; it3 <= Bola.numColors(); it3++){
+                    for (int it4 = 1; it4 <= Bola.numColors(); it4++){
                         possibleSolutions.add(it1*1000+it2*100+it3*10+it4);
                     }
                 }
@@ -52,8 +51,8 @@ class FiveGuess extends BotBreaker {
      * @return Nombre de boles amb color i posició coincidents.
      */
     private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2){
+        boolean added;
         Integer count = 0;
-        Boolean added = false;
         for (int it1 = 0; it1 < this.numboles; it1++){
             added = false;
             for (int it2 = 0; it2 < this.numboles && !added; it2++) {
@@ -109,10 +108,10 @@ class FiveGuess extends BotBreaker {
         int currentMinimax = 1297;
         Boolean isInS = false;
         ArrayList<Integer> currentSeqMinimax = new ArrayList<>();
-        for (int it1 = 1; it1 <= this.numcolors; it1++) {
-            for (int it2 = 1; it2 <= this.numcolors; it2++) {
-                for (int it3 = 1; it3 <= this.numcolors; it3++) {
-                    for (int it4 = 1; it4 <= this.numcolors; it4++) {
+        for (int it1 = 1; it1 <= Bola.numColors(); it1++) {
+            for (int it2 = 1; it2 <= Bola.numColors(); it2++) {
+                for (int it3 = 1; it3 <= Bola.numColors(); it3++) {
+                    for (int it4 = 1; it4 <= Bola.numColors(); it4++) {
                         Integer[] finalit = {it1, it2, it3, it4};
                         ArrayList<Integer> sequence = new ArrayList<>(Arrays.asList(finalit));
                         ArrayList<Integer> counts = new ArrayList<>(Collections.nCopies(45, 0));
@@ -161,6 +160,9 @@ class FiveGuess extends BotBreaker {
      */
     @Override
     public ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution){
+
+        numboles = solution.size();
+
         ArrayList<ArrayList<Integer>> guesses = new ArrayList<>();
         boolean won = false;
 

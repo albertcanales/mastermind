@@ -8,8 +8,6 @@ import java.util.*;
  * @author Mar Gonzàlez Català
  */
 abstract class BotBreaker {
-    private static Integer numboles;
-    private static Integer numcolors;
 
     /**
      * @brief Constructor de BotMaker.
@@ -18,9 +16,7 @@ abstract class BotBreaker {
      * @param numcolors nombre de colors.
      * @author Mar Gonzàlez Català
      */
-    static BotBreaker create(Integer tipusAlgorisme, Integer numboles, Integer numcolors) {
-        BotBreaker.numboles = numboles;
-        BotBreaker.numcolors = numcolors;
+    static BotBreaker create(Integer tipusAlgorisme) {
         switch (TipusAlgorisme.findByNumber(tipusAlgorisme)) {
             case FIVEGUESS:
                 return new FiveGuess();

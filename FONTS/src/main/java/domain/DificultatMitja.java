@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 class DificultatMitja extends Dificultat {
     /**
@@ -21,28 +22,24 @@ class DificultatMitja extends Dificultat {
     @Override
     List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent){
 
-        List<Integer> Color_count = new ArrayList<>(NUMCOLORS);
-        for (int i = 0; i < NUMCOLORS; i++) Color_count.add(0);
-        for (Integer color_sol : solucio){
-            Integer count = Color_count.get(color_sol); count++;
-            Color_count.set(color_sol, count);
-        }
+        int numboles = solucio.size();
+        List<Integer> Color_count = countColorsBoles(solucio);
 
-        List<Integer> feedback = new ArrayList<>(NUMBOLES);
-        int Negres = 0; int Blanques = 0;
-        for (int i = 0; i < NUMBOLES; ++i){
+        List<Integer> feedback = new ArrayList<>(numboles);
+        int negres = 0; int blanques = 0;
+        for (int i = 0; i < numboles; ++i){
             Integer color = intent.get(i);
             Integer color_count = Color_count.get(color);
             if (color_count > 0) {
-                if (solucio.get(i) == color) Negres++;
-                else Blanques++;
+                if (Objects.equals(solucio.get(i), color)) negres++;
+                else blanques++;
                 Integer count = Color_count.get(color); count--;
                 Color_count.set(color, count);
             }
         }
-        for (int i = 0; i < Negres; ++i) feedback.add(BolaNegra);
-        for (int i = 0; i < Blanques; ++i) feedback.add(BolaBlanca);
-        for (int i = Negres+Blanques; i < NUMBOLES; ++i) feedback.add(BolaNula);
+        for (int i = 0; i < negres; ++i) feedback.add(Bola.NEGRE.number());
+        for (int i = 0; i < blanques; ++i) feedback.add(Bola.BLANC.number());
+        for (int i = negres+blanques; i < numboles; ++i) feedback.add(Bola.NUL.number());
 
         return feedback;
     }

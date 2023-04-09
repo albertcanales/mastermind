@@ -1,18 +1,14 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Classe que representa la dificultat de una partida
+ * Classe que representa la dificultat d'una partida
  * @author Albert Canales
  */
 abstract class Dificultat {
-
-    protected static int NUMBOLES;
-    protected static int NUMCOLORS;
-    protected static Integer BolaNegra;
-    protected static Integer BolaBlanca;
-    protected static Integer BolaNula;
 
     /**
      * Mètode per instanciar una subclasse a partir del nombre del nivell de dificultat
@@ -20,12 +16,7 @@ abstract class Dificultat {
      * @return Nova instància de la dificultat desitjada
      * @author Albert Canales
      */
-    static Dificultat create(Integer nivellDificultat) { //Cal que rebi NUMBOLES, NUMCOLORS, BolaNegra, BolaBlanca, BolaNula
-        NUMBOLES = 4;
-        NUMCOLORS = 6;
-        BolaNegra = 2;
-        BolaBlanca = 1;
-        BolaNula = 0;
+    static Dificultat create(Integer nivellDificultat) {
 
         switch (NivellDificultat.findByNumber(nivellDificultat)) {
             case FACIL:
@@ -46,12 +37,27 @@ abstract class Dificultat {
 
     /**
      * Mètode per donar el feedback d'un intent
-     * @param solucio és la sequència correcta de la partiad
+     * @param solucio és la seqüència correcta de la partida
      * @param intent és l'intent pel qual es vol rebre feedback
      * @return feedback corresponent a l'intent
      * @author Albert Canales
      */
     abstract List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent);
+
+    /**
+     * Mètode que retorna el nombre d'aparicions de cada bola en la seqüència
+     * @param sequencia és la seqüència de la qual se'n volen extreure els colors
+     * @return una llista on la posició del valor numèric de la bola representa el seu nombre d'aparicions
+     * @author Albert Canales
+     */
+    List<Integer> countColorsBoles(List<Integer> sequencia) {
+        List<Integer> colorList = new ArrayList<>(Collections.nCopies(sequencia.size(), 0));
+        for (Integer color_sol : sequencia){
+            Integer count = colorList.get(color_sol); count++;
+            colorList.set(color_sol, count);
+        }
+        return colorList;
+    }
 }
 
 /**

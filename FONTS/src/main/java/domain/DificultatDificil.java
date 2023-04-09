@@ -2,8 +2,10 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 class DificultatDificil extends Dificultat {
+
     /**
      * Getter del nivell de dificultat de dificultat Difícil
      * */
@@ -20,26 +22,23 @@ class DificultatDificil extends Dificultat {
      */
     @Override
     List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent){
-        List<Integer> Color_count = new ArrayList<>(NUMCOLORS);
-        for (int i = 0; i < NUMCOLORS; i++) Color_count.add(0);
-        for (Integer color_sol : solucio){
-            Integer count = Color_count.get(color_sol); count++;
-            Color_count.set(color_sol, count);
-        }
 
-        List<Integer> feedback = new ArrayList<>(NUMBOLES);
-        int Negres = 0;
-        for (int i = 0; i < NUMBOLES; ++i){
+        int numboles = solucio.size();
+        List<Integer> Color_count = countColorsBoles(solucio);
+
+        List<Integer> feedback = new ArrayList<>(numboles);
+        int negres = 0;
+        for (int i = 0; i < numboles; ++i){
             Integer color = intent.get(i);
             Integer color_count = Color_count.get(color);
             if (color_count > 0) {
-                if (solucio.get(i) == color) Negres++;
+                if (Objects.equals(solucio.get(i), color)) negres++;
                 Integer count = Color_count.get(color); count--;
                 Color_count.set(color, count);
             }
         }
-        for (int i = 0; i < Negres; ++i) feedback.add(BolaNegra);
-        for (int i = Negres; i < NUMBOLES; ++i) feedback.add(BolaNula);
+        for (int i = 0; i < negres; ++i) feedback.add(Bola.NEGRE.number());
+        for (int i = negres; i < numboles; ++i) feedback.add(Bola.NUL.number());
 
         return feedback;
     }

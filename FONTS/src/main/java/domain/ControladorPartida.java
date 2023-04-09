@@ -25,7 +25,7 @@ class ControladorPartida {
     void novaPartidaMaker(List<Integer> solucio, Integer algorisme) {
         partida = new Partida();
         taulell = new Taulell(solucio);
-        botBreaker = BotBreaker.create(algorisme, Taulell.NUMBOLES, Bola.numColors());
+        botBreaker = BotBreaker.create(algorisme);
         botMaker = null;
         dificultat = null;
     }

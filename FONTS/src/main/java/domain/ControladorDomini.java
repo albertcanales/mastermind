@@ -1,5 +1,7 @@
 package domain;
 
+import persistance.ControladorPersistencia;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
 public class ControladorDomini {
 
     ControladorPartida controladorPartida;
+    ControladorPersistencia controladorPersistencia;
 
     /**
      * Constructor del Controlador de Domini
