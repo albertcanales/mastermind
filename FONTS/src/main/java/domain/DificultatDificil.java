@@ -4,14 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DificultatDificil extends Dificultat {
-
-    DificultatDificil(){ //Cal canviar tal que rebi i fixi els valors
-        NUMBOLES = 4;
-        NUMCOLORS = 6;
-        BolaNegra = 2;
-        BolaBlanca = 1;
-        BolaNula = 0;
-    }
     @Override
     NivellDificultat getNivellDificultat(){
         return NivellDificultat.DIFICIL;

@@ -8,11 +8,11 @@ import java.util.List;
  */
 abstract class Dificultat {
 
-    protected int NUMBOLES;
-    protected int NUMCOLORS;
-    protected Integer BolaNegra;
-    protected Integer BolaBlanca;
-    protected Integer BolaNula;
+    protected static int NUMBOLES;
+    protected static int NUMCOLORS;
+    protected static Integer BolaNegra;
+    protected static Integer BolaBlanca;
+    protected static Integer BolaNula;
 
     /**
      * Mètode per instanciar una subclasse a partir del nombre del nivell de dificultat
@@ -21,7 +21,13 @@ abstract class Dificultat {
      * @author Albert Canales
      */
     static Dificultat create(Integer nivellDificultat) { //Cal que rebi NUMBOLES, NUMCOLORS, BolaNegra, BolaBlanca, BolaNula
-        switch (NivellDificultat.findByNumber(nivellDificultat)) { //Es crea cada subclasse amb aquests parametres
+        NUMBOLES = 4;
+        NUMCOLORS = 6;
+        BolaNegra = 2;
+        BolaBlanca = 1;
+        BolaNula = 0;
+
+        switch (NivellDificultat.findByNumber(nivellDificultat)) {
             case FACIL:
                 return new DificultatFacil();
             case MITJA:
