@@ -17,11 +17,11 @@ abstract class Dificultat {
     static Dificultat create(Integer nivellDificultat) {
         switch (NivellDificultat.findByNumber(nivellDificultat)) {
             case FACIL:
-                //return new DificultatFacil();
+                return new DificultatFacil();
             case MITJA:
-                //return new DificultatFacil();
+                return new DificultatFacil();
             case DIFICIL:
-                //return new DificultatFacil();
+                return new DificultatFacil();
         }
         return null;
     }
