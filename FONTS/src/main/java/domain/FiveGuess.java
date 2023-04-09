@@ -52,11 +52,14 @@ class FiveGuess extends BotBreaker {
      */
     private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2){
         Integer count = 0;
+        Boolean counted = false;
+        ArrayList<Integer> added = new ArrayList<>(Collections.nCopies(4, 0));
         for (int it1 = 0; it1 < this.numboles; it1++){
-            ArrayList<Integer> added = new ArrayList<>(Collections.nCopies(4, 0));
-            for (int it2 = 0; it2 < this.numboles; it2++) {
+            counted = false;
+            for (int it2 = 0; it2 < this.numboles && !counted; it2++) {
                 if ((list1.get(it1).equals(list2.get(it2))) && (it1 != it2) && (added.get(it2).equals(0))) {
                     if (!(list1.get(it1).equals(list2.get(it1))) && !(list1.get(it2).equals(list2.get(it2)))) {
+                        counted = true;
                         count++;
                         added.set(it2, 1);
                     }
@@ -189,6 +192,7 @@ class FiveGuess extends BotBreaker {
             //choose next guess with the minimax technique
             currentGuess = minimax();
             guesses.add(currentGuess);
+
             //play the guess to get a response of colored and white pegs
             black = compareTwoSequencesBlack(currentGuess,solution);
             white = compareTwoSequencesWhite(currentGuess,solution);
