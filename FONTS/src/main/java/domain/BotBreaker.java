@@ -23,9 +23,9 @@ abstract class BotBreaker {
         BotBreaker.numcolors = numcolors;
         switch (TipusAlgorisme.findByNumber(tipusAlgorisme)) {
             case FIVEGUESS:
-                //return new FiveGuess();
+                return new FiveGuess();
             case GENETIC:
-                //return new Genetic();
+                return new Genetic();
         }
         return null;
     }

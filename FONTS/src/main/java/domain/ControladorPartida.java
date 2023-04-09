@@ -25,7 +25,7 @@ class ControladorPartida {
     void novaPartidaMaker(List<Integer> solucio, Integer algorisme) {
         partida = new Partida();
         taulell = new Taulell(solucio);
-        botBreaker = BotBreaker.create(algorisme, Taulell.NUMBOLES);
+        botBreaker = BotBreaker.create(algorisme, Taulell.NUMBOLES, Bola.numColors());
         botMaker = null;
         dificultat = null;
     }
@@ -37,7 +37,7 @@ class ControladorPartida {
      */
     void novaPartidaBreaker(Integer nivellDificultat) {
         partida = new Partida();
-        botMaker = new BotMaker(Taulell.NUMBOLES);
+        botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(botMaker.generaSequenciaSolucio());
         dificultat = Dificultat.create(nivellDificultat);
         botBreaker = null;
@@ -54,7 +54,7 @@ class ControladorPartida {
     void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
                               List<Integer> solucio) {
         partida = new Partida();
-        botMaker = new BotMaker(Taulell.NUMBOLES);
+        botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(solucio, intents, feedback);
         dificultat = Dificultat.create(nivellDificultat);
         botBreaker = null;
@@ -72,7 +72,7 @@ class ControladorPartida {
     void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
                                 List<Integer> solucio, Duration temps) {
         partida = new Partida(temps);
-        botMaker = new BotMaker(Taulell.NUMBOLES);
+        botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(solucio, intents, feedback);
         dificultat = Dificultat.create(nivellDificultat);
         botBreaker = null;
