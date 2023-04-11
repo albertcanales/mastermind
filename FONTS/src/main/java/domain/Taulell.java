@@ -3,6 +3,7 @@ package domain;
 import domain.exceptions.DomainException;
 import domain.exceptions.InvalidEnumValueException;
 import domain.exceptions.InvalidNumBolesException;
+import domain.exceptions.InvalidNumIntentsException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,12 @@ class Taulell {
      * @throws DomainException si el tamany d'alguna list no és correcte
      */
     Taulell(List <Integer> sol, List<List<Integer>> inten, List<List<Integer>> feed) throws DomainException {
-        //per exceptions -> if (sol.size() != NUMBOLES || inten.size() != NUMINTENTS || inten.get(0).size() != NUMBOLES || feed.size() != NUMINTENTS || feed.get(0).size() != NUMBOLES)
+        if (inten.size() != NUMINTENTS) {
+            throw new InvalidNumIntentsException(inten.size(),NUMINTENTS);
+        }
+        if (feed.size() != NUMINTENTS) {
+            throw new InvalidNumIntentsException(feed.size(),NUMINTENTS);
+        }
 
         intents = new ArrayList<>(NUMINTENTS);
         feedbacks = new ArrayList<>(NUMINTENTS);
