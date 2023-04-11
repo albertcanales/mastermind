@@ -1,7 +1,7 @@
 package domain;
 
 import domain.exceptions.DomainException;
-import domain.exceptions.InvalidEnumValueException;
+import domain.exceptions.*;
 import persistance.ControladorPersistencia;
 
 import java.math.BigInteger;
@@ -19,7 +19,7 @@ import java.util.Objects;
 public class ControladorDomini {
 
     private final ControladorPartida controladorPartida;
-    private ControladorPersistencia controladorPersistencia;
+    private final ControladorPersistencia controladorPersistencia;
 
     private User user;
 
@@ -29,13 +29,30 @@ public class ControladorDomini {
      */
     ControladorDomini() {
         controladorPartida = new ControladorPartida();
+        controladorPersistencia = new ControladorPersistencia();
     }
 
+    /**
+     * Mètode per comprovar si existeix un usuari
+     * @param username username de l'usuari a comprovar
+     * @return si l'usuari donat existeix
+     * @author Albert Canales
+     */
     public Boolean existsUser(String username) {
         return controladorPersistencia.existsUser(username);
     }
 
-    public Boolean loginUser(String username, String password) {
+    /**
+     * Mètode per iniciar sessió d'un usuari existent
+     * @param username username del l'usuari
+     * @param password contrasenya de l'usuari
+     * @throws UserNotExistsExeption si l'usuari no existeix
+     * @return si la contrasenya donada és correcta
+     * @author Albert Canales
+     */
+    public Boolean loginUser(String username, String password) throws DomainException {
+        if(!existsUser(username))
+            throw new UserNotExistsExeption(username);
         String hash = controladorPersistencia.getPasswordHash(username);
         if(!Objects.equals(hash, getSHA256(password)))
             return false;
@@ -44,7 +61,17 @@ public class ControladorDomini {
         return true;
     }
 
-    public void registerUser(String username, String name, String password) {
+    /**
+     * Mètode per registrar un usuari no existent
+     * @param username username del nou usuari
+     * @param name nom del nou usuari
+     * @param password contrasenya del nou usuari
+     * @throws UserAlreadyExistsException si l'usuari ja existeix
+     * @author Albert Canales
+     */
+    public void registerUser(String username, String name, String password) throws DomainException {
+        if(existsUser(username))
+            throw new UserAlreadyExistsException(username);
         controladorPersistencia.registerUser(username, name, password);
     }
 
@@ -52,28 +79,37 @@ public class ControladorDomini {
      * Mètode per iniciar una nova partida amb el jugador com a maker
      * @param solucio solucio de la partida
      * @param algorisme enter que representa l'algorisme escollit per al breaker
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @author Albert Canales
      */
-    public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) {
+    public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) throws DomainException {
+        if(user == null)
+            throw new NotLoggedInException();
         controladorPartida.novaPartidaMaker(solucio, algorisme, user.getUsername());
     }
 
     /**
      * Mètode per iniciar una nova partida amb el jugador com a breaker
      * @param nivellDificultat nivell de dificultat escollit pel jugador
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @author Albert Canales
      */
-    public void novaPartidaBreaker(Integer nivellDificultat) {
+    public void novaPartidaBreaker(Integer nivellDificultat) throws DomainException {
+        if(user == null)
+            throw new NotLoggedInException();
         controladorPartida.novaPartidaBreaker(nivellDificultat, user.getUsername());
     }
 
     /**
      * Mètode per comprovar si existeix una partida guardada i és de l'usuari registrat
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @return Booleà indicant si existeix una partida guardada
      * @author Albert Canales
      */
-    public Boolean existsPartidaGuardada() {
+    public Boolean existsPartidaGuardada() throws DomainException {
         if(controladorPersistencia.existsPartidaGuardada()) {
+            if(user == null)
+                throw new NotLoggedInException();
             String usernameGuardada = controladorPersistencia.getUserPartidaGuardada();
             return Objects.equals(usernameGuardada, user.getUsername());
         }
@@ -82,9 +118,13 @@ public class ControladorDomini {
 
     /**
      * Mètode per carregar la partida guardada
+     * @throws NotLoggedInException si no s'ha iniciat sessió
+     * @throws NoGameSavedException si no hi ha una partida guardada d'aquest usuari
      * @author Albert Canales
      */
-    public void carregarPartida() {
+    public void carregarPartida() throws DomainException {
+        if(!existsPartidaGuardada())
+            throw new NoGameSavedException();
         Integer nivellDificultat = controladorPersistencia.getNivellDificultatPartidaGuardada();
         List<List<Integer>> intents = controladorPersistencia.getIntentsPartidaGuardada();
         List<List<Integer>> feedback = controladorPersistencia.getFeedbackPartidaGuardada();
@@ -180,6 +220,8 @@ public class ControladorDomini {
         return null;
     }
 
+    // TODO GameNotLoaded Exception d'aquí en endavant
+
     /**
      * Getter de la solució de la partida actual
      * @return La seqüència solució de la partida actual
@@ -239,6 +281,11 @@ public class ControladorDomini {
         controladorPartida.botSolve();
     }
 
+    /**
+     * Mètode per obtenir el SHA256 (representada amb base64)
+     * @param value string de la qual es vol obtenir el hash
+     * @author Albert Canales
+     */
     private String getSHA256(String value) {
         MessageDigest md;
         try {

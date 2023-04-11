@@ -13,9 +13,7 @@ public class ControladorPersistencia {
         return null;
     }
 
-    public void registerUser(String username, String name, String password) {
-
-    }
+    public void registerUser(String username, String name, String password) { }
 
     public String getPasswordHash(String username) {
         return null;
