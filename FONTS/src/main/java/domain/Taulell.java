@@ -142,7 +142,6 @@ class Taulell {
      * @throws DomainException si el tamany de feedback no és correcte
      */
     void addFeedback(List<Integer> feedback) throws DomainException {
-        //per exceptions -> if (feedback.size() != NUMBOLES)
         feedbacks.set(intentActual, new Sequencia(feedback));
         ++intentActual;
     }

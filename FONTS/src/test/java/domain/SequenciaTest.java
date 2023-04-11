@@ -24,22 +24,30 @@ public class SequenciaTest {
     }
 
     @Test
-    public void isPlena() throws InvalidEnumValueException,InvalidNumBolesException {
+    public void isPlenaTrue() throws InvalidNumBolesException {
         List<Integer> initBoles = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
         Sequencia sequencia = new Sequencia(initBoles);
         assertEquals(true,sequencia.isPlena());
+    }
 
-        sequencia.setBola(0, Bola.NUL.number());
+    @Test
+    public void isPlenaFalse() throws InvalidNumBolesException {
+        List<Integer> initBoles = new ArrayList<>(List.of(Bola.NUL.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
+        Sequencia sequencia = new Sequencia(initBoles);
         assertEquals(false,sequencia.isPlena());
     }
 
     @Test
-    public void isBuida() throws InvalidEnumValueException,InvalidNumBolesException {
+    public void isBuidaTrue() throws InvalidNumBolesException {
         List<Integer> initBoles = new ArrayList<>(List.of(Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number()));
         Sequencia sequencia = new Sequencia(initBoles);
         assertEquals(true,sequencia.isBuida());
+    }
 
-        sequencia.setBola(0, Bola.ROSA.number());
+    @Test
+    public void isBuidaFalse() throws InvalidNumBolesException {
+        List<Integer> initBoles = new ArrayList<>(List.of(Bola.ROSA.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number()));
+        Sequencia sequencia = new Sequencia(initBoles);
         assertEquals(false,sequencia.isBuida());
     }
 
