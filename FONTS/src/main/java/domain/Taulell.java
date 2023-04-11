@@ -1,6 +1,7 @@
 package domain;
 
-import domain.exceptions.invalidEnumValue;
+import domain.exceptions.DomainException;
+import domain.exceptions.InvalidEnumValueException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,10 +150,9 @@ class Taulell {
      * Mètode que col·loca una Bola a la posició desitjada de l'intent actual
      * @param index enter que representa la posició a establir
      * @param bola enter que representa la bola a establir
-     * @throws invalidEnumValue si bola no és una Bola vàlida
+     * @throws DomainException si bola no és una Bola vàlida
      */
-    void setBola(Integer index, Integer bola) throws invalidEnumValue {
-        //bola valid i index
+    void setBola(Integer index, Integer bola) throws DomainException {
         intents.get(intentActual).setBola(index, bola);
     }
 

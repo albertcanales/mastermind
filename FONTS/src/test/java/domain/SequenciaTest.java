@@ -1,7 +1,6 @@
 package domain;
 
-import domain.exceptions.invalidEnumValue;
-import junit.framework.TestCase;
+import domain.exceptions.InvalidEnumValueException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class SequenciaTest {
     }
 
     @Test
-    public void isPlena() throws invalidEnumValue  {
+    public void isPlena() throws InvalidEnumValueException {
         List<Integer> initBoles = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
         Sequencia sequencia = new Sequencia(initBoles);
         assertEquals(true,sequencia.isPlena());
@@ -41,7 +40,7 @@ public class SequenciaTest {
     }
 
     @Test
-    public void isBuida() throws invalidEnumValue {
+    public void isBuida() throws InvalidEnumValueException {
         List<Integer> initBoles = new ArrayList<>(List.of(Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number()));
         Sequencia sequencia = new Sequencia(initBoles);
         assertEquals(true,sequencia.isBuida());
@@ -51,7 +50,7 @@ public class SequenciaTest {
     }
 
     @Test
-    public void setBola() throws invalidEnumValue {
+    public void setBola() throws InvalidEnumValueException {
         Sequencia sequencia = new Sequencia(5);
         sequencia.setBola(0, Bola.ROSA.number());
         sequencia.setBola(3, Bola.BLAU.number());
@@ -71,7 +70,7 @@ public class SequenciaTest {
     @Test
     public void setWrongBola() {
         Sequencia sequencia = new Sequencia(5);
-        assertThrows(invalidEnumValue.class, () -> {
+        assertThrows(InvalidEnumValueException.class, () -> {
             sequencia.setBola(0, -1);
         });
     }

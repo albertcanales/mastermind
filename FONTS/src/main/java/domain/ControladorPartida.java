@@ -1,6 +1,7 @@
 package domain;
 
-import domain.exceptions.invalidEnumValue;
+import domain.exceptions.DomainException;
+import domain.exceptions.InvalidEnumValueException;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -179,10 +180,10 @@ class ControladorPartida {
      * Mètode per col·locar una bola en la posició indicada de l'intent actual
      * @param index posició de la bola
      * @param bola bola a col·locar
-     * @throws invalidEnumValue si bola no és una Bola vàlida
+     * @throws DomainException si bola no és una Bola vàlida
      * @author Albert Canales
      */
-    void setBola(Integer index, Integer bola) throws invalidEnumValue {
+    void setBola(Integer index, Integer bola) throws DomainException {
         taulell.setBola(index, bola);
     }
 }

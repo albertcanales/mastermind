@@ -1,6 +1,6 @@
 package domain;
 
-import domain.exceptions.invalidEnumValue;
+import domain.exceptions.InvalidEnumValueException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,11 +67,11 @@ class Sequencia {
      * 
      * @param index enter que representa la posició a establir
      * @param bola  enter més gran o igual a 0 que representa la "Bola"
-     * @throws invalidEnumValue si bola no és una Bola vàlida
+     * @throws InvalidEnumValueException si bola no és una Bola vàlida
      */
-    void setBola(Integer index, Integer bola) throws invalidEnumValue {
+    void setBola(Integer index, Integer bola) throws InvalidEnumValueException {
         if (!Bola.isValid(bola)) {
-            throw new invalidEnumValue("Bola", bola.toString());
+            throw new InvalidEnumValueException("Bola", bola.toString());
         }
         if ((sequencia.get(index) == Bola.NUL.number()) && (Bola.isColor(bola)))
             ++mida;
