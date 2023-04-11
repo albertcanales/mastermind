@@ -80,7 +80,7 @@ public class ControladorDomini {
      * Mètode per tancar la sessió de l'usuari
      * @author Albert Canales
      */
-    public void registerUser() throws NotLoggedInException {
+    public void logoutUser() throws NotLoggedInException {
         if(user == null)
             throw new NotLoggedInException();
         user = null;
@@ -118,9 +118,9 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public Boolean existsPartidaGuardada() throws DomainException {
+        if(user == null)
+            throw new NotLoggedInException();
         if(controladorPersistencia.existsPartidaGuardada()) {
-            if(user == null)
-                throw new NotLoggedInException();
             String usernameGuardada = controladorPersistencia.getUserPartidaGuardada();
             return Objects.equals(usernameGuardada, user.getUsername());
         }
@@ -153,7 +153,7 @@ public class ControladorDomini {
      */
     private void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents,
                                         List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
-        Duration temps = controladorPersistencia.getTempsPasrtidaGuardada();
+        Duration temps = controladorPersistencia.getTempsPartidaGuardada();
         controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps);
     }
 
@@ -181,100 +181,131 @@ public class ControladorDomini {
     /**
      * Getter del rècord personal (nombre mínim d'intents per guanyar) de l'usuari actual
      * @return Una llista amb el rècord personal per a cada nivell de dificultat
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @author Albert Canales
      */
-    public List<Integer> getPersonalRecord() {
+    public List<Integer> getPersonalRecord() throws DomainException {
+        if(user == null)
+            throw new NotLoggedInException();
         return null;
     }
 
     /**
      * Getter del rècord personal (nombre mínim d'intents per guanyar) de l'usuari actual
      * @return Una llista amb el rècord personal per a cada nivell de dificultat
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @author Albert Canales
      */
-    public List<Integer> getTimePlayed() {
+    public List<Integer> getTimePlayed() throws DomainException {
+        if(user == null)
+            throw new NotLoggedInException();
         return null;
     }
 
     /**
      * Getter de victòries i derrotes
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @return Una llista amb parelles (nombre de victòries, nombre de derrotes) per a cada nivell de dificultat
      * @author Albert Canales
      */
-    public List<List<Integer>> getWinLost() {
+    public List<List<Integer>> getWinLost() throws DomainException {
+        if(user == null)
+            throw new NotLoggedInException();
         return null;
     }
 
     /**
      * Getter de ratxa de victòries
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @return Una llista amb la màxima ratxa de victòries per a cada nivell de dificultat
      * @author Albert Canales
      */
-    public List<Integer> getWinstreak() {
+    public List<Integer> getWinstreak() throws DomainException {
+        if(user == null)
+            throw new NotLoggedInException();
         return null;
     }
 
     /**
      * Getter de mitjana d'intents com a breaker
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @return Una llista amb la mitjana d'intents per a cada dificultat
      * @author Albert Canales
      */
-    public List<Double> getAverageAsBreaker() {
+    public List<Double> getAverageAsBreaker() throws DomainException {
+        if(user == null)
+            throw new NotLoggedInException();
         return null;
     }
 
     /**
      * Getter de mitjana d'intents com a maker
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @return Una llista amb la mitjana d'intents que ha necessitat la màquina per a cada algorisme
      * @author Albert Canales
      */
-    public List<Double> getAverageAsMaker() {
+    public List<Double> getAverageAsMaker() throws DomainException {
+        if(user == null)
+            throw new NotLoggedInException();
         return null;
     }
 
-    // TODO PartidaNotLoaded Exception d'aquí en endavant
-
     /**
      * Getter de la solució de la partida actual
+     * @throws NotPlayingPartidaException si no s'està jugant cap partida
      * @return La seqüència solució de la partida actual
      * @author Albert Canales
      */
-    public List<Integer> getSolucio() {
+    public List<Integer> getSolucio() throws DomainException {
+        if(!controladorPartida.isPartidaPresent())
+            throw new NotPlayingPartidaException();
         return controladorPartida.getSequenciaSolucio();
     }
 
     /**
      * Getter de tots els intents de la partida actual
+     * @throws NotPlayingPartidaException si no s'està jugant cap partida
      * @return Una llista amb tots els intents de la partida actual
      * @author Albert Canales
      */
-    public List<List<Integer>> getIntents() {
+    public List<List<Integer>> getIntents() throws DomainException {
+        if(!controladorPartida.isPartidaPresent())
+            throw new NotPlayingPartidaException();
         return controladorPartida.getIntents();
     }
 
     /**
      * Getter de tots els feedbacks de la partida actual
+     * @throws NotPlayingPartidaException si no s'està jugant cap partida
      * @return Una llista amb tots els feedbacks de la partida actual
      * @author Albert Canales
      */
-    public List<List<Integer>> getFeedbacks() {
+    public List<List<Integer>> getFeedbacks() throws DomainException {
+        if(!controladorPartida.isPartidaPresent())
+            throw new NotPlayingPartidaException();
         return controladorPartida.getFeedbacks();
     }
 
     /**
      * Getter dels mil·lisegons transcorreguts en la partida actual
+     * @throws NotPlayingPartidaException si no s'està jugant cap partida
      * @author Albert Canales
      */
-    public Long getTempsPartidaMillis() {
+    public Long getTempsPartidaMillis() throws DomainException {
+        if(!controladorPartida.isPartidaPresent())
+            throw new NotPlayingPartidaException();
         return controladorPartida.getTempsMillis();
     }
 
     /**
      * Mètode per afegir temps transcorregut a la partida actual
+     * @throws NotPlayingPartidaException si no s'està jugant cap partida
      * @param millis mi·lisegons a afegir
      * @author Albert Canales
      */
-    public void addTempsPartidaMillis(Long millis) {
+    public void addTempsPartidaMillis(Long millis) throws DomainException {
+        if(!controladorPartida.isPartidaPresent())
+            throw new NotPlayingPartidaException();
         controladorPartida.addTempsMillis(millis);
     }
 
@@ -283,9 +314,12 @@ public class ControladorDomini {
      * @param index La posició on es vol col·locar la bola
      * @param bola La bola que es vol col·locar
      * @throws DomainException si bola no és una Bola vàlida
+     * @throws NotPlayingPartidaException si no s'està jugant cap partida
      * @author Albert Canales
      */
     public void setBola(Integer index, Integer bola) throws DomainException {
+        if(!controladorPartida.isPartidaPresent())
+            throw new NotPlayingPartidaException();
         controladorPartida.setBola(index, bola);
     }
 
@@ -293,21 +327,29 @@ public class ControladorDomini {
      * Mètode per a validar l'intent actual en la partida actual
      * @return El feedback corresponent a l'intent donat
      * @throws DomainException si el tamany d'alguna list no és correcte
+     * @throws NotPlayingPartidaException si no s'està jugant cap partida
      * @author Albert Canales
      */
     public List<Integer> validarSequencia() throws DomainException {
+        if(!controladorPartida.isPartidaPresent())
+            throw new NotPlayingPartidaException();
         List<Integer> feedback = controladorPartida.validarSequencia();
         if(controladorPartida.isPartidaAcabada()) {
-            // TODO Acabar partida (DataFi, estadístiques usuari, etc)
+            controladorPersistencia.acabarPartidaGuardada();
+            // TODO Actualitzar estadístiques usuari
+            controladorPartida.sortirPartida();
         }
         return feedback;
     }
 
     /**
      * Mètode perquè el bot jugui la partida
+     * @throws NotPlayingPartidaException si no s'està jugant cap partida
      * @author Albert Canales
      */
-    void botSolve() {
+    void botSolve() throws DomainException {
+        if(!controladorPartida.isPartidaPresent())
+            throw new NotPlayingPartidaException();
         controladorPartida.botSolve();
     }
 

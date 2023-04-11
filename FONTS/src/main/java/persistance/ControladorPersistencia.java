@@ -51,7 +51,9 @@ public class ControladorPersistencia {
         return null;
     }
 
-    public Duration getTempsPasrtidaGuardada() {
+    public Duration getTempsPartidaGuardada() {
         return null;
     }
+
+    public void acabarPartidaGuardada() { }
 }
