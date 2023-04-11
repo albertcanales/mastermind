@@ -11,14 +11,16 @@ public class PartidaTests {
 
     @Test
     public void newPartidaTest() {
-        Partida partida = new Partida();
+        Partida partida = new Partida("Joan");
+        assertEquals("Joan", partida.getUser());
         assertEquals(Duration.ZERO, partida.getTemps());
         assertNull(partida.getDataFi());
     }
 
     @Test
     public void loadedPartidaTest() {
-        Partida partida = new Partida(Duration.ofMillis(754));
+        Partida partida = new Partida("Pere", Duration.ofMillis(754));
+        assertEquals("Pere", partida.getUser());
         assertEquals(Duration.ofMillis(754), partida.getTemps());
         assertNull(partida.getDataFi());
     }
@@ -26,14 +28,15 @@ public class PartidaTests {
     @Test
     public void finishedPartidaTest() {
         LocalDateTime date = LocalDateTime.of(2023, 4, 8, 1, 2, 0);
-        Partida partida = new Partida(Duration.ofMillis(832), date);
+        Partida partida = new Partida("Mercè", Duration.ofMillis(832), date);
+        assertEquals("Mercè", partida.getUser());
         assertEquals(Duration.ofMillis(832), partida.getTemps());
         assertEquals(date, partida.getDataFi());
     }
 
     @Test
     public void setTempsTest() {
-        Partida partida = new Partida(Duration.ofMillis(832));
+        Partida partida = new Partida("Anna", Duration.ofMillis(832));
         partida.setTemps(Duration.ofMillis(453));
         assertEquals(Duration.ofMillis(453), partida.getTemps());
     }
@@ -41,7 +44,7 @@ public class PartidaTests {
     @Test
     public void setDataFiTest() {
         LocalDateTime dateInicial = LocalDateTime.of(2023, 4, 8, 1, 2, 0);
-        Partida partida = new Partida(Duration.ofMillis(832), dateInicial);
+        Partida partida = new Partida("Albert", Duration.ofMillis(832), dateInicial);
         LocalDateTime dateNova = LocalDateTime.of(2022, 1, 1, 0, 0, 0, 0);
         partida.setDataFi(dateNova);
         assertEquals(dateNova, partida.getDataFi());

@@ -24,8 +24,8 @@ class ControladorPartida {
      * @param algorisme enter que representa l'algorisme escollit com a breaker
      * @author Albert Canales
      */
-    void novaPartidaMaker(List<Integer> solucio, Integer algorisme) {
-        partida = new Partida();
+    void novaPartidaMaker(List<Integer> solucio, Integer algorisme, String user) {
+        partida = new Partida(user);
         taulell = new Taulell(solucio);
         botBreaker = BotBreaker.create(algorisme);
         botMaker = null;
@@ -37,8 +37,8 @@ class ControladorPartida {
      * @param nivellDificultat enter que representa el nivell de dificultat de la partida
      * @author Albert Canales
      */
-    void novaPartidaBreaker(Integer nivellDificultat) {
-        partida = new Partida();
+    void novaPartidaBreaker(Integer nivellDificultat, String user) {
+        partida = new Partida(user);
         botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(botMaker.generaSequenciaSolucio());
         dificultat = Dificultat.create(nivellDificultat);
@@ -54,8 +54,8 @@ class ControladorPartida {
      * @author Albert Canales
      */
     void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
-                              List<Integer> solucio) {
-        partida = new Partida();
+                              List<Integer> solucio, String user) {
+        partida = new Partida(user);
         botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(solucio, intents, feedback);
         dificultat = Dificultat.create(nivellDificultat);
@@ -72,8 +72,8 @@ class ControladorPartida {
      * @author Albert Canales
      */
     void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
-                                List<Integer> solucio, Duration temps) {
-        partida = new Partida(temps);
+                                List<Integer> solucio, Duration temps, String user) {
+        partida = new Partida(user, temps);
         botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(solucio, intents, feedback);
         dificultat = Dificultat.create(nivellDificultat);

@@ -12,29 +12,35 @@ class Partida {
     private Duration temps;
     private LocalDateTime dataFi;
 
+    private String user;
+
     /**
      * Constructor per una nova partida
      * @author Albert Canales
      */
-    Partida() {
+    Partida(String user) {
         this.temps = Duration.ZERO;
+        this.user = user;
     }
 
     /**
      * Constructor per una partida pendent
      * @author Albert Canales
      */
-    Partida(Duration temps) {
+    Partida(String user, Duration temps) {
         this.temps = temps;
+        this.user = user;
     }
 
+    // TODO Crec que aquest constructor es podrà esborrar finalment
     /**
      * Constructor per una partida finalitzada
      * @author Albert Canales
      */
-    Partida(Duration temps, LocalDateTime dataFi) {
+    Partida(String user, Duration temps, LocalDateTime dataFi) {
         this.temps = temps;
         this.dataFi = dataFi;
+        this.user = user;
     }
 
     /**
@@ -69,5 +75,9 @@ class Partida {
      */
     void setDataFi(LocalDateTime dataFi) {
         this.dataFi = dataFi;
+    }
+
+    public String getUser() {
+        return user;
     }
 }

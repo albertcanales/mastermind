@@ -3,8 +3,13 @@ package domain;
 import domain.exceptions.invalidEnumValue;
 import persistance.ControladorPersistencia;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Controlador de la capa de domini
@@ -12,8 +17,10 @@ import java.util.List;
  */
 public class ControladorDomini {
 
-    ControladorPartida controladorPartida;
-    ControladorPersistencia controladorPersistencia;
+    private final ControladorPartida controladorPartida;
+    private ControladorPersistencia controladorPersistencia;
+
+    private User user;
 
     /**
      * Constructor del Controlador de Domini
@@ -23,6 +30,23 @@ public class ControladorDomini {
         controladorPartida = new ControladorPartida();
     }
 
+    public Boolean existsUser(String username) {
+        return controladorPersistencia.existsUser(username);
+    }
+
+    public Boolean loginUser(String username, String password) {
+        String hash = controladorPersistencia.getPasswordHash(username);
+        if(!Objects.equals(hash, getSHA256(password)))
+            return false;
+        String name = controladorPersistencia.getUserName(username);
+        user = new User(username, name);
+        return true;
+    }
+
+    public void registerUser(String username, String name, String password) {
+        controladorPersistencia.registerUser(username, name, password);
+    }
+
     /**
      * Mètode per iniciar una nova partida amb el jugador com a maker
      * @param solucio solucio de la partida
@@ -30,7 +54,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) {
-        controladorPartida.novaPartidaMaker(solucio, algorisme);
+        controladorPartida.novaPartidaMaker(solucio, algorisme, user.getUsername());
     }
 
     /**
@@ -39,16 +63,20 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public void novaPartidaBreaker(Integer nivellDificultat) {
-        controladorPartida.novaPartidaBreaker(nivellDificultat);
+        controladorPartida.novaPartidaBreaker(nivellDificultat, user.getUsername());
     }
 
     /**
-     * Mètode per comprovar si existeix una partida guardada
+     * Mètode per comprovar si existeix una partida guardada i és de l'usuari registrat
      * @return Booleà indicant si existeix una partida guardada
      * @author Albert Canales
      */
-    public Boolean existsPartida() {
-        return controladorPersistencia.existsPartidaGuardada();
+    public Boolean existsPartidaGuardada() {
+        if(controladorPersistencia.existsPartidaGuardada()) {
+            String usernameGuardada = controladorPersistencia.getUserPartidaGuardada();
+            return Objects.equals(usernameGuardada, user.getUsername());
+        }
+        return false;
     }
 
     /**
@@ -60,10 +88,11 @@ public class ControladorDomini {
         List<List<Integer>> intents = controladorPersistencia.getIntentsPartidaGuardada();
         List<List<Integer>> feedback = controladorPersistencia.getFeedbackPartidaGuardada();
         List<Integer> solucio = controladorPersistencia.getSolucioPartidaGuardada();
+        String username = user.getUsername();
         if(controladorPersistencia.isBreakerPartidaGuardada())
-            this.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio);
+            this.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, username);
         else
-            this.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio);
+            this.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio, username);
     }
 
     /**
@@ -71,9 +100,9 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     private void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents,
-                                        List<List<Integer>> feedback, List<Integer> solucio) {
+                                        List<List<Integer>> feedback, List<Integer> solucio, String username) {
         Duration temps = controladorPersistencia.getTempsPasrtidaGuardada();
-        controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps);
+        controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps, username);
     }
 
     /**
@@ -81,8 +110,8 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     private void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents,
-                                      List<List<Integer>> feedback, List<Integer> solucio) {;
-        controladorPartida.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio);
+                                      List<List<Integer>> feedback, List<Integer> solucio, String username) {;
+        controladorPartida.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio, username);
     }
 
     /**
@@ -207,5 +236,17 @@ public class ControladorDomini {
      */
     void botSolve() {
         controladorPartida.botSolve();
+    }
+
+    private String getSHA256(String value) {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+            md.reset();
+            md.update(value.getBytes(StandardCharsets.UTF_8));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        return String.format("%064x", new BigInteger(1, md.digest()));
     }
 }
