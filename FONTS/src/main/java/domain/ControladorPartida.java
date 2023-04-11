@@ -19,6 +19,14 @@ class ControladorPartida {
     private BotMaker botMaker;
 
     /**
+     * Mètode per saber si s'està jugant una partida actualment
+     * @author Albert Canales
+     */
+    Boolean isPartidaPresent() {
+        return partida != null;
+    }
+
+    /**
      * Mètode que crea una nova partida actual on el jugador és el maker
      * @param solucio solució de la partida proporcionada pel jugador
      * @param algorisme enter que representa l'algorisme escollit com a breaker
@@ -85,6 +93,18 @@ class ControladorPartida {
     }
 
     /**
+     * Mètode deixar la partida actual
+     * @author Albert Canales
+     */
+    void sortirPartida() {
+        partida = null;
+        taulell = null;
+        dificultat = null;
+        botMaker = null;
+        botBreaker = null;
+    }
+
+    /**
      * Mètode per validar l'últim intent de la partida i passar al següent
      * @return feedback de l'últim intent, en funció de la dificultat de la partida
      * @throws DomainException si el tamany de feedback no és correcte
@@ -114,8 +134,17 @@ class ControladorPartida {
      * @return el temps transcorregut amb mil·lisegons
      * @author Albert Canales
      */
-    Long getTemps() {
+    Long getTempsMillis() {
         return partida.getTemps().toMillis();
+    }
+
+    /**
+     * Mètode per afegir temps transcorregut a la partida
+     * @param millis temps a afegir, amb mil·lisegons
+     * @author Albert Canales
+     */
+    void addTempsMillis(Long millis) {
+        partida.addMillis(millis);
     }
 
     /**

@@ -30,6 +30,7 @@ public class ControladorDomini {
     ControladorDomini() {
         controladorPartida = new ControladorPartida();
         controladorPersistencia = new ControladorPersistencia();
+        user = null;
     }
 
     /**
@@ -73,6 +74,16 @@ public class ControladorDomini {
         if(existsUser(username))
             throw new UserAlreadyExistsException(username);
         controladorPersistencia.registerUser(username, name, password);
+    }
+
+    /**
+     * Mètode per tancar la sessió de l'usuari
+     * @author Albert Canales
+     */
+    public void registerUser() throws NotLoggedInException {
+        if(user == null)
+            throw new NotLoggedInException();
+        user = null;
     }
 
     /**
@@ -221,7 +232,7 @@ public class ControladorDomini {
         return null;
     }
 
-    // TODO GameNotLoaded Exception d'aquí en endavant
+    // TODO PartidaNotLoaded Exception d'aquí en endavant
 
     /**
      * Getter de la solució de la partida actual
@@ -248,6 +259,23 @@ public class ControladorDomini {
      */
     public List<List<Integer>> getFeedbacks() {
         return controladorPartida.getFeedbacks();
+    }
+
+    /**
+     * Getter dels mil·lisegons transcorreguts en la partida actual
+     * @author Albert Canales
+     */
+    public Long getTempsPartidaMillis() {
+        return controladorPartida.getTempsMillis();
+    }
+
+    /**
+     * Mètode per afegir temps transcorregut a la partida actual
+     * @param millis mi·lisegons a afegir
+     * @author Albert Canales
+     */
+    public void addTempsPartidaMillis(Long millis) {
+        controladorPartida.addTempsMillis(millis);
     }
 
     /**

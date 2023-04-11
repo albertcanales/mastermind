@@ -40,7 +40,7 @@ class Partida {
      * @param millis milisegons a afegir a la partida
      * @author Albert Canales
      */
-    void addMillis(Integer millis) {
+    void addMillis(Long millis) {
         if(millis > 0)
             temps = temps.plusMillis(millis);
     }

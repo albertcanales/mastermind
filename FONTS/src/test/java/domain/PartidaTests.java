@@ -25,13 +25,13 @@ public class PartidaTests {
     public void addDuracioPartida() {
         Partida partida = new Partida(Duration.ofMillis(123));
 
-        partida.addMillis(43);
+        partida.addMillis(43L);
         assertEquals(Duration.ofMillis(166), partida.getTemps());
 
-        partida.addMillis(0);
+        partida.addMillis(0L);
         assertEquals(Duration.ofMillis(166), partida.getTemps());
 
-        partida.addMillis(-10);
+        partida.addMillis(-10L);
         assertEquals(Duration.ofMillis(166), partida.getTemps());
     }
 }

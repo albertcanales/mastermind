@@ -32,7 +32,7 @@ public class DominiDriver {
         System.out.println("    19 | setBola");
         System.out.println("    20 | validarSequencia");
         System.out.println("    21 | botSolve");
-        System.out.println("Cada comanda es pot excutar pel seu nombre o pel seu nom.");
+        System.out.println("Cada comanda es pot executar pel seu nombre o pel seu nom.");
         System.out.println("La comanda 'ajuda (1)' mostra de nou aquesta informació");
     }
 
