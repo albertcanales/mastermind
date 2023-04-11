@@ -10,37 +10,21 @@ import java.time.LocalDateTime;
 class Partida {
 
     private Duration temps;
-    private LocalDateTime dataFi;
-
-    private String user;
 
     /**
      * Constructor per una nova partida
      * @author Albert Canales
      */
-    Partida(String user) {
+    Partida() {
         this.temps = Duration.ZERO;
-        this.user = user;
     }
 
     /**
      * Constructor per una partida pendent
      * @author Albert Canales
      */
-    Partida(String user, Duration temps) {
+    Partida(Duration temps) {
         this.temps = temps;
-        this.user = user;
-    }
-
-    // TODO Crec que aquest constructor es podrà esborrar finalment
-    /**
-     * Constructor per una partida finalitzada
-     * @author Albert Canales
-     */
-    Partida(String user, Duration temps, LocalDateTime dataFi) {
-        this.temps = temps;
-        this.dataFi = dataFi;
-        this.user = user;
     }
 
     /**
@@ -52,32 +36,13 @@ class Partida {
     }
 
     /**
-     * Setter de temps
-     * @param temps nou valor per temps
+     * Mètode per afegir temps transcorregut a la partida
+     * @param millis milisegons a afegir a la partida
      * @author Albert Canales
      */
-    void setTemps(Duration temps) {
-        this.temps = temps;
+    void addMillis(Integer millis) {
+        if(millis > 0)
+            temps = temps.plusMillis(millis);
     }
 
-    /**
-     * Getter de dataFi
-     * @author Albert Canales
-     */
-    LocalDateTime getDataFi() {
-        return dataFi;
-    }
-
-    /**
-     * Setter de dataFi
-     * @param dataFi nou valor per dataFi
-     * @author Albert Canales
-     */
-    void setDataFi(LocalDateTime dataFi) {
-        this.dataFi = dataFi;
-    }
-
-    public String getUser() {
-        return user;
-    }
 }

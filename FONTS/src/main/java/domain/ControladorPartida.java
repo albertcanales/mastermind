@@ -1,7 +1,6 @@
 package domain;
 
 import domain.exceptions.DomainException;
-import domain.exceptions.InvalidEnumValueException;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -26,8 +25,8 @@ class ControladorPartida {
      * @throws DomainException si el tamany de list no és correcte
      * @author Albert Canales
      */
-    void novaPartidaMaker(List<Integer> solucio, Integer algorisme, String user) throws DomainException {
-        partida = new Partida(user);
+    void novaPartidaMaker(List<Integer> solucio, Integer algorisme) throws DomainException {
+        partida = new Partida();
         taulell = new Taulell(solucio);
         botBreaker = BotBreaker.create(algorisme);
         botMaker = null;
@@ -40,8 +39,8 @@ class ControladorPartida {
      * @throws DomainException si el tamany de list no és correcte
      * @author Albert Canales
      */
-    void novaPartidaBreaker(Integer nivellDificultat, String user) throws DomainException {
-        partida = new Partida(user);
+    void novaPartidaBreaker(Integer nivellDificultat) throws DomainException {
+        partida = new Partida();
         botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(botMaker.generaSequenciaSolucio());
         dificultat = Dificultat.create(nivellDificultat);
@@ -58,8 +57,8 @@ class ControladorPartida {
      * @author Albert Canales
      */
     void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
-                              List<Integer> solucio, String user) throws DomainException {
-        partida = new Partida(user);
+                              List<Integer> solucio) throws DomainException {
+        partida = new Partida();
         botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(solucio, intents, feedback);
         dificultat = Dificultat.create(nivellDificultat);
@@ -77,8 +76,8 @@ class ControladorPartida {
      * @author Albert Canales
      */
     void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
-                                List<Integer> solucio, Duration temps, String user) throws DomainException {
-        partida = new Partida(user, temps);
+                                List<Integer> solucio, Duration temps) throws DomainException {
+        partida = new Partida(temps);
         botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(solucio, intents, feedback);
         dificultat = Dificultat.create(nivellDificultat);

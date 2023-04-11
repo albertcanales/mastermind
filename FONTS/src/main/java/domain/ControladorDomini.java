@@ -85,7 +85,7 @@ public class ControladorDomini {
     public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) throws DomainException {
         if(user == null)
             throw new NotLoggedInException();
-        controladorPartida.novaPartidaMaker(solucio, algorisme, user.getUsername());
+        controladorPartida.novaPartidaMaker(solucio, algorisme);
     }
 
     /**
@@ -97,7 +97,7 @@ public class ControladorDomini {
     public void novaPartidaBreaker(Integer nivellDificultat) throws DomainException {
         if(user == null)
             throw new NotLoggedInException();
-        controladorPartida.novaPartidaBreaker(nivellDificultat, user.getUsername());
+        controladorPartida.novaPartidaBreaker(nivellDificultat);
     }
 
     /**
@@ -129,11 +129,10 @@ public class ControladorDomini {
         List<List<Integer>> intents = controladorPersistencia.getIntentsPartidaGuardada();
         List<List<Integer>> feedback = controladorPersistencia.getFeedbackPartidaGuardada();
         List<Integer> solucio = controladorPersistencia.getSolucioPartidaGuardada();
-        String username = user.getUsername();
         if(controladorPersistencia.isBreakerPartidaGuardada())
-            this.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, username);
+            this.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio);
         else
-            this.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio, username);
+            this.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio);
     }
 
     /**
@@ -142,9 +141,9 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     private void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents,
-                                        List<List<Integer>> feedback, List<Integer> solucio, String username) throws DomainException {
+                                        List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
         Duration temps = controladorPersistencia.getTempsPasrtidaGuardada();
-        controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps, username);
+        controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps);
     }
 
     /**
@@ -153,8 +152,8 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     private void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents,
-                                      List<List<Integer>> feedback, List<Integer> solucio, String username) throws DomainException {;
-        controladorPartida.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio, username);
+                                      List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
+        controladorPartida.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio);
     }
 
     /**
