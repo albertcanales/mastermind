@@ -138,20 +138,22 @@ public class ControladorDomini {
 
     /**
      * Mètode per carregar la partida guardada on el jugador és breaker
+     * @throws DomainException si el tamany d'alguna list no és correcte
      * @author Albert Canales
      */
     private void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents,
-                                        List<List<Integer>> feedback, List<Integer> solucio, String username) {
+                                        List<List<Integer>> feedback, List<Integer> solucio, String username) throws DomainException {
         Duration temps = controladorPersistencia.getTempsPasrtidaGuardada();
         controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps, username);
     }
 
     /**
      * Mètode per carregar la partida guardada on el jugador és maker
+     * @throws DomainException si el tamany d'alguna list no és correcte
      * @author Albert Canales
      */
     private void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents,
-                                      List<List<Integer>> feedback, List<Integer> solucio, String username) {;
+                                      List<List<Integer>> feedback, List<Integer> solucio, String username) throws DomainException {;
         controladorPartida.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio, username);
     }
 
@@ -263,9 +265,10 @@ public class ControladorDomini {
     /**
      * Mètode per a validar l'intent actual en la partida actual
      * @return El feedback corresponent a l'intent donat
+     * @throws DomainException si el tamany d'alguna list no és correcte
      * @author Albert Canales
      */
-    public List<Integer> validarSequencia() {
+    public List<Integer> validarSequencia() throws DomainException {
         List<Integer> feedback = controladorPartida.validarSequencia();
         if(controladorPartida.isPartidaAcabada()) {
             // TODO Acabar partida (DataFi, estadístiques usuari, etc)

@@ -2,6 +2,7 @@ package domain;
 
 import domain.exceptions.DomainException;
 import domain.exceptions.InvalidEnumValueException;
+import domain.exceptions.InvalidNumBolesException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 class Taulell {
 
-    static final int NUMINTENTS = 12, NUMBOLES = 5;
+    static final int NUMINTENTS = 12, NUMBOLES = Sequencia.NUMBOLES;
     private int intentActual;
 
     private List<Sequencia> intents;
@@ -23,17 +24,17 @@ class Taulell {
     /**
      * Crea un Taulell buit
      * @param sol una llista d'enters representant la solució del Taulell
+     * @throws DomainException si el tamany de list no és correcte
      */
-    Taulell(List <Integer> sol) {
-        //per exceptions -> if (sol.size() != NUMBOLES)
+    Taulell(List <Integer> sol) throws DomainException {
         intentActual = 0;
 
         intents = new ArrayList<>(NUMINTENTS);
         feedbacks = new ArrayList<>(NUMINTENTS);
 
         for (int i = 0; i < NUMINTENTS; ++i) {
-            intents.add(new Sequencia(NUMBOLES));
-            feedbacks.add(new Sequencia(NUMBOLES));
+            intents.add(new Sequencia());
+            feedbacks.add(new Sequencia());
         }
 
         solucio = new Sequencia(sol);
@@ -44,8 +45,9 @@ class Taulell {
      * @param sol una llista d'enters representant la solució del Taulell
      * @param inten una llista d'una llista d'enters representant els intents realitzats
      * @param feed una llista d'una llista d'enters representant els feedbacks rebuts
+     * @throws DomainException si el tamany d'alguna list no és correcte
      */
-    Taulell(List <Integer> sol, List<List<Integer>> inten, List<List<Integer>> feed) {
+    Taulell(List <Integer> sol, List<List<Integer>> inten, List<List<Integer>> feed) throws DomainException {
         //per exceptions -> if (sol.size() != NUMBOLES || inten.size() != NUMINTENTS || inten.get(0).size() != NUMBOLES || feed.size() != NUMINTENTS || feed.get(0).size() != NUMBOLES)
 
         intents = new ArrayList<>(NUMINTENTS);
@@ -131,8 +133,9 @@ class Taulell {
      * Mètode que permet afegir el feedback corresponent per l'intent actual
      * 
      * @param feedback llista d'enters que conté boles de color blanc, negre o NUL
+     * @throws DomainException si el tamany de feedback no és correcte
      */
-    void addFeedback(List<Integer> feedback) {
+    void addFeedback(List<Integer> feedback) throws DomainException {
         //per exceptions -> if (feedback.size() != NUMBOLES)
         feedbacks.set(intentActual, new Sequencia(feedback));
         ++intentActual;

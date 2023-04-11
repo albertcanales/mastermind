@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class TaulellTest {
     //TODO assertThrows d'invalidListSize
     @Test
-    public void newTaulellBuit() {
+    public void newTaulellBuit() throws DomainException {
         List<Integer> solucio = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
         List<List <Integer>> expected = new ArrayList<>(Taulell.NUMINTENTS);
 
@@ -27,7 +27,7 @@ public class TaulellTest {
     }
 
     @Test
-    public void newTaulellInit() {
+    public void newTaulellInit() throws DomainException {
         List<Integer> solucio = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
 
         List<List <Integer>> expectedint = new ArrayList<>(Taulell.NUMINTENTS);
@@ -68,7 +68,7 @@ public class TaulellTest {
     }
 
     @Test
-    public void getUltimIntent() {
+    public void getUltimIntent() throws DomainException {
         List<Integer> solucio = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
 
         List<Integer> ultimintent = new ArrayList<>(List.of(Bola.ROSA.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
@@ -112,7 +112,7 @@ public class TaulellTest {
     }
 
     @Test
-    public void getUltimFeedback() {
+    public void getUltimFeedback() throws DomainException {
         List<Integer> solucio = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
 
         List<Integer> ultimintent = new ArrayList<>(List.of(Bola.ROSA.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
@@ -157,7 +157,7 @@ public class TaulellTest {
     }
 
     @Test
-    public void getIntents() {
+    public void getIntents() throws DomainException {
         List<Integer> solucio = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
 
         List<List <Integer>> expectedint = new ArrayList<>(Taulell.NUMINTENTS);
@@ -181,7 +181,7 @@ public class TaulellTest {
     }
 
     @Test
-    public void getFeedbacks() {
+    public void getFeedbacks() throws DomainException {
         List<Integer> solucio = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
 
         List<List <Integer>> expectedfeed = new ArrayList<>(Taulell.NUMINTENTS);
@@ -204,7 +204,7 @@ public class TaulellTest {
     }
 
     @Test
-    public void getNumeroIntent() {
+    public void getNumeroIntent() throws DomainException {
         List<Integer> solucio = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
 
         List<Integer> ultimintent = new ArrayList<>(List.of(Bola.ROSA.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
@@ -247,7 +247,7 @@ public class TaulellTest {
     }
 
     @Test
-    public void addFeedback() {
+    public void addFeedback() throws DomainException {
         List<Integer> solucio = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
         Taulell taulell = new Taulell(solucio);
 
@@ -260,7 +260,7 @@ public class TaulellTest {
     }
 
     @Test
-    public void getSolucio() {
+    public void getSolucio() throws DomainException {
         List<Integer> solucio = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
         Taulell taulell = new Taulell(solucio);
         assertEquals(solucio, taulell.getSolucio());

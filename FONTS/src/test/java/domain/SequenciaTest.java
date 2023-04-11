@@ -1,6 +1,7 @@
 package domain;
 
 import domain.exceptions.InvalidEnumValueException;
+import domain.exceptions.InvalidNumBolesException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,25 +13,18 @@ public class SequenciaTest {
 
     @Test
     public void newSequenciaBuida() {
-        Sequencia sequencia = new Sequencia(5);
+        Sequencia sequencia = new Sequencia();
         assertEquals((List.of(0,0,0,0,0)),sequencia.flatten());
     }
 
     @Test
-    public void newSequenciaBuidaWrongSize() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Sequencia sequencia = new Sequencia(-1);
-        });
-    }
-
-    @Test
-    public void newSequenciaInit() {
+    public void newSequenciaInit() throws InvalidNumBolesException {
         Sequencia sequencia = new Sequencia(List.of(1,0,5,0,0));
         assertEquals((List.of(1,0,5,0,0)),sequencia.flatten());
     }
 
     @Test
-    public void isPlena() throws InvalidEnumValueException {
+    public void isPlena() throws InvalidEnumValueException,InvalidNumBolesException {
         List<Integer> initBoles = new ArrayList<>(List.of(Bola.NEGRE.number(),Bola.BLAU.number(),Bola.BLANC.number(),Bola.BLANC.number(),Bola.TARONJA.number()));
         Sequencia sequencia = new Sequencia(initBoles);
         assertEquals(true,sequencia.isPlena());
@@ -40,7 +34,7 @@ public class SequenciaTest {
     }
 
     @Test
-    public void isBuida() throws InvalidEnumValueException {
+    public void isBuida() throws InvalidEnumValueException,InvalidNumBolesException {
         List<Integer> initBoles = new ArrayList<>(List.of(Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number()));
         Sequencia sequencia = new Sequencia(initBoles);
         assertEquals(true,sequencia.isBuida());
@@ -51,7 +45,7 @@ public class SequenciaTest {
 
     @Test
     public void setBola() throws InvalidEnumValueException {
-        Sequencia sequencia = new Sequencia(5);
+        Sequencia sequencia = new Sequencia();
         sequencia.setBola(0, Bola.ROSA.number());
         sequencia.setBola(3, Bola.BLAU.number());
 
@@ -61,7 +55,7 @@ public class SequenciaTest {
 
     @Test
     public void setWrongIndexBola() {
-        Sequencia sequencia = new Sequencia(5);
+        Sequencia sequencia = new Sequencia();
         assertThrows(IndexOutOfBoundsException.class, () -> {
             sequencia.setBola(-1, Bola.ROSA.number());
         });
@@ -69,14 +63,14 @@ public class SequenciaTest {
 
     @Test
     public void setWrongBola() {
-        Sequencia sequencia = new Sequencia(5);
+        Sequencia sequencia = new Sequencia();
         assertThrows(InvalidEnumValueException.class, () -> {
             sequencia.setBola(0, -1);
         });
     }
 
     @Test
-    public void flatten() {
+    public void flatten() throws InvalidNumBolesException {
         List<Integer> expectedBoles = new ArrayList<>(List.of(Bola.NUL.number(),Bola.ROSA.number(),Bola.NEGRE.number(),Bola.BLANC.number(),Bola.VERMELL.number()));
         Sequencia sequencia = new Sequencia(expectedBoles);
         assertEquals(expectedBoles, sequencia.flatten());

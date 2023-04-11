@@ -23,9 +23,10 @@ class ControladorPartida {
      * Mètode que crea una nova partida actual on el jugador és el maker
      * @param solucio solució de la partida proporcionada pel jugador
      * @param algorisme enter que representa l'algorisme escollit com a breaker
+     * @throws DomainException si el tamany de list no és correcte
      * @author Albert Canales
      */
-    void novaPartidaMaker(List<Integer> solucio, Integer algorisme, String user) {
+    void novaPartidaMaker(List<Integer> solucio, Integer algorisme, String user) throws DomainException {
         partida = new Partida(user);
         taulell = new Taulell(solucio);
         botBreaker = BotBreaker.create(algorisme);
@@ -36,9 +37,10 @@ class ControladorPartida {
     /**
      * Mètode que crea una nova partida actual on el jugador és el breaker
      * @param nivellDificultat enter que representa el nivell de dificultat de la partida
+     * @throws DomainException si el tamany de list no és correcte
      * @author Albert Canales
      */
-    void novaPartidaBreaker(Integer nivellDificultat, String user) {
+    void novaPartidaBreaker(Integer nivellDificultat, String user) throws DomainException {
         partida = new Partida(user);
         botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(botMaker.generaSequenciaSolucio());
@@ -52,10 +54,11 @@ class ControladorPartida {
      * @param intents intents de la partida existent
      * @param feedback feedbacks de la partida existent
      * @param solucio solucio de la partida existent
+     * @throws DomainException si el tamany d'alguna list no és correcte
      * @author Albert Canales
      */
     void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
-                              List<Integer> solucio, String user) {
+                              List<Integer> solucio, String user) throws DomainException {
         partida = new Partida(user);
         botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(solucio, intents, feedback);
@@ -70,10 +73,11 @@ class ControladorPartida {
      * @param feedback feedbacks de la partida existent
      * @param solucio solucio de la partida existent
      * @param temps temps transcorregut de la partida existent
+     * @throws DomainException si el tamany d'alguna list no és correcte
      * @author Albert Canales
      */
     void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
-                                List<Integer> solucio, Duration temps, String user) {
+                                List<Integer> solucio, Duration temps, String user) throws DomainException {
         partida = new Partida(user, temps);
         botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(solucio, intents, feedback);
@@ -84,9 +88,10 @@ class ControladorPartida {
     /**
      * Mètode per validar l'últim intent de la partida i passar al següent
      * @return feedback de l'últim intent, en funció de la dificultat de la partida
+     * @throws DomainException si el tamany de feedback no és correcte
      * @author Albert Canales
      */
-    List<Integer> validarSequencia() {
+    List<Integer> validarSequencia() throws DomainException {
         List<Integer> ultimIntent = taulell.getUltimIntent();
         List<Integer> solucio = taulell.getSolucio();
 

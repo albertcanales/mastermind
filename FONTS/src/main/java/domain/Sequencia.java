@@ -1,6 +1,7 @@
 package domain;
 
 import domain.exceptions.InvalidEnumValueException;
+import domain.exceptions.InvalidNumBolesException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 class Sequencia {
 
+    static final int NUMBOLES = 5;
     private int mida;
 
     private List<Integer> sequencia;
@@ -20,12 +22,11 @@ class Sequencia {
     /**
      * Crea una seqüència buida
      *
-     * @param size enter que representa la mida de la seqüència
      */
-    Sequencia(Integer size) {
-        sequencia = new ArrayList<>(size);
+    Sequencia() {
+        sequencia = new ArrayList<>(NUMBOLES);
         mida = 0;
-        for (int i = 0; i < size ; ++i) {
+        for (int i = 0; i < NUMBOLES ; ++i) {
             sequencia.add(Bola.NUL.number());
         }
     }
@@ -34,8 +35,12 @@ class Sequencia {
      * Crea una seqüència donada una llista d'enters (Boles)
      * 
      * @param list una llista d'enters (Boles) a utilitzar per inicialitzar la seqüència
+     * @throws InvalidNumBolesException si el tamany de list no és correcte
      */
-    Sequencia(List<Integer> list) {
+    Sequencia(List<Integer> list) throws InvalidNumBolesException {
+        if (list.size() != NUMBOLES) {
+            throw new InvalidNumBolesException(list.size(),NUMBOLES);
+        }
         sequencia = list;
         mida = 0;
         for (Integer bola : list) {
