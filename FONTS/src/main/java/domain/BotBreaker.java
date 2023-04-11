@@ -72,4 +72,12 @@ enum TipusAlgorisme {
      * @author Mar Gonzàlez Català
      */
     int number() { return number; }
+
+    /**
+     * Mètode per obtenir el nombre de dificultats
+     * @return enter que representa el número de dificultats
+     */
+    public static int numAlgoritmes() {
+        return (values().length);
+    }
 }

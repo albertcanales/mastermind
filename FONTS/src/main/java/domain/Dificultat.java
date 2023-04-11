@@ -100,4 +100,12 @@ enum NivellDificultat {
      * @author Albert Canales
      */
     int number() { return number; }
+
+    /**
+     * Mètode per obtenir el nombre de dificultats
+     * @return enter que representa el número de dificultats
+     */
+    public static int numDificultats() {
+        return (values().length);
+    }
 }
