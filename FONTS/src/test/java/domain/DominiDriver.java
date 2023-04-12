@@ -49,8 +49,26 @@ public class DominiDriver extends ControladorDriver {
         cd = new ControladorDomini();
     }
 
+    private static void testUserLoggedIn() {
+        System.out.println("Testing userLoggedIn...");
+
+        if(cd.userLoggedIn())
+            System.out.println("S'ha iniciat sessió");
+        else
+            System.out.println("No s'ha iniciat sessió");
+    }
+
+    private static void testIsPartidaBeingPlayed() {
+        System.out.println("Testing isPartidaBeingPlayed...");
+
+        if(cd.isPartidaBeingPlayed())
+            System.out.println("Hi ha una partida en joc");
+        else
+            System.out.println("No hi ha una partida en joc");
+    }
+
     private static void testExistsUser() {
-        System.out.println("Testing loginUser...");
+        System.out.println("Testing existsUser...");
 
         System.out.print("Enter un username: ");
         String username = in.nextLine();
@@ -99,12 +117,37 @@ public class DominiDriver extends ControladorDriver {
         cd.registerUser(username, name, password);
     }
 
+    private static void testLogoutUser() throws DomainException {
+        System.out.println("Testing logoutUser...");
+
+        if(!cd.userLoggedIn()) {
+            System.out.println("Error: No s'ha iniciat sessió");
+            return;
+        }
+
+        cd.logoutUser();
+    }
+
     private static void testNovaPartidaMaker() {
 
     }
 
     private static void testNovaPartidaBreaker() {
 
+    }
+
+    private static void testExistsPartidaGuardada() throws DomainException {
+        System.out.println("Testing existsPartidaGuardada...");
+
+        if(!cd.userLoggedIn()) {
+            System.out.println("Error: No s'ha iniciat sessió");
+            return;
+        }
+
+        if(cd.existsPartidaGuardada())
+            System.out.println("Hi ha una partida guardada de l'usuari que ha iniciat sessió");
+        else
+            System.out.println("No hi ha una partida guardada de l'usuari que ha iniciat sessió");
     }
 
     private static void testCarregarPartida() {
@@ -214,15 +257,65 @@ public class DominiDriver extends ControladorDriver {
         }
     }
 
+    public static void testIsJugadorBreaker() throws DomainException {
+        System.out.println("Testing isJugadorBreaker...");
+
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No hi ha una partida en joc");
+            return;
+        }
+
+        if (cd.isJugadorBreaker())
+            System.out.println("El jugador fa de breaker en la partida actual");
+        else
+            System.out.println("El bot fa de breaker en la partida actual");
+    }
+
     private static void testGetSolucio() throws DomainException {
+        System.out.println("Testing getSolucio...");
+
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No hi ha una partida en joc");
+            return;
+        }
+
+        System.out.print("La solució de la partida és: ");
+        printSequence(cd.getSolucio());
+    }
+
+    private static void testGetIntents() throws DomainException {
+        System.out.println("Testing getIntents...");
+
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No hi ha una partida en joc");
+            return;
+        }
+
+        System.out.println("Els intents de la partida actual són: ");
+        List<List<Integer>> intents = cd.getIntents();
+        for (List<Integer> intent : intents)
+            printSequence(intent);
+    }
+
+    private static void testGetFeedbacks() throws DomainException {
+        System.out.println("Testing getFeedbacks...");
+
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No hi ha una partida en joc");
+            return;
+        }
+
+        System.out.println("Els feedbacks de la partida actual són: ");
+        List<List<Integer>> feedbacks = cd.getFeedbacks();
+        for (List<Integer> feedback : feedbacks)
+            printSequence(feedback);
+    }
+
+    private static void testGetTempsPartidaMillis() {
 
     }
 
-    private static void testGetIntents() {
-
-    }
-
-    private static void testGetFeedbacks() {
+    private static void testAddTempsPartidaMillis() {
 
     }
 
@@ -234,8 +327,19 @@ public class DominiDriver extends ControladorDriver {
 
     }
 
-    private static void testBotSolve() {
+    private static void testBotSolve() throws DomainException {
+        System.out.println("Testing botSolve...");
 
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No hi ha una partida en joc");
+            return;
+        }
+        if(cd.isJugadorBreaker()) {
+            System.out.println("Error: En aquesta partida el jugador és el breaker");
+            return;
+        }
+
+        cd.botSolve();
     }
 
     // TODO Fer main com l'altre

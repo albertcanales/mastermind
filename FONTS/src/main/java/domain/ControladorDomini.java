@@ -18,6 +18,8 @@ public class ControladorDomini {
 
     private User user;
 
+    // TODO Als mètodes on es crida a persistència amb coses de user com paràmetres, cal fer validació (esperant Kamil)
+
     /**
      * Constructor del Controlador de Domini
      * @author Albert Canales
@@ -197,6 +199,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<List<Object>> getRanquing(Integer nivellDificultat, Integer nombrePartides) {
+        // TODO Validar paràmetres
         return controladorPersistencia.getRanquing(nivellDificultat, nombrePartides);
     }
 
@@ -285,14 +288,21 @@ public class ControladorDomini {
     }
 
     /**
+     * Mètode per saber si el jugador fa de breaker en la partida actual
+     * @throws DomainException si no s'està jugant cap partida
+     * @author Albert Canales
+     */
+    Boolean isJugadorBreaker() throws DomainException {
+        return controladorPartida.isJugadorBreaker();
+    }
+
+    /**
      * Getter de la solució de la partida actual
      * @throws NotPlayingPartidaException si no s'està jugant cap partida
      * @return La seqüència solució de la partida actual
      * @author Albert Canales
      */
     public List<Integer> getSolucio() throws DomainException {
-        if(!controladorPartida.isPartidaPresent())
-            throw new NotPlayingPartidaException();
         return controladorPartida.getSequenciaSolucio();
     }
 
@@ -303,8 +313,6 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<List<Integer>> getIntents() throws DomainException {
-        if(!controladorPartida.isPartidaPresent())
-            throw new NotPlayingPartidaException();
         return controladorPartida.getIntents();
     }
 
@@ -315,8 +323,6 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<List<Integer>> getFeedbacks() throws DomainException {
-        if(!controladorPartida.isPartidaPresent())
-            throw new NotPlayingPartidaException();
         return controladorPartida.getFeedbacks();
     }
 
@@ -326,8 +332,6 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public Long getTempsPartidaMillis() throws DomainException {
-        if(!controladorPartida.isPartidaPresent())
-            throw new NotPlayingPartidaException();
         return controladorPartida.getTempsMillis();
     }
 
@@ -338,8 +342,6 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public void addTempsPartidaMillis(Long millis) throws DomainException {
-        if(!controladorPartida.isPartidaPresent())
-            throw new NotPlayingPartidaException();
         controladorPartida.addTempsMillis(millis);
     }
 
@@ -352,8 +354,6 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public void setBola(Integer index, Integer bola) throws DomainException {
-        if(!controladorPartida.isPartidaPresent())
-            throw new NotPlayingPartidaException();
         controladorPartida.setBola(index, bola);
     }
 
@@ -396,8 +396,6 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     void botSolve() throws DomainException {
-        if(!controladorPartida.isPartidaPresent())
-            throw new NotPlayingPartidaException();
         controladorPartida.botSolve();
     }
 }
