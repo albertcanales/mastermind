@@ -296,4 +296,15 @@ public class TaulellTest {
 
         assertEquals(intent, taulell.getIntents().get(0));
     }
+
+    @Test
+    public void setBolaWrong() throws DomainException {
+        List<Integer> solucio = getList(213123466,false, false);
+
+        Taulell taulell = new Taulell(solucio);
+
+        assertThrows(InvalidEnumValueException.class, () -> {
+            taulell.setBola(0, -1);
+        });
+    }
 }
