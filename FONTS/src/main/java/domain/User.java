@@ -1,5 +1,8 @@
 package domain;
 
+import domain.exceptions.DomainException;
+import domain.exceptions.InvalidEnumValueException;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,7 +72,7 @@ public class User {
      * Constructor d'un usuari ja existent
      * @author Kamil Przybyszewski
      */
-    //TODO Excepcions si tamany no es numDificultats o numAlgoritmes
+    //TODO Excepcions si tamany no es numDificultats o numAlgoritmes, i si els valors no son correctes
     public User(String name, String username, List<Integer> personalRecord, List<Duration> timePlayed, List<Integer> wonGames, List<Integer> winStreak, List<Double> avgAsBreaker, List<Integer> numGamesAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) {
         this.name = name;
         this.username = username;
@@ -90,8 +93,10 @@ public class User {
      * @param guanyada si l'usuari ha guanyat la partida
      * @param temps duració de la partida
      * @author Kamil Przybyszewski
-     */
-    public void acabarPartidaBreaker(Integer dificultat, Integer intents, Boolean guanyada, Duration temps){
+     */ //TODO Excepcions si intents i temps no son correctes
+    public void acabarPartidaBreaker(Integer dificultat, Integer intents, Boolean guanyada, Duration temps) throws DomainException {
+        if (!NivellDificultat.isValid(dificultat)) throw new InvalidEnumValueException("NivellDificultat", dificultat.toString());
+
         dificultat--; //Els valors de NivellDificultat no comencen a 0
 
         if (intents < personalRecord.get(dificultat)) personalRecord.set(dificultat, intents);
@@ -120,8 +125,9 @@ public class User {
      * @param algoritme algoritme seleccionat pel BotBreaker a la partida
      * @param intents intents del BotBreaker a la partida
      * @author Kamil Przybyszewski
-     */
-    public void acabarPartidaMaker(Integer algoritme, Integer intents){
+     */ //TODO Excepcions si intents i temps no son correctes
+    public void acabarPartidaMaker(Integer algoritme, Integer intents) throws DomainException {
+        if (!NivellDificultat.isValid(algoritme)) throw new InvalidEnumValueException("NivellDificultat", algoritme.toString());
         algoritme--; //Els valors de TipusAlgoritme no comencen en 0
 
         Integer totalIntents = (int) (averageAsMaker.get(algoritme)*numGamesAsMaker.get(algoritme));
