@@ -1,5 +1,8 @@
 package domain;
 
+import domain.exceptions.DomainException;
+import domain.exceptions.InvalidEnumValueException;
+
 import java.util.*;
 
 /**
@@ -14,7 +17,7 @@ abstract class BotBreaker {
      * @param tipusAlgorisme tipus d'Algorisme.
      * @author Mar Gonzàlez Català
      */
-    static BotBreaker create(Integer tipusAlgorisme) {
+    static BotBreaker create(Integer tipusAlgorisme) throws DomainException {
         switch (TipusAlgorisme.findByNumber(tipusAlgorisme)) {
             case FIVEGUESS:
                 return new FiveGuess();
@@ -55,16 +58,17 @@ enum TipusAlgorisme {
     /**
      * @brief Mètode per obtenir el TipusAlgorisme corresponent a un nombre
      * @param number és el valor que representa el tipus d'algorisme
+     * @throws DomainException si el nombre no correspon a un algorisme
      * @return el valor de TipusAlgorisme corresponent al nombre donat
      * @author Mar Gonzàlez Català
      */
-    public static TipusAlgorisme findByNumber(Integer number){
+    public static TipusAlgorisme findByNumber(Integer number) throws DomainException {
         for(TipusAlgorisme ta : values()){
             if( ta.number() == number){
                 return ta;
             }
         }
-        return null;
+        throw new InvalidEnumValueException("Algorisme", number.toString());
     }
 
     /**

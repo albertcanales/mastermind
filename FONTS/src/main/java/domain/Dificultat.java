@@ -2,7 +2,6 @@ package domain;
 
 import domain.exceptions.DomainException;
 import domain.exceptions.InvalidEnumValueException;
-import domain.exceptions.InvalidNumIntentsException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +19,7 @@ abstract class Dificultat {
      * @return Nova instància de la dificultat desitjada
      * @author Albert Canales
      */
-    static Dificultat create(Integer nivellDificultat) {
+    static Dificultat create(Integer nivellDificultat) throws DomainException {
 
         switch (NivellDificultat.findByNumber(nivellDificultat)) {
             case FACIL:
@@ -93,13 +92,13 @@ enum NivellDificultat {
      * @return el valor de NivellDificultat corresponent al nombre donat
      * @author Albert Canales
      */
-    public static NivellDificultat findByNumber(Integer number){
+    public static NivellDificultat findByNumber(Integer number) throws DomainException {
         for(NivellDificultat nd : values()){
             if( nd.number() == number){
                 return nd;
             }
         }
-        return null;
+        throw new InvalidEnumValueException("NivellDificultat", number.toString());
     }
 
     /**

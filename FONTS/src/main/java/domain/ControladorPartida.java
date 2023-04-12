@@ -1,6 +1,8 @@
 package domain;
 
 import domain.exceptions.DomainException;
+import domain.exceptions.InvalidPartidaTypeException;
+import domain.exceptions.NotPlayingPartidaException;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ class ControladorPartida {
      * @param solucio solució de la partida proporcionada pel jugador
      * @param algorisme enter que representa l'algorisme escollit com a breaker
      * @throws DomainException si el tamany de list no és correcte
+     * @throws DomainException si algorisme no és vàlid
      * @author Albert Canales
      */
     void novaPartidaMaker(List<Integer> solucio, Integer algorisme) throws DomainException {
@@ -45,6 +48,7 @@ class ControladorPartida {
      * Mètode que crea una nova partida actual on el jugador és el breaker
      * @param nivellDificultat enter que representa el nivell de dificultat de la partida
      * @throws DomainException si el tamany de list no és correcte
+     * @throws DomainException si el nivellDificultat no és vàlid
      * @author Albert Canales
      */
     void novaPartidaBreaker(Integer nivellDificultat) throws DomainException {
@@ -62,6 +66,7 @@ class ControladorPartida {
      * @param feedback feedbacks de la partida existent
      * @param solucio solucio de la partida existent
      * @throws DomainException si el tamany d'alguna list no és correcte
+     * @throws DomainException si el nivellDificultat no és vàlid
      * @author Albert Canales
      */
     void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
@@ -81,6 +86,7 @@ class ControladorPartida {
      * @param solucio solucio de la partida existent
      * @param temps temps transcorregut de la partida existent
      * @throws DomainException si el tamany d'alguna list no és correcte
+     * @throws DomainException si el nivellDificultat no és vàlid
      * @author Albert Canales
      */
     void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
@@ -94,9 +100,12 @@ class ControladorPartida {
 
     /**
      * Mètode deixar la partida actual
+     * @throws DomainException si no s'està jugant cap partida
      * @author Albert Canales
      */
-    void sortirPartida() {
+    void sortirPartida() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
         partida = null;
         taulell = null;
         dificultat = null;
@@ -107,10 +116,16 @@ class ControladorPartida {
     /**
      * Mètode per validar l'últim intent de la partida i passar al següent
      * @return feedback de l'últim intent, en funció de la dificultat de la partida
+     * @throws DomainException si no s'està jugant cap partida
+     * @throws DomainException si on la partida que es juga el jugador no es breaker
      * @throws DomainException si el tamany de feedback no és correcte
      * @author Albert Canales
      */
     List<Integer> validarSequencia() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
+        if(botMaker == null)
+            throw new InvalidPartidaTypeException("Breaker");
         List<Integer> ultimIntent = taulell.getUltimIntent();
         List<Integer> solucio = taulell.getSolucio();
 
@@ -122,69 +137,99 @@ class ControladorPartida {
 
     /**
      * Mètode perquè el bot jugui la partida
+     * @throws DomainException si no s'està jugant cap partida
+     * @throws DomainException si on la partida que es juga el bot no es breaker
      * @author Albert Canales
      */
-    void botSolve() {
+    void botSolve() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
+        if(botBreaker == null)
+            throw new InvalidPartidaTypeException("Maker");
         List<Integer> solution = taulell.getSolucio();
         botBreaker.solve(new ArrayList<>(solution));
     }
 
     /**
      * Getter per al temps transcorregut de la partida
+     * @throws DomainException si no s'està jugant cap partida
      * @return el temps transcorregut amb mil·lisegons
      * @author Albert Canales
      */
-    Long getTempsMillis() {
+    Long getTempsMillis() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
         return partida.getTemps().toMillis();
     }
 
     /**
      * Mètode per afegir temps transcorregut a la partida
+     * @throws DomainException si no s'està jugant cap partida
      * @param millis temps a afegir, amb mil·lisegons
      * @author Albert Canales
      */
-    void addTempsMillis(Long millis) {
+    void addTempsMillis(Long millis) throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
         partida.addMillis(millis);
     }
 
     /**
      * Getter del nivell de dificultat de la partida
+     * @throws DomainException si no s'està jugant cap partida
+     * @throws DomainException si la partida que es juga el jugador no és breaker
      * @return nombre de la dificultat corresponent
      * @author Albert Canales
      */
-    Integer getNivellDificultat() {
+    Integer getNivellDificultat() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
+        if(botMaker == null)
+            throw new InvalidPartidaTypeException("Breaker");
         return dificultat.getNivellDificultat().number();
     }
 
     /**
      * Getter de la solució de la partida
+     * @throws DomainException si no s'està jugant cap partida
      * @author Albert Canales
      */
-    List<Integer> getSequenciaSolucio() {
+    List<Integer> getSequenciaSolucio() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
         return taulell.getSolucio();
     }
 
     /**
      * Getter dels intents de la partida
+     * @throws DomainException si no s'està jugant cap partida
      * @author Albert Canales
      */
-    List<List<Integer>> getIntents() {
+    List<List<Integer>> getIntents() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
         return taulell.getIntents();
     }
 
     /**
      * Getter dels feedbacks de la partida
+     * @throws DomainException si no s'està jugant cap partida
      * @author Albert Canales
      */
-    List<List<Integer>> getFeedbacks() {
+    List<List<Integer>> getFeedbacks() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
         return taulell.getFeedbacks();
     }
 
     /**
      * Mètode per saber si una partida està guanyada
+     * @throws DomainException si no s'està jugant cap partida
      * @author Albert Canales
      */
-    Boolean isPartidaGuanyada() {
+    Boolean isPartidaGuanyada() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
         List<Integer> ultimFeedback = taulell.getUltimFeedback();
         for (Integer bola : ultimFeedback) {
             if (!bola.equals(Bola.NEGRE.number()))
@@ -195,17 +240,21 @@ class ControladorPartida {
 
     /**
      * Mètode per saber si una partida està perduda
+     * @throws DomainException si no s'està jugant cap partida
      * @author Albert Canales
      */
-    Boolean isPartidaPerduda() {
+    Boolean isPartidaPerduda() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
         return taulell.getNumeroIntent() >= Taulell.NUMINTENTS;
     }
 
     /**
      * Mètode per saber si una partida està acabada
+     * @throws DomainException si no s'està jugant cap partida
      * @author Albert Canales
      */
-    Boolean isPartidaAcabada() {
+    Boolean isPartidaAcabada() throws DomainException {
         return isPartidaPerduda() || isPartidaGuanyada();
     }
 
@@ -214,9 +263,15 @@ class ControladorPartida {
      * @param index posició de la bola
      * @param bola bola a col·locar
      * @throws DomainException si bola no és una Bola vàlida
+     * @throws DomainException si no s'està jugant cap partida
+     * @throws DomainException si en la partida actual el jugador no és breaker
      * @author Albert Canales
      */
     void setBola(Integer index, Integer bola) throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
+        if(botMaker == null)
+            throw new InvalidPartidaTypeException("Breaker");
         taulell.setBola(index, bola);
     }
 }
