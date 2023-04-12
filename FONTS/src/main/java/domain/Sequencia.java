@@ -14,7 +14,7 @@ import java.util.List;
  */
 class Sequencia {
 
-    static final int NUMBOLES = 5;
+    static final int NUMBOLES = 4;
     private int mida;
 
     private List<Integer> sequencia;
