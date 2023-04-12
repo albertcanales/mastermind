@@ -342,6 +342,7 @@ public class ControladorDomini {
         controladorPartida.setBola(index, bola);
     }
 
+    // TODO Aquest mètode s'ha de revisar
     /**
      * Mètode per a validar l'intent actual en la partida actual
      * @return El feedback corresponent a l'intent donat

@@ -3,6 +3,7 @@ package domain;
 import domain.exceptions.DomainException;
 import domain.exceptions.InvalidPartidaTypeException;
 import domain.exceptions.NotPlayingPartidaException;
+import domain.exceptions.PartidaAlreadyFinished;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -126,6 +127,8 @@ class ControladorPartida {
             throw new NotPlayingPartidaException();
         if(!isJugadorBreaker())
             throw new InvalidPartidaTypeException("Breaker");
+        if(isPartidaAcabada())
+            throw new PartidaAlreadyFinished();
         List<Integer> ultimIntent = taulell.getUltimIntent();
         List<Integer> solucio = taulell.getSolucio();
 
@@ -146,6 +149,8 @@ class ControladorPartida {
             throw new NotPlayingPartidaException();
         if(isJugadorBreaker())
             throw new InvalidPartidaTypeException("Maker");
+        if(isPartidaAcabada())
+            throw new PartidaAlreadyFinished();
         List<Integer> solution = taulell.getSolucio();
         botBreaker.solve(new ArrayList<>(solution));
     }
@@ -172,6 +177,14 @@ class ControladorPartida {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
         partida.addMillis(millis);
+    }
+
+    /**
+     * Getter del nombre de boles d'una seqüència
+     * @author Albert Canales
+     */
+    static Integer getNumBoles() {
+        return Taulell.NUMBOLES;
     }
 
     /**

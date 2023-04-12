@@ -33,8 +33,7 @@ public class PartidaDriver {
         System.out.println("The read solution is: ");
         printSequence(solution);
 
-        // TODO falta també comprovar que és el num de boles que toca
-        boolean valid = true;
+        boolean valid = solution.size() == ControladorPartida.getNumBoles();
         for (Integer bola : solution) {
             if(!Bola.isColor(bola)) valid = false;
         }
@@ -83,24 +82,37 @@ public class PartidaDriver {
         System.out.println("Llista de comandes:");
         System.out.println("     0 | sortir");
         System.out.println("     1 | ajuda");
-        System.out.println("     2 | novaPartidaMaker");
-        System.out.println("     3 | novaPartidaBreaker");
-        System.out.println("     4 | carregarPartidaMaker");
-        System.out.println("     5 | carregarPartidaBreaker");
-        System.out.println("     6 | validarSequencia");
-        System.out.println("     7 | botSolve");
-        System.out.println("     8 | getTemps");
-        System.out.println("     9 | addTemps");
-        System.out.println("    10 | getNivellDificultat");
-        System.out.println("    11 | getSequenciaSolucio");
-        System.out.println("    12 | getIntents");
-        System.out.println("    13 | getFeedbacks");
-        System.out.println("    14 | isPartidaGuanyada");
-        System.out.println("    15 | isPartidaPerduda");
-        System.out.println("    16 | isPartidaAcabada");
-        System.out.println("    17 | setBola");
+        System.out.println("     2 | isPartidaPresent");
+        System.out.println("     3 | novaPartidaMaker");
+        System.out.println("     4 | novaPartidaBreaker");
+        System.out.println("     5 | carregarPartidaMaker");
+        System.out.println("     6 | carregarPartidaBreaker");
+        System.out.println("     7 | validarSequencia");
+        System.out.println("     8 | botSolve");
+        System.out.println("     9 | getTempsMillis");
+        System.out.println("    10 | addTempsMillis");
+        System.out.println("    11 | getNumBoles");
+        System.out.println("    12 | getNivellDificultat");
+        System.out.println("    13 | getAlgorisme");
+        System.out.println("    14 | getSequenciaSolucio");
+        System.out.println("    15 | getNumIntents");
+        System.out.println("    16 | getIntents");
+        System.out.println("    17 | getFeedbacks");
+        System.out.println("    18 | isJugadorBreaker");
+        System.out.println("    19 | isPartidaGuanyada");
+        System.out.println("    20 | isPartidaPerduda");
+        System.out.println("    21 | isPartidaAcabada");
+        System.out.println("    22 | setBola");
         System.out.println("Cada comanda es pot executar pel seu nombre o pel seu nom.");
-        System.out.println("La comanda 'ajuda (1)' mostra de nou aquesta informació");
+    }
+
+    private static void testIsPartidaPresent() {
+        System.out.println("Testing novaPartidaMaker...");
+
+        if(cp.isPartidaPresent())
+            System.out.println("S'està jugant una partida");
+        else
+            System.out.println("No s'està jugant una partida");
     }
 
     private static void testNovaPartidaMaker() throws DomainException {
@@ -119,36 +131,51 @@ public class PartidaDriver {
     }
 
     private static void testCarregarPartidaMaker() {
-
+        System.out.println("Testing carregarPartidaMaker...");
     }
 
     private static void testCarregarPartidaBreaker() {
-
+        System.out.println("Testing carregarPartidaBreaker...");
     }
 
     private static void testValidarSequencia() {
-
+        System.out.println("Testing validarSequencia...");
     }
 
-    private static void testBotSolve() {
+    private static void testBotSolve() throws DomainException {
+        System.out.println("Testing botSolve...");
 
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+        if(cp.isJugadorBreaker()) {
+            System.out.println("Error: En la partida actual el jugador és el breaker");
+            return;
+        }
+        if(cp.isPartidaAcabada()) {
+            System.out.println("Error: La partida ja està acabada");
+            return;
+        }
+
+        cp.botSolve();
     }
 
-    private static void testGetTemps() throws DomainException {
+    private static void testGetTempsMillis() throws DomainException {
         System.out.println("Testing getTemps...");
 
         if(!cp.isPartidaPresent()) {
-            System.out.println("Error: No s'està jugant cap partida ");
+            System.out.println("Error: No s'està jugant cap partida");
             return;
         }
         System.out.printf("El temps transcorregut és de %d ms.%n", cp.getTempsMillis());
     }
 
-    private static void testAddTemps() throws DomainException {
+    private static void testAddTempsMillis() throws DomainException {
         System.out.println("Testing addTemps...");
 
         if(!cp.isPartidaPresent()) {
-            System.out.println("Error: No s'està jugant cap partida ");
+            System.out.println("Error: No s'està jugant cap partida");
             return;
         }
 
@@ -158,11 +185,17 @@ public class PartidaDriver {
         cp.addTempsMillis(afegit);
     }
 
+    private static void testGetNumBoles() {
+        System.out.println("Testing getNivellDificultat...");
+
+        System.out.printf("El nombre de boles per cada seqüència és %d%n", ControladorPartida.getNumBoles());
+    }
+
     private static void testGetNivellDificultat() throws DomainException {
         System.out.println("Testing getNivellDificultat...");
 
         if(!cp.isPartidaPresent()) {
-            System.out.println("Error: No s'està jugant cap partida ");
+            System.out.println("Error: No s'està jugant cap partida");
             return;
         }
         if(!cp.isJugadorBreaker()) {
@@ -173,11 +206,26 @@ public class PartidaDriver {
         System.out.printf("El nivell de dificultat de la partida %d.%n", cp.getNivellDificultat());
     }
 
+    private static void testGetAlgorisme() throws DomainException {
+        System.out.println("Testing getAlgorisme...");
+
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+        if(cp.isJugadorBreaker()) {
+            System.out.println("Error: El bot no és el breaker de la partida");
+            return;
+        }
+
+        System.out.printf("L'algorisme del bot de la partida és el %d%n", cp.getAlgorisme());
+    }
+
     private static void testGetSequenciaSolucio() throws DomainException {
         System.out.println("Testing getSequenciaSolucio...");
 
         if(!cp.isPartidaPresent()) {
-            System.out.println("Error: No s'està jugant cap partida ");
+            System.out.println("Error: No s'està jugant cap partida");
             return;
         }
 
@@ -185,11 +233,22 @@ public class PartidaDriver {
         printSequence(cp.getSequenciaSolucio());
     }
 
+    private static void testGetNumIntents() throws DomainException {
+        System.out.println("Testing getNumIntents...");
+
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+
+        System.out.printf("En la partida actual s'han jugat %d intents%n", cp.getNumIntents());
+    }
+
     private static void testGetIntents() throws DomainException {
         System.out.println("Testing getIntents...");
 
         if(!cp.isPartidaPresent()) {
-            System.out.println("Error: No s'està jugant cap partida ");
+            System.out.println("Error: No s'està jugant cap partida");
             return;
         }
 
@@ -203,7 +262,7 @@ public class PartidaDriver {
         System.out.println("Testing getFeedbacks...");
 
         if(!cp.isPartidaPresent()) {
-            System.out.println("Error: No s'està jugant cap partida ");
+            System.out.println("Error: No s'està jugant cap partida");
             return;
         }
 
@@ -213,11 +272,25 @@ public class PartidaDriver {
             printSequence(feedback);
     }
 
+    private static void testIsJugadorBreaker() throws DomainException {
+        System.out.println("Testing isJugadorBreaker...");
+
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+
+        if(cp.isJugadorBreaker())
+            System.out.println("El jugador és el breaker de la partida");
+        else
+            System.out.println("El jugador és el maker de la partida");
+    }
+
     private static void testIsPartidaGuanyada() throws DomainException {
         System.out.println("Testing isPartidaGuanyada...");
 
         if(!cp.isPartidaPresent()) {
-            System.out.println("Error: No s'està jugant cap partida ");
+            System.out.println("Error: No s'està jugant cap partida");
             return;
         }
 
@@ -231,7 +304,7 @@ public class PartidaDriver {
         System.out.println("Testing isPartidaPerduda...");
 
         if(!cp.isPartidaPresent()) {
-            System.out.println("Error: No s'està jugant cap partida ");
+            System.out.println("Error: No s'està jugant cap partida");
             return;
         }
 
@@ -245,7 +318,7 @@ public class PartidaDriver {
         System.out.println("Testing isPartidaAcabada...");
 
         if(!cp.isPartidaPresent()) {
-            System.out.println("Error: No s'està jugant cap partida ");
+            System.out.println("Error: No s'està jugant cap partida");
             return;
         }
 
@@ -255,8 +328,35 @@ public class PartidaDriver {
             System.out.println("La partida actual no està acabada");
     }
 
-    private static void testSetBola() {
+    private static void testSetBola() throws DomainException {
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+        if(!cp.isPartidaAcabada()) {
+            System.out.println("Error: La partida actual ja ha acabat");
+            return;
+        }
 
+        System.out.print("Enter un index per la bola: ");
+        int index = in.nextInt();
+        while(index < 0 || index >= cp.getNumBoles()) {
+            System.out.println("L'índex no es correcte");
+            System.out.print("Enter un index per la bola: ");
+            index = in.nextInt();
+        }
+        System.out.printf("L'índex de la bola llegit és %d%n", index);
+
+        System.out.print("Enter un color per la bola: ");
+        int bola = in.nextInt();
+        while(Bola.isValid(bola)) {
+            System.out.println("El color donat no és vàlid");
+            System.out.print("Enter un color per la bola: ");
+            bola = in.nextInt();
+        }
+        System.out.printf("El color de bola llegit és %d%n", index);
+
+        cp.setBola(index, bola);
     }
 
     public static void main(String[] args) throws DomainException {
@@ -279,66 +379,86 @@ public class PartidaDriver {
                     runTest = false;
                     break;
                 case "2":
+                case "isPartidaPresent":
+                    testIsPartidaPresent();
+                    break;
+                case "3":
                 case "novaPartidaMaker":
                     testNovaPartidaMaker();
                     break;
-                case "3":
+                case "4":
                 case "novaPartidaBreaker":
                     testNovaPartidaBreaker();
                     break;
-                case "4":
+                case "5":
                 case "carregarPartidaMaker":
                     testCarregarPartidaMaker();
                     break;
-                case "5":
+                case "6":
                 case "carregarPartidaBreaker":
                     testCarregarPartidaBreaker();
                     break;
-                case "6":
+                case "7":
                 case "validarSequencia":
                     testValidarSequencia();
                     break;
-                case "7":
+                case "8":
                 case "botSolve":
                     testBotSolve();
                     break;
-                case "8":
-                case "getTemps":
-                    testGetTemps();
-                    break;
                 case "9":
-                case "addTemps":
-                    testAddTemps();
+                case "getTempsMillis":
+                    testGetTempsMillis();
                     break;
                 case "10":
+                case "addTempsMillis":
+                    testAddTempsMillis();
+                    break;
+                case "11":
+                case "getNumBoles":
+                    testGetNumBoles();
+                    break;
+                case "12":
                 case "getNivellDificultat":
                     testGetNivellDificultat();
                     break;
-                case "11":
+                case "13":
+                case "getAlgorisme":
+                    testGetAlgorisme();
+                    break;
+                case "14":
                 case "getSequenciaSolucio":
                     testGetSequenciaSolucio();
                     break;
-                case "12":
+                case "15":
+                case "getNumIntents":
+                    testGetNumIntents();
+                    break;
+                case "16":
                 case "getIntents":
                     testGetIntents();
                     break;
-                case "13":
+                case "17":
                 case "getFeedbacks":
                     testGetFeedbacks();
                     break;
-                case "14":
+                case "18":
+                case "isJugadorBreaker":
+                    testIsJugadorBreaker();
+                    break;
+                case "19":
                 case "isPartidaGuanyuada":
                     testIsPartidaGuanyada();
                     break;
-                case "15":
+                case "20":
                 case "isPartidaPerduda":
                     testIsPartidaPerduda();
                     break;
-                case "16":
+                case "21":
                 case "isPartidaAcabada":
                     testIsPartidaAcabada();
                     break;
-                case "17":
+                case "22":
                 case "setBola":
                     testSetBola();
                     break;
