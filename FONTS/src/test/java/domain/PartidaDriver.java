@@ -2,98 +2,18 @@ package domain;
 
 import domain.exceptions.DomainException;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
 
-public class PartidaDriver {
+/**
+ * Driver del ControladorPartida
+ * @author Albert Canales
+ */
+public class PartidaDriver extends ControladorDriver {
 
     private static ControladorPartida cp;
-    private static Scanner in;
-
-    private static Integer scanInt() {
-        if(in.hasNextInt()) {
-            return in.nextInt();
-        }
-        System.out.print("Not an integer, enter again: ");
-        in.nextLine();
-        return scanInt();
-    }
-
-    private static Long scanLong() {
-        try {
-            return in.nextLong();
-        } catch (InputMismatchException e) {
-            System.out.print("Not a long, enter again: ");
-            return scanLong();
-        }
-    }
-
-    private static List<Integer> scanSequence() {
-        List<Integer> sequence = new ArrayList<>();
-        System.out.print("Enter the next bola (negative to stop): ");
-        int num = scanInt();
-        while(num > -1) {
-            sequence.add(num);
-            System.out.print("Enter the next bola (negative to stop): ");
-            num = scanInt();
-        }
-        return sequence;
-    }
-    
-    private static List<Integer> scanSolution() {
-        System.out.println("Enter a solution: ");
-        List<Integer> solution = scanSequence();
-        System.out.println("The read solution is: ");
-        printSequence(solution);
-
-        boolean valid = solution.size() == ControladorPartida.getNumBoles();
-        for (Integer bola : solution) {
-            if(!Bola.isColor(bola)) valid = false;
-        }
-
-        if(!valid) {
-            System.out.println("The given solution is invalid. Please enter a correct one.");
-            return scanSolution();
-        }
-        return solution;
-    }
-    
-    private static Integer scanNivellDificultat() {
-        System.out.println("Enter a dificultat: ");
-
-        int dificultat = scanInt();
-
-        if(!NivellDificultat.isValid(dificultat)) {
-            System.out.println("The given dificultat is invalid.");
-            dificultat = scanNivellDificultat();
-        }
-        System.out.printf("The given dificultat is: %d%n", dificultat);
-        return dificultat;
-    }
-
-    private static Integer scanAlgorisme() {
-        System.out.println("Enter an algorisme: ");
-        int algorisme = scanInt();
-
-        if(!TipusAlgorisme.isValid(algorisme)) {
-            System.out.println("The given algorisme is invalid.");
-            algorisme = scanAlgorisme();
-        }
-        System.out.printf("The given algorisme is: %d%n", algorisme);
-        return algorisme;
-    }
-
-    private static void printSequence(List<Integer> sequence) {
-        for (int i = 0; i < sequence.size(); i++) {
-            System.out.print(sequence.get(i));
-            if(i+1 < sequence.size()) System.out.print(" ");
-            else System.out.println("\n");
-        }
-    }
 
     private static void showUsage() {
         System.out.println("Llista de comandes:");

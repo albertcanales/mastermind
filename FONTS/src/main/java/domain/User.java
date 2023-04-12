@@ -17,6 +17,9 @@ import java.util.List;
  */
 public class User {
 
+    // TODO El concepte de Winstreak està mal implementat, es refereix al màxim winstreak històric, per això calia un lastGameWon
+    // TODO Excepcions per username, user i name
+
     private String name;
     private String username;
 

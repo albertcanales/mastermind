@@ -29,6 +29,22 @@ public class ControladorDomini {
     }
 
     /**
+     * Mètode per saber si s'ha iniciat sessió
+     * @author Albert Canales
+     */
+    public Boolean userLoggedIn() {
+        return user != null;
+    }
+
+    /**
+     * Mètode per saber s'està jugant una partida
+     * @author Albert Canales
+     */
+    public Boolean isPartidaBeingPlayed() {
+        return controladorPartida.isPartidaPresent();
+    }
+
+    /**
      * Mètode per comprovar si existeix un usuari
      * @param username username de l'usuari a comprovar
      * @return si l'usuari donat existeix
@@ -86,7 +102,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public void logoutUser() throws NotLoggedInException {
-        if(user == null)
+        if(!userLoggedIn())
             throw new NotLoggedInException();
         user = null;
     }
@@ -99,7 +115,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) throws DomainException {
-        if(user == null)
+        if(!userLoggedIn())
             throw new NotLoggedInException();
         controladorPartida.novaPartidaMaker(solucio, algorisme);
     }
@@ -111,7 +127,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public void novaPartidaBreaker(Integer nivellDificultat) throws DomainException {
-        if(user == null)
+        if(!userLoggedIn())
             throw new NotLoggedInException();
         controladorPartida.novaPartidaBreaker(nivellDificultat);
     }
@@ -123,7 +139,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public Boolean existsPartidaGuardada() throws DomainException {
-        if(user == null)
+        if(!userLoggedIn())
             throw new NotLoggedInException();
         if(controladorPersistencia.existsPartidaGuardada()) {
             String usernameGuardada = controladorPersistencia.getUserPartidaGuardada();
@@ -191,7 +207,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<Integer> getPersonalRecord() throws DomainException {
-        if(user == null)
+        if(!userLoggedIn())
             throw new NotLoggedInException();
         return user.getPersonalRecord();
     }
@@ -203,7 +219,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<Long> getTimePlayed() throws DomainException {
-        if(user == null)
+        if(!userLoggedIn())
             throw new NotLoggedInException();
         return user.getTimePlayed();
     }
@@ -215,7 +231,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<Integer> getWonGames() throws DomainException {
-        if(user == null)
+        if(!userLoggedIn())
             throw new NotLoggedInException();
         return user.getWonGames();
     }
@@ -227,7 +243,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<Integer> getLostGames() throws DomainException {
-        if(user == null)
+        if(!userLoggedIn())
             throw new NotLoggedInException();
         return user.getLostGames();
     }
@@ -239,7 +255,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<Integer> getWinstreak() throws DomainException {
-        if(user == null)
+        if(!userLoggedIn())
             throw new NotLoggedInException();
         return user.getWinStreak();
     }
@@ -251,7 +267,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<Double> getAverageAsBreaker() throws DomainException {
-        if(user == null)
+        if(!userLoggedIn())
             throw new NotLoggedInException();
         return user.getAvgAsBreaker();
     }
@@ -263,7 +279,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<Double> getAverageAsMaker() throws DomainException {
-        if(user == null)
+        if(!userLoggedIn())
             throw new NotLoggedInException();
         return user.getAvgAsMaker();
     }
