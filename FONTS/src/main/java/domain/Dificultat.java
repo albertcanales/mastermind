@@ -1,5 +1,9 @@
 package domain;
 
+import domain.exceptions.DomainException;
+import domain.exceptions.InvalidEnumValueException;
+import domain.exceptions.InvalidNumIntentsException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,7 +46,7 @@ abstract class Dificultat {
      * @return feedback corresponent a l'intent
      * @author Albert Canales
      */
-    abstract List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent);
+    abstract List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent) throws DomainException;
 
     /**
      * Mètode que retorna el nombre d'aparicions de cada bola en la seqüència
@@ -50,9 +54,12 @@ abstract class Dificultat {
      * @return una llista on la posició del valor numèric de la bola representa el seu nombre d'aparicions
      * @author Albert Canales
      */
-    List<Integer> countColorsBoles(List<Integer> sequencia) {
-        List<Integer> colorList = new ArrayList<>(Collections.nCopies(sequencia.size(), 0));
+    List<Integer> countColorsBoles(List<Integer> sequencia) throws DomainException{
+        List<Integer> colorList = new ArrayList<>(Collections.nCopies(Bola.numColors(), 0));
         for (Integer color_sol : sequencia){
+            if (!Bola.isValid(color_sol)) {
+                throw new InvalidEnumValueException("Bola", color_sol.toString());
+            }
             Integer count = colorList.get(color_sol); count++;
             colorList.set(color_sol, count);
         }

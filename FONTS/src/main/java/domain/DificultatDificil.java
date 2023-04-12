@@ -1,5 +1,9 @@
 package domain;
 
+import domain.exceptions.DomainException;
+import domain.exceptions.InvalidEnumValueException;
+import domain.exceptions.SolIntentNotSameSizeException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,20 +25,25 @@ class DificultatDificil extends Dificultat {
      * @return feedback de l'intent en funció de la solució: una bola negre per cada posició on hi ha el mateix color, la resta buides
      */
     @Override
-    List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent){
-
+    List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent) throws DomainException {
+        if (solucio.size() != intent.size()) throw new SolIntentNotSameSizeException(solucio.size(),intent.size());
         int numboles = solucio.size();
+
         List<Integer> Color_count = countColorsBoles(solucio);
 
         List<Integer> feedback = new ArrayList<>(numboles);
         int negres = 0;
         for (int i = 0; i < numboles; ++i){
-            Integer color = intent.get(i);
-            Integer color_count = Color_count.get(color);
+            Integer color_sol = solucio.get(i);
+            if (!Bola.isValid(color_sol)) throw new InvalidEnumValueException("Bola", color_sol.toString());
+            Integer color_intent = intent.get(i);
+            if (!Bola.isValid(color_intent)) throw new InvalidEnumValueException("Bola", color_intent.toString());
+
+            Integer color_count = Color_count.get(color_intent);
             if (color_count > 0) {
-                if (Objects.equals(solucio.get(i), color)) negres++;
-                Integer count = Color_count.get(color); count--;
-                Color_count.set(color, count);
+                if (Objects.equals(solucio.get(i), color_intent)) negres++;
+                Integer count = Color_count.get(color_intent); count--;
+                Color_count.set(color_intent, count);
             }
         }
         for (int i = 0; i < negres; ++i) feedback.add(Bola.NEGRE.number());
