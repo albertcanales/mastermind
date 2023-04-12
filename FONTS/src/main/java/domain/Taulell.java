@@ -86,6 +86,15 @@ class Taulell {
     }
 
     /**
+     * Mètode que retorna si l'intent actual està ple (no hi ha boles nul·les)
+     *
+     * @return booleà
+     */
+    Boolean isUltimIntentPle() {
+        return intents.get(intentActual).isPlena();
+    }
+
+    /**
      * Mètode que retorna una llista que conté totes les "Boles" de l'intent actual
      * (últim)
      * 

@@ -70,12 +70,12 @@ class ControladorPartida {
      * @throws DomainException si el nivellDificultat no és vàlid
      * @author Albert Canales
      */
-    void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
+    void carregarPartidaMaker(List<List<Integer>> intents, List<List<Integer>> feedback,
                               List<Integer> solucio) throws DomainException {
         partida = new Partida();
         botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(solucio, intents, feedback);
-        dificultat = Dificultat.create(nivellDificultat);
+        dificultat = null;
         botBreaker = null;
     }
 
@@ -214,8 +214,7 @@ class ControladorPartida {
             throw new NotPlayingPartidaException();
         if(isJugadorBreaker())
             throw new InvalidPartidaTypeException("Maker");
-        // return botBreaker.getAlgorisme();
-        return null;
+        return botBreaker.getTipusAlgorisme().number();
     }
 
     /**
@@ -307,6 +306,15 @@ class ControladorPartida {
      */
     Boolean isPartidaAcabada() throws DomainException {
         return isPartidaPerduda() || isPartidaGuanyada();
+    }
+
+    /**
+     * Mètode per saber si l'últim intent està ple
+     * @throws DomainException si no s'està jugant cap partida
+     * @author Albert Canales
+     */
+    Boolean isUltimIntentPle() throws DomainException {
+        return taulell.isUltimIntentPle();
     }
 
     /**

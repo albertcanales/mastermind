@@ -27,7 +27,7 @@ public class ControladorPersistencia {
         return null;
     }
 
-    public List<Integer> getUserTimePlayed(String username) {
+    public List<Long> getUserTimePlayed(String username) {
         return null;
     }
 

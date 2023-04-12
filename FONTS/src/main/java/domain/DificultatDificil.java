@@ -1,6 +1,7 @@
 package domain;
 
 import domain.exceptions.DomainException;
+import domain.exceptions.IntentNoComplet;
 import domain.exceptions.InvalidEnumValueException;
 import domain.exceptions.SolIntentNotSameSizeException;
 
@@ -27,6 +28,7 @@ class DificultatDificil extends Dificultat {
     @Override
     List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent) throws DomainException {
         if (solucio.size() != intent.size()) throw new SolIntentNotSameSizeException(solucio.size(),intent.size());
+        if(isPlena(intent)) throw new IntentNoComplet();
         int numboles = solucio.size();
 
         List<Integer> Color_count = countColorsBoles(solucio);

@@ -54,7 +54,7 @@ public class ControladorDomini {
             return false;
         String name = controladorPersistencia.getUserName(username);
         List<Integer> personalRecord = controladorPersistencia.getUserPersonalRecord(username);
-        List<Integer> timePlayed = controladorPersistencia.getUserTimePlayed(username);
+        List<Long> timePlayed = controladorPersistencia.getUserTimePlayed(username);
         List<Integer> wonGames = controladorPersistencia.getUserWonGames(username);
         List<Integer> lostGames = controladorPersistencia.getUserLostGames(username);
         List<Integer> winStreak = controladorPersistencia.getUserWinstreak(username);
@@ -62,7 +62,7 @@ public class ControladorDomini {
         List<Double> avgAsBreaker = controladorPersistencia.getUserAvgAsBreaker(username);
         List<Integer> numGamesAsMaker = controladorPersistencia.getUserNumGamesAsMaker(username);
         user = new User(name, username);
-        // user = new User(name, username, personalRecord, timePlayed, wonGames, lostGames, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
+        user = new User(name, username, personalRecord, timePlayed, wonGames, lostGames, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
         return true;
     }
 
@@ -141,14 +141,14 @@ public class ControladorDomini {
     public void carregarPartida() throws DomainException {
         if(!existsPartidaGuardada())
             throw new NoGameSavedException();
-        Integer nivellDificultat = controladorPersistencia.getNivellDificultatPartidaGuardada();
         List<List<Integer>> intents = controladorPersistencia.getIntentsPartidaGuardada();
         List<List<Integer>> feedback = controladorPersistencia.getFeedbackPartidaGuardada();
         List<Integer> solucio = controladorPersistencia.getSolucioPartidaGuardada();
-        if(controladorPersistencia.isBreakerPartidaGuardada())
-            this.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio);
+        if(controladorPersistencia.isBreakerPartidaGuardada()) {
+            this.carregarPartidaBreaker(intents, feedback, solucio);
+        }
         else
-            this.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio);
+            this.carregarPartidaMaker(intents, feedback, solucio);
     }
 
     /**
@@ -156,8 +156,9 @@ public class ControladorDomini {
      * @throws DomainException si el tamany d'alguna list no és correcte
      * @author Albert Canales
      */
-    private void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents,
+    private void carregarPartidaBreaker(List<List<Integer>> intents,
                                         List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
+        Integer nivellDificultat = controladorPersistencia.getNivellDificultatPartidaGuardada();
         Duration temps = controladorPersistencia.getTempsPartidaGuardada();
         controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps);
     }
@@ -167,9 +168,9 @@ public class ControladorDomini {
      * @throws DomainException si el tamany d'alguna list no és correcte
      * @author Albert Canales
      */
-    private void carregarPartidaMaker(Integer nivellDificultat, List<List<Integer>> intents,
+    private void carregarPartidaMaker(List<List<Integer>> intents,
                                       List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
-        controladorPartida.carregarPartidaMaker(nivellDificultat, intents, feedback, solucio);
+        controladorPartida.carregarPartidaMaker(intents, feedback, solucio);
     }
 
     /**
@@ -201,11 +202,10 @@ public class ControladorDomini {
      * @throws NotLoggedInException si no s'ha iniciat sessió
      * @author Albert Canales
      */
-    public List<Integer> getTimePlayed() throws DomainException {
+    public List<Long> getTimePlayed() throws DomainException {
         if(user == null)
             throw new NotLoggedInException();
-        return null;
-        // return user.getTimePlayed();
+        return user.getTimePlayed();
     }
 
     /**
@@ -226,11 +226,10 @@ public class ControladorDomini {
      * @return Una llista amb el nombre de victòries per a cada nivell de dificultat
      * @author Albert Canales
      */
-    public List<List<Integer>> getLostGames() throws DomainException {
+    public List<Integer> getLostGames() throws DomainException {
         if(user == null)
             throw new NotLoggedInException();
-        return null;
-        // return user.getLostGames();
+        return user.getLostGames();
     }
 
     /**
@@ -363,7 +362,7 @@ public class ControladorDomini {
                 Integer nivellDificultat = controladorPartida.getNivellDificultat();
                 Boolean guanyada = controladorPartida.isPartidaGuanyada();
                 Long temps = controladorPartida.getTempsMillis();
-                // user.acabarPartidaBreaker(nivellDificultat, numIntents, guanyada, temps);
+                user.acabarPartidaBreaker(nivellDificultat, numIntents, guanyada, temps);
             }
             else {
                 Integer algorisme = controladorPartida.getAlgorisme();

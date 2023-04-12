@@ -64,6 +64,14 @@ abstract class Dificultat {
         }
         return colorList;
     }
+
+    Boolean isPlena(List<Integer> sequencia) {
+        boolean isPlena = true;
+        for (Integer bola : sequencia) {
+            if(!Bola.isColor(bola)) isPlena = false;
+        }
+        return isPlena;
+    }
 }
 
 /**

@@ -3,6 +3,7 @@ package domain;
 import domain.exceptions.DomainException;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,16 +14,32 @@ public class PartidaDriver {
     private static ControladorPartida cp;
     private static Scanner in;
 
-    // TODO quan s'escaneja un int cal comprovar que ho és realment
+    private static Integer scanInt() {
+        if(in.hasNextInt()) {
+            return in.nextInt();
+        }
+        System.out.print("Not an integer, enter again: ");
+        in.nextLine();
+        return scanInt();
+    }
+
+    private static Long scanLong() {
+        try {
+            return in.nextLong();
+        } catch (InputMismatchException e) {
+            System.out.print("Not a long, enter again: ");
+            return scanLong();
+        }
+    }
 
     private static List<Integer> scanSequence() {
         List<Integer> sequence = new ArrayList<>();
         System.out.print("Enter the next bola (negative to stop): ");
-        int num = in.nextInt();
+        int num = scanInt();
         while(num > -1) {
             sequence.add(num);
             System.out.print("Enter the next bola (negative to stop): ");
-            num = in.nextInt();
+            num = scanInt();
         }
         return sequence;
     }
@@ -48,7 +65,7 @@ public class PartidaDriver {
     private static Integer scanNivellDificultat() {
         System.out.println("Enter a dificultat: ");
 
-        int dificultat = in.nextInt();
+        int dificultat = scanInt();
 
         if(!NivellDificultat.isValid(dificultat)) {
             System.out.println("The given dificultat is invalid.");
@@ -60,7 +77,7 @@ public class PartidaDriver {
 
     private static Integer scanAlgorisme() {
         System.out.println("Enter an algorisme: ");
-        int algorisme = in.nextInt();
+        int algorisme = scanInt();
 
         if(!TipusAlgorisme.isValid(algorisme)) {
             System.out.println("The given algorisme is invalid.");
@@ -102,12 +119,13 @@ public class PartidaDriver {
         System.out.println("    19 | isPartidaGuanyada");
         System.out.println("    20 | isPartidaPerduda");
         System.out.println("    21 | isPartidaAcabada");
-        System.out.println("    22 | setBola");
+        System.out.println("    22 | isUltimIntentPle");
+        System.out.println("    23 | setBola");
         System.out.println("Cada comanda es pot executar pel seu nombre o pel seu nom.");
     }
 
     private static void testIsPartidaPresent() {
-        System.out.println("Testing novaPartidaMaker...");
+        System.out.println("Testing isPartidaPresent...");
 
         if(cp.isPartidaPresent())
             System.out.println("S'està jugant una partida");
@@ -138,8 +156,27 @@ public class PartidaDriver {
         System.out.println("Testing carregarPartidaBreaker...");
     }
 
-    private static void testValidarSequencia() {
+    private static void testValidarSequencia() throws DomainException {
         System.out.println("Testing validarSequencia...");
+
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+        if(!cp.isJugadorBreaker()) {
+            System.out.println("Error: En la partida actual el bot és el breaker");
+            return;
+        }
+        if(cp.isPartidaAcabada()) {
+            System.out.println("Error: La partida ja està acabada");
+            return;
+        }
+        if(!cp.isUltimIntentPle()) {
+            System.out.println("Error: Encara hi ha boles per assignar a l'últim intent");
+            return;
+        }
+
+        cp.validarSequencia();
     }
 
     private static void testBotSolve() throws DomainException {
@@ -162,7 +199,7 @@ public class PartidaDriver {
     }
 
     private static void testGetTempsMillis() throws DomainException {
-        System.out.println("Testing getTemps...");
+        System.out.println("Testing getTempsMillis...");
 
         if(!cp.isPartidaPresent()) {
             System.out.println("Error: No s'està jugant cap partida");
@@ -172,7 +209,7 @@ public class PartidaDriver {
     }
 
     private static void testAddTempsMillis() throws DomainException {
-        System.out.println("Testing addTemps...");
+        System.out.println("Testing addTempsMillis...");
 
         if(!cp.isPartidaPresent()) {
             System.out.println("Error: No s'està jugant cap partida");
@@ -180,13 +217,13 @@ public class PartidaDriver {
         }
 
         System.out.print("Enter a temps a afegir: ");
-        Long afegit = in.nextLong();
+        Long afegit = scanLong();
         System.out.printf("S'ha llegit el valor %d%n", afegit);
         cp.addTempsMillis(afegit);
     }
 
     private static void testGetNumBoles() {
-        System.out.println("Testing getNivellDificultat...");
+        System.out.println("Testing getNumBoles...");
 
         System.out.printf("El nombre de boles per cada seqüència és %d%n", ControladorPartida.getNumBoles());
     }
@@ -328,7 +365,20 @@ public class PartidaDriver {
             System.out.println("La partida actual no està acabada");
     }
 
+    private static void testIsUltimIntentPle() throws DomainException {
+        System.out.println("Testing isUltimIntentPle...");
+
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+
+        cp.isUltimIntentPle();
+    }
+
     private static void testSetBola() throws DomainException {
+        System.out.println("Testing setBola...");
+
         if(!cp.isPartidaPresent()) {
             System.out.println("Error: No s'està jugant cap partida");
             return;
@@ -339,20 +389,20 @@ public class PartidaDriver {
         }
 
         System.out.print("Enter un index per la bola: ");
-        int index = in.nextInt();
-        while(index < 0 || index >= cp.getNumBoles()) {
+        int index = scanInt();
+        while(index < 0 || index >= ControladorPartida.getNumBoles()) {
             System.out.println("L'índex no es correcte");
             System.out.print("Enter un index per la bola: ");
-            index = in.nextInt();
+            index = scanInt();
         }
         System.out.printf("L'índex de la bola llegit és %d%n", index);
 
         System.out.print("Enter un color per la bola: ");
-        int bola = in.nextInt();
+        int bola = scanInt();
         while(Bola.isValid(bola)) {
             System.out.println("El color donat no és vàlid");
             System.out.print("Enter un color per la bola: ");
-            bola = in.nextInt();
+            bola = scanInt();
         }
         System.out.printf("El color de bola llegit és %d%n", index);
 
@@ -459,6 +509,10 @@ public class PartidaDriver {
                     testIsPartidaAcabada();
                     break;
                 case "22":
+                case "isUltimIntentPle":
+                    testIsUltimIntentPle();
+                    break;
+                case "23":
                 case "setBola":
                     testSetBola();
                     break;
