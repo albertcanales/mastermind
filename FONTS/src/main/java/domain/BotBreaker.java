@@ -72,4 +72,22 @@ enum TipusAlgorisme {
      * @author Mar Gonzàlez Català
      */
     int number() { return number; }
+
+    /**
+     * Mètode per obtenir el nombre d'algoritmes
+     * @return enter que representa el número de algoritmes
+     */
+    public static int numAlgoritmes() {
+        return (values().length);
+    }
+
+    /**
+     * Mètode per saber si un número representa un algoritme vàlid
+     *
+     * @param num enter que representa un algoritme
+     * @return un booleà cert si el número correspon a un algoritme
+     */
+    public static boolean isValid(int num) {
+        return (num > 0) && (num <= numAlgoritmes());
+    }
 }

@@ -107,4 +107,22 @@ enum NivellDificultat {
      * @author Albert Canales
      */
     int number() { return number; }
+
+    /**
+     * Mètode per obtenir el nombre de dificultats
+     * @return enter que representa el número de dificultats
+     */
+    public static int numDificultats() {
+        return (values().length);
+    }
+
+    /**
+     * Mètode per saber si un número representa una dificultat vàlida
+     *
+     * @param num enter que representa una dificultat
+     * @return un booleà cert si el número correspon a una dificultat
+     */
+    public static boolean isValid(int num) {
+        return (num > 0) && (num <= numDificultats());
+    }
 }
