@@ -12,7 +12,6 @@ public class FiveGuessTests {
 
     @BeforeClass
     public static void beforeClass() {
-        System.err.println("Carregant les dades");
         sequencies = new ArrayList<>();
         Random rand = new Random();
         for (int it = 0; it < 50; it++){
@@ -27,8 +26,7 @@ public class FiveGuessTests {
     }
 
     @Test
-    public void solve() throws Exception {
-        System.err.println("Inici test solve");
+    public void solve() throws InvalidNumBolesException {
         BotBreaker fiveguess = new FiveGuess();
         for (ArrayList<Integer> sequencia : sequencies){
             ArrayList<ArrayList<Integer>> guesses = fiveguess.solve(sequencia);
@@ -36,7 +34,6 @@ public class FiveGuessTests {
             assertEquals("Solució",sequencia,guesses.get(numberOfGuesses-1));
             assertTrue("Nombre d'intents",numberOfGuesses <= 5);
         }
-        System.err.println("Fi del test solve");
     }
 
     @Test
