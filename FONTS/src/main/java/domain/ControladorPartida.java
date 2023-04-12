@@ -124,7 +124,7 @@ class ControladorPartida {
     List<Integer> validarSequencia() throws DomainException {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
-        if(botMaker == null)
+        if(!isJugadorBreaker())
             throw new InvalidPartidaTypeException("Breaker");
         List<Integer> ultimIntent = taulell.getUltimIntent();
         List<Integer> solucio = taulell.getSolucio();
@@ -144,7 +144,7 @@ class ControladorPartida {
     void botSolve() throws DomainException {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
-        if(botBreaker == null)
+        if(isJugadorBreaker())
             throw new InvalidPartidaTypeException("Maker");
         List<Integer> solution = taulell.getSolucio();
         botBreaker.solve(new ArrayList<>(solution));
@@ -184,9 +184,25 @@ class ControladorPartida {
     Integer getNivellDificultat() throws DomainException {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
-        if(botMaker == null)
+        if(!isJugadorBreaker())
             throw new InvalidPartidaTypeException("Breaker");
         return dificultat.getNivellDificultat().number();
+    }
+
+    /**
+     * Getter de l'algorisme amb el qual juga el bot
+     * @throws DomainException si no s'està jugant cap partida
+     * @throws DomainException si la partida que es juga el bot no és breaker
+     * @return nombre de l'algorisme corresponent
+     * @author Albert Canales
+     */
+    Integer getAlgorisme() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
+        if(isJugadorBreaker())
+            throw new InvalidPartidaTypeException("Maker");
+        // return botBreaker.getAlgorisme();
+        return null;
     }
 
     /**
@@ -198,6 +214,17 @@ class ControladorPartida {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
         return taulell.getSolucio();
+    }
+
+    /**
+     * Getter del número d'intents de la partida
+     * @throws DomainException si no s'està jugant cap partida
+     * @author Albert Canales
+     */
+    Integer getNumIntents() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
+        return taulell.getNumeroIntent();
     }
 
     /**
@@ -220,6 +247,17 @@ class ControladorPartida {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
         return taulell.getFeedbacks();
+    }
+
+    /**
+     * Mètode per saber si el jugador fa de breaker en la partida actual
+     * @throws DomainException si no s'està jugant cap partida
+     * @author Albert Canales
+     */
+    Boolean isJugadorBreaker() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
+        return botMaker != null;
     }
 
     /**
@@ -270,7 +308,7 @@ class ControladorPartida {
     void setBola(Integer index, Integer bola) throws DomainException {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
-        if(botMaker == null)
+        if(!isJugadorBreaker())
             throw new InvalidPartidaTypeException("Breaker");
         taulell.setBola(index, bola);
     }

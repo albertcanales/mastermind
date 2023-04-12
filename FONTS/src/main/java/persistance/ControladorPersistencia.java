@@ -9,10 +9,6 @@ public class ControladorPersistencia {
         return null;
     }
 
-    public Boolean loginUser(String username, String password) {
-        return null;
-    }
-
     public void registerUser(String username, String name, String password) { }
 
     public String getPasswordHash(String username) {
@@ -20,6 +16,42 @@ public class ControladorPersistencia {
     }
 
     public String getUserName(String username) {
+        return null;
+    }
+
+    public List<List<Object>> getRanquing(Integer nivellDificultat, Integer nombrePartides) {
+        return null;
+    }
+
+    public List<Integer> getUserPersonalRecord(String username) {
+        return null;
+    }
+
+    public List<Integer> getUserTimePlayed(String username) {
+        return null;
+    }
+
+    public List<Integer> getUserWonGames(String username) {
+        return null;
+    }
+
+    public List<Integer> getUserLostGames(String username) {
+        return null;
+    }
+
+    public List<Integer> getUserWinstreak(String username) {
+        return null;
+    }
+
+    public List<Double> getUserAvgAsMaker(String username) {
+        return null;
+    }
+
+    public List<Double> getUserAvgAsBreaker(String username) {
+        return null;
+    }
+
+    public List<Integer> getUserNumGamesAsMaker(String username) {
         return null;
     }
 

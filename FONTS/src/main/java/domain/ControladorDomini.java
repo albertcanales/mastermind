@@ -1,13 +1,8 @@
 package domain;
 
-import domain.exceptions.DomainException;
 import domain.exceptions.*;
 import persistance.ControladorPersistencia;
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
@@ -55,10 +50,19 @@ public class ControladorDomini {
         if(!existsUser(username))
             throw new UserNotExistsExeption(username);
         String hash = controladorPersistencia.getPasswordHash(username);
-        if(!Objects.equals(hash, getSHA256(password)))
+        if(!Objects.equals(hash, User.getPasswordHash(password)))
             return false;
         String name = controladorPersistencia.getUserName(username);
-        user = new User(username, name);
+        List<Integer> personalRecord = controladorPersistencia.getUserPersonalRecord(username);
+        List<Integer> timePlayed = controladorPersistencia.getUserTimePlayed(username);
+        List<Integer> wonGames = controladorPersistencia.getUserWonGames(username);
+        List<Integer> lostGames = controladorPersistencia.getUserLostGames(username);
+        List<Integer> winStreak = controladorPersistencia.getUserWinstreak(username);
+        List<Double> avgAsMaker = controladorPersistencia.getUserAvgAsMaker(username);
+        List<Double> avgAsBreaker = controladorPersistencia.getUserAvgAsBreaker(username);
+        List<Integer> numGamesAsMaker = controladorPersistencia.getUserNumGamesAsMaker(username);
+        user = new User(name, username);
+        // user = new User(name, username, personalRecord, timePlayed, wonGames, lostGames, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
         return true;
     }
 
@@ -74,6 +78,7 @@ public class ControladorDomini {
         if(existsUser(username))
             throw new UserAlreadyExistsException(username);
         controladorPersistencia.registerUser(username, name, password);
+        user = new User(name, username);
     }
 
     /**
@@ -175,7 +180,7 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<List<Object>> getRanquing(Integer nivellDificultat, Integer nombrePartides) {
-        return null;
+        return controladorPersistencia.getRanquing(nivellDificultat, nombrePartides);
     }
 
     /**
@@ -187,7 +192,7 @@ public class ControladorDomini {
     public List<Integer> getPersonalRecord() throws DomainException {
         if(user == null)
             throw new NotLoggedInException();
-        return null;
+        return user.getPersonalRecord();
     }
 
     /**
@@ -200,18 +205,32 @@ public class ControladorDomini {
         if(user == null)
             throw new NotLoggedInException();
         return null;
+        // return user.getTimePlayed();
     }
 
     /**
-     * Getter de victòries i derrotes
+     * Getter de victòries
      * @throws NotLoggedInException si no s'ha iniciat sessió
-     * @return Una llista amb parelles (nombre de victòries, nombre de derrotes) per a cada nivell de dificultat
+     * @return Una llista amb el nombre de victòries per a cada nivell de dificultat
      * @author Albert Canales
      */
-    public List<List<Integer>> getWinLost() throws DomainException {
+    public List<Integer> getWonGames() throws DomainException {
+        if(user == null)
+            throw new NotLoggedInException();
+        return user.getWonGames();
+    }
+
+    /**
+     * Getter de victòries
+     * @throws NotLoggedInException si no s'ha iniciat sessió
+     * @return Una llista amb el nombre de victòries per a cada nivell de dificultat
+     * @author Albert Canales
+     */
+    public List<List<Integer>> getLostGames() throws DomainException {
         if(user == null)
             throw new NotLoggedInException();
         return null;
+        // return user.getLostGames();
     }
 
     /**
@@ -223,7 +242,7 @@ public class ControladorDomini {
     public List<Integer> getWinstreak() throws DomainException {
         if(user == null)
             throw new NotLoggedInException();
-        return null;
+        return user.getWinStreak();
     }
 
     /**
@@ -235,7 +254,7 @@ public class ControladorDomini {
     public List<Double> getAverageAsBreaker() throws DomainException {
         if(user == null)
             throw new NotLoggedInException();
-        return null;
+        return user.getAvgAsBreaker();
     }
 
     /**
@@ -247,7 +266,7 @@ public class ControladorDomini {
     public List<Double> getAverageAsMaker() throws DomainException {
         if(user == null)
             throw new NotLoggedInException();
-        return null;
+        return user.getAvgAsMaker();
     }
 
     /**
@@ -334,9 +353,22 @@ public class ControladorDomini {
         if(!controladorPartida.isPartidaPresent())
             throw new NotPlayingPartidaException();
         List<Integer> feedback = controladorPartida.validarSequencia();
+
         if(controladorPartida.isPartidaAcabada()) {
             controladorPersistencia.acabarPartidaGuardada();
-            // TODO Actualitzar estadístiques usuari
+
+            Integer numIntents = controladorPartida.getNumIntents();
+            if(controladorPartida.isJugadorBreaker()) {
+                Integer nivellDificultat = controladorPartida.getNivellDificultat();
+                Boolean guanyada = controladorPartida.isPartidaGuanyada();
+                Long temps = controladorPartida.getTempsMillis();
+                // user.acabarPartidaBreaker(nivellDificultat, numIntents, guanyada, temps);
+            }
+            else {
+                Integer algorisme = controladorPartida.getAlgorisme();
+                user.acabarPartidaMaker(algorisme, numIntents);
+            }
+
             controladorPartida.sortirPartida();
         }
         return feedback;
@@ -351,22 +383,5 @@ public class ControladorDomini {
         if(!controladorPartida.isPartidaPresent())
             throw new NotPlayingPartidaException();
         controladorPartida.botSolve();
-    }
-
-    /**
-     * Mètode per obtenir el SHA256 (representada amb base64)
-     * @param value string de la qual es vol obtenir el hash
-     * @author Albert Canales
-     */
-    private String getSHA256(String value) {
-        MessageDigest md;
-        try {
-            md = MessageDigest.getInstance("SHA-256");
-            md.reset();
-            md.update(value.getBytes(StandardCharsets.UTF_8));
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-        return String.format("%064x", new BigInteger(1, md.digest()));
     }
 }

@@ -3,6 +3,10 @@ package domain;
 import domain.exceptions.DomainException;
 import domain.exceptions.InvalidEnumValueException;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -203,5 +207,22 @@ public class User {
      * @author Kamil Przybyszewski
      */
     public List<Integer> getNumGamesAsMaker(){ return numGamesAsMaker;}
+
+    /**
+     * Mètode per obtenir el hash en SHA256 (encoded en base64) d'una contrasenya
+     * @param password contrasenya per la qual se'n vol obtenir el hash
+     * @author Albert Canales
+     */
+    static String getPasswordHash(String password) {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+            md.reset();
+            md.update(password.getBytes(StandardCharsets.UTF_8));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        return String.format("%064x", new BigInteger(1, md.digest()));
+    }
 
 }
