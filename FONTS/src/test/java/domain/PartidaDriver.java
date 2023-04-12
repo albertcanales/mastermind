@@ -1,11 +1,8 @@
 package domain;
 
 import domain.exceptions.DomainException;
-import domain.exceptions.InvalidEnumValueException;
-import domain.exceptions.InvalidNumBolesException;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -112,8 +109,6 @@ public class PartidaDriver {
         List<Integer> solution = scanSolution();
         Integer algorisme = scanAlgorisme();
         cp.novaPartidaMaker(solution, algorisme);
-
-        System.out.println("End Test novaPartidaMaker.\n");
     }
 
     private static void testNovaPartidaBreaker() throws DomainException {
@@ -121,8 +116,6 @@ public class PartidaDriver {
 
         Integer dificultat = scanNivellDificultat();
         cp.novaPartidaBreaker(dificultat);
-
-        System.out.println("End Test novaPartidaBreaker.\n");
     }
 
     private static void testCarregarPartidaMaker() {
@@ -141,40 +134,125 @@ public class PartidaDriver {
 
     }
 
-    private static void testGetTemps() {
+    private static void testGetTemps() throws DomainException {
+        System.out.println("Testing getTemps...");
 
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida ");
+            return;
+        }
+        System.out.printf("El temps transcorregut és de %d ms.%n", cp.getTempsMillis());
     }
 
-    private static void testAddTemps() {
+    private static void testAddTemps() throws DomainException {
+        System.out.println("Testing addTemps...");
 
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida ");
+            return;
+        }
+
+        System.out.print("Enter a temps a afegir: ");
+        Long afegit = in.nextLong();
+        System.out.printf("S'ha llegit el valor %d%n", afegit);
+        cp.addTempsMillis(afegit);
     }
 
-    private static void testGetNivellDificultat() {
+    private static void testGetNivellDificultat() throws DomainException {
+        System.out.println("Testing getNivellDificultat...");
 
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida ");
+            return;
+        }
+        if(!cp.isJugadorBreaker()) {
+            System.out.println("Error: En la partida actual el jugador no és breaker");
+            return;
+        }
+
+        System.out.printf("El nivell de dificultat de la partida %d.%n", cp.getNivellDificultat());
     }
 
-    private static void testGetSequenciaSolucio() {
+    private static void testGetSequenciaSolucio() throws DomainException {
+        System.out.println("Testing getSequenciaSolucio...");
 
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida ");
+            return;
+        }
+
+        System.out.print("La solució de la partida és: ");
+        printSequence(cp.getSequenciaSolucio());
     }
 
-    private static void testGetIntents() {
+    private static void testGetIntents() throws DomainException {
+        System.out.println("Testing getIntents...");
 
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida ");
+            return;
+        }
+
+        System.out.println("Els intents de la partida actual són: ");
+        List<List<Integer>> intents = cp.getIntents();
+        for (List<Integer> intent : intents)
+            printSequence(intent);
     }
 
-    private static void testGetFeedbacks() {
+    private static void testGetFeedbacks() throws DomainException {
+        System.out.println("Testing getFeedbacks...");
 
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida ");
+            return;
+        }
+
+        System.out.println("Els feedbacks de la partida actual són: ");
+        List<List<Integer>> feedbacks = cp.getFeedbacks();
+        for (List<Integer> feedback : feedbacks)
+            printSequence(feedback);
     }
 
-    private static void testIsPartidaGuanyada() {
+    private static void testIsPartidaGuanyada() throws DomainException {
+        System.out.println("Testing isPartidaGuanyada...");
 
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida ");
+            return;
+        }
+
+        if(cp.isPartidaGuanyada())
+            System.out.println("La partida actual està guanyada");
+        else
+            System.out.println("La partida actual no està guanyada");
     }
 
-    private static void testIsPartidaPerduda() {
+    private static void testIsPartidaPerduda() throws DomainException {
+        System.out.println("Testing isPartidaPerduda...");
 
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida ");
+            return;
+        }
+
+        if(cp.isPartidaPerduda())
+            System.out.println("La partida actual està perduda");
+        else
+            System.out.println("La partida actual no està perduda");
     }
 
-    private static void testIsPartidaAcabada() {
+    private static void testIsPartidaAcabada() throws DomainException {
+        System.out.println("Testing isPartidaAcabada...");
 
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida ");
+            return;
+        }
+
+        if(cp.isPartidaAcabada())
+            System.out.println("La partida actual està acabada");
+        else
+            System.out.println("La partida actual no està acabada");
     }
 
     private static void testSetBola() {
@@ -187,6 +265,7 @@ public class PartidaDriver {
         System.out.println("A continuació es mostren les comandes possibles:");
         showUsage();
         while(true) {
+            boolean runTest = true;
             System.out.print("Escolleix una comanda: ");
             String cmd = in.nextLine();
             switch (cmd) {
@@ -197,6 +276,7 @@ public class PartidaDriver {
                 case "1":
                 case "ajuda":
                     showUsage();
+                    runTest = false;
                     break;
                 case "2":
                 case "novaPartidaMaker":
@@ -262,7 +342,11 @@ public class PartidaDriver {
                 case "setBola":
                     testSetBola();
                     break;
+                default:
+                    runTest = false;
             }
+            if (runTest)
+                System.out.println("End of test");
         }
     }
 

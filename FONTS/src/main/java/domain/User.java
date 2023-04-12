@@ -35,11 +35,11 @@ public class User {
      * @author Kamil Przybyszewski
      */
     private void initializeBreakerStats(){
-        Integer numDificultats = NivellDificultat.numDificultats();
+        int numDificultats = NivellDificultat.numDificultats();
         List<Integer> tot_zero = new ArrayList<>(Collections.nCopies(numDificultats,0));
 
         personalRecord = new ArrayList<>(tot_zero);
-        timePlayedFinishedGames = new ArrayList<>(Collections.nCopies(numDificultats,0));
+        timePlayedFinishedGames = new ArrayList<>(Collections.nCopies(numDificultats,0L));
         wonGames = new ArrayList<>(tot_zero);
         winStreak = new ArrayList<>(tot_zero);
         averageAsBreaker = new ArrayList<>(Collections.nCopies(numDificultats,0.0));
