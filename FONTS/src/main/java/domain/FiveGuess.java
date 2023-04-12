@@ -1,5 +1,7 @@
 package domain;
 
+import domain.exceptions.InvalidNumBolesException;
+
 import java.util.*;
 
 /**
@@ -53,7 +55,10 @@ class FiveGuess extends BotBreaker {
     private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2){
         Integer count = 0;
         Boolean counted = false;
-        ArrayList<Integer> added = new ArrayList<>(Collections.nCopies(4, 0));
+        ArrayList<Integer> added = new ArrayList<>(4);
+        for (int it = 0; it < 4; it++){
+            added.add(0);
+        }
         for (int it1 = 0; it1 < this.numboles; it1++){
             counted = false;
             for (int it2 = 0; it2 < this.numboles && !counted; it2++) {
@@ -116,7 +121,10 @@ class FiveGuess extends BotBreaker {
                     for (int it4 = 1; it4 <= Bola.numColors(); it4++) {
                         Integer[] finalit = {it1, it2, it3, it4};
                         ArrayList<Integer> sequence = new ArrayList<>(Arrays.asList(finalit));
-                        ArrayList<Integer> counts = new ArrayList<>(Collections.nCopies(45, 0));
+                        ArrayList<Integer> counts = new ArrayList<>(45);
+                        for (int it = 0; it < 45; it++){
+                            counts.add(0);
+                        }
                         for (Integer integer : possibleSolutions) {
                             ArrayList<Integer> seqIteration = getSequence(integer);
                             int black = compareTwoSequencesBlack(seqIteration, sequence);
@@ -153,6 +161,14 @@ class FiveGuess extends BotBreaker {
         return currentSeqMinimax;
     }
 
+    /**
+     * @brief Getter del tipus d'algorisme de FiveGuess
+     * @author Mar Gonzàlez Català
+     * */
+    @Override
+    TipusAlgorisme getTipusAlgorisme() {
+        return TipusAlgorisme.FIVEGUESS;
+    }
 
     /**
      * @brief Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem l'algorisme Five Guess.
@@ -161,7 +177,10 @@ class FiveGuess extends BotBreaker {
      * @author Mar Gonzàlez Català
      */
     @Override
-    public ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution){
+    public ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution) throws InvalidNumBolesException {
+        if (solution.size() != 4) {
+            throw new InvalidNumBolesException(solution.size(),4);
+        }
         numboles = solution.size();
 
         ArrayList<ArrayList<Integer>> guesses = new ArrayList<>();

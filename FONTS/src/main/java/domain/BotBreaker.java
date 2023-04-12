@@ -2,6 +2,7 @@ package domain;
 
 import domain.exceptions.DomainException;
 import domain.exceptions.InvalidEnumValueException;
+import domain.exceptions.InvalidNumBolesException;
 
 import java.util.*;
 
@@ -28,12 +29,18 @@ abstract class BotBreaker {
     }
 
     /**
+     * @Brief Getter del tipus d'algorisme
+     * @author Mar Gonzàlez Català
+     */
+    abstract TipusAlgorisme getTipusAlgorisme();
+
+    /**
      * @brief Donada una solució genera la llista d'intents fins a arribar a ella.
      * @param solution seqüència oculta que intentem endevinar.
      * @return Llista d'intents.
      * @author Mar Gonzàlez Català
      */
-    abstract ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution);
+    abstract ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution) throws InvalidNumBolesException;
 }
 
 /**
@@ -78,20 +85,19 @@ enum TipusAlgorisme {
     int number() { return number; }
 
     /**
-     * Mètode per obtenir el nombre d'algoritmes
-     * @return enter que representa el número de algoritmes
+     * @brief Mètode per obtenir el nombre d'algorismes
+     * @return enter que representa el número d'algorismes
      */
-    public static int numAlgoritmes() {
+    public static int numAlgorismes() {
         return (values().length);
     }
 
     /**
-     * Mètode per saber si un número representa un algoritme vàlid
-     *
-     * @param num enter que representa un algoritme
-     * @return un booleà cert si el número correspon a un algoritme
+     * @brief Mètode per saber si un número representa un algorisme vàlid.
+     * @param num enter que representa un algorisme
+     * @return un booleà cert si el número correspon a un algorisme, fals si no
      */
     public static boolean isValid(int num) {
-        return (num > 0) && (num <= numAlgoritmes());
+        return (num > 0) && (num <= numAlgorismes());
     }
 }

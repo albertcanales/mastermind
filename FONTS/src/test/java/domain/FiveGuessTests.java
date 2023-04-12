@@ -1,5 +1,6 @@
 package domain;
 
+import domain.exceptions.InvalidNumBolesException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -13,19 +14,18 @@ public class FiveGuessTests {
     public static void beforeClass() {
         System.err.println("Carregant les dades");
         sequencies = new ArrayList<>();
-        for (int it1 = 1; it1 <= Bola.numColors(); it1++){
-            for (int it2 = 1; it2 <= Bola.numColors(); it2++){
-                for (int it3 = 1; it3 <= Bola.numColors(); it3++){
-                    for (int it4 = 1; it4 <= Bola.numColors(); it4++){
-                        Integer[] finalit = {it1, it2, it3, it4};
-                        ArrayList<Integer> sequence = new ArrayList<>(Arrays.asList(finalit));
-                        sequencies.add(sequence);
-                    }
-                }
-            }
+        Random rand = new Random();
+        for (int it = 0; it < 50; it++){
+            int bola1 = rand.nextInt(Bola.numColors()) + 1;
+            int bola2 = rand.nextInt(Bola.numColors()) + 1;
+            int bola3 = rand.nextInt(Bola.numColors()) + 1;
+            int bola4 = rand.nextInt(Bola.numColors()) + 1;
+            Integer[] seq = {bola1, bola2, bola3, bola4};
+            ArrayList<Integer> sequence = new ArrayList<>(Arrays.asList(seq));
+            sequencies.add(sequence);
         }
     }
-    
+
     @Test
     public void solve() throws Exception {
         System.err.println("Inici test solve");
@@ -37,6 +37,16 @@ public class FiveGuessTests {
             assertTrue("Nombre d'intents",numberOfGuesses <= 5);
         }
         System.err.println("Fi del test solve");
+    }
+
+    @Test
+    public void solveWrongSizeOfSolution() {
+        BotBreaker fiveguess = new FiveGuess();
+        Integer[] sol = {1,1,2,3,4};
+        ArrayList<Integer> solution = new ArrayList<>(Arrays.asList(sol));
+        assertThrows(InvalidNumBolesException.class, () -> {
+            fiveguess.solve(solution);
+        });
     }
 
 }

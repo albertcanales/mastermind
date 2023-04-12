@@ -31,8 +31,8 @@ class BotMaker {
     public ArrayList<Integer> generaSequenciaSolucio(){
         Random rand = new Random();
         ArrayList<Integer> solution = new ArrayList<>(numboles);
-        for (int i = 0; i < 4; i++)
-            solution.set(i, rand.nextInt(numcolors) + 1);
+        for (int i = 0; i < numboles; i++)
+            solution.add(rand.nextInt(numcolors) + 1);
         return solution;
     }
 }

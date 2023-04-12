@@ -11,7 +11,7 @@ import java.util.List;
 class Genetic extends BotBreaker {
 
     /**
-     * Donada una solució genera la llista d'intents fins arribar a ella si utilitzem un algorisme genetic.
+     * Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem un algorisme genetic.
      *
      * @param solution
      * @return Llista d'intents.
@@ -19,5 +19,14 @@ class Genetic extends BotBreaker {
      */
     ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution) {
         return null;
+    }
+
+    /**
+     * @brief Getter del tipus d'algorisme de Genetic
+     * @author Mar Gonzàlez Català
+     * */
+    @Override
+    TipusAlgorisme getTipusAlgorisme() {
+        return TipusAlgorisme.GENETIC;
     }
 }

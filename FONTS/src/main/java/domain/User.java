@@ -51,7 +51,7 @@ public class User {
      * @author Kamil Przybyszewski
      */
     private void initializeMakerStats(){
-        Integer numAlgoritmes = TipusAlgorisme.numAlgoritmes();
+        Integer numAlgoritmes = TipusAlgorisme.numAlgorismes();
 
         averageAsMaker = new ArrayList<>(Collections.nCopies(numAlgoritmes,0.0));
         numGamesAsMaker = new ArrayList<>(Collections.nCopies(numAlgoritmes,0));
