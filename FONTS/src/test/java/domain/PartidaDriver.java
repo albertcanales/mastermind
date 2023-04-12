@@ -1,12 +1,86 @@
 package domain;
 
+import domain.exceptions.DomainException;
+import domain.exceptions.InvalidEnumValueException;
+import domain.exceptions.InvalidNumBolesException;
+
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
 
 public class PartidaDriver {
 
-    static ControladorPartida cp;
+    private static ControladorPartida cp;
+    private static Scanner in;
+
+    // TODO quan s'escaneja un int cal comprovar que ho és realment
+
+    private static List<Integer> scanSequence() {
+        List<Integer> sequence = new ArrayList<>();
+        System.out.print("Enter the next bola (negative to stop): ");
+        int num = in.nextInt();
+        while(num > -1) {
+            sequence.add(num);
+            System.out.print("Enter the next bola (negative to stop): ");
+            num = in.nextInt();
+        }
+        return sequence;
+    }
+    
+    private static List<Integer> scanSolution() {
+        System.out.println("Enter a solution: ");
+        List<Integer> solution = scanSequence();
+        System.out.println("The read solution is: ");
+        printSequence(solution);
+
+        // TODO falta també comprovar que és el num de boles que toca
+        boolean valid = true;
+        for (Integer bola : solution) {
+            if(!Bola.isColor(bola)) valid = false;
+        }
+
+        if(!valid) {
+            System.out.println("The given solution is invalid. Please enter a correct one.");
+            return scanSolution();
+        }
+        return solution;
+    }
+    
+    private static Integer scanNivellDificultat() {
+        System.out.println("Enter a dificultat: ");
+
+        int dificultat = in.nextInt();
+
+        if(!NivellDificultat.isValid(dificultat)) {
+            System.out.println("The given dificultat is invalid.");
+            dificultat = scanNivellDificultat();
+        }
+        System.out.printf("The given dificultat is: %d%n", dificultat);
+        return dificultat;
+    }
+
+    private static Integer scanAlgorisme() {
+        System.out.println("Enter an algorisme: ");
+        int algorisme = in.nextInt();
+
+        if(!TipusAlgorisme.isValid(algorisme)) {
+            System.out.println("The given algorisme is invalid.");
+            algorisme = scanAlgorisme();
+        }
+        System.out.printf("The given algorisme is: %d%n", algorisme);
+        return algorisme;
+    }
+
+    private static void printSequence(List<Integer> sequence) {
+        for (int i = 0; i < sequence.size(); i++) {
+            System.out.print(sequence.get(i));
+            if(i+1 < sequence.size()) System.out.print(" ");
+            else System.out.println("\n");
+        }
+    }
 
     private static void showUsage() {
         System.out.println("Llista de comandes:");
@@ -32,12 +106,23 @@ public class PartidaDriver {
         System.out.println("La comanda 'ajuda (1)' mostra de nou aquesta informació");
     }
 
-    private static void testNovaPartidaMaker() {
+    private static void testNovaPartidaMaker() throws DomainException {
+        System.out.println("Testing novaPartidaMaker...");
 
+        List<Integer> solution = scanSolution();
+        Integer algorisme = scanAlgorisme();
+        cp.novaPartidaMaker(solution, algorisme);
+
+        System.out.println("End Test novaPartidaMaker.\n");
     }
 
-    private static void testNovaPartidaBreaker() {
+    private static void testNovaPartidaBreaker() throws DomainException {
+        System.out.println("Testing novaPartidaBreaker...");
 
+        Integer dificultat = scanNivellDificultat();
+        cp.novaPartidaBreaker(dificultat);
+
+        System.out.println("End Test novaPartidaBreaker.\n");
     }
 
     private static void testCarregarPartidaMaker() {
@@ -96,9 +181,9 @@ public class PartidaDriver {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DomainException {
         cp = new ControladorPartida();
-        Scanner in = new Scanner(System.in);
+        in = new Scanner(System.in);
         System.out.println("A continuació es mostren les comandes possibles:");
         showUsage();
         while(true) {
@@ -177,8 +262,6 @@ public class PartidaDriver {
                 case "setBola":
                     testSetBola();
                     break;
-                default:
-                    System.out.println("No es coneix la comanda, s'ignora.");
             }
         }
     }
