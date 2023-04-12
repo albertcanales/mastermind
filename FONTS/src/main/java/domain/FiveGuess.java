@@ -1,5 +1,6 @@
 package domain;
 
+import domain.exceptions.InvalidEnumValueException;
 import domain.exceptions.InvalidNumBolesException;
 
 import java.util.*;
@@ -177,10 +178,17 @@ class FiveGuess extends BotBreaker {
      * @author Mar Gonzàlez Català
      */
     @Override
-    public ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution) throws InvalidNumBolesException {
+    public ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution) throws InvalidNumBolesException, InvalidEnumValueException {
         if (solution.size() != 4) {
             throw new InvalidNumBolesException(solution.size(),4);
         }
+
+        for (Integer bola : solution){
+            if (bola < 1 || bola > Bola.numColors()){
+                throw new InvalidEnumValueException("Bola",bola.toString());
+            }
+        }
+
         numboles = solution.size();
 
         ArrayList<ArrayList<Integer>> guesses = new ArrayList<>();
