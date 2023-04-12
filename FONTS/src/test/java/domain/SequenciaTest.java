@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class SequenciaTest {
-    public List<Integer> getNulList() {
+    public static List<Integer> getNulList() {
         List<Integer> list = new ArrayList<>(Sequencia.NUMBOLES);
         for (int i = 0; i < Sequencia.NUMBOLES ; ++i) {
             list.add(Bola.NUL.number());
@@ -28,6 +28,13 @@ public class SequenciaTest {
     public void newSequenciaInit() throws InvalidNumBolesException {
         Sequencia sequencia = new Sequencia(List.of(1,0,5,0));
         assertEquals((List.of(1,0,5,0)),sequencia.flatten());
+    }
+
+    @Test
+    public void newSequenciaInitWrong() {
+        assertThrows(InvalidNumBolesException.class, () -> {
+            new Sequencia(List.of(1,0,5,0,0));
+        });
     }
 
     @Test
@@ -64,6 +71,16 @@ public class SequenciaTest {
         sequencia.setBola(3, Bola.BLAU.number());
 
         List<Integer> expectedBoles = new ArrayList<>(List.of(Bola.ROSA.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.BLAU.number()));
+        assertEquals(expectedBoles,sequencia.flatten());
+    }
+
+    @Test
+    public void setBolaDecreaseMida() throws InvalidEnumValueException, InvalidNumBolesException {
+        List<Integer> inputBoles = new ArrayList<>(List.of(Bola.ROSA.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.BLAU.number()));
+        Sequencia sequencia = new Sequencia(inputBoles);
+        sequencia.setBola(0, Bola.NUL.number());
+
+        List<Integer> expectedBoles = new ArrayList<>(List.of(Bola.NUL.number(),Bola.NUL.number(),Bola.NUL.number(),Bola.BLAU.number()));
         assertEquals(expectedBoles,sequencia.flatten());
     }
 
