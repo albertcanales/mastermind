@@ -1,9 +1,9 @@
 package domain;
 
 import domain.exceptions.DomainException;
-import domain.exceptions.InvalidEnumValueException;
-import domain.exceptions.InvalidNumBolesException;
 import domain.exceptions.InvalidNumIntentsException;
+import domain.exceptions.InvalidSolutionException;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +26,13 @@ class Taulell {
      * Crea un Taulell buit
      * @param sol una llista d'enters representant la solució del Taulell
      * @throws DomainException si el tamany de list no és correcte
+     * @throws InvalidSolutionException si la solució no és vàlida (té alguna Bola NUL)
      */
     Taulell(List <Integer> sol) throws DomainException {
+        if (!new Sequencia(sol).isPlena()) {
+            throw new InvalidSolutionException();
+        }
+
         intentActual = 0;
 
         intents = new ArrayList<>(NUMINTENTS);
@@ -47,6 +52,7 @@ class Taulell {
      * @param inten una llista d'una llista d'enters representant els intents realitzats
      * @param feed una llista d'una llista d'enters representant els feedbacks rebuts
      * @throws DomainException si el tamany d'alguna list no és correcte
+     * @throws InvalidSolutionException si la solució no és vàlida (té alguna Bola NUL)
      */
     Taulell(List <Integer> sol, List<List<Integer>> inten, List<List<Integer>> feed) throws DomainException {
         if (inten.size() != NUMINTENTS) {
@@ -54,6 +60,10 @@ class Taulell {
         }
         if (feed.size() != NUMINTENTS) {
             throw new InvalidNumIntentsException(feed.size(),NUMINTENTS);
+        }
+
+        if (!new Sequencia(sol).isPlena()) {
+            throw new InvalidSolutionException();
         }
 
         intents = new ArrayList<>(NUMINTENTS);
