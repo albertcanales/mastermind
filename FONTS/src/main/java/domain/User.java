@@ -7,7 +7,6 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +21,7 @@ public class User {
     private String username;
 
     private List<Integer> personalRecord;
-    private List<Duration> timePlayedFinishedGames;
+    private List<Long> timePlayedFinishedGames;
     private List<Integer> wonGames;
     private List<Integer> winStreak;
     private List<Double> averageAsBreaker;
@@ -40,7 +39,7 @@ public class User {
         List<Integer> tot_zero = new ArrayList<>(Collections.nCopies(numDificultats,0));
 
         personalRecord = new ArrayList<>(tot_zero);
-        timePlayedFinishedGames = new ArrayList<>(Collections.nCopies(numDificultats,Duration.ZERO));
+        timePlayedFinishedGames = new ArrayList<>(Collections.nCopies(numDificultats,0));
         wonGames = new ArrayList<>(tot_zero);
         winStreak = new ArrayList<>(tot_zero);
         averageAsBreaker = new ArrayList<>(Collections.nCopies(numDificultats,0.0));
@@ -77,7 +76,7 @@ public class User {
      * @author Kamil Przybyszewski
      */
     //TODO Excepcions si tamany no es numDificultats o numAlgoritmes, i si els valors no son correctes
-    public User(String name, String username, List<Integer> personalRecord, List<Duration> timePlayed, List<Integer> wonGames, List<Integer> winStreak, List<Double> avgAsBreaker, List<Integer> numGamesAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) {
+    public User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) {
         this.name = name;
         this.username = username;
 
@@ -85,7 +84,12 @@ public class User {
         this.timePlayedFinishedGames = timePlayed;
         this.wonGames = wonGames;
         this.winStreak = winStreak;
-        this.averageAsBreaker = avgAsBreaker; this.numGamesAsBreaker = numGamesAsBreaker;
+        this.averageAsBreaker = avgAsBreaker; 
+        List<Integer> numGames = new ArrayList<Integer>();
+        for (int i = 0; i < NivellDificultat.numDificultats(); ++i){
+            numGames.add(wonGames.get(i)+lostGames.get(i));
+        }
+        this.numGamesAsBreaker = numGames;
 
         this.averageAsMaker = avgAsMaker; this.numGamesAsMaker = numGamesAsMaker;
     }
@@ -98,14 +102,14 @@ public class User {
      * @param temps duració de la partida
      * @author Kamil Przybyszewski
      */ //TODO Excepcions si intents i temps no son correctes
-    public void acabarPartidaBreaker(Integer dificultat, Integer intents, Boolean guanyada, Duration temps) throws DomainException {
+    public void acabarPartidaBreaker(Integer dificultat, Integer intents, Boolean guanyada, Long temps) throws DomainException {
         if (!NivellDificultat.isValid(dificultat)) throw new InvalidEnumValueException("NivellDificultat", dificultat.toString());
 
         dificultat--; //Els valors de NivellDificultat no comencen a 0
 
         if (intents < personalRecord.get(dificultat)) personalRecord.set(dificultat, intents);
 
-        Duration newTimePlayed = timePlayedFinishedGames.get(dificultat).plus(temps);
+        Long newTimePlayed = timePlayedFinishedGames.get(dificultat) + temps;
         timePlayedFinishedGames.set(dificultat,newTimePlayed);
 
         if (guanyada) {
@@ -140,7 +144,8 @@ public class User {
         Double newAvg = totalIntents.doubleValue()/numGames;
         averageAsMaker.set(algoritme, newAvg);
         numGamesAsMaker.set(algoritme, numGames);
-    }
+    }    
+    //public void registerUser(String username, String name, String password) throws DomainException {
 
     /**
      * Getter del valor de l'atribut name
@@ -170,13 +175,25 @@ public class User {
      * Getter del valor de l'atribut timePlayedFinishedGames
      * @author Kamil Przybyszewski
      */
-    public List<Duration> getTimePlayed(){ return timePlayedFinishedGames;}
+    public List<Long> getTimePlayed(){ return timePlayedFinishedGames;}
 
     /**
      * Getter del valor de l'atribut wonGames
      * @author Kamil Przybyszewski
      */
     public List<Integer> getWonGames(){ return wonGames;}
+
+    /**
+     * Mètode per obtenir el nombre de jocs perduts per dificultat
+     * @author Kamil Przybyszewski
+     */
+    public List<Integer> getLostGames(){ 
+        List<Integer> lostGames = new ArrayList<Integer>();
+        for (int i = 0; i < NivellDificultat.numDificultats(); ++i){
+            lostGames.add(numGamesAsBreaker.get(i)-wonGames.get(i));
+        }
+        return lostGames;
+    }
 
     /**
      * Getter del valor de l'atribut winStreak
