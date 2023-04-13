@@ -75,11 +75,11 @@ public class ControladorPersistencia {
         return null;
     }
 
-    public Boolean isBreakerPartidaGuardada() {
+    public Boolean isBreakerPartidaGuardada(String username) {
         return null;
     }
 
-    public Boolean existsPartidaGuardada() {
+    public Boolean existsPartidaGuardada(String username) {
         return null;
     }
 

@@ -18,8 +18,6 @@ public class ControladorDomini {
 
     private User user;
 
-    // TODO Als mètodes on es crida a persistència amb coses de user com paràmetres, cal fer validació (esperant Kamil)
-
     /**
      * Constructor del Controlador de Domini
      * @author Albert Canales
@@ -46,6 +44,8 @@ public class ControladorDomini {
         return controladorPartida.isPartidaPresent();
     }
 
+
+
     /**
      * Mètode per comprovar si existeix un usuari
      * @param username username de l'usuari a comprovar
@@ -54,6 +54,17 @@ public class ControladorDomini {
      */
     public Boolean existsUser(String username) {
         return controladorPersistencia.existsUser(username);
+    }
+
+    /**
+     * Mètode per saber si els paràmetres d'un usuari són vàlids
+     * @param username contrasenya a comprovar
+     * @param name nom a comprovar
+     * @param password contrasenya a comprovar
+     * @author Albert Canales
+     */
+    public Boolean isValidUser(String username, String name, String password) {
+        return User.isValidUser(username, name, password);
     }
 
     /**
@@ -95,6 +106,8 @@ public class ControladorDomini {
     public void registerUser(String username, String name, String password) throws DomainException {
         if(existsUser(username))
             throw new UserAlreadyExistsException(username);
+        if(!isValidUser(username, name, password))
+            throw new InvalidUserException();
         controladorPersistencia.registerUser(username, name, password);
         user = new User(name, username);
     }
@@ -103,9 +116,10 @@ public class ControladorDomini {
      * Mètode per tancar la sessió de l'usuari
      * @author Albert Canales
      */
-    public void logoutUser() throws NotLoggedInException {
+    public void logoutUser() throws DomainException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
+        controladorPartida.sortirPartida();
         user = null;
     }
 
@@ -143,11 +157,7 @@ public class ControladorDomini {
     public Boolean existsPartidaGuardada() throws DomainException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
-        if(controladorPersistencia.existsPartidaGuardada()) {
-            String usernameGuardada = controladorPersistencia.getUserPartidaGuardada();
-            return Objects.equals(usernameGuardada, user.getUsername());
-        }
-        return false;
+        return controladorPersistencia.existsPartidaGuardada(user.getUsername());
     }
 
     /**
@@ -159,14 +169,15 @@ public class ControladorDomini {
     public void carregarPartida() throws DomainException {
         if(!existsPartidaGuardada())
             throw new NoGameSavedException();
+        String username = user.getUsername();
         List<List<Integer>> intents = controladorPersistencia.getIntentsPartidaGuardada();
         List<List<Integer>> feedback = controladorPersistencia.getFeedbackPartidaGuardada();
         List<Integer> solucio = controladorPersistencia.getSolucioPartidaGuardada();
-        if(controladorPersistencia.isBreakerPartidaGuardada()) {
-            this.carregarPartidaBreaker(intents, feedback, solucio);
+        if(controladorPersistencia.isBreakerPartidaGuardada(username)) {
+            this.carregarPartidaBreaker(username, intents, feedback, solucio);
         }
         else
-            this.carregarPartidaMaker(intents, feedback, solucio);
+            this.carregarPartidaMaker(username, intents, feedback, solucio);
     }
 
     /**
@@ -174,11 +185,11 @@ public class ControladorDomini {
      * @throws DomainException si el tamany d'alguna list no és correcte
      * @author Albert Canales
      */
-    private void carregarPartidaBreaker(List<List<Integer>> intents,
+    private void carregarPartidaBreaker(String username, List<List<Integer>> intents,
                                         List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
         Integer nivellDificultat = controladorPersistencia.getNivellDificultatPartidaGuardada();
         Duration temps = controladorPersistencia.getTempsPartidaGuardada();
-        controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps);
+        controladorPartida.carregarPartidaBreaker(username, nivellDificultat, intents, feedback, solucio, temps);
     }
 
     /**
@@ -186,9 +197,9 @@ public class ControladorDomini {
      * @throws DomainException si el tamany d'alguna list no és correcte
      * @author Albert Canales
      */
-    private void carregarPartidaMaker(List<List<Integer>> intents,
+    private void carregarPartidaMaker(String username, List<List<Integer>> intents,
                                       List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
-        controladorPartida.carregarPartidaMaker(intents, feedback, solucio);
+        controladorPartida.carregarPartidaMaker(username, intents, feedback, solucio);
     }
 
     /**
@@ -198,8 +209,10 @@ public class ControladorDomini {
      * @return Una llista que conté tuples amb (username: String, intents: Integer, temps: Duration)
      * @author Albert Canales
      */
-    public List<List<Object>> getRanquing(Integer nivellDificultat, Integer nombrePartides) {
-        // TODO Validar paràmetres
+    public List<List<Object>> getRanquing(Integer nivellDificultat, Integer nombrePartides) throws InvalidEnumValueException {
+        if(!NivellDificultat.isValid(nivellDificultat))
+            throw new InvalidEnumValueException("NivellDificultat", nivellDificultat.toString());
+        if(nombrePartides < 0) nombrePartides = 0;
         return controladorPersistencia.getRanquing(nivellDificultat, nombrePartides);
     }
 

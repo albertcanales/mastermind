@@ -20,25 +20,34 @@ public class DominiDriver extends ControladorDriver {
         System.out.println("     0 | sortir");
         System.out.println("     1 | ajuda");
         System.out.println("     2 | constructor");
-        System.out.println("     3 | existsUser");
-        System.out.println("     4 | loginUser");
-        System.out.println("     5 | registerUser");
-        System.out.println("     6 | novaPartidaMaker");
-        System.out.println("     7 | novaPartidaBreaker");
-        System.out.println("     8 | carregarPartida");
-        System.out.println("     9 | getRanquing");
-        System.out.println("    10 | getPersonalRecord");
-        System.out.println("    11 | getTimePlayed");
-        System.out.println("    12 | getWinLost");
-        System.out.println("    13 | getWinstreak");
-        System.out.println("    14 | getAverageAsBreaker");
-        System.out.println("    15 | getAverageAsMaker");
-        System.out.println("    16 | getSolucio");
-        System.out.println("    17 | getIntents");
-        System.out.println("    18 | getFeedbacks");
-        System.out.println("    19 | setBola");
-        System.out.println("    20 | validarSequencia");
-        System.out.println("    21 | botSolve");
+        System.out.println("     3 | userLoggedIn");
+        System.out.println("     4 | partidaBeingPlayed");
+        System.out.println("     5 | isValidUser");
+        System.out.println("     6 | existsUser");
+        System.out.println("     7 | loginUser");
+        System.out.println("     8 | registerUser");
+        System.out.println("     9 | logoutUser");
+        System.out.println("    10 | novaPartidaMaker");
+        System.out.println("    11 | novaPartidaBreaker");
+        System.out.println("    12 | existsPartidaGuardada");
+        System.out.println("    13 | carregarPartida");
+        System.out.println("    14 | getRanquing");
+        System.out.println("    15 | getPersonalRecord");
+        System.out.println("    16 | getTimePlayed");
+        System.out.println("    17 | getWonGames");
+        System.out.println("    18 | getLostGames");
+        System.out.println("    19 | getWinstreak");
+        System.out.println("    20 | getAverageAsBreaker");
+        System.out.println("    21 | getAverageAsMaker");
+        System.out.println("    22 | isJugadorBreaker");
+        System.out.println("    23 | getSolucio");
+        System.out.println("    24 | getIntents");
+        System.out.println("    25 | getFeedbacks");
+        System.out.println("    26 | getTempsPartidaMillis");
+        System.out.println("    27 | addTempsPartidaMillis");
+        System.out.println("    28 | setBola");
+        System.out.println("    29 | validarSequencia");
+        System.out.println("    30 | botSolve");
         System.out.println("Cada comanda es pot executar pel seu nombre o pel seu nom.");
         System.out.println("La comanda 'ajuda (1)' mostra de nou aquesta informació");
     }
@@ -65,6 +74,22 @@ public class DominiDriver extends ControladorDriver {
             System.out.println("Hi ha una partida en joc");
         else
             System.out.println("No hi ha una partida en joc");
+    }
+
+    private static void testIsValidUser() {
+        System.out.println("Testing isValidUser...");
+
+        System.out.print("Enter a username: ");
+        String username = in.nextLine();
+        System.out.print("Enter a name: ");
+        String name = in.nextLine();
+        System.out.print("Enter a password: ");
+        String password = in.nextLine();
+
+        if(cd.isValidUser(username, name, password))
+            System.out.println("The given user data is valid");
+        else
+            System.out.println("The given user data is invalid");
     }
 
     private static void testExistsUser() {
@@ -101,7 +126,6 @@ public class DominiDriver extends ControladorDriver {
     private static void testRegisterUser() throws DomainException {
         System.out.println("Testing registerUser...");
 
-        // TODO Valid username, name and password. Waiting for implementation...
         System.out.print("Enter un username: ");
         String username = in.nextLine();
         if (cd.existsUser(username)) {
@@ -113,6 +137,11 @@ public class DominiDriver extends ControladorDriver {
         String name = in.nextLine();
         System.out.print("Enter a password: ");
         String password = in.nextLine();
+
+        if(!cd.isValidUser(username, name, password)) {
+            System.out.println("Error: Els paràmetres donats no són vàlids (no poden ser buits).");
+            return;
+        }
 
         cd.registerUser(username, name, password);
     }
@@ -128,12 +157,29 @@ public class DominiDriver extends ControladorDriver {
         cd.logoutUser();
     }
 
-    private static void testNovaPartidaMaker() {
+    private static void testNovaPartidaMaker() throws DomainException {
+        System.out.println("Testing novaPartidaMaker...");
 
+        if(!cd.userLoggedIn()) {
+            System.out.println("Error: No s'ha iniciat sessió");
+            return;
+        }
+
+        List<Integer> solution = scanSolution();
+        Integer algorisme = scanAlgorisme();
+        cd.novaPartidaMaker(solution, algorisme);
     }
 
-    private static void testNovaPartidaBreaker() {
+    private static void testNovaPartidaBreaker() throws DomainException {
+        System.out.println("Testing novaPartidaBreaker...");
 
+        if(!cd.userLoggedIn()) {
+            System.out.println("Error: No s'ha iniciat sessió");
+            return;
+        }
+
+        Integer dificultat = scanNivellDificultat();
+        cd.novaPartidaBreaker(dificultat);
     }
 
     private static void testExistsPartidaGuardada() throws DomainException {
@@ -311,12 +357,28 @@ public class DominiDriver extends ControladorDriver {
             printSequence(feedback);
     }
 
-    private static void testGetTempsPartidaMillis() {
+    private static void testGetTempsPartidaMillis() throws DomainException {
+        System.out.println("Testing getTempsPartidaMillis...");
 
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No hi ha una partida en joc");
+            return;
+        }
+
+        System.out.printf("El temps transcorregut és de %d ms.%n", cd.getTempsPartidaMillis());
     }
 
-    private static void testAddTempsPartidaMillis() {
+    private static void testAddTempsPartidaMillis() throws DomainException {
+        System.out.println("Testing addTempsPartdaMillis...");
 
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No hi ha una partida en joc");
+            return;
+        }
+
+        System.out.print("Enter a temps a afegir: ");
+        Long afegit = scanLong();
+        cd.addTempsPartidaMillis(afegit);
     }
 
     private static void testSetBola() {
@@ -342,13 +404,13 @@ public class DominiDriver extends ControladorDriver {
         cd.botSolve();
     }
 
-    // TODO Fer main com l'altre
     public static void main(String[] args) throws DomainException {
         cd = new ControladorDomini();
         in = new Scanner(System.in);
         System.out.println("A continuació es mostren les comandes possibles:");
         showUsage();
         while(true) {
+            boolean runTest = true;
             System.out.print("Escolleix una comanda: ");
             String cmd = in.nextLine();
             switch (cmd) {
@@ -359,92 +421,129 @@ public class DominiDriver extends ControladorDriver {
                 case "1":
                 case "ajuda":
                     showUsage();
+                    runTest = false;
                     break;
                 case "2":
                 case "constructor":
                     testConstructor();
                     break;
                 case "3":
+                case "userLoggedIn":
+                    testUserLoggedIn();
+                    break;
+                case "4":
+                case "partidaBeingPlayed":
+                    testIsPartidaBeingPlayed();
+                    break;
+                case "5":
+                case "isValidUser":
+                    testIsValidUser();
+                    break;
+                case "6":
                 case "existsUser":
                     testExistsUser();
                     break;
-                case "4":
+                case "7":
                 case "loginUser":
                     testLoginUser();
                     break;
-                case "5":
+                case "8":
                 case "registerUser":
                     testRegisterUser();
                     break;
-                case "6":
+                case "9":
+                case "logoutUser":
+                    testLogoutUser();
+                    break;
+                case "10":
                 case "novaPartidaMaker":
                     testNovaPartidaMaker();
                     break;
-                case "7":
+                case "11":
                 case "novaPartidaBreaker":
                     testNovaPartidaBreaker();
                     break;
-                case "8":
+                case "12":
+                case "existsPartidaGuardada":
+                    testExistsPartidaGuardada();
+                    break;
+                case "13":
                 case "carregarPartida":
                     testCarregarPartida();
                     break;
-                case "9":
+                case "14":
                 case "getRanquing":
                     testGetRanquing();
                     break;
-                case "10":
+                case "15":
                 case "getPersonalRecord":
                     testGetPersonalRecord();
                     break;
-                case "11":
+                case "16":
                 case "getTimePlayed":
                     testGetTimePlayed();
                     break;
+                case "17":
                 case "getWonGames":
                     testGetWonGames();
                     break;
+                case "18":
                 case "getLostGames":
                     testGetWonGames();
                     break;
-                case "13":
+                case "19":
                 case "getWinstreak":
                     testGetWinstreak();
                     break;
-                case "14":
+                case "20":
                 case "getAverageAsBreaker":
                     testGetAverageAsBreaker();
                     break;
-                case "15":
+                case "21":
                 case "getAverageAsMaker":
                     testGetAverageAsMaker();
                     break;
-                case "16":
+                case "22":
+                case "isJugadorBreaker":
+                    testIsJugadorBreaker();
+                    break;
+                case "23":
                 case "getSolucio":
                     testGetSolucio();
                     break;
-                case "17":
+                case "24":
                 case "getIntents":
                     testGetIntents();
                     break;
-                case "18":
+                case "25":
                 case "getFeedbacks":
                     testGetFeedbacks();
                     break;
-                case "19":
+                case "26":
+                case "getTempsPartidaMillis":
+                    testGetTempsPartidaMillis();
+                    break;
+                case "27":
+                case "addTempsPartidaMillis":
+                    testAddTempsPartidaMillis();
+                    break;
+                case "28":
                 case "setBola":
                     testSetBola();
                     break;
-                case "20":
+                case "29":
                 case "validarSequencia":
                     testValidarSequencia();
                     break;
-                case "21":
+                case "30":
                 case "botSolve":
                     testBotSolve();
                     break;
                 default:
-                    System.out.println("No es coneix la comanda, s'ignora.");
+                    runTest = false;
             }
+            if(runTest)
+                System.out.println("End of test");
         }
     }
 

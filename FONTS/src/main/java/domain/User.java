@@ -18,7 +18,6 @@ import java.util.List;
 public class User {
 
     // TODO El concepte de Winstreak està mal implementat, es refereix al màxim winstreak històric, per això calia un lastGameWon
-    // TODO Excepcions per username, user i name
 
     private String name;
     private String username;
@@ -227,6 +226,17 @@ public class User {
      * @author Kamil Przybyszewski
      */
     public List<Integer> getNumGamesAsMaker(){ return numGamesAsMaker;}
+
+    /**
+     * Mètode determinar si els paràmetres d'usuari són adequats (bon format)
+     * @param username contrasenya a comprovar
+     * @param name nom a comprovar
+     * @param password contrasenya a comprovar
+     * @author Albert Canales
+     */
+    static Boolean isValidUser(String username, String name, String password) {
+        return !(username.isBlank() && name.isBlank() && password.isBlank());
+    }
 
     /**
      * Mètode per obtenir el hash en SHA256 (encoded en base64) d'una contrasenya
