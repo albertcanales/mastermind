@@ -62,8 +62,6 @@ class ControladorPartida {
 
     /**
      * Mètode que carrega una partida pendent on el jugador feia de maker
-     *
-     * @param username
      * @param intents  intents de la partida existent
      * @param feedback feedbacks de la partida existent
      * @param solucio  solucio de la partida existent
@@ -82,8 +80,6 @@ class ControladorPartida {
 
     /**
      * Mètode que carrega una partida pendent on el jugador feia de breaker
-     *
-     * @param username
      * @param nivellDificultat enter que representa el nivell de dificultat de la partida
      * @param intents          intents de la partida existent
      * @param feedback         feedbacks de la partida existent

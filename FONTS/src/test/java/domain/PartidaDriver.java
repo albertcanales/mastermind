@@ -41,6 +41,7 @@ public class PartidaDriver extends ControladorDriver {
         System.out.println("    21 | isPartidaAcabada");
         System.out.println("    22 | isUltimIntentPle");
         System.out.println("    23 | setBola");
+        System.out.println("    24 | sortirPartida");
         System.out.println("Cada comanda es pot executar pel seu nombre o pel seu nom.");
     }
 
@@ -329,6 +330,17 @@ public class PartidaDriver extends ControladorDriver {
         cp.setBola(index, bola);
     }
 
+    private static void testSortirPartida() throws DomainException {
+        System.out.println("Testing sortirPartida...");
+
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+
+        cp.sortirPartida();
+    }
+
     public static void main(String[] args) throws DomainException {
         cp = new ControladorPartida();
         in = new Scanner(System.in);
@@ -435,6 +447,10 @@ public class PartidaDriver extends ControladorDriver {
                 case "23":
                 case "setBola":
                     testSetBola();
+                    break;
+                case "24":
+                case "sortirPartida":
+                    testSortirPartida();
                     break;
                 default:
                     runTest = false;

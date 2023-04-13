@@ -167,6 +167,8 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public void carregarPartida() throws DomainException {
+        if(!userLoggedIn())
+            throw new NotLoggedInException();
         if(!existsPartidaGuardada())
             throw new NoGameSavedException();
         String username = user.getUsername();
@@ -205,15 +207,13 @@ public class ControladorDomini {
     /**
      * Getter del rànquing de les millors partides d'una dificultat concreta
      * @param nivellDificultat nombre del nivell de dificultat
-     * @param nombrePartides nombre de partides a mostrar
      * @return Una llista que conté tuples amb (username: String, intents: Integer, temps: Long)
      * @author Albert Canales
      */
-    public List<List<Object>> getRanquing(Integer nivellDificultat, Integer nombrePartides) throws InvalidEnumValueException {
+    public List<List<Object>> getRanquing(Integer nivellDificultat) throws InvalidEnumValueException {
         if(!NivellDificultat.isValid(nivellDificultat))
             throw new InvalidEnumValueException("NivellDificultat", nivellDificultat.toString());
-        if(nombrePartides < 0) nombrePartides = 0;
-        return controladorPersistencia.getRanquing(nivellDificultat, nombrePartides);
+        return controladorPersistencia.getRanquing(nivellDificultat);
     }
 
     /**
@@ -305,7 +305,7 @@ public class ControladorDomini {
      * @throws DomainException si no s'està jugant cap partida
      * @author Albert Canales
      */
-    Boolean isJugadorBreaker() throws DomainException {
+    public Boolean isJugadorBreaker() throws DomainException {
         return controladorPartida.isJugadorBreaker();
     }
 
@@ -379,13 +379,70 @@ public class ControladorDomini {
      * @author Albert Canales
      */
     public List<Integer> validarSequencia() throws DomainException {
-        if(!controladorPartida.isPartidaPresent())
-            throw new NotPlayingPartidaException();
-        List<Integer> feedback = controladorPartida.validarSequencia();
+        if(!userLoggedIn())
+            throw new NotLoggedInException();
+        return controladorPartida.validarSequencia();
+    }
 
+    /**
+     * Mètode perquè el bot jugui la partida
+     * @throws NotPlayingPartidaException si no s'està jugant cap partida
+     * @author Albert Canales
+     */
+    public void botSolve() throws DomainException {
+        controladorPartida.botSolve();
+    }
+
+    /**
+     * Mètode per saber si una partida està guanyada
+     * @throws DomainException si no s'està jugant cap partida
+     * @author Albert Canales
+     */
+    public Boolean isPartidaGuanyada() throws DomainException {
+        return controladorPartida.isPartidaGuanyada();
+    }
+
+    /**
+     * Mètode per saber si una partida està perduda
+     * @throws DomainException si no s'està jugant cap partida
+     * @author Albert Canales
+     */
+    public Boolean isPartidaPerduda() throws DomainException {
+        return controladorPartida.isPartidaPerduda();
+    }
+
+    /**
+     * Mètode per saber si una partida està acabada
+     * @throws DomainException si no s'està jugant cap partida
+     * @author Albert Canales
+     */
+    public Boolean isPartidaAcabada() throws DomainException {
+        return controladorPartida.isPartidaAcabada();
+    }
+
+    /**
+     * Mètode per saber si l'últim intent està ple
+     * @throws DomainException si no s'està jugant cap partida
+     * @author Albert Canales
+     */
+    public Boolean isUltimIntentPle() throws DomainException {
+        return controladorPartida.isUltimIntentPle();
+    }
+
+    /**
+     * Mètode per sortir de la partida
+     * Si està acabada, l'esborrarà de la partida carregada i actualitzarà les estadístiques
+     * @throws DomainException si no s'està jugant cap partida
+     * @author Albert Canales
+     */
+    public void sortirPartida() throws DomainException {
+        if(!isPartidaBeingPlayed())
+            throw new NotPlayingPartidaException();
         if(controladorPartida.isPartidaAcabada()) {
+            // Guarda la partida com a finalitzada
             controladorPersistencia.acabarPartidaGuardada(user.getUsername());
 
+            // Actualitza directament els valors de user per ser més eficient
             Integer numIntents = controladorPartida.getNumIntents();
             if(controladorPartida.isJugadorBreaker()) {
                 Integer nivellDificultat = controladorPartida.getNivellDificultat();
@@ -397,18 +454,7 @@ public class ControladorDomini {
                 Integer algorisme = controladorPartida.getAlgorisme();
                 user.acabarPartidaMaker(algorisme, numIntents);
             }
-
-            controladorPartida.sortirPartida();
         }
-        return feedback;
-    }
-
-    /**
-     * Mètode perquè el bot jugui la partida
-     * @throws NotPlayingPartidaException si no s'està jugant cap partida
-     * @author Albert Canales
-     */
-    void botSolve() throws DomainException {
-        controladorPartida.botSolve();
+        controladorPartida.sortirPartida();
     }
 }

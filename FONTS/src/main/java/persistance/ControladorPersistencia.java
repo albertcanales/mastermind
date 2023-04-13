@@ -27,8 +27,21 @@ public class ControladorPersistencia {
         return null;
     }
 
-    public List<List<Object>> getRanquing(Integer nivellDificultat, Integer nombrePartides) {
-        return null;
+    public List<List<Object>> getRanquing(Integer nivellDificultat) {
+        List<List<Object>> ranquing = new ArrayList<>();
+        if(nivellDificultat == 1) {
+            ranquing.add(List.of("albert", 2, 100L));
+            ranquing.add(List.of("mar", 4, 200L));
+        }
+        else if (nivellDificultat == 2) {
+            ranquing.add(List.of("arnau", 5, 400L));
+            ranquing.add(List.of("kamil", 7, 300L));
+            ranquing.add(List.of("mar", 10, 700L));
+        }
+        else if (nivellDificultat == 3) {
+            // No n'hi ha cap
+        }
+        return ranquing;
     }
 
     public List<Integer> getUserPersonalRecord(String username) {

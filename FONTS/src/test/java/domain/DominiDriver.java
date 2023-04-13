@@ -1,6 +1,7 @@
 package domain;
 
 import domain.exceptions.DomainException;
+import domain.exceptions.InvalidEnumValueException;
 
 import java.util.List;
 import java.util.Scanner;
@@ -48,6 +49,11 @@ public class DominiDriver extends ControladorDriver {
         System.out.println("    28 | setBola");
         System.out.println("    29 | validarSequencia");
         System.out.println("    30 | botSolve");
+        System.out.println("    31 | isPartidaGuanyada");
+        System.out.println("    32 | isPartidaPerduda");
+        System.out.println("    33 | isPartidaAcabada");
+        System.out.println("    34 | isUltimIntentPle");
+        System.out.println("    35 | sortirPartida");
         System.out.println("Cada comanda es pot executar pel seu nombre o pel seu nom.");
         System.out.println("La comanda 'ajuda (1)' mostra de nou aquesta informació");
         System.out.println("Hint: Com que la persistència està mockejada, ara només hi ha un usuari 'albert' amb contrasenya 'contrasenya' ");
@@ -197,12 +203,43 @@ public class DominiDriver extends ControladorDriver {
             System.out.println("No hi ha una partida guardada de l'usuari que ha iniciat sessió");
     }
 
-    private static void testCarregarPartida() {
+    private static void testCarregarPartida() throws DomainException {
+        System.out.println("Testing carregarPartida...");
 
+        if(!cd.userLoggedIn()) {
+            System.out.println("Error: No s'ha iniciat sessió");
+            return;
+        }
+
+        if(!cd.existsPartidaGuardada()) {
+            System.out.println("Error: No hi ha una partida guardada per carregar");
+            return;
+        }
+
+        cd.carregarPartida();
     }
 
-    private static void testGetRanquing() {
+    private static void testGetRanquing() throws InvalidEnumValueException {
+        System.out.println("Testing getRanquing...");
 
+        if(!cd.userLoggedIn()) {
+            System.out.println("Error: No s'ha iniciat sessió");
+            return;
+        }
+
+        Integer nivellDificultat = scanNivellDificultat();
+
+        List<List<Object>> ranquing = cd.getRanquing(nivellDificultat);
+
+        if(ranquing.size() == 0) {
+            System.out.println("No hi ha cap partida en aquesta dificultat");
+        }
+        else {
+            System.out.println("USUARI | INTENTS | TEMPS");
+            for (List<Object> partida : ranquing) {
+                System.out.printf("%s | %d | %d%n", partida.get(0), (Integer)partida.get(1), (Long)partida.get(2));
+            }
+        }
     }
 
     private static void testGetPersonalRecord() throws DomainException {
@@ -382,12 +419,60 @@ public class DominiDriver extends ControladorDriver {
         cd.addTempsPartidaMillis(afegit);
     }
 
-    private static void testSetBola() {
+    private static void testSetBola() throws DomainException {
+        System.out.println("Testing setBola...");
 
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+        if(!cd.isPartidaAcabada()) {
+            System.out.println("Error: La partida actual ja ha acabat");
+            return;
+        }
+
+        System.out.print("Enter un index per la bola: ");
+        int index = scanInt();
+        while(index < 0 || index >= ControladorPartida.getNumBoles()) {
+            System.out.println("L'índex no es correcte");
+            System.out.print("Enter un index per la bola: ");
+            index = scanInt();
+        }
+        System.out.printf("L'índex de la bola llegit és %d%n", index);
+
+        System.out.print("Enter un color per la bola: ");
+        int bola = scanInt();
+        while(Bola.isValid(bola)) {
+            System.out.println("El color donat no és vàlid");
+            System.out.print("Enter un color per la bola: ");
+            bola = scanInt();
+        }
+        System.out.printf("El color de bola llegit és %d%n", index);
+
+        cd.setBola(index, bola);
     }
 
-    private static void testValidarSequencia() {
+    private static void testValidarSequencia() throws DomainException {
+        System.out.println("Testing validarSequencia...");
 
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+        if(!cd.isJugadorBreaker()) {
+            System.out.println("Error: En la partida actual el bot és el breaker");
+            return;
+        }
+        if(cd.isPartidaAcabada()) {
+            System.out.println("Error: La partida ja està acabada");
+            return;
+        }
+        if(!cd.isUltimIntentPle()) {
+            System.out.println("Error: Encara hi ha boles per assignar a l'últim intent");
+            return;
+        }
+
+        cd.validarSequencia();
     }
 
     private static void testBotSolve() throws DomainException {
@@ -403,6 +488,70 @@ public class DominiDriver extends ControladorDriver {
         }
 
         cd.botSolve();
+    }
+
+    private static void testIsPartidaGuanyada() throws DomainException {
+        System.out.println("Testing isPartidaGuanyada...");
+
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+
+        if(cd.isPartidaGuanyada())
+            System.out.println("La partida actual està guanyada");
+        else
+            System.out.println("La partida actual no està guanyada");
+    }
+
+    private static void testIsPartidaPerduda() throws DomainException {
+        System.out.println("Testing isPartidaPerduda...");
+
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+
+        if(cd.isPartidaPerduda())
+            System.out.println("La partida actual està perduda");
+        else
+            System.out.println("La partida actual no està perduda");
+    }
+
+    private static void testIsPartidaAcabada() throws DomainException {
+        System.out.println("Testing isPartidaAcabada...");
+
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+
+        if(cd.isPartidaAcabada())
+            System.out.println("La partida actual està acabada");
+        else
+            System.out.println("La partida actual no està acabada");
+    }
+
+    private static void testIsUltimIntentPle() throws DomainException {
+        System.out.println("Testing isUltimIntentPle...");
+
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+
+        cd.isUltimIntentPle();
+    }
+
+    private static void testSortirPartida() throws DomainException {
+        System.out.println("Testing sortirPartida...");
+
+        if(!cd.isPartidaBeingPlayed()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+
+        cd.sortirPartida();
     }
 
     public static void main(String[] args) throws DomainException {
@@ -540,6 +689,27 @@ public class DominiDriver extends ControladorDriver {
                 case "botSolve":
                     testBotSolve();
                     break;
+                case "31":
+                case "isPartidaGuanyada":
+                    testIsPartidaGuanyada();
+                    break;
+                case "32":
+                case "isPartidaPerduda":
+                    testIsPartidaPerduda();
+                    break;
+                case "33":
+                case "isPartidaAcabada":
+                    testIsPartidaAcabada();
+                    break;
+                case "34":
+                case "isUltimIntentPle":
+                    testIsUltimIntentPle();
+                    break;
+                case "35":
+                case "sortirPartida":
+                    testSortirPartida();
+                    break;
+
                 default:
                     runTest = false;
             }
