@@ -1,7 +1,6 @@
 package domain;
 
-import domain.exceptions.DomainException;
-import domain.exceptions.InvalidEnumValueException;
+import domain.exceptions.*;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -38,13 +37,20 @@ public class User {
      */
     private void initializeBreakerStats(){
         int numDificultats = NivellDificultat.numDificultats();
-        List<Integer> tot_zero = new ArrayList<>(Collections.nCopies(numDificultats,0));
+
+        List<Integer> tot_zero = new ArrayList<>();
+
+        timePlayedFinishedGames = new ArrayList<>();
+        averageAsBreaker = new ArrayList<>();
+        for (int i = 0; i < numDificultats; ++i){
+            tot_zero.add(0);
+            timePlayedFinishedGames.add(0L);
+            averageAsBreaker.add(0d);
+        }
 
         personalRecord = new ArrayList<>(tot_zero);
-        timePlayedFinishedGames = new ArrayList<>(Collections.nCopies(numDificultats,0L));
         wonGames = new ArrayList<>(tot_zero);
         winStreak = new ArrayList<>(tot_zero);
-        averageAsBreaker = new ArrayList<>(Collections.nCopies(numDificultats,0.0));
         numGamesAsBreaker = new ArrayList<>(tot_zero);
     }
 
@@ -55,8 +61,29 @@ public class User {
     private void initializeMakerStats(){
         Integer numAlgoritmes = TipusAlgorisme.numAlgorismes();
 
-        averageAsMaker = new ArrayList<>(Collections.nCopies(numAlgoritmes,0.0));
-        numGamesAsMaker = new ArrayList<>(Collections.nCopies(numAlgoritmes,0));
+        averageAsMaker = new ArrayList<>(); numGamesAsMaker = new ArrayList<>();
+        for (int i = 0; i < numAlgoritmes; ++i){
+            averageAsMaker.add(0d);
+            numGamesAsMaker.add(0);
+        }
+    }
+
+    /**
+     * Mètode per comprovar els tamanys de les estadístiques
+     * @author Kamil Przybyszewski
+     */
+    private void comprovaSizeStats(List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws InvalidStatSizeException {
+        Integer numDificultats = NivellDificultat.numDificultats();
+        if (!numDificultats.equals(personalRecord.size())) throw new InvalidStatSizeException("PersonalRecord", personalRecord.size());
+        if (!numDificultats.equals(timePlayed.size())) throw new InvalidStatSizeException("timePlayed", timePlayed.size());
+        if (!numDificultats.equals(wonGames.size())) throw new InvalidStatSizeException("wonGames", wonGames.size());
+        if (!numDificultats.equals(lostGames.size())) throw new InvalidStatSizeException("lostGames", lostGames.size());
+        if (!numDificultats.equals(winStreak.size())) throw new InvalidStatSizeException("winStreak", winStreak.size());
+        if (!numDificultats.equals(avgAsBreaker.size())) throw new InvalidStatSizeException("avgAsBreaker", avgAsBreaker.size());
+
+        Integer numAlgoritmes = TipusAlgorisme.numAlgorismes();
+        if (!numAlgoritmes.equals(avgAsMaker.size())) throw new InvalidStatSizeException("avgAsMaker", avgAsMaker.size());
+        if (!numAlgoritmes.equals(numGamesAsMaker.size())) throw new InvalidStatSizeException("numGamesAsMaker", numGamesAsMaker.size());
     }
 
     /**
@@ -77,8 +104,9 @@ public class User {
      * Constructor d'un usuari ja existent
      * @author Kamil Przybyszewski
      */
-    //TODO Excepcions si tamany no es numDificultats o numAlgoritmes, i si els valors no son correctes
-    public User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) {
+    public User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws DomainException{
+        comprovaSizeStats(personalRecord, timePlayed, wonGames, lostGames, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
+
         this.name = name;
         this.username = username;
 
@@ -103,13 +131,17 @@ public class User {
      * @param guanyada si l'usuari ha guanyat la partida
      * @param temps duració de la partida
      * @author Kamil Przybyszewski
-     */ //TODO Excepcions si intents i temps no son correctes
+     */
     public void acabarPartidaBreaker(Integer dificultat, Integer intents, Boolean guanyada, Long temps) throws DomainException {
         if (!NivellDificultat.isValid(dificultat)) throw new InvalidEnumValueException("NivellDificultat", dificultat.toString());
+        if (intents < 0) throw new InvalidStatIntentsException(intents.toString());
+        if (temps < 0L) throw new InvalidStatTempsException(temps.toString());
 
         dificultat--; //Els valors de NivellDificultat no comencen a 0
 
-        if (intents < personalRecord.get(dificultat)) personalRecord.set(dificultat, intents);
+        Integer PR = personalRecord.get(dificultat);
+        if (PR == 0) personalRecord.set(dificultat, intents);
+        else if (intents < PR) personalRecord.set(dificultat, intents);
 
         Long newTimePlayed = timePlayedFinishedGames.get(dificultat) + temps;
         timePlayedFinishedGames.set(dificultat,newTimePlayed);
@@ -135,9 +167,11 @@ public class User {
      * @param algoritme algoritme seleccionat pel BotBreaker a la partida
      * @param intents intents del BotBreaker a la partida
      * @author Kamil Przybyszewski
-     */ //TODO Excepcions si intents i temps no son correctes
+     */
     public void acabarPartidaMaker(Integer algoritme, Integer intents) throws DomainException {
         if (!NivellDificultat.isValid(algoritme)) throw new InvalidEnumValueException("NivellDificultat", algoritme.toString());
+        if (intents < 0) throw new InvalidStatIntentsException(intents.toString());
+
         algoritme--; //Els valors de TipusAlgoritme no comencen en 0
 
         Integer totalIntents = (int) (averageAsMaker.get(algoritme)*numGamesAsMaker.get(algoritme));
@@ -147,7 +181,6 @@ public class User {
         averageAsMaker.set(algoritme, newAvg);
         numGamesAsMaker.set(algoritme, numGames);
     }    
-    //public void registerUser(String username, String name, String password) throws DomainException {
 
     /**
      * Getter del valor de l'atribut name
