@@ -11,11 +11,11 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class UserTests {
-    //TODO mock o stub per NivellDificultat.numDificultats() i TipusAlgorisme.numAlgorismes()
     private static List<Integer> personalRecordTest, personalRecordExpected;
     private static List<Long> timePlayedTest, timePlayedExpected;
     private static List<Integer> wonGamesTest, wonGamesExpected;
     private static List<Integer> lostGamesTest, lostGamesExpected;
+    private static List<Integer> currentWinStreakTest, currentWinStreakExpected;
     private static List<Integer> winStreakTest, winStreakExpected;
     private static List<Double> avgAsBreakerTest, avgAsBreakerExpected;
     private static List<Double> avgAsMakerTest, avgAsMakerExpected;
@@ -32,7 +32,9 @@ public class UserTests {
         wonGamesExpected = new ArrayList<>(wonGamesTest);
         lostGamesTest = new ArrayList<>(List.of(0,500,1));
         lostGamesExpected = new ArrayList<>(lostGamesTest);
-        winStreakTest = new ArrayList<>(List.of(1, 23, 0));
+        currentWinStreakTest = new ArrayList<>(List.of(1,20,0));
+        currentWinStreakExpected = new ArrayList<>(currentWinStreakTest);
+        winStreakTest = new ArrayList<>(List.of(1, 23, 1));
         winStreakExpected = new ArrayList<>(winStreakTest);
         avgAsBreakerTest = new ArrayList<>(List.of(2d,3.996d,29d));
         avgAsBreakerExpected = new ArrayList<>(avgAsBreakerTest);
@@ -60,6 +62,7 @@ public class UserTests {
         assertEquals(tot_zero_L, user.getTimePlayed());
         assertEquals(tot_zero, user.getWonGames());
         assertEquals(tot_zero, user.getLostGames());
+        assertEquals(tot_zero, user.getCurrentWinStreak());
         assertEquals(tot_zero, user.getWinStreak());
         assertEquals(tot_zero_d, user.getAvgAsBreaker());
         assertEquals(small_tot_zero_d, user.getAvgAsMaker());
@@ -70,7 +73,7 @@ public class UserTests {
     public void createExistingUser() throws DomainException {
 
         String name = "Przybyszewski"; String username = "AbCd00";
-        User user = new User(name,username,personalRecordTest,timePlayedTest,wonGamesTest,lostGamesTest,winStreakTest,avgAsBreakerTest,avgAsMakerTest,numGamesAsMakerTest);
+        User user = new User(name,username,personalRecordTest,timePlayedTest,wonGamesTest,lostGamesTest,currentWinStreakTest,winStreakTest,avgAsBreakerTest,avgAsMakerTest,numGamesAsMakerTest);
 
         assertEquals("Przybyszewski", user.getName());
         assertEquals("AbCd00", user.getUsername());
@@ -78,6 +81,7 @@ public class UserTests {
         assertEquals(timePlayedExpected, user.getTimePlayed());
         assertEquals(wonGamesExpected, user.getWonGames());
         assertEquals(lostGamesExpected, user.getLostGames());
+        assertEquals(currentWinStreakExpected,user.getCurrentWinStreak());
         assertEquals(winStreakExpected, user.getWinStreak());
         assertEquals(avgAsBreakerExpected, user.getAvgAsBreaker());
         assertEquals(avgAsMakerExpected, user.getAvgAsMaker());
@@ -89,7 +93,7 @@ public class UserTests {
         String name = "Pepe"; String username = "pepe2316";
         wonGamesTest = new ArrayList<>(List.of(1,500,3,0));
         assertThrows(InvalidStatSizeException.class, () -> {
-            new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
+            new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
         });
     }
 
@@ -110,6 +114,8 @@ public class UserTests {
         assertEquals(wonGamesExpected, user.getWonGames());
         lostGamesExpected = new ArrayList<>(List.of(0,0,0));
         assertEquals(lostGamesExpected, user.getLostGames());
+        currentWinStreakExpected = new ArrayList<>(List.of(1,0,0));
+        assertEquals(currentWinStreakExpected, user.getCurrentWinStreak());
         winStreakExpected = new ArrayList<>(List.of(1,0,0));
         assertEquals(winStreakExpected, user.getWinStreak());
         avgAsBreakerExpected = new ArrayList<>(List.of(5d,0d,0d));
@@ -123,7 +129,7 @@ public class UserTests {
     @Test
     public void updateForFinishedWonBreakerGame() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
-        User user = new User(name,username,personalRecordTest,timePlayedTest,wonGamesTest,lostGamesTest,winStreakTest,avgAsBreakerTest,avgAsMakerTest,numGamesAsMakerTest);
+        User user = new User(name,username,personalRecordTest,timePlayedTest,wonGamesTest,lostGamesTest,currentWinStreakTest,winStreakTest,avgAsBreakerTest,avgAsMakerTest,numGamesAsMakerTest);
 
         user.acabarPartidaBreaker(1,1,true,5L);
 
@@ -136,6 +142,8 @@ public class UserTests {
         wonGamesExpected.set(0,2);
         assertEquals(wonGamesExpected, user.getWonGames());
         assertEquals(lostGamesExpected, user.getLostGames());
+        currentWinStreakExpected.set(0,2);
+        assertEquals(currentWinStreakExpected, user.getCurrentWinStreak());
         winStreakExpected.set(0,2);
         assertEquals(winStreakExpected, user.getWinStreak());
         avgAsBreakerExpected.set(0,1.5d);
@@ -147,7 +155,7 @@ public class UserTests {
     @Test
     public void updateForFinishedLostBreakerGame() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
-        User user = new User(name,username,personalRecordTest,timePlayedTest,wonGamesTest,lostGamesTest,winStreakTest,avgAsBreakerTest,avgAsMakerTest,numGamesAsMakerTest);
+        User user = new User(name,username,personalRecordTest,timePlayedTest,wonGamesTest,lostGamesTest,currentWinStreakTest,winStreakTest,avgAsBreakerTest,avgAsMakerTest,numGamesAsMakerTest);
 
         user.acabarPartidaBreaker(2,8,false,16L);
 
@@ -159,7 +167,9 @@ public class UserTests {
         assertEquals(wonGamesExpected, user.getWonGames());
         lostGamesExpected.set(1,501);
         assertEquals(lostGamesExpected, user.getLostGames());
-        winStreakExpected.set(1,0);
+        currentWinStreakExpected.set(1,0);
+        assertEquals(currentWinStreakExpected, user.getCurrentWinStreak());
+        winStreakExpected.set(1,23);
         assertEquals(winStreakExpected, user.getWinStreak());
         avgAsBreakerExpected.set(1,4d);
         assertEquals(avgAsBreakerExpected, user.getAvgAsBreaker());
@@ -170,7 +180,7 @@ public class UserTests {
     @Test
     public void updateForFinishedBreakerGameInvalidDificultat() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
-        User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
+        User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
         assertThrows(InvalidEnumValueException.class, () -> {
             user.acabarPartidaBreaker(-2,5,true,5L);
         });
@@ -179,7 +189,7 @@ public class UserTests {
     @Test
     public void updateForFinishedBreakerGameInvalidIntentsStat() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
-        User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
+        User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
         assertThrows(InvalidStatIntentsException.class, () -> {
             user.acabarPartidaBreaker(2,-100,true,5L);
         });
@@ -188,7 +198,7 @@ public class UserTests {
     @Test
     public void updateForFinishedBreakerGameInvalidTempsStat() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
-        User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
+        User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
         assertThrows(InvalidStatTempsException.class, () -> {
             user.acabarPartidaBreaker(2,5,true,-100L);
         });
@@ -211,6 +221,7 @@ public class UserTests {
         assertEquals(tot_zero_L, user.getTimePlayed());
         assertEquals(tot_zero, user.getWonGames());
         assertEquals(tot_zero, user.getLostGames());
+        assertEquals(tot_zero, user.getCurrentWinStreak());
         assertEquals(tot_zero, user.getWinStreak());
         assertEquals(tot_zero_d, user.getAvgAsBreaker());
         avgAsMakerExpected = new ArrayList<>(List.of(8d,0d));
@@ -221,7 +232,7 @@ public class UserTests {
     @Test
     public void updateForFinishedMakerGame() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
-        User user = new User(name,username,personalRecordTest,timePlayedTest,wonGamesTest,lostGamesTest,winStreakTest,avgAsBreakerTest,avgAsMakerTest,numGamesAsMakerTest);
+        User user = new User(name,username,personalRecordTest,timePlayedTest,wonGamesTest,lostGamesTest,currentWinStreakTest,winStreakTest,avgAsBreakerTest,avgAsMakerTest,numGamesAsMakerTest);
 
         user.acabarPartidaMaker(2,15);
 
@@ -231,6 +242,7 @@ public class UserTests {
         assertEquals(timePlayedExpected, user.getTimePlayed());
         assertEquals(wonGamesExpected, user.getWonGames());
         assertEquals(lostGamesExpected, user.getLostGames());
+        assertEquals(currentWinStreakExpected, user.getCurrentWinStreak());
         assertEquals(winStreakExpected, user.getWinStreak());
         assertEquals(avgAsBreakerExpected, user.getAvgAsBreaker());
         avgAsMakerExpected.set(1,15d);
@@ -242,7 +254,7 @@ public class UserTests {
     @Test
     public void updateForFinishedMakerGameInvalidAlgoritme() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
-        User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
+        User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
         assertThrows(InvalidEnumValueException.class, () -> {
             user.acabarPartidaMaker(500,5);
         });
@@ -251,7 +263,7 @@ public class UserTests {
     @Test
     public void updateForFinishedMakerGameInvalidIntentsStat() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
-        User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
+        User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
         assertThrows(InvalidStatIntentsException.class, () -> {
             user.acabarPartidaMaker(1,-666);
         });

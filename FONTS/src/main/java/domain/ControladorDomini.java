@@ -91,7 +91,7 @@ public class ControladorDomini {
         List<Double> avgAsBreaker = controladorPersistencia.getUserAvgAsBreaker(username);
         List<Integer> numGamesAsMaker = controladorPersistencia.getUserNumGamesAsMaker(username);
         user = new User(name, username);
-        user = new User(name, username, personalRecord, timePlayed, wonGames, lostGames, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
+        //user = new User(name, username, personalRecord, timePlayed, wonGames, lostGames, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
         return true;
     }
 

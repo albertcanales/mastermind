@@ -15,18 +15,17 @@ import java.util.List;
  * @author Kamil Przybyszewski
  */
 public class User {
-
-    // TODO El concepte de Winstreak està mal implementat, es refereix al màxim winstreak històric, per això calia un lastGameWon
-
     private String name;
     private String username;
 
     private List<Integer> personalRecord;
     private List<Long> timePlayedFinishedGames;
     private List<Integer> wonGames;
+    private List<Integer> lostGames;
+    private List<Integer> currentWinStreak;
     private List<Integer> winStreak;
     private List<Double> averageAsBreaker;
-    private List<Integer> numGamesAsBreaker;
+
 
     private List<Double> averageAsMaker;
     private List<Integer> numGamesAsMaker;
@@ -50,8 +49,10 @@ public class User {
 
         personalRecord = new ArrayList<>(tot_zero);
         wonGames = new ArrayList<>(tot_zero);
+        lostGames = new ArrayList<>(tot_zero);
+        currentWinStreak = new ArrayList<>(tot_zero);
         winStreak = new ArrayList<>(tot_zero);
-        numGamesAsBreaker = new ArrayList<>(tot_zero);
+
     }
 
     /**
@@ -72,12 +73,13 @@ public class User {
      * Mètode per comprovar els tamanys de les estadístiques
      * @author Kamil Przybyszewski
      */
-    private void comprovaSizeStats(List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws InvalidStatSizeException {
+    private void comprovaSizeStats(List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws InvalidStatSizeException {
         Integer numDificultats = NivellDificultat.numDificultats();
         if (!numDificultats.equals(personalRecord.size())) throw new InvalidStatSizeException("PersonalRecord", personalRecord.size());
         if (!numDificultats.equals(timePlayed.size())) throw new InvalidStatSizeException("timePlayed", timePlayed.size());
         if (!numDificultats.equals(wonGames.size())) throw new InvalidStatSizeException("wonGames", wonGames.size());
         if (!numDificultats.equals(lostGames.size())) throw new InvalidStatSizeException("lostGames", lostGames.size());
+        if (!numDificultats.equals(currentWinStreak.size())) throw new InvalidStatSizeException("currentWinStreak", currentWinStreak.size());
         if (!numDificultats.equals(winStreak.size())) throw new InvalidStatSizeException("winStreak", winStreak.size());
         if (!numDificultats.equals(avgAsBreaker.size())) throw new InvalidStatSizeException("avgAsBreaker", avgAsBreaker.size());
 
@@ -104,8 +106,8 @@ public class User {
      * Constructor d'un usuari ja existent
      * @author Kamil Przybyszewski
      */
-    public User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws DomainException{
-        comprovaSizeStats(personalRecord, timePlayed, wonGames, lostGames, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
+    public User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws DomainException{
+        comprovaSizeStats(personalRecord, timePlayed, wonGames, lostGames, currentWinStreak, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
 
         this.name = name;
         this.username = username;
@@ -113,15 +115,13 @@ public class User {
         this.personalRecord = personalRecord;
         this.timePlayedFinishedGames = timePlayed;
         this.wonGames = wonGames;
+        this.lostGames = lostGames;
+        this.currentWinStreak = currentWinStreak;
         this.winStreak = winStreak;
-        this.averageAsBreaker = avgAsBreaker; 
-        List<Integer> numGames = new ArrayList<Integer>();
-        for (int i = 0; i < NivellDificultat.numDificultats(); ++i){
-            numGames.add(wonGames.get(i)+lostGames.get(i));
-        }
-        this.numGamesAsBreaker = numGames;
+        this.averageAsBreaker = avgAsBreaker;
 
-        this.averageAsMaker = avgAsMaker; this.numGamesAsMaker = numGamesAsMaker;
+        this.averageAsMaker = avgAsMaker;
+        this.numGamesAsMaker = numGamesAsMaker;
     }
 
     /**
@@ -137,7 +137,7 @@ public class User {
         if (intents < 0) throw new InvalidStatIntentsException(intents.toString());
         if (temps < 0L) throw new InvalidStatTempsException(temps.toString());
 
-        dificultat--; //Els valors de NivellDificultat no comencen a 0
+        dificultat--; //Els valors de NivellDificultat comencen a 1
 
         Integer PR = personalRecord.get(dificultat);
         if (PR == 0) personalRecord.set(dificultat, intents);
@@ -146,20 +146,24 @@ public class User {
         Long newTimePlayed = timePlayedFinishedGames.get(dificultat) + temps;
         timePlayedFinishedGames.set(dificultat,newTimePlayed);
 
+        Integer numGamesAsBreaker = wonGames.get(dificultat)+lostGames.get(dificultat);
+        Integer totalIntents = (int) (averageAsBreaker.get(dificultat)*numGamesAsBreaker);
+        totalIntents += intents;
+        numGamesAsBreaker++;
+        Double newAvg = totalIntents.doubleValue()/numGamesAsBreaker;
+        averageAsBreaker.set(dificultat, newAvg);
+
         if (guanyada) {
             Integer numwon = wonGames.get(dificultat) + 1;
             wonGames.set(dificultat, numwon);
-            Integer streak = winStreak.get(dificultat) + 1;
-            winStreak.set(dificultat, streak);
+            Integer streak = currentWinStreak.get(dificultat) + 1;
+            currentWinStreak.set(dificultat, streak);
+            if (streak > winStreak.get(dificultat)) winStreak.set(dificultat,streak);
+        } else {
+            Integer numlost = lostGames.get(dificultat) + 1;
+            lostGames.set(dificultat, numlost);
+            currentWinStreak.set(dificultat, 0);
         }
-        else winStreak.set(dificultat,0);
-
-        Integer totalIntents = (int) (averageAsBreaker.get(dificultat)*numGamesAsBreaker.get(dificultat));
-        totalIntents += intents;
-        Integer numGames = numGamesAsBreaker.get(dificultat) + 1;
-        Double newAvg = totalIntents.doubleValue()/numGames;
-        averageAsBreaker.set(dificultat, newAvg);
-        numGamesAsBreaker.set(dificultat, numGames);
     }
 
     /**
@@ -219,16 +223,18 @@ public class User {
     public List<Integer> getWonGames(){ return wonGames;}
 
     /**
-     * Mètode per obtenir el nombre de jocs perduts per dificultat
+     * Getter del valor de l'atribut lostGames
      * @author Kamil Przybyszewski
      */
-    public List<Integer> getLostGames(){ 
-        List<Integer> lostGames = new ArrayList<Integer>();
-        for (int i = 0; i < NivellDificultat.numDificultats(); ++i){
-            lostGames.add(numGamesAsBreaker.get(i)-wonGames.get(i));
-        }
+    public List<Integer> getLostGames(){
         return lostGames;
     }
+
+    /**
+     * Getter del valor de l'atribut currentWinStreak
+     * @author Kamil Przybyszewski
+     */
+    public List<Integer> getCurrentWinStreak(){ return currentWinStreak;}
 
     /**
      * Getter del valor de l'atribut winStreak
@@ -241,12 +247,6 @@ public class User {
      * @author Kamil Przybyszewski
      */
     public List<Double> getAvgAsBreaker(){ return averageAsBreaker;}
-
-    /**
-     * Getter del valor de l'atribut numGamesAsBreaker
-     * @author Kamil Przybyszewski
-     */
-    public List<Integer> getNumGamesAsBreaker(){ return numGamesAsBreaker;}
 
     /**
      * Getter del valor de l'atribut averageAsMaker
