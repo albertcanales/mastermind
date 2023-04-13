@@ -70,7 +70,7 @@ abstract class Dificultat {
     Boolean isPlena(List<Integer> sequencia) {
         boolean isPlena = true;
         for (Integer bola : sequencia) {
-            if(!Bola.isColor(bola)) isPlena = false;
+            if(bola.equals(Bola.NUL.number())) isPlena = false;
         }
         return isPlena;
     }

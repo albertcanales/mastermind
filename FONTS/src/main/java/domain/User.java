@@ -37,11 +37,13 @@ public class User {
         int numDificultats = NivellDificultat.numDificultats();
 
         List<Integer> tot_zero = new ArrayList<>();
-        timePlayedFinishedGames = new ArrayList<>(); averageAsBreaker = new ArrayList<>();
+
+        timePlayedFinishedGames = new ArrayList<>();
+        averageAsBreaker = new ArrayList<>();
         for (int i = 0; i < numDificultats; ++i){
             tot_zero.add(0);
             timePlayedFinishedGames.add(0L);
-            averageAsBreaker.add(0.0);
+            averageAsBreaker.add(0d);
         }
 
         personalRecord = new ArrayList<>(tot_zero);
@@ -59,7 +61,7 @@ public class User {
 
         averageAsMaker = new ArrayList<>(); numGamesAsMaker = new ArrayList<>();
         for (int i = 0; i < numAlgoritmes; ++i){
-            averageAsBreaker.add(0.0);
+            averageAsMaker.add(0d);
             numGamesAsMaker.add(0);
         }
     }
@@ -135,7 +137,9 @@ public class User {
 
         dificultat--; //Els valors de NivellDificultat no comencen a 0
 
-        if (intents < personalRecord.get(dificultat)) personalRecord.set(dificultat, intents);
+        Integer PR = personalRecord.get(dificultat);
+        if (PR == 0) personalRecord.set(dificultat, intents);
+        else if (intents < PR) personalRecord.set(dificultat, intents);
 
         Long newTimePlayed = timePlayedFinishedGames.get(dificultat) + temps;
         timePlayedFinishedGames.set(dificultat,newTimePlayed);
