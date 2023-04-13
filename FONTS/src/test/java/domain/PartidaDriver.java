@@ -112,8 +112,9 @@ public class PartidaDriver extends ControladorDriver {
         System.out.println("    20 | isPartidaPerduda");
         System.out.println("    21 | isPartidaAcabada");
         System.out.println("    22 | isUltimIntentPle");
-        System.out.println("    23 | setBola");
-        System.out.println("    24 | sortirPartida");
+        System.out.println("    23 | isValidIntentsFeedback");
+        System.out.println("    24 | setBola");
+        System.out.println("    25 | sortirPartida");
         System.out.println("Cada comanda es pot executar pel seu nombre o pel seu nom.");
     }
 
@@ -404,6 +405,20 @@ public class PartidaDriver extends ControladorDriver {
         cp.isUltimIntentPle();
     }
 
+    private static void testIsValidIntentsFeedback() throws DomainException {
+        System.out.println("Testing isValidIntentsFeedback...");
+
+        if(!cp.isPartidaPresent()) {
+            System.out.println("Error: No s'està jugant cap partida");
+            return;
+        }
+
+        List<List<Integer>> intents = scanIntents();
+        List<List<Integer>> feedbacks = scanFeedbacks();
+
+        cp.isValidIntentsFeedbacks(intents, feedbacks);
+    }
+
     private static void testSetBola() throws DomainException {
         System.out.println("Testing setBola...");
 
@@ -552,10 +567,14 @@ public class PartidaDriver extends ControladorDriver {
                     testIsUltimIntentPle();
                     break;
                 case "23":
+                case "isValidIntentsFeedback":
+                    testIsValidIntentsFeedback();
+                    break;
+                case "24":
                 case "setBola":
                     testSetBola();
                     break;
-                case "24":
+                case "25":
                 case "sortirPartida":
                     testSortirPartida();
                     break;

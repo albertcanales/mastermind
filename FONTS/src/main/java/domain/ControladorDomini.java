@@ -218,6 +218,17 @@ public class ControladorDomini {
     }
 
     /**
+     * Getter del nom de l'usuari que ha iniciat sessió
+     * @throws DomainException no s'ha iniciat sessió
+     * @author Albert Canales
+     */
+    public String getUserName() throws DomainException {
+        if(!userLoggedIn())
+            throw new NotLoggedInException();
+        return user.getName();
+    }
+
+    /**
      * Getter del rècord personal (nombre mínim d'intents per guanyar) de l'usuari actual
      * @return Una llista amb el rècord personal per a cada nivell de dificultat
      * @throws NotLoggedInException si no s'ha iniciat sessió
