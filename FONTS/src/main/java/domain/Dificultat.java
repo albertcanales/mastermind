@@ -54,7 +54,9 @@ abstract class Dificultat {
      * @author Albert Canales
      */
     List<Integer> countColorsBoles(List<Integer> sequencia) throws DomainException{
-        List<Integer> colorList = new ArrayList<>(Collections.nCopies(Bola.numColors(), 0));
+        List<Integer> colorList = new ArrayList<Integer>();
+        for (int i = 0; i <= Bola.numColors(); ++i) colorList.add(0);
+
         for (Integer color_sol : sequencia){
             if (!Bola.isValid(color_sol)) {
                 throw new InvalidEnumValueException("Bola", color_sol.toString());

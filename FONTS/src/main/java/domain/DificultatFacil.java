@@ -28,7 +28,7 @@ class DificultatFacil extends Dificultat {
     @Override
     List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent) throws DomainException {
         if (solucio.size() != intent.size()) throw new SolIntentNotSameSizeException(solucio.size(),intent.size());
-        if(isPlena(intent)) throw new IntentNoComplet();
+        if (isPlena(intent)) throw new IntentNoComplet();
         int numboles = solucio.size();
 
         List<Integer> Color_count = countColorsBoles(solucio);
@@ -43,7 +43,16 @@ class DificultatFacil extends Dificultat {
             Integer color_count = Color_count.get(color_intent);
             if (color_count > 0) {
                 if (Objects.equals(color_sol, color_intent)) feedback.set(i, Bola.NEGRE.number());
-                else feedback.set(i, Bola.BLANC.number());
+                Integer count = Color_count.get(color_intent) - 1;
+                Color_count.set(color_intent, count);
+            }
+        }
+        for (int i = 0; i < numboles; i++){
+            Integer color_sol = solucio.get(i);
+            Integer color_intent = intent.get(i);
+            Integer color_count = Color_count.get(color_intent);
+            if (color_count > 0 && !Objects.equals(color_sol, color_intent)) {
+                feedback.set(i, Bola.BLANC.number());
                 Integer count = Color_count.get(color_intent) - 1;
                 Color_count.set(color_intent, count);
             } else feedback.set(i, Bola.NUL.number());

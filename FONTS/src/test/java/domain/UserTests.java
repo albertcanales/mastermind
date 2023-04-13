@@ -1,6 +1,5 @@
 package domain;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -23,7 +22,7 @@ public class UserTests {
 
     @Before
     private static void setStats(){
-        //Fem deep copy per assegurar la independencia entre el paràmetre que passem i el valor amb el que comparem
+        //Fem deep copy per evitar la dependencia entre el paràmetre que passem i el valor esperat amb el que comparem
         personalRecordTest = new ArrayList<>(List.of(2,4,4));
         personalRecordExpected = new ArrayList<>(personalRecordTest);
         timePlayedTest = new ArrayList<>(List.of(0L,1334L,1000000L));
@@ -36,9 +35,9 @@ public class UserTests {
         winStreakExpected = new ArrayList<>(winStreakTest);
         avgAsBreakerTest = new ArrayList<>(List.of(1d,3.996d,29d));
         avgAsBreakerExpected = new ArrayList<>(avgAsBreakerTest);
-        avgAsMakerTest = new ArrayList<>(List.of(23.1234d,0d));
+        avgAsMakerTest = new ArrayList<>(List.of(23.1234d,15d));
         avgAsMakerExpected = new ArrayList<>(avgAsMakerTest);
-        numGamesAsMakerTest = new ArrayList<>(List.of(10,0));
+        numGamesAsMakerTest = new ArrayList<>(List.of(10,2));
         numGamesAsMakerExpected = new ArrayList<>(numGamesAsMakerTest);
     }
 
@@ -54,8 +53,8 @@ public class UserTests {
 
         assertEquals("Pepe", user.getName());
         assertEquals("pepe2316", user.getUsername());
-        assertEquals(tot_zero,user.getPersonalRecord());
-        assertEquals(tot_zero_L,user.getTimePlayed());
+        assertEquals(tot_zero, user.getPersonalRecord());
+        assertEquals(tot_zero_L, user.getTimePlayed());
         assertEquals(tot_zero, user.getWonGames());
         assertEquals(tot_zero, user.getLostGames());
         assertEquals(tot_zero, user.getWinStreak());
@@ -89,6 +88,33 @@ public class UserTests {
         assertThrows(InvalidStatSizeException.class, () -> {
             new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
         });
+    }
+
+    @Test
+    public void updateForFinishedBreakerGameOnNewUser() throws DomainException {
+        String name = "Pepe"; String username = "pepe2316";
+        User user = new User(name,username);
+
+        user.acabarPartidaBreaker(1,5,true,5L);
+
+        assertEquals("Pepe", user.getName());
+        assertEquals("pepe2316", user.getUsername());
+        personalRecordExpected = new ArrayList<>(List.of(5,0,0));
+        assertEquals(personalRecordExpected, user.getPersonalRecord());
+        timePlayedExpected = new ArrayList<>(List.of(5L,0L,0L));
+        assertEquals(timePlayedExpected, user.getTimePlayed());
+        wonGamesExpected = new ArrayList<>(List.of(1,0,0));
+        assertEquals(wonGamesExpected, user.getWonGames());
+        lostGamesExpected = new ArrayList<>(List.of(0,0,0));
+        assertEquals(lostGamesExpected, user.getLostGames());
+        winStreakExpected = new ArrayList<>(List.of(1,0,0));
+        assertEquals(winStreakExpected, user.getWinStreak());
+        avgAsBreakerExpected = new ArrayList<>(List.of(5d,0d,0d));
+        assertEquals(avgAsBreakerExpected, user.getAvgAsBreaker());
+        avgAsMakerExpected = new ArrayList<>(List.of(0d,0d,0d));
+        assertEquals(avgAsMakerExpected, user.getAvgAsMaker());
+        numGamesAsMakerExpected = new ArrayList<>(List.of(0,0,0));
+        assertEquals(numGamesAsMakerExpected, user.getNumGamesAsMaker());
     }
 
     @Test
@@ -163,6 +189,51 @@ public class UserTests {
         assertThrows(InvalidStatTempsException.class, () -> {
             user.acabarPartidaBreaker(2,5,true,-100L);
         });
+    }
+
+    @Test
+    public void updateForFinishedMakerGameOnNewUser() throws DomainException {
+        String name = "Pepe"; String username = "pepe2316";
+        User user = new User(name,username);
+
+        user.acabarPartidaMaker(1,8);
+
+        List<Integer> tot_zero = new ArrayList<>(List.of(0,0,0));
+        List<Long> tot_zero_L = new ArrayList<>(List.of(0L,0L,0L));
+        List<Double> tot_zero_d = new ArrayList<>(List.of(0d,0d,0d));
+
+        assertEquals("Pepe", user.getName());
+        assertEquals("pepe2316", user.getUsername());
+        assertEquals(tot_zero, user.getPersonalRecord());
+        assertEquals(tot_zero_L, user.getTimePlayed());
+        assertEquals(tot_zero, user.getWonGames());
+        assertEquals(tot_zero, user.getLostGames());
+        assertEquals(tot_zero, user.getWinStreak());
+        assertEquals(tot_zero_d, user.getAvgAsBreaker());
+        avgAsMakerExpected.set(0,8d);
+        assertEquals(avgAsMakerExpected, user.getAvgAsMaker());
+        numGamesAsMakerExpected.set(0,1);
+        assertEquals(numGamesAsMakerExpected, user.getNumGamesAsMaker());
+    }
+    @Test
+    public void updateForFinishedMakerGame() throws DomainException {
+        String name = "Pepe"; String username = "pepe2316";
+        User user = new User(name,username,personalRecordTest,timePlayedTest,wonGamesTest,lostGamesTest,winStreakTest,avgAsBreakerTest,avgAsMakerTest,numGamesAsMakerTest);
+
+        user.acabarPartidaMaker(2,15);
+
+        assertEquals("Pepe", user.getName());
+        assertEquals("pepe2316", user.getUsername());
+        assertEquals(personalRecordExpected, user.getPersonalRecord());
+        assertEquals(timePlayedExpected, user.getTimePlayed());
+        assertEquals(wonGamesExpected, user.getWonGames());
+        assertEquals(lostGamesExpected, user.getLostGames());
+        assertEquals(winStreakExpected, user.getWinStreak());
+        assertEquals(avgAsBreakerExpected, user.getAvgAsBreaker());
+        avgAsMakerExpected.set(1,15d);
+        assertEquals(avgAsMakerExpected, user.getAvgAsMaker());
+        numGamesAsMakerExpected.set(1,3);
+        assertEquals(numGamesAsMakerExpected, user.getNumGamesAsMaker());
     }
 
     @Test

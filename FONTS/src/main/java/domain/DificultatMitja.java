@@ -32,8 +32,8 @@ class DificultatMitja extends Dificultat {
 
         List<Integer> Color_count = countColorsBoles(solucio);
 
-        List<Integer> feedback = new ArrayList<>(numboles);
-        int negres = 0; int blanques = 0;
+        List<Integer> feedback = new ArrayList<>();
+        int nuls = numboles;
         for (int i = 0; i < numboles; ++i){
             Integer color_sol = solucio.get(i);
             if (!Bola.isValid(color_sol)) throw new InvalidEnumValueException("Bola", color_sol.toString());
@@ -42,15 +42,21 @@ class DificultatMitja extends Dificultat {
 
             Integer color_count = Color_count.get(color_intent);
             if (color_count > 0) {
-                if (Objects.equals(solucio.get(i), color_intent)) negres++;
-                else blanques++;
+                if (Objects.equals(solucio.get(i), color_intent)) feedback.add(Bola.NEGRE.number());
                 Integer count = Color_count.get(color_intent); count--;
                 Color_count.set(color_intent, count);
             }
         }
-        for (int i = 0; i < negres; ++i) feedback.add(Bola.NEGRE.number());
-        for (int i = 0; i < blanques; ++i) feedback.add(Bola.BLANC.number());
-        for (int i = negres+blanques; i < numboles; ++i) feedback.add(Bola.NUL.number());
+        for (int i = 0; i < numboles; ++i){
+            Integer color_intent = intent.get(i);
+            Integer color_count = Color_count.get(color_intent);
+            if (color_count > 0) {
+                feedback.add(Bola.BLANC.number());
+                Integer count = Color_count.get(color_intent); count--;
+                Color_count.set(color_intent, count);
+            }
+        }
+        for (int i = feedback.size(); i < nuls; ++i) feedback.add(Bola.NUL.number());
 
         return feedback;
     }
