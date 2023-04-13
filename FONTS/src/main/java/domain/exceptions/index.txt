@@ -1,0 +1,17 @@
+Excepcions per la capa de Domini
+
+DomainException.java
+IntentNoCompletException.java
+InvalidEnumValueException.java
+InvalidNumBolesException.java
+InvalidNumIntentsException.java
+InvalidPartidaTypeException.java
+InvalidSolutionException.java
+InvalidUserException.java
+NoGameSavedException.java
+NotLoggedInException.java
+NotPlayingPartidaException.java
+PartidaAlreadyFinished.java
+SolIntentNotSameSizeException.java
+UserAlreadyExistsException.java
+UserNotExistsExeption.java

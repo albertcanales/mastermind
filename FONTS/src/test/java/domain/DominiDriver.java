@@ -53,7 +53,8 @@ public class DominiDriver extends ControladorDriver {
         System.out.println("    32 | isPartidaPerduda");
         System.out.println("    33 | isPartidaAcabada");
         System.out.println("    34 | isUltimIntentPle");
-        System.out.println("    35 | sortirPartida");
+        System.out.println("    35 | getUserName");
+        System.out.println("    36 | sortirPartida");
         System.out.println("Cada comanda es pot executar pel seu nombre o pel seu nom.");
         System.out.println("La comanda 'ajuda (1)' mostra de nou aquesta informació");
         System.out.println("Hint: Com que la persistència està mockejada, ara només hi ha un usuari 'albert' amb contrasenya 'contrasenya' ");
@@ -545,6 +546,17 @@ public class DominiDriver extends ControladorDriver {
         cd.isUltimIntentPle();
     }
 
+    private static void testGetUserName() throws DomainException {
+        System.out.println("Testing getUserName...");
+
+        if(!cd.userLoggedIn()) {
+            System.out.println("Error: No s'ha iniciat sessió");
+            return;
+        }
+
+        cd.getUserName();
+    }
+
     private static void testSortirPartida() throws DomainException {
         System.out.println("Testing sortirPartida...");
 
@@ -708,6 +720,10 @@ public class DominiDriver extends ControladorDriver {
                     testIsUltimIntentPle();
                     break;
                 case "35":
+                case "getUserName":
+                    testGetUserName();
+                    break;
+                case "36":
                 case "sortirPartida":
                     testSortirPartida();
                     break;
