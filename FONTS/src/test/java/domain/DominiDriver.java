@@ -472,7 +472,9 @@ public class DominiDriver extends ControladorDriver {
             return;
         }
 
-        cd.validarSequencia();
+        List<Integer> feedback = cd.validarSequencia();
+        System.out.print("El feedback rebut en l'últim intent és: ");
+        printSequence(feedback);
     }
 
     private static void testBotSolve() throws DomainException {
@@ -639,7 +641,7 @@ public class DominiDriver extends ControladorDriver {
                     break;
                 case "18":
                 case "getLostGames":
-                    testGetWonGames();
+                    testGetLostGames();
                     break;
                 case "19":
                 case "getWinstreak":

@@ -2,7 +2,9 @@ package domain;
 
 import domain.exceptions.DomainException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -14,6 +16,76 @@ import static java.lang.System.exit;
 public class PartidaDriver extends ControladorDriver {
 
     private static ControladorPartida cp;
+
+    static List<List<Integer>> scanIntents() throws DomainException {
+        System.out.println("Enter els intents de la partida.");
+        System.out.println("S'aniran entrant els intents un a un, de més 'antic' a més recent");
+        System.out.println("Per acabar d'inserir intents, escriu la lletra q");
+
+        List<List<Integer>> intents = new ArrayList<>();
+        List<Integer> sequencia = new ArrayList<>();
+
+        while(true) {
+            System.out.print("Enter the next bola (negative to stop this sequence): ");
+            if(in.hasNextInt()) {
+                int num = in.nextInt();
+                if(num > -1) {
+                    sequencia.add(num);
+                }
+                else {
+                    intents.add(sequencia);
+                    sequencia = new ArrayList<>();
+                }
+            }
+            else {
+                String s = in.nextLine();
+                if(Objects.equals(s, "q"))
+                    break;
+                else {
+                    System.out.println("Is not a number neither the exiting command (q). Repeat");
+                }
+            }
+        }
+        if(sequencia.size() > 0)
+            intents.add(sequencia);
+
+        return intents;
+    }
+
+    static List<List<Integer>> scanFeedbacks() throws DomainException {
+        System.out.println("Enter els feedbacks de la partida.");
+        System.out.println("S'aniran entrant els feedbacks un a un, de més 'antic' a més recent");
+        System.out.println("Per acabar d'inserir feedbacks, escriu la lletra q");
+
+        List<List<Integer>> feedbacks = new ArrayList<>();
+        List<Integer> sequencia = new ArrayList<>();
+
+        while(true) {
+            System.out.print("Enter the next bola (negative to stop this sequence): ");
+            if(in.hasNextInt()) {
+                int num = in.nextInt();
+                if(num > -1) {
+                    sequencia.add(num);
+                }
+                else {
+                    feedbacks.add(sequencia);
+                    sequencia = new ArrayList<>();
+                }
+            }
+            else {
+                String s = in.nextLine();
+                if(Objects.equals(s, "q"))
+                    break;
+                else {
+                    System.out.println("Is not a number neither the exiting command (q). Repeat");
+                }
+            }
+        }
+        if(sequencia.size() > 0)
+            feedbacks.add(sequencia);
+
+        return feedbacks;
+    }
 
     private static void showUsage() {
         System.out.println("Llista de comandes:");
@@ -69,12 +141,47 @@ public class PartidaDriver extends ControladorDriver {
         cp.novaPartidaBreaker(dificultat);
     }
 
-    private static void testCarregarPartidaMaker() {
+    private static void testCarregarPartidaMaker() throws DomainException {
         System.out.println("Testing carregarPartidaMaker...");
+
+        List<Integer> solution = scanSolution();
+        Integer algorisme = scanAlgorisme();
+
+        List<List<Integer>> intents = scanIntents();
+        List<List<Integer>> feedbacks = scanFeedbacks();
+
+        if(!cp.isValidIntentsFeedbacks(intents, feedbacks)) {
+            System.out.println("Els intents o el feedback donats no són vàlids");
+            return;
+        }
+
+        cp.carregarPartidaMaker(algorisme, intents, feedbacks, solution);
+
     }
 
-    private static void testCarregarPartidaBreaker() {
+    private static void testCarregarPartidaBreaker() throws DomainException {
         System.out.println("Testing carregarPartidaBreaker...");
+
+        List<Integer> solution = scanSolution();
+        Integer nivellDificultat = scanNivellDificultat();
+
+        List<List<Integer>> intents = scanIntents();
+        List<List<Integer>> feedbacks = scanFeedbacks();
+
+        if(!cp.isValidIntentsFeedbacks(intents, feedbacks)) {
+            System.out.println("Els intents o el feedback donats no són vàlids");
+            return;
+        }
+
+        System.out.print("Enter el temps transcorregut en la partida: ");
+        Long temps = scanLong();
+        if(temps < 0) {
+            System.out.println("El temps no pot ser negatiu.");
+            System.out.print("Enter el temps transcorregut en la partida: ");
+            temps = scanLong();
+        }
+
+        cp.carregarPartidaBreaker(nivellDificultat, intents, feedbacks, solution, temps);
     }
 
     private static void testValidarSequencia() throws DomainException {

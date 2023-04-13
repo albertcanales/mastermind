@@ -98,6 +98,10 @@ public class ControladorPersistencia {
         return null;
     }
 
+    public Integer getAlgorismePartidaGuardada(String username) {
+        return null;
+    }
+
     public List<List<Integer>> getIntentsPartidaGuardada(String username) {
         List<List<Integer>> intents =  new ArrayList<>();
         intents.add(List.of(3, 2, 3, 6));

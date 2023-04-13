@@ -201,7 +201,8 @@ public class ControladorDomini {
      */
     private void carregarPartidaMaker(String username, List<List<Integer>> intents,
                                       List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
-        controladorPartida.carregarPartidaMaker(intents, feedback, solucio);
+        Integer algorisme = controladorPersistencia.getAlgorismePartidaGuardada(username);
+        controladorPartida.carregarPartidaMaker(algorisme, intents, feedback, solucio);
     }
 
     /**
@@ -370,7 +371,6 @@ public class ControladorDomini {
         controladorPartida.setBola(index, bola);
     }
 
-    // TODO Aquest mètode s'ha de revisar
     /**
      * Mètode per a validar l'intent actual en la partida actual
      * @return El feedback corresponent a l'intent donat
