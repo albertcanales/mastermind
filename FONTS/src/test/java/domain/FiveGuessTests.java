@@ -1,5 +1,6 @@
 package domain;
 
+import domain.exceptions.DomainException;
 import domain.exceptions.InvalidEnumValueException;
 import domain.exceptions.InvalidNumBolesException;
 import org.junit.BeforeClass;
@@ -27,7 +28,7 @@ public class FiveGuessTests {
     }
 
     @Test
-    public void solve() throws InvalidNumBolesException, InvalidEnumValueException {
+    public void solve() throws DomainException {
         BotBreaker fiveguess = new FiveGuess();
         for (ArrayList<Integer> sequencia : sequencies){
             List<List<Integer>> guesses = fiveguess.solve(sequencia);

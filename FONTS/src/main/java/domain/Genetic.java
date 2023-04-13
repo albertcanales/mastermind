@@ -1,5 +1,7 @@
 package domain;
 
+import domain.exceptions.DomainException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ class Genetic extends BotBreaker {
      * @return Llista d'intents.
      * @author Mar Gonzàlez Català
      */
-    ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution) {
+    List<List<Integer>> solve(List<Integer> solution) throws DomainException {
         return null;
     }
 

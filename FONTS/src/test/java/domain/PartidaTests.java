@@ -3,9 +3,8 @@ package domain;
 import org.junit.Test;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PartidaTests {
 

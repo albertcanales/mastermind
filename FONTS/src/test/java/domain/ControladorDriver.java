@@ -18,17 +18,17 @@ public class ControladorDriver {
             return in.nextInt();
         }
         System.out.print("Not an integer, enter again: ");
-        in.nextLine();
+        in.next();
         return scanInt();
     }
 
     static Long scanLong() {
-        try {
+        if(in.hasNextLong()) {
             return in.nextLong();
-        } catch (InputMismatchException e) {
-            System.out.print("Not a long, enter again: ");
-            return scanLong();
         }
+        System.out.print("Not an integer, enter again: ");
+        in.next();
+        return scanLong();
     }
 
     static List<Integer> scanSequence() {
