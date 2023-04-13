@@ -235,7 +235,7 @@ public class User {
      * @author Albert Canales
      */
     static Boolean isValidUser(String username, String name, String password) {
-        return !(username.isBlank() && name.isBlank() && password.isBlank());
+        return !(username.isBlank() || name.isBlank() || password.isBlank());
     }
 
     /**

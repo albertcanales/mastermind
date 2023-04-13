@@ -170,9 +170,9 @@ public class ControladorDomini {
         if(!existsPartidaGuardada())
             throw new NoGameSavedException();
         String username = user.getUsername();
-        List<List<Integer>> intents = controladorPersistencia.getIntentsPartidaGuardada();
-        List<List<Integer>> feedback = controladorPersistencia.getFeedbackPartidaGuardada();
-        List<Integer> solucio = controladorPersistencia.getSolucioPartidaGuardada();
+        List<List<Integer>> intents = controladorPersistencia.getIntentsPartidaGuardada(username);
+        List<List<Integer>> feedback = controladorPersistencia.getFeedbackPartidaGuardada(username);
+        List<Integer> solucio = controladorPersistencia.getSolucioPartidaGuardada(username);
         if(controladorPersistencia.isBreakerPartidaGuardada(username)) {
             this.carregarPartidaBreaker(username, intents, feedback, solucio);
         }
@@ -187,9 +187,9 @@ public class ControladorDomini {
      */
     private void carregarPartidaBreaker(String username, List<List<Integer>> intents,
                                         List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
-        Integer nivellDificultat = controladorPersistencia.getNivellDificultatPartidaGuardada();
-        Duration temps = controladorPersistencia.getTempsPartidaGuardada();
-        controladorPartida.carregarPartidaBreaker(username, nivellDificultat, intents, feedback, solucio, temps);
+        Integer nivellDificultat = controladorPersistencia.getNivellDificultatPartidaGuardada(username);
+        Long temps = controladorPersistencia.getTempsPartidaGuardada(username);
+        controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps);
     }
 
     /**
@@ -199,14 +199,14 @@ public class ControladorDomini {
      */
     private void carregarPartidaMaker(String username, List<List<Integer>> intents,
                                       List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
-        controladorPartida.carregarPartidaMaker(username, intents, feedback, solucio);
+        controladorPartida.carregarPartidaMaker(intents, feedback, solucio);
     }
 
     /**
      * Getter del rànquing de les millors partides d'una dificultat concreta
      * @param nivellDificultat nombre del nivell de dificultat
      * @param nombrePartides nombre de partides a mostrar
-     * @return Una llista que conté tuples amb (username: String, intents: Integer, temps: Duration)
+     * @return Una llista que conté tuples amb (username: String, intents: Integer, temps: Long)
      * @author Albert Canales
      */
     public List<List<Object>> getRanquing(Integer nivellDificultat, Integer nombrePartides) throws InvalidEnumValueException {
@@ -384,7 +384,7 @@ public class ControladorDomini {
         List<Integer> feedback = controladorPartida.validarSequencia();
 
         if(controladorPartida.isPartidaAcabada()) {
-            controladorPersistencia.acabarPartidaGuardada();
+            controladorPersistencia.acabarPartidaGuardada(user.getUsername());
 
             Integer numIntents = controladorPartida.getNumIntents();
             if(controladorPartida.isJugadorBreaker()) {

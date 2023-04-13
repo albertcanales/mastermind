@@ -50,6 +50,7 @@ public class DominiDriver extends ControladorDriver {
         System.out.println("    30 | botSolve");
         System.out.println("Cada comanda es pot executar pel seu nombre o pel seu nom.");
         System.out.println("La comanda 'ajuda (1)' mostra de nou aquesta informació");
+        System.out.println("Hint: Com que la persistència està mockejada, ara només hi ha un usuari 'albert' amb contrasenya 'contrasenya' ");
     }
 
     private static void testConstructor() {
