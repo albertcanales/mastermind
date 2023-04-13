@@ -4,27 +4,24 @@ import domain.exceptions.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class TaulellTest {
-    Sequencia sequencia = mock(Sequencia.class);
 
-    public static List<Integer> getNulList() {
+    public List<Integer> getNulList() {
         List<Integer> list = new ArrayList<>(Taulell.NUMBOLES);
-        for (int i = 0; i < Sequencia.NUMBOLES; ++i) {
+        for (int i = 0; i < Taulell.NUMBOLES; ++i) {
             list.add(Bola.NUL.number());
         }
         return list;
     }
 
-    public static List<List<Integer>> getNulListList() {
+    public List<List<Integer>> getNulListList() {
         List<List<Integer>> list = new ArrayList<>(Taulell.NUMINTENTS);
         for (int i = 0; i < Taulell.NUMINTENTS; ++i) {
             list.add(getNulList());
@@ -32,7 +29,7 @@ public class TaulellTest {
         return list;
     }
 
-    public static List<Integer> getList(long seed, boolean allowNul, boolean isFeedback) {
+    public List<Integer> getList(long seed, boolean allowNul, boolean isFeedback) {
         List<Integer> list = new ArrayList<>();
         Random rand = new Random(seed);
         for (int i = 0; i < Taulell.NUMBOLES; i++) {
@@ -45,7 +42,7 @@ public class TaulellTest {
         return list;
     }
 
-    public static List<List<Integer>> getListList(long seed, boolean allowNul, boolean isFeedback) {
+    public List<List<Integer>> getListList(long seed, boolean allowNul, boolean isFeedback) {
         List<List<Integer>> list = new ArrayList<>();
         for (int i = 0; i < Taulell.NUMINTENTS; i++) {
             List<Integer> sequence = getList(seed+i, allowNul, isFeedback);
@@ -53,12 +50,7 @@ public class TaulellTest {
         }
         return list;
     }
-
-    @Before
-    public void setup() {
-        //Field sequenciaField = Taulell.class.getDeclaredField("sequencia");
-    }
-
+    //TODO genera sequencies random valides
     @Test
     public void newTaulellBuit() throws DomainException {
 
@@ -72,17 +64,15 @@ public class TaulellTest {
 
     @Test
     public void newTaulellBuitWrongSol() {
-        List<Integer> solucio = getList(50,true, false);
-
         assertThrows(InvalidSolutionException.class, () -> {
-            new Taulell(solucio);
+            new Taulell(List.of(Bola.BLANC.number(),Bola.TARONJA.number(),Bola.TARONJA.number(),Bola.NUL.number())); //té un NUL
         });
     }
 
     @Test
     public void newTaulellBuitWrongSizeSol() {
         assertThrows(InvalidNumBolesException.class, () -> {
-            new Taulell(List.of(1,0,5,0,0)); //5 boles en comptes de 4
+            new Taulell(List.of(Bola.BLANC.number(),Bola.TARONJA.number(),Bola.TARONJA.number(),Bola.TARONJA.number(),Bola.TARONJA.number())); //5 boles en comptes de 4
         });
     }
 
@@ -115,6 +105,20 @@ public class TaulellTest {
     }
 
     @Test
+    public void newTaulellInitWrongSizeBolesIntents() {
+        List<Integer> solucio = getList(50,true, false);
+
+        List<List<Integer>> expectedint = getListList(424, false, false);
+        expectedint.get(0).add(Bola.NUL.number()); //5 boles a l'intent 0
+
+        List<List<Integer>> expectedfeed = getListList(421324, true, false);
+
+        assertThrows(InvalidNumBolesException.class, () -> {
+            new Taulell(solucio, expectedint, expectedfeed);
+        });
+    }
+
+    @Test
     public void newTaulellInitWrongSizeFeebacks() {
         List<Integer> solucio = getList(50,true, false);
 
@@ -124,6 +128,20 @@ public class TaulellTest {
         expectedfeed.add(getList(21738, false, true)); //13 intents
 
         assertThrows(InvalidNumIntentsException.class, () -> {
+            new Taulell(solucio, expectedint, expectedfeed);
+        });
+    }
+
+    @Test
+    public void newTaulellInitWrongSizeBolesFeebacks() {
+        List<Integer> solucio = getList(50,true, false);
+
+        List<List<Integer>> expectedint = getListList(424, false, false);
+
+        List<List<Integer>> expectedfeed = getListList(421324, true, false);
+        expectedfeed.get(0).add(Bola.NUL.number()); //5 boles a l'intent 0
+
+        assertThrows(InvalidNumBolesException.class, () -> {
             new Taulell(solucio, expectedint, expectedfeed);
         });
     }
@@ -154,12 +172,6 @@ public class TaulellTest {
         expectedfeed.add(getList(25431,false, true));
         expectedfeed.add(getList(2631,false, true));
         expectedfeed.add(getNulList()); //intent 5 és l'últim
-        expectedfeed.add(getList(2371,false, true));
-        expectedfeed.add(getList(23211,false, true));
-        expectedfeed.add(getList(231,false, true));
-        expectedfeed.add(getList(2321211,false, true));
-        expectedfeed.add(getList(24235431,false, true));
-        expectedfeed.add(getList(23671,false, true));
 
         Taulell taulell = new Taulell(solucio, expectedint, expectedfeed);
         assertEquals(expectedint.get(5), taulell.getUltimIntent());
@@ -180,15 +192,59 @@ public class TaulellTest {
         expectedfeed.add(getList(987,false, true));
         expectedfeed.add(getList(234879,false,true)); // l'últim feedback serà l'anterior
         expectedfeed.add(getNulList()); //intent 5 és "l'últim" perquè està buit
-        expectedfeed.add(getList(32,false, true));
-        expectedfeed.add(getList(68876,false, true));
-        expectedfeed.add(getList(870954,false, true));
-        expectedfeed.add(getList(546,false, true));
-        expectedfeed.add(getList(5432,false, true));
-        expectedfeed.add(getList(546654,false, true));
 
         Taulell taulell = new Taulell(solucio, expectedint, expectedfeed);
         assertEquals(expectedfeed.get(4), taulell.getUltimFeedback());
+    }
+
+    @Test
+    public void isUltimIntentPleFalse() throws DomainException {
+        List<Integer> solucio = getList(4798378,false, false);
+
+        List<List<Integer>> expectedint = new ArrayList<>(Taulell.NUMINTENTS);
+        expectedint.add(getList(7,false, false));
+        expectedint.add(getList(234,false, false));
+        expectedint.add(getList(13,false, false));
+        expectedint.add(getList(987,false, false));
+        expectedint.add(getList(234879,false,false)); // l'últim feedback serà l'anterior
+        expectedint.add(getNulList()); //intent 5 és "l'últim" perquè està buit
+
+        List<List<Integer>> expectedfeed = new ArrayList<>(Taulell.NUMINTENTS);
+        //init NUMINTENTS (12) times
+        expectedfeed.add(getList(7,false, true));
+        expectedfeed.add(getList(234,false, true));
+        expectedfeed.add(getList(13,false, true));
+        expectedfeed.add(getList(987,false, true));
+        expectedfeed.add(getList(234879,false,true)); // l'últim feedback serà l'anterior
+        expectedfeed.add(getNulList()); //intent 5 és "l'últim" perquè està buit
+
+        Taulell taulell = new Taulell(solucio, expectedint, expectedfeed);
+        assertEquals(false, taulell.isUltimIntentPle());
+    }
+
+    @Test
+    public void isUltimIntentPleTrue() throws DomainException {
+        List<Integer> solucio = getList(4798378,false, false);
+
+        List<List<Integer>> expectedint = new ArrayList<>(Taulell.NUMINTENTS);
+        expectedint.add(getList(7,false, false));
+        expectedint.add(getList(234,false, false));
+        expectedint.add(getList(13,false, false));
+        expectedint.add(getList(987,false, false));
+        expectedint.add(getList(234879,false,false));
+        expectedint.add(getList(21739,false, false)); //ultim intent ple
+
+        List<List<Integer>> expectedfeed = new ArrayList<>(Taulell.NUMINTENTS);
+        //init NUMINTENTS (12) times
+        expectedfeed.add(getList(7,false, true));
+        expectedfeed.add(getList(234,false, true));
+        expectedfeed.add(getList(13,false, true));
+        expectedfeed.add(getList(987,false, true));
+        expectedfeed.add(getList(234879,false,true));
+        expectedfeed.add(getNulList()); //intent 5 és "l'últim" perquè està buit
+
+        Taulell taulell = new Taulell(solucio, expectedint, expectedfeed);
+        assertEquals(true, taulell.isUltimIntentPle());
     }
 
     @Test
@@ -207,7 +263,7 @@ public class TaulellTest {
         List<Integer> solucio = getList(312312312,false, false);
 
         List<List<Integer>> expectedint = getListList(575, false, false);
-        List<List<Integer>> expectedfeed = getListList(23121, true, false);
+        List<List<Integer>> expectedfeed = getListList(23121, false, true);
 
         Taulell taulell = new Taulell(solucio, expectedint, expectedfeed);
         assertEquals(expectedfeed, taulell.getFeedbacks());
@@ -228,11 +284,6 @@ public class TaulellTest {
         expectedfeed.add(getList(435643,false, true));
         expectedfeed.add(getList(4363,false, true));
         expectedfeed.add(getNulList()); //intent 6 és l'últim
-        expectedfeed.add(getList(65,false, true));
-        expectedfeed.add(getList(98409,false, true));
-        expectedfeed.add(getList(35234,false, true));
-        expectedfeed.add(getList(65436,false, true));
-        expectedfeed.add(getList(6364,false, true));
 
         Taulell taulell = new Taulell(solucio, expectedint, expectedfeed);
         assertEquals(6, taulell.getNumeroIntent());
@@ -273,6 +324,19 @@ public class TaulellTest {
         taulell.addFeedback(feedback);
         taulell.addFeedback(feedback);
         assertEquals(feedback, taulell.getUltimFeedback());
+
+    }
+
+    @Test
+    public void addFeedbackWrongSize() throws DomainException {
+        List<Integer> solucio = getList(213312,false, false);
+        Taulell taulell = new Taulell(solucio);
+
+        List<Integer> feedback = new ArrayList<>(List.of(Bola.NEGRE.number(), Bola.BLANC.number(), Bola.NUL.number(), Bola.NUL.number(), Bola.NUL.number()));
+
+        assertThrows(InvalidNumBolesException.class, () -> {
+            taulell.addFeedback(feedback);
+        });
 
     }
 
