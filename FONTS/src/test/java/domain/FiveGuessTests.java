@@ -30,7 +30,7 @@ public class FiveGuessTests {
     public void solve() throws InvalidNumBolesException, InvalidEnumValueException {
         BotBreaker fiveguess = new FiveGuess();
         for (ArrayList<Integer> sequencia : sequencies){
-            ArrayList<ArrayList<Integer>> guesses = fiveguess.solve(sequencia);
+            List<List<Integer>> guesses = fiveguess.solve(sequencia);
             int numberOfGuesses = guesses.size();
             assertEquals("Solució",sequencia,guesses.get(numberOfGuesses-1));
             assertTrue("Nombre d'intents",numberOfGuesses <= 5);

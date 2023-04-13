@@ -163,6 +163,19 @@ class FiveGuess extends BotBreaker {
     }
 
     /**
+     * @brief Converteix un ArrayList en una List
+     * @param llista a convertir
+     * @return
+     */
+    private static List castArrayToList(ArrayList llista){
+        List result = new ArrayList<>();
+        for (Object object : llista){
+            result.add(object);
+        }
+        return result;
+    }
+
+    /**
      * @brief Getter del tipus d'algorisme de FiveGuess
      * @author Mar Gonzàlez Català
      * */
@@ -173,12 +186,14 @@ class FiveGuess extends BotBreaker {
 
     /**
      * @brief Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem l'algorisme Five Guess.
-     * @param solution seqüència oculta que volem endevinar.
+     * @param sol seqüència oculta que volem endevinar.
      * @return Llista d'intents.
      * @author Mar Gonzàlez Català
      */
     @Override
-    public ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution) throws InvalidNumBolesException, InvalidEnumValueException {
+    public List<List<Integer>> solve(List<Integer> sol) throws InvalidNumBolesException, InvalidEnumValueException {
+        ArrayList<Integer> solution = new ArrayList<Integer>(sol);
+
         if (solution.size() != 4) {
             throw new InvalidNumBolesException(solution.size(),4);
         }
@@ -233,6 +248,11 @@ class FiveGuess extends BotBreaker {
                 eraseNotPossibleSolutionsfromSetS(black, white, currentGuess);
             }
         }
-        return guesses;
+        List guessesList = new ArrayList<>();
+        for (int it = 0; it < guesses.size(); it++){
+            List guessList = castArrayToList(guesses.get(it));
+            guessesList.add(guessList);
+        }
+        return guessesList;
     }
 }

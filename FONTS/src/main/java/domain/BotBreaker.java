@@ -40,7 +40,7 @@ abstract class BotBreaker {
      * @return Llista d'intents.
      * @author Mar Gonzàlez Català
      */
-    abstract ArrayList<ArrayList<Integer>> solve(ArrayList<Integer> solution) throws InvalidNumBolesException, InvalidEnumValueException;
+    abstract List<List<Integer>> solve(List<Integer> solution) throws InvalidNumBolesException, InvalidEnumValueException;
 }
 
 /**
