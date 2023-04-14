@@ -94,7 +94,7 @@ public class User {
      * @param username username de l'usuari
      * @author Kamil Przybyszewski
      */
-    public User(String name, String username) {
+    User(String name, String username) {
         this.name = name;
         this.username = username;
 
@@ -106,7 +106,7 @@ public class User {
      * Constructor d'un usuari ja existent
      * @author Kamil Przybyszewski
      */
-    public User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws DomainException{
+    User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws DomainException{
         comprovaSizeStats(personalRecord, timePlayed, wonGames, lostGames, currentWinStreak, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
 
         this.name = name;
@@ -132,7 +132,7 @@ public class User {
      * @param temps duració de la partida
      * @author Kamil Przybyszewski
      */
-    public void acabarPartidaBreaker(Integer dificultat, Integer intents, Boolean guanyada, Long temps) throws DomainException {
+    void acabarPartidaBreaker(Integer dificultat, Integer intents, Boolean guanyada, Long temps) throws DomainException {
         if (!NivellDificultat.isValid(dificultat)) throw new InvalidEnumValueException("NivellDificultat", dificultat.toString());
         if (intents < 0) throw new InvalidStatIntentsException(intents.toString());
         if (temps < 0L) throw new InvalidStatTempsException(temps.toString());
@@ -172,7 +172,7 @@ public class User {
      * @param intents intents del BotBreaker a la partida
      * @author Kamil Przybyszewski
      */
-    public void acabarPartidaMaker(Integer algoritme, Integer intents) throws DomainException {
+    void acabarPartidaMaker(Integer algoritme, Integer intents) throws DomainException {
         if (!NivellDificultat.isValid(algoritme)) throw new InvalidEnumValueException("NivellDificultat", algoritme.toString());
         if (intents < 0) throw new InvalidStatIntentsException(intents.toString());
 
@@ -190,7 +190,7 @@ public class User {
      * Getter del valor de l'atribut name
      * @author Kamil Przybyszewski
      */
-    public String getName() {
+    String getName() {
         return name;
     }
 
@@ -198,7 +198,7 @@ public class User {
      * Getter del valor de l'atribut username
      * @author Kamil Przybyszewski
      */
-    public String getUsername() {
+    String getUsername() {
         return username;
     }
 
@@ -206,7 +206,7 @@ public class User {
      * Getter del valor de l'atribut personalRecord
      * @author Kamil Przybyszewski
      */
-    public List<Integer> getPersonalRecord(){
+    List<Integer> getPersonalRecord(){
         return personalRecord;
     }
 
@@ -214,19 +214,19 @@ public class User {
      * Getter del valor de l'atribut timePlayedFinishedGames
      * @author Kamil Przybyszewski
      */
-    public List<Long> getTimePlayed(){ return timePlayedFinishedGames;}
+    List<Long> getTimePlayed(){ return timePlayedFinishedGames;}
 
     /**
      * Getter del valor de l'atribut wonGames
      * @author Kamil Przybyszewski
      */
-    public List<Integer> getWonGames(){ return wonGames;}
+    List<Integer> getWonGames(){ return wonGames;}
 
     /**
      * Getter del valor de l'atribut lostGames
      * @author Kamil Przybyszewski
      */
-    public List<Integer> getLostGames(){
+    List<Integer> getLostGames(){
         return lostGames;
     }
 
@@ -234,31 +234,31 @@ public class User {
      * Getter del valor de l'atribut currentWinStreak
      * @author Kamil Przybyszewski
      */
-    public List<Integer> getCurrentWinStreak(){ return currentWinStreak;}
+    List<Integer> getCurrentWinStreak(){ return currentWinStreak;}
 
     /**
      * Getter del valor de l'atribut winStreak
      * @author Kamil Przybyszewski
      */
-    public List<Integer> getWinStreak(){ return winStreak;}
+    List<Integer> getWinStreak(){ return winStreak;}
 
     /**
      * Getter del valor de l'atribut averageAsBreaker
      * @author Kamil Przybyszewski
      */
-    public List<Double> getAvgAsBreaker(){ return averageAsBreaker;}
+    List<Double> getAvgAsBreaker(){ return averageAsBreaker;}
 
     /**
      * Getter del valor de l'atribut averageAsMaker
      * @author Kamil Przybyszewski
      */
-    public List<Double> getAvgAsMaker(){ return averageAsMaker;}
+    List<Double> getAvgAsMaker(){ return averageAsMaker;}
 
     /**
      * Getter del valor de l'atribut numGamesAsMaker
      * @author Kamil Przybyszewski
      */
-    public List<Integer> getNumGamesAsMaker(){ return numGamesAsMaker;}
+    List<Integer> getNumGamesAsMaker(){ return numGamesAsMaker;}
 
     /**
      * Mètode determinar si els paràmetres d'usuari són adequats (bon format)

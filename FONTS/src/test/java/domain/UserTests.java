@@ -229,6 +229,7 @@ public class UserTests {
         numGamesAsMakerExpected = new ArrayList<>(List.of(1,0));
         assertEquals(numGamesAsMakerExpected, user.getNumGamesAsMaker());
     }
+
     @Test
     public void updateForFinishedMakerGame() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
@@ -267,6 +268,57 @@ public class UserTests {
         assertThrows(InvalidStatIntentsException.class, () -> {
             user.acabarPartidaMaker(1,-666);
         });
+    }
+
+    @Test
+    public void validUser() {
+        String username = "ringdestroyer_4000";
+        String name = "Frodo Bolsón";
+        String password = "sauronbad";
+
+        assertEquals(true, User.isValidUser(username, name, password));
+    }
+
+    @Test
+    public void invalidUsername() {
+        String username = "";
+        String name = "Albert Canales";
+        String password = "contrasenya";
+
+        assertEquals(false, User.isValidUser(username, name, password));
+    }
+
+    @Test
+    public void invalidName() {
+        String username = "pau";
+        String name = "";
+        String password = "socsegura";
+
+        assertEquals(false, User.isValidUser(username, name, password));
+    }
+
+    @Test
+    public void invalidPassword() {
+        String username = "mar";
+        String name = "Mar González Català";
+        String password = "";
+
+        assertEquals(false, User.isValidUser(username, name, password));
+    }
+
+    @Test
+    public void validPasswordHash() {
+        String password = "patata";
+        String hash = "da248eeaffa573da8c323c3eb56aaf32ec6ce244e401a24c55f30c907d0bbfb5";
+
+        assertEquals(hash, User.getPasswordHash(password));
+    }
+
+    @Test
+    public void emptyPasswordHash() {
+        String hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+
+        assertEquals(hash, User.getPasswordHash(""));
     }
 
     public static void main(String[] args) {
