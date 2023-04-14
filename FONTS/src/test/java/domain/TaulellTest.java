@@ -88,7 +88,7 @@ public class TaulellTest {
     public void newTaulellInitWrongSizeIntents() {
         List<Integer> solucio = getList(50,false, false, false);
 
-        List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS + 2);
+        List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS + 1);
         //13 intents
 
         List<List<Integer>> expectedfeed = getListList(421324, false, true, false, Taulell.NUMINTENTS);
@@ -134,9 +134,21 @@ public class TaulellTest {
     @Test
     public void newTaulellInitWrongSol() {
         List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS);
-        List<List<Integer>> expectedfeed = getListList(421324, false, false, true, Taulell.NUMINTENTS);
+        List<List<Integer>> expectedfeed = getListList(421324, false, false, true, Taulell.NUMINTENTS - 1);
 
         assertThrows(InvalidSolutionException.class, () -> new Taulell(List.of(3,3,3,0),expectedint,expectedfeed));
+    }
+
+    @Test
+    public void newTaulellInitWrongSizeSol() {
+        List<Integer> solucio = List.of(Bola.BLANC.number(),Bola.TARONJA.number(),Bola.TARONJA.number(),Bola.TARONJA.number(),Bola.TARONJA.number()); //5 boles en comptes de 4
+
+        List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS);
+        List<List<Integer>> expectedfeed = getListList(421324, false, false, true, Taulell.NUMINTENTS - 1);
+
+        assertThrows(InvalidNumBolesException.class, () -> {
+            new Taulell(solucio, expectedint, expectedfeed);
+        });
     }
 
     @Test
@@ -368,10 +380,47 @@ public class TaulellTest {
     }
 
     @Test
+    public void addFeedbackPle() throws DomainException {
+        List<Integer> solucio = getList(213312,false, false, false);
+
+
+        List<List<Integer>> expectedint = getListList(999317, false, false, false, Taulell.NUMINTENTS);
+        List<List<Integer>> expectedfeed = getListList(999317, false, false, true, Taulell.NUMINTENTS - 1);
+
+        Taulell taulell = new Taulell(solucio, expectedint, expectedfeed);
+
+        List<Integer> feedback = getList(999317, false, false, true);
+
+        taulell.addFeedback(feedback); //omplim el taulell
+
+
+        assertThrows(InvalidNumIntentsException.class, () -> taulell.addFeedback(feedback)); //està ple i hauria de treure excepció
+
+    }
+
+    @Test
     public void getSolucio() throws DomainException {
         List<Integer> solucio = getList(123,false, false, false);
         Taulell taulell = new Taulell(solucio);
         assertEquals(solucio, taulell.getSolucio());
+    }
+
+    @Test
+    public void setBolaPle() throws DomainException {
+        List<Integer> solucio = getList(213312,false, false, false);
+
+
+        List<List<Integer>> expectedint = getListList(435, false, false, false, Taulell.NUMINTENTS);
+        List<List<Integer>> expectedfeed = getListList(457, false, false, true, Taulell.NUMINTENTS - 1);
+
+        Taulell taulell = new Taulell(solucio, expectedint, expectedfeed);
+
+        List<Integer> feedback = getList(1313, false, false, true);
+
+        taulell.addFeedback(feedback); //omplim el taulell
+
+
+        assertThrows(InvalidNumIntentsException.class, () -> taulell.setBola(0, Bola.NEGRE.number())); //està ple i hauria de treure excepció
     }
 
     @Test

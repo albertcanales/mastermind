@@ -78,19 +78,6 @@ class Taulell {
     }
 
     /**
-     * Mètode que comprova si un conjunt d'Intents és vàlid (que no tingui nuls a Intents anteriors a l'actual)
-     * @param list una llista d'una llista d'enters
-     * @return un booleà cert o fals depenent de si els Intents són vàlids o no
-     * @author Arnau Valls Fusté
-     */
-    private boolean isValidIntents(List<List<Integer>> list) {
-        for (int i = 0; i < list.size() - 1; ++i) { //no mirem l'ultim intent, pot tenir nuls, només mirem si als anteriors hi ha algun nul
-            if (!isPlena(list.get(i))) return false;
-        }
-        return true;
-    }
-
-    /**
      * Crea un Taulell buit
      * @param sol una llista d'enters representant la solució del Taulell
      * @throws InvalidNumBolesException si el tamany de la solució no és correcte
@@ -144,6 +131,10 @@ class Taulell {
         if (!isPlena(sol)) {
             throw new InvalidSolutionException();
         }
+        if (sol.size() != NUMBOLES) {
+            throw new InvalidNumBolesException(sol.size(), NUMBOLES);
+        }
+
         if (inten.size() - 1 != feed.size()) {
             throw new InvalidIntentActualException(inten.size(), feed.size());
         }
@@ -243,6 +234,7 @@ class Taulell {
      * @param feedback llista d'enters que conté boles de color blanc, negre o NUL
      * @throws InvalidNumBolesException si el tamany de feedback no és correcte
      * @throws InvalidFeedbackException si el feeback és invàlid
+     * @throws InvalidNumIntentsException si el taulell està ple
      * @author Arnau Valls Fusté
      */
     void addFeedback(List<Integer> feedback) throws DomainException {
@@ -252,9 +244,13 @@ class Taulell {
         if (!isValidFeedback(feedback)) {
             throw new InvalidFeedbackException(feedback);
         }
+        if (intentActual == NUMINTENTS) { //si el taulell està ple
+            throw new InvalidNumIntentsException(intentActual, NUMINTENTS - 1);
+        }
         feedbacks.add(feedback);
         intents.add(getNulList());
         ++intentActual;
+
     }
 
     /**
@@ -271,13 +267,16 @@ class Taulell {
      * @param index enter que representa la posició a establir
      * @param bola enter que representa la bola a establir
      * @throws InvalidEnumValueException si bola no és una Bola vàlida
+     * @throws InvalidNumIntentsException si el taulell està ple
      * @author Arnau Valls Fusté
      */
-    void setBola(Integer index, Integer bola) throws InvalidEnumValueException {
+    void setBola(Integer index, Integer bola) throws DomainException {
         if (!Bola.isValid(bola)) {
             throw new InvalidEnumValueException("Bola", bola.toString());
         }
-        //if (intentActual == NUMINTENTS) excepcio taulell ple????
+        if (intentActual == NUMINTENTS) {
+            throw new InvalidNumIntentsException(intentActual, NUMINTENTS - 1);
+        }
         intents.get(intentActual).set(index, bola);
     }
 
@@ -287,7 +286,10 @@ class Taulell {
      * @author Arnau Valls Fusté
      */
     boolean isValidStateIntents(List<List<Integer>> inten) {
-        return isValidIntents(inten);
+        for (int i = 0; i < inten.size() - 1; ++i) { //no mirem l'ultim intent, pot tenir nuls, només mirem si als anteriors hi ha algun nul
+            if (!isPlena(inten.get(i))) return false;
+        }
+        return true;
     }
 
 }
