@@ -39,6 +39,17 @@ public class FiveGuessTests {
     }
 
     @Test
+    public void solveFirstTry() throws DomainException {
+        BotBreaker fiveguess = new FiveGuess();
+        List<Integer> firstTry = List.of(1,1,2,2);
+            List<List<Integer>> guesses = fiveguess.solve(firstTry);
+            int numberOfGuesses = guesses.size();
+            assertEquals("Solució",firstTry,guesses.get(numberOfGuesses-1));
+            assertTrue("Nombre d'intents",numberOfGuesses <= 5);
+
+    }
+
+    @Test
     public void solveWrongSizeOfSolution() {
         BotBreaker fiveguess = new FiveGuess();
         Integer[] sol = {1,1,2,3,4};
