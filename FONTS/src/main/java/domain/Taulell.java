@@ -46,7 +46,7 @@ class Taulell {
         return true;
     }
 
-    private List<Integer> getNulList() {
+    public List<Integer> getNulList() {
         List<Integer> list = new ArrayList<>(Taulell.NUMBOLES);
         for (int i = 0; i < Taulell.NUMBOLES; ++i) {
             list.add(Bola.NUL.number());
@@ -54,36 +54,11 @@ class Taulell {
         return list;
     }
 
-    private List<List<Integer>> getNulListList() {
-        List<List<Integer>> list = new ArrayList<>(Taulell.NUMINTENTS);
-        for (int i = 0; i < Taulell.NUMINTENTS; ++i) {
-            list.add(getNulList());
-        }
-        return list;
-    }
-
-    private void fillList(List<List<Integer>> list) {
-        for (int i = list.size(); i < NUMINTENTS; ++i) {
-            list.add(getNulList());
-        }
-    }
-
     private boolean isListListValid(List<List<Integer>> list) {
-
-        boolean found = false;
-        for (List<Integer> integers : list) {
-            if (!found && isBuida(integers)) found = true;
-            else if (found && !isBuida(integers)) return false;
+        for (int i = 0; i < list.size() - 1; ++i) { //no mirem l'ultim intent, pot tenir nuls, només mirem si als anteriors hi ha algun nul
+            if (!isPlena(list.get(i))) return false;
         }
         return true;
-
-    }
-
-    private Integer firstNull(List<List<Integer>> list) {
-        for (int i = 0; i < list.size(); ++i) {
-            if (isBuida(list.get(i))) return i;
-        }
-        return NUMINTENTS;
     }
 
     private boolean isValidFeedback(List<Integer> list) {
@@ -121,8 +96,9 @@ class Taulell {
 
         intentActual = 0;
 
-        intents = getNulListList();
-        feedbacks = getNulListList();
+        intents = new ArrayList<>();
+        intents.add(getNulList());
+        feedbacks = new ArrayList<>();
 
         solucio = sol;
     }
@@ -135,52 +111,47 @@ class Taulell {
      * @throws InvalidNumBolesException si el tamany de boles d'alguna list no és correcte
      * @throws InvalidNumIntentsException si el tamany d'intents d'alguna list no és correcte
      * @throws InvalidSolutionException si la solució no és vàlida (té alguna Bola NUL)
-     * @throws InvalidTaulellStateException si la combinació d'intents i feedback és invàlida
+     * @throws InvalidIntentsStateException si la combinació d'intents i feedback és invàlida
      * @throws InvalidFeedbackException si els feebacks són invàlids
      */
     Taulell(List <Integer> sol, List<List<Integer>> inten, List<List<Integer>> feed) throws DomainException{
         if (inten.size() > NUMINTENTS) {
             throw new InvalidNumIntentsException(inten.size(),NUMINTENTS);
         }
-        else if (inten.size() < NUMINTENTS) {
-            fillList(inten);
-        }
         if (feed.size() > NUMINTENTS) {
             throw new InvalidNumIntentsException(feed.size(),NUMINTENTS);
         }
-        if (feed.size() < NUMINTENTS) {
-            fillList(feed);
-        }
 
-        if (!isValidIntentsFeedback(inten, feed)) {
-            throw new InvalidTaulellStateException();
+        if (!isValidStateIntents(inten)) {
+            throw new InvalidIntentsStateException();
         }
 
         if (!isPlena(sol)) {
             throw new InvalidSolutionException();
         }
+        if (inten.size() - 1 != feed.size()) {
+            throw new InvalidIntentActualException(inten.size(), feed.size());
+        }
 
-        boolean foundEmpty = false;
-        for (int i = 0; i < NUMINTENTS; ++i) {
+
+        for (int i = 0; i < inten.size(); ++i) {
             if (inten.get(i).size() != NUMBOLES) {
                 throw new InvalidNumBolesException(inten.get(i).size(),NUMBOLES);
             }
+            if (!isValidIntent(inten.get(i))) {
+                throw new InvalidIntentException(inten.get(i));
+            }
+        }
+        for (int i = 0; i < feed.size(); ++i) {
             if (feed.get(i).size() != NUMBOLES) {
                 throw new InvalidNumBolesException(feed.get(i).size(),NUMBOLES);
             }
             if (!isValidFeedback(feed.get(i))) {
                 throw new InvalidFeedbackException(feed.get(i));
             }
-            if (!isValidIntent(inten.get(i))) {
-                throw new InvalidIntentException(feed.get(i));
-            }
-
-            if (!foundEmpty && isBuida(feed.get(i))) {
-                intentActual = i;
-                foundEmpty = true;
-            }
         }
-        if (!foundEmpty) intentActual = NUMINTENTS - 1;
+
+        intentActual = inten.size() - 1;
 
         intents = inten;
         feedbacks = feed;
@@ -259,7 +230,8 @@ class Taulell {
         if (!isValidFeedback(feedback)) {
             throw new InvalidFeedbackException(feedback);
         }
-        feedbacks.set(intentActual, feedback);
+        feedbacks.add(feedback);
+        intents.add(getNulList());
         ++intentActual;
     }
 
@@ -281,16 +253,16 @@ class Taulell {
         if (!Bola.isValid(bola)) {
             throw new InvalidEnumValueException("Bola", bola.toString());
         }
+        //if (intentActual == NUMINTENTS) excepcio taulell ple????
         intents.get(intentActual).set(index, bola);
     }
 
     /**
-     * Mètode que comprova si una unió de intents i feedbacks és correcta
+     * Mètode que comprova si una unió d'intents és correcta
      * @param inten una llista d'una llista d'enters representant els intents realitzats
-     * @param feed una llista d'una llista d'enters representant els feedbacks rebuts
      */
-    boolean isValidIntentsFeedback(List<List<Integer>> inten, List<List<Integer>> feed) {
-        return isListListValid(inten) && isListListValid(feed) && firstNull(inten) >= firstNull(feed) && firstNull(inten) - firstNull(feed) <= 1;
+    boolean isValidStateIntents(List<List<Integer>> inten) {
+        return isListListValid(inten);
     }
 
 }
