@@ -23,7 +23,7 @@ class Taulell {
     private final List<Integer> solucio;
 
     /**
-     * Retorna cert si la llista és plena o fals si no ho és
+     * Mètode que retorna cert si la llista és plena o fals si no ho és
      * @param list una llista d'enters
      * @return un booleà cert o fals depenent de si està plena o no
      */
@@ -34,6 +34,10 @@ class Taulell {
         return true;
     }
 
+    /**
+     * Mètode que retorna una llista amb NUMBOLES Bola.NUL
+     * @return una llista amb NUMBOLES Bola.NUL
+     */
     public List<Integer> getNulList() {
         List<Integer> list = new ArrayList<>(Taulell.NUMBOLES);
         for (int i = 0; i < Taulell.NUMBOLES; ++i) {
@@ -42,28 +46,42 @@ class Taulell {
         return list;
     }
 
-    private boolean isListListValid(List<List<Integer>> list) {
-        for (int i = 0; i < list.size() - 1; ++i) { //no mirem l'ultim intent, pot tenir nuls, només mirem si als anteriors hi ha algun nul
-            if (!isPlena(list.get(i))) return false;
-        }
-        return true;
-    }
-
+    /**
+     * Mètode que comprova si un Feedback és vàlid (que només tingui Bola.NUL, Bola.BLANC i Bola.NEGRE)
+     * @param list una llista d'enters
+     * @return un booleà cert o fals depenent de si el Feedback és vàlid o no
+     */
     private boolean isValidFeedback(List<Integer> list) {
         List<Integer> valid = List.of(Bola.NUL.number(),Bola.BLANC.number(),Bola.NEGRE.number());
 
         for (Integer bola : list) {
             if (!valid.contains(bola)) return false;
         }
-
         return true;
     }
 
+    /**
+     * Mètode que comprova si un Intent és vàlid (que només tingui tots el colors definits a Bola)
+     * @param list una llista d'enters
+     * @return un booleà cert o fals depenent de si l'Intent és vàlid o no
+     */
     private boolean isValidIntent(List<Integer> list) {
         for (Integer bola : list) {
             if (!Bola.isValid(bola)) return false;
         }
 
+        return true;
+    }
+
+    /**
+     * Mètode que comprova si un conjunt d'Intents és vàlid (que no tingui nuls a Intents anteriors a l'actual)
+     * @param list una llista d'una llista d'enters
+     * @return un booleà cert o fals depenent de si els Intents són vàlids o no
+     */
+    private boolean isValidIntents(List<List<Integer>> list) {
+        for (int i = 0; i < list.size() - 1; ++i) { //no mirem l'ultim intent, pot tenir nuls, només mirem si als anteriors hi ha algun nul
+            if (!isPlena(list.get(i))) return false;
+        }
         return true;
     }
 
@@ -99,8 +117,10 @@ class Taulell {
      * @throws InvalidNumBolesException si el tamany de boles d'alguna list no és correcte
      * @throws InvalidNumIntentsException si el tamany d'intents d'alguna list no és correcte
      * @throws InvalidSolutionException si la solució no és vàlida (té alguna Bola NUL)
-     * @throws InvalidIntentsStateException si la combinació d'intents i feedback és invàlida
-     * @throws InvalidFeedbackException si els feebacks són invàlids
+     * @throws InvalidIntentsStateException si el conjunt d'intents és invàlid
+     * @throws InvalidFeedbackException si algun feedback és invàlid
+     * @throws InvalidIntentException si algun intent és invàlid
+     * @throws InvalidIntentActualException si el size dels feedbacks no és el size dels intents - 1
      */
     Taulell(List <Integer> sol, List<List<Integer>> inten, List<List<Integer>> feed) throws DomainException{
         if (inten.size() > NUMINTENTS) {
@@ -250,7 +270,7 @@ class Taulell {
      * @param inten una llista d'una llista d'enters representant els intents realitzats
      */
     boolean isValidStateIntents(List<List<Integer>> inten) {
-        return isListListValid(inten);
+        return isValidIntents(inten);
     }
 
 }
