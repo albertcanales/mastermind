@@ -37,6 +37,7 @@ class FiveGuess extends BotBreaker {
      * @param list1 primera llista  a comparar.
      * @param list2 segona llista a comparar.
      * @return Nombre de boles amb color i posició coincidents.
+     * @author Mar Gonzàlez Català
      */
     private Integer compareTwoSequencesBlack(ArrayList<Integer> list1, ArrayList<Integer> list2){
         Integer count = 0;
@@ -53,6 +54,7 @@ class FiveGuess extends BotBreaker {
      * @param list1 primera llista a comparar.
      * @param list2 segona llista a comparar.
      * @return Nombre de boles amb color i posició coincidents.
+     * @author Mar Gonzàlez Català
      */
     private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2){
         Integer count = 0;
@@ -165,8 +167,9 @@ class FiveGuess extends BotBreaker {
 
     /**
      * @brief Converteix un ArrayList en una List
-     * @param llista a convertir
-     * @return
+     * @param llista a convertir en format ArrayList
+     * @return llista en format List
+     * @author Mar Gonzàlez Català
      */
     private static List castArrayToList(ArrayList llista){
         List result = new ArrayList<>();
@@ -186,9 +189,9 @@ class FiveGuess extends BotBreaker {
     }
 
     /**
-     * @brief Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem l'algorisme Five Guess.
-     * @param sol seqüència oculta que volem endevinar.
-     * @return Llista d'intents.
+     * @brief Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem l'algorisme Five Guess
+     * @param sol seqüència oculta que volem endevinar
+     * @return Llista d'intents
      * @author Mar Gonzàlez Català
      */
     @Override

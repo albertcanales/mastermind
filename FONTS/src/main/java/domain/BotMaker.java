@@ -3,7 +3,7 @@ package domain;
 import java.util.*;
 
 /**
- * Contenidor de les funcionalitats d'un BotMaker.
+ * @brief Contenidor de les funcionalitats d'un BotMaker.
  *
  * @author Mar Gonzàlez Català
  */
