@@ -348,14 +348,9 @@ class ControladorPartida {
 
     /**
      * Mètode per saber si uns intents i feedbacks donats són vàlids
-     * @throws DomainException si no s'està jugant cap partida
      * @author Albert Canales
      */
-    Boolean isValidIntentsFeedbacks(List<List<Integer>> intents, List<List<Integer>> feedbacks) throws DomainException {
-        if(!isPartidaPresent())
-            throw new NotPlayingPartidaException();
-        return null;
-        // TODO Remove when implemented
-        // return taulell.isValidIntentsFeedbacks(intents, feedback);
+    Boolean isValidIntentsFeedbacks(List<List<Integer>> intents, List<List<Integer>> feedbacks) {
+        return Taulell.isValidIntentsFeedbacks(intents, feedbacks);
     }
 }

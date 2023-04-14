@@ -404,6 +404,10 @@ public class DominiDriver extends ControladorDriver {
             System.out.println("Error: No hi ha una partida en joc");
             return;
         }
+        if(!cd.isJugadorBreaker()) {
+            System.out.println("Error: En la partida actual el bot és el breaker");
+            return;
+        }
 
         System.out.printf("El temps transcorregut és de %d ms.%n", cd.getTempsPartidaMillis());
     }
@@ -413,6 +417,10 @@ public class DominiDriver extends ControladorDriver {
 
         if(!cd.isPartidaBeingPlayed()) {
             System.out.println("Error: No hi ha una partida en joc");
+            return;
+        }
+        if(!cd.isJugadorBreaker()) {
+            System.out.println("Error: En la partida actual el bot és el breaker");
             return;
         }
 
@@ -430,6 +438,10 @@ public class DominiDriver extends ControladorDriver {
         }
         if(cd.isPartidaAcabada()) {
             System.out.println("Error: La partida actual ja ha acabat");
+            return;
+        }
+        if(!cd.isJugadorBreaker()) {
+            System.out.println("Error: En la partida actual el bot és el breaker");
             return;
         }
 
