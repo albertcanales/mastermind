@@ -1,0 +1,21 @@
+Albert Canales Ros:
+Controlador Domini
+Controlador Partida
+NivellDificultat
+Partida
+
+
+Mar Gonzàlez Català:
+BotBreaker
+FiveGuess
+TipusAlgorisme
+
+Kamil Przybyszewski:
+User
+DificultatFacil
+DificultatMitja
+DificultatDificil
+
+Arnau Valls Fusté
+Taulell
+Bola
