@@ -190,7 +190,7 @@ class Taulell {
      * Mètode que retorna una llista que conté totes les "Boles" del feedback actual
      * (últim)
      *
-     * @return una llista d'enters (Boles)
+     * @return una llista d'enters (Boles) o null si l'intentActual és 0
      * @author Arnau Valls Fusté
      */
     List<Integer> getUltimFeedback() {

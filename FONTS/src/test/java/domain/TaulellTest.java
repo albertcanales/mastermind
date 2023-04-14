@@ -232,6 +232,14 @@ public class TaulellTest {
     }
 
     @Test
+    public void getUltimFeedbackBuit() throws DomainException {
+        List<Integer> solucio = getList(4798378,false, false, false);
+
+        Taulell taulell = new Taulell(solucio);
+        assertEquals(null, taulell.getUltimFeedback());
+    }
+
+    @Test
     public void isUltimIntentPleFalse() throws DomainException {
         List<Integer> solucio = getList(4798378,false, false, false);
 
