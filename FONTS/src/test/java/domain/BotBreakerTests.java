@@ -21,7 +21,7 @@ public class BotBreakerTests {
         assertEquals(GENETIC, tipusAlgorisme);
     }
     @Test
-    public void createDificultatInvalid() throws DomainException {
+    public void createBotBreakerInvalid() throws DomainException {
         assertThrows(InvalidEnumValueException.class, () -> {
             BotBreaker.create(500);
         });
