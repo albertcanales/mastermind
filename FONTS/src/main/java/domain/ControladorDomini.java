@@ -136,6 +136,7 @@ public class ControladorDomini {
         if(!userLoggedIn())
             throw new NotLoggedInException();
         controladorPartida.novaPartidaMaker(solucio, algorisme);
+        controladorPersistencia.novaPartidaMaker(solucio, algorisme);
     }
 
     /**
@@ -148,6 +149,7 @@ public class ControladorDomini {
         if(!userLoggedIn())
             throw new NotLoggedInException();
         controladorPartida.novaPartidaBreaker(nivellDificultat);
+        controladorPersistencia.novaPartidaBreaker(nivellDificultat);
     }
 
     /**

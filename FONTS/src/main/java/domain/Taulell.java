@@ -159,8 +159,8 @@ class Taulell {
 
         intentActual = inten.size() - 1;
 
-        intents = inten;
-        feedbacks = feed;
+        intents = new ArrayList<>(inten);
+        feedbacks = new ArrayList<>(feed);
 
         solucio = sol;
     }
@@ -277,7 +277,9 @@ class Taulell {
         if (intentActual == NUMINTENTS) {
             throw new InvalidNumIntentsException(intentActual, NUMINTENTS - 1);
         }
-        intents.get(intentActual).set(index, bola);
+        ArrayList<Integer> ultimIntent = new ArrayList<>(intents.get(intentActual));
+        ultimIntent.set(index, bola);
+        intents.set(intentActual, ultimIntent);
     }
 
     /**

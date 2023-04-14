@@ -112,16 +112,16 @@ public class User {
         this.name = name;
         this.username = username;
 
-        this.personalRecord = personalRecord;
-        this.timePlayedFinishedGames = timePlayed;
-        this.wonGames = wonGames;
-        this.lostGames = lostGames;
-        this.currentWinStreak = currentWinStreak;
-        this.winStreak = winStreak;
-        this.averageAsBreaker = avgAsBreaker;
+        this.personalRecord = new ArrayList<>(personalRecord);
+        this.timePlayedFinishedGames = new ArrayList<>(timePlayed);
+        this.wonGames = new ArrayList<>(wonGames);
+        this.lostGames = new ArrayList<>(lostGames);
+        this.currentWinStreak = new ArrayList<>(currentWinStreak);
+        this.winStreak = new ArrayList<>(winStreak);
+        this.averageAsBreaker = new ArrayList<>(avgAsBreaker);
 
-        this.averageAsMaker = avgAsMaker;
-        this.numGamesAsMaker = numGamesAsMaker;
+        this.averageAsMaker = new ArrayList<>(avgAsMaker);
+        this.numGamesAsMaker = new ArrayList<>(numGamesAsMaker);
     }
 
     /**

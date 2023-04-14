@@ -112,16 +112,12 @@ public class ControladorPersistencia {
         List<List<Integer>> intents =  new ArrayList<>();
         intents.add(List.of(3, 2, 3, 6));
         intents.add(List.of(0, 1, 0, 0));
-        for (int i = 0; i < 10; i++)
-            intents.add(List.of(0,0,0,0));
         return intents;
     }
 
     public List<List<Integer>> getFeedbackPartidaGuardada(String username) {
         List<List<Integer>> feedbacks =  new ArrayList<>();
         feedbacks.add(List.of(2, 2, 1, 0));
-        for (int i = 0; i < 11; i++)
-            feedbacks.add(List.of(0,0,0,0));
         return feedbacks;
     }
 
@@ -155,5 +151,12 @@ public class ControladorPersistencia {
 
     public void esborrarUsuari(String username) {
         System.out.println("Sóc persistència, esborraria l'usuari però sóc un Mock!");
+    }
+
+    public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) {
+        System.out.println("Sóc persistència, substituiria la partida guardada però sóc un Mock!");
+    }
+    public void novaPartidaBreaker(Integer nivellDificultat) {
+        System.out.println("Sóc persistència, substituiria la partida guardada però sóc un Mock!");
     }
 }

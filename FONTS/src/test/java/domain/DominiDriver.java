@@ -339,7 +339,7 @@ public class DominiDriver extends ControladorDriver {
 
         List<Double> averageAsMaker = cd.getAverageAsMaker();
         for (int i = 0; i < averageAsMaker.size(); i++) {
-            System.out.printf("La mitjana d'intents en la dificultat %d és de %.2f%n", i+1, averageAsMaker.get(i));
+            System.out.printf("La mitjana d'intents contra l'algorisme %d és de %.2f%n", i+1, averageAsMaker.get(i));
         }
     }
 
@@ -444,12 +444,12 @@ public class DominiDriver extends ControladorDriver {
 
         System.out.print("Enter un color per la bola: ");
         int bola = scanInt();
-        while(Bola.isValid(bola)) {
+        while(!Bola.isValid(bola)) {
             System.out.println("El color donat no és vàlid");
             System.out.print("Enter un color per la bola: ");
             bola = scanInt();
         }
-        System.out.printf("El color de bola llegit és %d%n", index);
+        System.out.printf("El color de bola llegit és %d%n", bola);
 
         cd.setBola(index, bola);
     }
