@@ -8,6 +8,8 @@ Partida
 Mar Gonzàlez Català:
 BotBreaker
 FiveGuess
+Genetic
+BotMaker
 TipusAlgorisme
 
 Kamil Przybyszewski:
