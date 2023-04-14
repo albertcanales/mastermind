@@ -33,4 +33,8 @@ public class PartidaTests {
         partida.addMillis(-10L);
         assertEquals(Duration.ofMillis(166), partida.getTemps());
     }
+
+    public static void main(String[] args) {
+        TestRunner.runTestClass(PartidaTests.class);
+    }
 }

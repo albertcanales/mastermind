@@ -1,8 +1,5 @@
 package domain;
 
-import domain.exceptions.InvalidEnumValueException;
-import domain.exceptions.InvalidNumBolesException;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.*;
@@ -19,5 +16,9 @@ public class BotMakerTests {
                 assertTrue("Bola incorrecta",bola >= 1 && bola <= 6);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        TestRunner.runTestClass(BotMakerTests.class);
     }
 }

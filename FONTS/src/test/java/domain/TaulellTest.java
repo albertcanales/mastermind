@@ -410,4 +410,8 @@ public class TaulellTest {
             taulell.setBola(0, -1);
         });
     }
+
+    public static void main(String[] args) {
+        TestRunner.runTestClass(TaulellTest.class);
+    }
 }

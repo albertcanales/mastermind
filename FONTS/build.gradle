@@ -24,3 +24,33 @@ test {
     }
 }
 
+tasks.register('jarLib', Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    archiveFileName = "testlibs.jar"
+    destinationDirectory = layout.buildDirectory.dir('tests/lib')
+    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    from configurations.testRuntimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+
+def testClasses = ["BotMakerTests", "DificultatTests", "FiveGuessTests", "PartidaTests", "TaulellTest", "UserTests"]
+
+testClasses.each { name ->
+    tasks.register("jar${name}", Jar) {
+        dependsOn jarLib
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        archiveFileName = "${name}.jar"
+        destinationDirectory = layout.buildDirectory.dir("tests/${name}")
+        manifest {
+            attributes 'Main-Class': "domain.${name}",
+                    'Class-Path': '../lib/testlibs.jar'
+        }
+        from sourceSets.test.output
+        with jar
+    }
+}
+
+tasks.register('jarTests') {
+    testClasses.each { name ->
+        dependsOn "jar${name}"
+    }
+}

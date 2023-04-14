@@ -268,4 +268,8 @@ public class UserTests {
             user.acabarPartidaMaker(1,-666);
         });
     }
+
+    public static void main(String[] args) {
+        TestRunner.runTestClass(UserTests.class);
+    }
 }

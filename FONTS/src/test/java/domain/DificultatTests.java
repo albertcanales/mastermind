@@ -129,4 +129,7 @@ public class DificultatTests {
         });
     }
 
+    public static void main(String[] args) {
+        TestRunner.runTestClass(DificultatTests.class);
+    }
 }
