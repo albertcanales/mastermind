@@ -23,29 +23,16 @@ enum Bola {
      * Constructor a partir de l'enter que representa el color
      *
      * @param number és el valor que representa el nivell de dificultat
+     * @author Arnau Valls Fusté
      */
     Bola(int number) {
         this.number = number;
     }
 
     /**
-     * Mètode per obtenir la Bola corresponent a un nombre
-     *
-     * @param number és el valor que representa el color
-     * @return el valor de Bola corresponent al nombre donat
-     */
-    public static Bola findByNumber(Integer number) {
-        for (Bola nd : values()) {
-            if (nd.number() == number) {
-                return nd;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Getter del nombre que representa el valor
      * @return l'enter que representa el color
+     * @author Arnau Valls Fusté
      */
     int number() {
         return number;
@@ -54,6 +41,7 @@ enum Bola {
     /**
      * Mètode per obtenir el nombre de colors
      * @return enter que representa el número de colors
+     * @author Arnau Valls Fusté
      */
     public static int numColors() {
         return (values().length - 1); // no considerem NUL com un color
@@ -64,6 +52,7 @@ enum Bola {
      *
      * @param num un enter representa un color
      * @return un booleà cert si el color és vàlid i no nul
+     * @author Arnau Valls Fusté
      */
     public static boolean isColor(int num) {
         return (num > NUL.number()) && (num <= numColors());
@@ -74,6 +63,7 @@ enum Bola {
      *
      * @param num un enter representa una bola
      * @return un booleà cert si la bola és vàlida
+     * @author Arnau Valls Fusté
      */
     public static boolean isValid(int num) {
         return (num >= NUL.number()) && (num <= numColors());
