@@ -9,8 +9,6 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class DificultatTests {
-
-    static final Integer NUL = 0, BLANC = 1, NEGRE = 2;
     static final Integer FACIL = 1, MITJA = 2, DIFICIL = 3;
 
     @Test
