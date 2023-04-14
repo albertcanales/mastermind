@@ -1,11 +1,9 @@
 package domain;
 
 import domain.exceptions.*;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -17,14 +15,6 @@ public class TaulellTest {
         List<Integer> list = new ArrayList<>(Taulell.NUMBOLES);
         for (int i = 0; i < Taulell.NUMBOLES; ++i) {
             list.add(Bola.NUL.number());
-        }
-        return list;
-    }
-
-    public List<List<Integer>> getNulListList() {
-        List<List<Integer>> list = new ArrayList<>(Taulell.NUMINTENTS);
-        for (int i = 0; i < Taulell.NUMINTENTS; ++i) {
-            list.add(getNulList());
         }
         return list;
     }
@@ -103,9 +93,7 @@ public class TaulellTest {
 
         List<List<Integer>> expectedfeed = getListList(421324, false, true, false, Taulell.NUMINTENTS);
 
-        assertThrows(InvalidNumIntentsException.class, () -> {
-            new Taulell(solucio, expectedint, expectedfeed);
-        });
+        assertThrows(InvalidNumIntentsException.class, () -> new Taulell(solucio, expectedint, expectedfeed));
     }
 
     @Test
@@ -117,9 +105,7 @@ public class TaulellTest {
 
         List<List<Integer>> expectedfeed = getListList(421324, false, true, true, Taulell.NUMINTENTS - 1);
 
-        assertThrows(InvalidNumBolesException.class, () -> {
-            new Taulell(solucio, expectedint, expectedfeed);
-        });
+        assertThrows(InvalidNumBolesException.class, () -> new Taulell(solucio, expectedint, expectedfeed));
     }
 
     @Test
@@ -131,9 +117,7 @@ public class TaulellTest {
         List<List<Integer>> expectedfeed = getListList(421324, false, false, true, Taulell.NUMINTENTS);
         expectedfeed.add(getList(21738, false, false, true)); //13 intents
 
-        assertThrows(InvalidNumIntentsException.class, () -> {
-            new Taulell(solucio, expectedint, expectedfeed);
-        });
+        assertThrows(InvalidNumIntentsException.class, () -> new Taulell(solucio, expectedint, expectedfeed));
     }
 
     @Test
@@ -145,18 +129,14 @@ public class TaulellTest {
         List<List<Integer>> expectedfeed = getListList(421324, false, false, true, Taulell.NUMINTENTS - 1);
         expectedfeed.get(0).add(Bola.NUL.number()); //5 boles a l'intent 0
 
-        assertThrows(InvalidNumBolesException.class, () -> {
-            new Taulell(solucio, expectedint, expectedfeed);
-        });
+        assertThrows(InvalidNumBolesException.class, () -> new Taulell(solucio, expectedint, expectedfeed));
     }
     @Test
     public void newTaulellInitWrongSol() {
         List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS);
         List<List<Integer>> expectedfeed = getListList(421324, false, false, true, Taulell.NUMINTENTS);
 
-        assertThrows(InvalidSolutionException.class, () -> {
-            new Taulell(List.of(3,3,3,0),expectedint,expectedfeed);
-        });
+        assertThrows(InvalidSolutionException.class, () -> new Taulell(List.of(3,3,3,0),expectedint,expectedfeed));
     }
 
     @Test
@@ -166,9 +146,7 @@ public class TaulellTest {
         List<List<Integer>> expectedint = getListList(424, false, false, false,  Taulell.NUMINTENTS);
         List<List<Integer>> expectedfeed = getListList(421324, false, true, false, Taulell.NUMINTENTS - 1); //Li posem colors al feedback
 
-        assertThrows(InvalidFeedbackException.class, () -> {
-            new Taulell(solucio,expectedint,expectedfeed);
-        });
+        assertThrows(InvalidFeedbackException.class, () -> new Taulell(solucio,expectedint,expectedfeed));
     }
 
     @Test
@@ -179,9 +157,17 @@ public class TaulellTest {
         expectedint.set(0, List.of(Bola.BLAU.number(), Bola.BLAU.number(), Bola.ROSA.number(), 10)); //Li posem un color que no existeix
         List<List<Integer>> expectedfeed = getListList(23121, false, false, true,Taulell.NUMINTENTS - 1);
 
-        assertThrows(InvalidIntentException.class, () -> {
-            new Taulell(solucio,expectedint,expectedfeed);
-        });
+        assertThrows(InvalidIntentException.class, () -> new Taulell(solucio,expectedint,expectedfeed));
+    }
+
+    @Test
+    public void newTaulellInitWrongIntentActual() {
+        List<Integer> solucio = getList(50,false, false, false);
+
+        List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS);
+        List<List<Integer>> expectedfeed = getListList(23121, false, false, true,Taulell.NUMINTENTS - 2); //diferencia de 2
+
+        assertThrows(InvalidIntentActualException.class, () -> new Taulell(solucio,expectedint,expectedfeed));
     }
 
     @Test
@@ -191,9 +177,7 @@ public class TaulellTest {
         List<List<Integer>> expectedint = getListList(424, true, false, false, Taulell.NUMINTENTS);
         List<List<Integer>> expectedfeed = getListList(23121, false, true, true, Taulell.NUMINTENTS - 1);
 
-        assertThrows(InvalidIntentsStateException.class, () -> {
-            new Taulell(solucio,expectedint,expectedfeed);
-        });
+        assertThrows(InvalidIntentsStateException.class, () -> new Taulell(solucio,expectedint,expectedfeed));
     }
 
     @Test
@@ -368,9 +352,7 @@ public class TaulellTest {
         List<Integer> feedback = new ArrayList<>(List.of(Bola.NEGRE.number(), Bola.BLANC.number(), Bola.NUL.number(), Bola.BLAU.number()));
         //posem un color no permès (BLAU)
 
-        assertThrows(InvalidFeedbackException.class, () -> {
-            taulell.addFeedback(feedback);
-        });
+        assertThrows(InvalidFeedbackException.class, () -> taulell.addFeedback(feedback));
 
     }
 
@@ -381,9 +363,7 @@ public class TaulellTest {
 
         List<Integer> feedback = new ArrayList<>(List.of(Bola.NEGRE.number(), Bola.BLANC.number(), Bola.NUL.number(), Bola.NUL.number(), Bola.NUL.number()));
 
-        assertThrows(InvalidNumBolesException.class, () -> {
-            taulell.addFeedback(feedback);
-        });
+        assertThrows(InvalidNumBolesException.class, () -> taulell.addFeedback(feedback));
 
     }
 
@@ -414,9 +394,7 @@ public class TaulellTest {
 
         Taulell taulell = new Taulell(solucio);
 
-        assertThrows(InvalidEnumValueException.class, () -> {
-            taulell.setBola(0, -1);
-        });
+        assertThrows(InvalidEnumValueException.class, () -> taulell.setBola(0, -1));
     }
 
     public static void main(String[] args) {

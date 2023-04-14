@@ -34,18 +34,6 @@ class Taulell {
         return true;
     }
 
-    /**
-     * Retorna cert si la llista és buida o fals si no ho és
-     * @param list una llista d'enters
-     * @return un booleà cert o fals depenent de si està buida o no
-     */
-    private boolean isBuida(List<Integer> list) {
-        for (Integer integer : list) {
-            if (Bola.isColor(integer)) return false;
-        }
-        return true;
-    }
-
     public List<Integer> getNulList() {
         List<Integer> list = new ArrayList<>(Taulell.NUMBOLES);
         for (int i = 0; i < Taulell.NUMBOLES; ++i) {
@@ -134,20 +122,20 @@ class Taulell {
         }
 
 
-        for (int i = 0; i < inten.size(); ++i) {
-            if (inten.get(i).size() != NUMBOLES) {
-                throw new InvalidNumBolesException(inten.get(i).size(),NUMBOLES);
+        for (List<Integer> integers : inten) {
+            if (integers.size() != NUMBOLES) {
+                throw new InvalidNumBolesException(integers.size(), NUMBOLES);
             }
-            if (!isValidIntent(inten.get(i))) {
-                throw new InvalidIntentException(inten.get(i));
+            if (!isValidIntent(integers)) {
+                throw new InvalidIntentException(integers);
             }
         }
-        for (int i = 0; i < feed.size(); ++i) {
-            if (feed.get(i).size() != NUMBOLES) {
-                throw new InvalidNumBolesException(feed.get(i).size(),NUMBOLES);
+        for (List<Integer> integers : feed) {
+            if (integers.size() != NUMBOLES) {
+                throw new InvalidNumBolesException(integers.size(), NUMBOLES);
             }
-            if (!isValidFeedback(feed.get(i))) {
-                throw new InvalidFeedbackException(feed.get(i));
+            if (!isValidFeedback(integers)) {
+                throw new InvalidFeedbackException(integers);
             }
         }
 
