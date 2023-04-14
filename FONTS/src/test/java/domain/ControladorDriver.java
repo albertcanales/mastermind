@@ -90,7 +90,7 @@ public class ControladorDriver {
         for (int i = 0; i < sequence.size(); i++) {
             System.out.print(sequence.get(i));
             if(i+1 < sequence.size()) System.out.print(" ");
-            else System.out.println("\n");
+            else System.out.print("\n");
         }
     }
 }

@@ -39,7 +39,7 @@ class ControladorPartida {
         taulell = new Taulell(solucio);
         botBreaker = BotBreaker.create(algorisme);
         botMaker = null;
-        dificultat = null;
+        dificultat = new DificultatMitja();
     }
 
     /**
@@ -147,8 +147,14 @@ class ControladorPartida {
             throw new InvalidPartidaTypeException("Maker");
         if(isPartidaAcabada())
             throw new PartidaAlreadyFinished();
+
         List<Integer> solution = taulell.getSolucio();
-        botBreaker.solve(new ArrayList<>(solution));
+        List<List<Integer>> intents = botBreaker.solve(new ArrayList<>(solution));
+
+        List<List<Integer>> feedbacks = new ArrayList<>();
+        for (List<Integer> intent : intents)
+            feedbacks.add(dificultat.validarSequencia(solution, intent));
+        taulell = new Taulell(solution, intents, feedbacks);
     }
 
     /**

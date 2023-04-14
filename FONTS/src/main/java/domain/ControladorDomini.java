@@ -119,7 +119,8 @@ public class ControladorDomini {
     public void logoutUser() throws DomainException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
-        controladorPartida.sortirPartida();
+        if(isPartidaBeingPlayed())
+            sortirPartida();
         user = null;
     }
 
@@ -467,5 +468,19 @@ public class ControladorDomini {
             }
         }
         controladorPartida.sortirPartida();
+    }
+
+    /**
+     * Mètode per esborrar l'usuari que ha iniciat sessió
+     * També tanca la sessió automàticament
+     * @throws DomainException si no s'està jugant cap partida
+     * @author Albert Canales
+     */
+    public void esborrarUsuari() throws DomainException {
+        if(!userLoggedIn())
+            throw new NotLoggedInException();
+        String username = user.getUsername();
+        logoutUser();
+        controladorPersistencia.esborrarUsuari(username);
     }
 }

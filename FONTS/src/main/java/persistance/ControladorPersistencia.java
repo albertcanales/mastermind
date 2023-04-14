@@ -144,6 +144,10 @@ public class ControladorPersistencia {
     }
 
     public void acabarPartidaGuardada(String username) {
-        System.out.println("Sóc persistència, guardaria als registres però sóc un Mock!");
+        System.out.println("Sóc persistència, entraria la partida guardada als registres però sóc un Mock!");
+    }
+
+    public void esborrarUsuari(String username) {
+        System.out.println("Sóc persistència, esborraria l'usuari però sóc un Mock!");
     }
 }

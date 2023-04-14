@@ -55,6 +55,7 @@ public class DominiDriver extends ControladorDriver {
         System.out.println("    34 | isUltimIntentPle");
         System.out.println("    35 | getUserName");
         System.out.println("    36 | sortirPartida");
+        System.out.println("    37 | esborrarUsuari");
         System.out.println("Cada comanda es pot executar pel seu nombre o pel seu nom.");
         System.out.println("La comanda 'ajuda (1)' mostra de nou aquesta informació");
         System.out.println("Hint: Com que la persistència està mockejada, ara només hi ha un usuari 'albert' amb contrasenya 'contrasenya' ");
@@ -427,7 +428,7 @@ public class DominiDriver extends ControladorDriver {
             System.out.println("Error: No s'està jugant cap partida");
             return;
         }
-        if(!cd.isPartidaAcabada()) {
+        if(cd.isPartidaAcabada()) {
             System.out.println("Error: La partida actual ja ha acabat");
             return;
         }
@@ -543,7 +544,10 @@ public class DominiDriver extends ControladorDriver {
             return;
         }
 
-        cd.isUltimIntentPle();
+        if(cd.isUltimIntentPle())
+            System.out.println("L'últim intent està ple");
+        else
+            System.out.println("L'últim intent no està ple");
     }
 
     private static void testGetUserName() throws DomainException {
@@ -554,7 +558,7 @@ public class DominiDriver extends ControladorDriver {
             return;
         }
 
-        cd.getUserName();
+        System.out.printf("L'usuari que ha iniciat sessió es diu %s%n", cd.getUserName());
     }
 
     private static void testSortirPartida() throws DomainException {
@@ -566,6 +570,17 @@ public class DominiDriver extends ControladorDriver {
         }
 
         cd.sortirPartida();
+    }
+
+    private static void testEsborrarUsuari() throws DomainException {
+        System.out.println("Testing esborrarUsuari...");
+
+        if(!cd.userLoggedIn()) {
+            System.out.println("Error: No s'ha iniciat sessió");
+            return;
+        }
+
+        cd.esborrarUsuari();
     }
 
     public static void main(String[] args) throws DomainException {
@@ -726,6 +741,10 @@ public class DominiDriver extends ControladorDriver {
                 case "36":
                 case "sortirPartida":
                     testSortirPartida();
+                    break;
+                case "37":
+                case "esborrarUsuari":
+                    testEsborrarUsuari();
                     break;
 
                 default:
