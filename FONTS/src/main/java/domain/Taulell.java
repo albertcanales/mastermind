@@ -16,11 +16,11 @@ class Taulell {
     static final int NUMINTENTS = 12, NUMBOLES = 4;
     private int intentActual;
 
-    private List<List<Integer>> intents;
+    private final List<List<Integer>> intents;
 
-    private List<List<Integer>> feedbacks;
+    private final List<List<Integer>> feedbacks;
 
-    private List<Integer> solucio;
+    private final List<Integer> solucio;
 
     /**
      * Retorna cert si la llista és plena o fals si no ho és
@@ -40,8 +40,8 @@ class Taulell {
      * @return un booleà cert o fals depenent de si està buida o no
      */
     private boolean isBuida(List<Integer> list) {
-        for (int i = 0; i < list.size(); ++i) {
-            if (Bola.isColor(list.get(i))) return false;
+        for (Integer integer : list) {
+            if (Bola.isColor(integer)) return false;
         }
         return true;
     }
@@ -69,14 +69,14 @@ class Taulell {
     }
 
     private boolean isListListValid(List<List<Integer>> list) {
-        int firstnull = -1;
-        int lastfull = -1;
 
-        for (int i = 0; i < list.size(); ++i) {
-            if (firstnull == -1 && isBuida(list.get(i))) firstnull = i;
-            if (!isBuida(list.get(i))) lastfull = i;
+        boolean found = false;
+        for (List<Integer> integers : list) {
+            if (!found && isBuida(integers)) found = true;
+            else if (found && !isBuida(integers)) return false;
         }
-        return lastfull > firstnull;
+        return true;
+
     }
 
     private Integer firstNull(List<List<Integer>> list) {
@@ -84,6 +84,24 @@ class Taulell {
             if (isBuida(list.get(i))) return i;
         }
         return NUMINTENTS;
+    }
+
+    private boolean isValidFeedback(List<Integer> list) {
+        List<Integer> valid = List.of(Bola.NUL.number(),Bola.BLANC.number(),Bola.NEGRE.number());
+
+        for (Integer bola : list) {
+            if (!valid.contains(bola)) return false;
+        }
+
+        return true;
+    }
+
+    private boolean isValidIntent(List<Integer> list) {
+        for (Integer bola : list) {
+            if (!Bola.isValid(bola)) return false;
+        }
+
+        return true;
     }
 
     /**
@@ -117,7 +135,8 @@ class Taulell {
      * @throws InvalidNumBolesException si el tamany de boles d'alguna list no és correcte
      * @throws InvalidNumIntentsException si el tamany d'intents d'alguna list no és correcte
      * @throws InvalidSolutionException si la solució no és vàlida (té alguna Bola NUL)
-     * @throws InvalidTaulellState si els intens i o feebacks són invàlids
+     * @throws InvalidTaulellStateException si la combinació d'intents i feedback és invàlida
+     * @throws InvalidFeedbackException si els feebacks són invàlids
      */
     Taulell(List <Integer> sol, List<List<Integer>> inten, List<List<Integer>> feed) throws DomainException{
         if (inten.size() > NUMINTENTS) {
@@ -133,8 +152,8 @@ class Taulell {
             fillList(feed);
         }
 
-        if (isValidIntentsFeedback(inten, feed)) {
-            throw new InvalidTaulellState();
+        if (!isValidIntentsFeedback(inten, feed)) {
+            throw new InvalidTaulellStateException();
         }
 
         if (!isPlena(sol)) {
@@ -148,6 +167,12 @@ class Taulell {
             }
             if (feed.get(i).size() != NUMBOLES) {
                 throw new InvalidNumBolesException(feed.get(i).size(),NUMBOLES);
+            }
+            if (!isValidFeedback(feed.get(i))) {
+                throw new InvalidFeedbackException(feed.get(i));
+            }
+            if (!isValidIntent(inten.get(i))) {
+                throw new InvalidIntentException(feed.get(i));
             }
 
             if (!foundEmpty && isBuida(feed.get(i))) {
@@ -225,10 +250,14 @@ class Taulell {
      * 
      * @param feedback llista d'enters que conté boles de color blanc, negre o NUL
      * @throws InvalidNumBolesException si el tamany de feedback no és correcte
+     * @throws InvalidFeedbackException si el feeback és invàlid
      */
-    void addFeedback(List<Integer> feedback) throws InvalidNumBolesException {
+    void addFeedback(List<Integer> feedback) throws DomainException {
         if (feedback.size() != NUMBOLES) {
             throw new InvalidNumBolesException(feedback.size(),NUMBOLES);
+        }
+        if (!isValidFeedback(feedback)) {
+            throw new InvalidFeedbackException(feedback);
         }
         feedbacks.set(intentActual, feedback);
         ++intentActual;

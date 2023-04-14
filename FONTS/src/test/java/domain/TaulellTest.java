@@ -42,9 +42,9 @@ public class TaulellTest {
         return list;
     }
 
-    public List<List<Integer>> getListList(long seed, boolean allowNul, boolean isFeedback) {
+    public List<List<Integer>> getListList(long seed, boolean allowNul, boolean isFeedback, int size) {
         List<List<Integer>> list = new ArrayList<>();
-        for (int i = 0; i < Taulell.NUMINTENTS; i++) {
+        for (int i = 0; i < size; i++) {
             List<Integer> sequence = getList(seed+i, allowNul, isFeedback);
             list.add(sequence);
         }
@@ -80,9 +80,9 @@ public class TaulellTest {
     public void newTaulellInit() throws DomainException {
         List<Integer> solucio = getList(420,false, false);
 
-        List<List<Integer>> expectedint = getListList(424, false, false);
+        List<List<Integer>> expectedint = getListList(425, false, false, Taulell.NUMINTENTS);
 
-        List<List<Integer>> expectedfeed = getListList(421324, true, false);
+        List<List<Integer>> expectedfeed = getListList(421329, false, true, Taulell.NUMINTENTS);
 
         Taulell taulell = new Taulell(solucio, expectedint, expectedfeed);
         assertEquals(solucio, taulell.getSolucio());
@@ -94,10 +94,10 @@ public class TaulellTest {
     public void newTaulellInitWrongSizeIntents() {
         List<Integer> solucio = getList(50,true, false);
 
-        List<List<Integer>> expectedint = getListList(424, false, false);
-        expectedint.add(getList(21738, true, false)); //13 intents
+        List<List<Integer>> expectedint = getListList(424, false, false, 13);
+        //13 intents
 
-        List<List<Integer>> expectedfeed = getListList(421324, true, false);
+        List<List<Integer>> expectedfeed = getListList(421324, true, false, Taulell.NUMINTENTS);
 
         assertThrows(InvalidNumIntentsException.class, () -> {
             new Taulell(solucio, expectedint, expectedfeed);
@@ -108,10 +108,10 @@ public class TaulellTest {
     public void newTaulellInitWrongSizeBolesIntents() {
         List<Integer> solucio = getList(50,true, false);
 
-        List<List<Integer>> expectedint = getListList(424, false, false);
+        List<List<Integer>> expectedint = getListList(424, false, false, Taulell.NUMINTENTS);
         expectedint.get(0).add(Bola.NUL.number()); //5 boles a l'intent 0
 
-        List<List<Integer>> expectedfeed = getListList(421324, true, false);
+        List<List<Integer>> expectedfeed = getListList(421324, true, false, Taulell.NUMINTENTS);
 
         assertThrows(InvalidNumBolesException.class, () -> {
             new Taulell(solucio, expectedint, expectedfeed);
@@ -122,9 +122,9 @@ public class TaulellTest {
     public void newTaulellInitWrongSizeFeebacks() {
         List<Integer> solucio = getList(50,true, false);
 
-        List<List<Integer>> expectedint = getListList(424, false, false);
+        List<List<Integer>> expectedint = getListList(424, false, false, Taulell.NUMINTENTS);
 
-        List<List<Integer>> expectedfeed = getListList(421324, true, false);
+        List<List<Integer>> expectedfeed = getListList(421324, true, false, Taulell.NUMINTENTS);
         expectedfeed.add(getList(21738, false, true)); //13 intents
 
         assertThrows(InvalidNumIntentsException.class, () -> {
@@ -136,9 +136,9 @@ public class TaulellTest {
     public void newTaulellInitWrongSizeBolesFeebacks() {
         List<Integer> solucio = getList(50,true, false);
 
-        List<List<Integer>> expectedint = getListList(424, false, false);
+        List<List<Integer>> expectedint = getListList(424, false, false, Taulell.NUMINTENTS);
 
-        List<List<Integer>> expectedfeed = getListList(421324, true, false);
+        List<List<Integer>> expectedfeed = getListList(421324, false, true, Taulell.NUMINTENTS);
         expectedfeed.get(0).add(Bola.NUL.number()); //5 boles a l'intent 0
 
         assertThrows(InvalidNumBolesException.class, () -> {
@@ -147,11 +147,36 @@ public class TaulellTest {
     }
     @Test
     public void newTaulellInitWrongSol() {
-        List<List<Integer>> expectedint = getListList(424, false, false);
-        List<List<Integer>> expectedfeed = getListList(421324, true, false);
+        List<List<Integer>> expectedint = getListList(424, false, false, Taulell.NUMINTENTS);
+        List<List<Integer>> expectedfeed = getListList(421324, false, true, Taulell.NUMINTENTS);
 
         assertThrows(InvalidSolutionException.class, () -> {
             new Taulell(List.of(3,3,3,0),expectedint,expectedfeed);
+        });
+    }
+
+    @Test
+    public void newTaulellInitWrongFeeback() {
+        List<Integer> solucio = getList(50,true, false);
+
+        List<List<Integer>> expectedint = getListList(424, false, false, Taulell.NUMINTENTS);
+        List<List<Integer>> expectedfeed = getListList(421324, true, false, Taulell.NUMINTENTS); //Li posem colors al feedback
+
+        assertThrows(InvalidFeedbackException.class, () -> {
+            new Taulell(solucio,expectedint,expectedfeed);
+        });
+    }
+
+    @Test
+    public void newTaulellInitWrongIntent() {
+        List<Integer> solucio = getList(50,true, false);
+
+        List<List<Integer>> expectedint = getListList(424, false, false, Taulell.NUMINTENTS);
+        expectedint.set(0, List.of(Bola.NUL.number(), Bola.BLAU.number(), Bola.ROSA.number(), 10)); //Li posem un color que no existeix
+        List<List<Integer>> expectedfeed = getListList(23121, false, true, Taulell.NUMINTENTS);
+
+        assertThrows(InvalidIntentException.class, () -> {
+            new Taulell(solucio,expectedint,expectedfeed);
         });
     }
 
@@ -162,7 +187,7 @@ public class TaulellTest {
 
         //considerem que l'últim intent és el que té com a feedback una Seqüència buida
 
-        List<List<Integer>> expectedint = getListList(29945, false, false);
+        List<List<Integer>> expectedint = getListList(29945, false, false, 6);
 
         List<List<Integer>> expectedfeed = new ArrayList<>(Taulell.NUMINTENTS);
         //init NUMINTENTS (12) times
@@ -182,7 +207,7 @@ public class TaulellTest {
     public void getUltimFeedback() throws DomainException {
         List<Integer> solucio = getList(4798378,false, false);
 
-        List<List<Integer>> expectedint = getListList(29945, false, false);
+        List<List<Integer>> expectedint = getListList(29945, false, false, 6);
 
         List<List<Integer>> expectedfeed = new ArrayList<>(Taulell.NUMINTENTS);
         //init NUMINTENTS (12) times
@@ -251,8 +276,8 @@ public class TaulellTest {
     public void getIntents() throws DomainException {
         List<Integer> solucio = getList(312312312,false, false);
 
-        List<List<Integer>> expectedint = getListList(575, false, false);
-        List<List<Integer>> expectedfeed = getListList(23121, true, false);
+        List<List<Integer>> expectedint = getListList(575, false, false, 5);
+        List<List<Integer>> expectedfeed = getListList(23121, false, true, 5);
 
         Taulell taulell = new Taulell(solucio, expectedint, expectedfeed);
         assertEquals(expectedint, taulell.getIntents());
@@ -262,8 +287,8 @@ public class TaulellTest {
     public void getFeedbacks() throws DomainException {
         List<Integer> solucio = getList(312312312,false, false);
 
-        List<List<Integer>> expectedint = getListList(575, false, false);
-        List<List<Integer>> expectedfeed = getListList(23121, false, true);
+        List<List<Integer>> expectedint = getListList(575, false, false, 7);
+        List<List<Integer>> expectedfeed = getListList(23121, false, true, 7);
 
         Taulell taulell = new Taulell(solucio, expectedint, expectedfeed);
         assertEquals(expectedfeed, taulell.getFeedbacks());
@@ -273,7 +298,7 @@ public class TaulellTest {
     public void getNumeroIntent() throws DomainException {
         List<Integer> solucio = getList(51414,false, false);
 
-        List<List<Integer>> expectedint = getListList(999317, false, false);
+        List<List<Integer>> expectedint = getListList(999317, false, false, 6);
 
         List<List<Integer>> expectedfeed = new ArrayList<>(Taulell.NUMINTENTS);
         //init NUMINTENTS (12) times
@@ -293,7 +318,7 @@ public class TaulellTest {
     public void getNumeroIntentLast() throws DomainException {
         List<Integer> solucio = getList(51414,false, false);
 
-        List<List<Integer>> expectedint = getListList(999317, false, false);
+        List<List<Integer>> expectedint = getListList(999317, false, false, Taulell.NUMINTENTS);
 
         List<List<Integer>> expectedfeed = new ArrayList<>(Taulell.NUMINTENTS);
         //init NUMINTENTS (12) times
@@ -324,6 +349,20 @@ public class TaulellTest {
         taulell.addFeedback(feedback);
         taulell.addFeedback(feedback);
         assertEquals(feedback, taulell.getUltimFeedback());
+
+    }
+
+    @Test
+    public void addFeedbackWrong() throws DomainException {
+        List<Integer> solucio = getList(213312,false, false);
+        Taulell taulell = new Taulell(solucio);
+
+        List<Integer> feedback = new ArrayList<>(List.of(Bola.NEGRE.number(), Bola.BLANC.number(), Bola.NUL.number(), Bola.BLAU.number()));
+        //posem un color no permès (BLAU)
+
+        assertThrows(InvalidFeedbackException.class, () -> {
+            taulell.addFeedback(feedback);
+        });
 
     }
 
