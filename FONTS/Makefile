@@ -1,13 +1,14 @@
-all: build test jar
-
 build:
 	./gradlew build
 
-test: build
+test:
 	./gradlew test
 
-jar: build
+jar:
 	./gradlew jar
 
+exe: jar
+	cp -r ./build/tests ../EXE/
+
 clean:
-	./gradle clean
+	./gradlew clean

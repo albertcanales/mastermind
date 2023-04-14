@@ -32,7 +32,8 @@ tasks.register('jarLib', Jar) {
     from configurations.testRuntimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 
-def testClasses = ["BotMakerTests", "DificultatTests", "FiveGuessTests", "PartidaTests", "TaulellTest", "UserTests"]
+def testClasses = ["BotMakerTests", "DificultatTests", "FiveGuessTests",
+                   "PartidaTests", "TaulellTest", "UserTests", "PartidaDriver", "DominiDriver"]
 
 testClasses.each { name ->
     tasks.register("jar${name}", Jar) {
@@ -53,4 +54,8 @@ tasks.register('jarTests') {
     testClasses.each { name ->
         dependsOn "jar${name}"
     }
+}
+
+jar {
+    dependsOn jarTests
 }

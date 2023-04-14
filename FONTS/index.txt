@@ -6,3 +6,18 @@ src/
 gradlew
 gradlew.bat
 Makefile
+
+MAKEFILE
+--------
+Té els següents targets:
+
+Per generar els JAR en el directori EXE, executa:
+    make exe
+
+Per executar els Unit Tests:
+    make test
+
+Per esborrar els fitxers generats per gradle en el build:
+    make clean
+
+Les opcions jar i build també estan incloses en el Makefile, fan el mateix que farien amb gradle.
