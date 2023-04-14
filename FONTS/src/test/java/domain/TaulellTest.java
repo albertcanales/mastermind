@@ -454,6 +454,24 @@ public class TaulellTest {
         assertThrows(InvalidEnumValueException.class, () -> taulell.setBola(0, -1));
     }
 
+    @Test
+    public void isValidIntentsFeedbacksFalse()  {
+
+        List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS);
+        List<List<Integer>> expectedfeed = getListList(23121, false, false, true,Taulell.NUMINTENTS - 2); //diferencia de 2
+
+        assertEquals(false, Taulell.isValidIntentsFeedbacks(expectedint,expectedfeed));
+    }
+
+    @Test
+    public void isValidIntentsFeedbacksTrue()  {
+
+        List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS);
+        List<List<Integer>> expectedfeed = getListList(23121, false, false, true,Taulell.NUMINTENTS - 1); //diferencia de 2
+
+        assertEquals(true, Taulell.isValidIntentsFeedbacks(expectedint,expectedfeed));
+    }
+
     public static void main(String[] args) {
         TestRunner.runTestClass(TaulellTest.class);
     }

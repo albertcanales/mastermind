@@ -28,7 +28,7 @@ class Taulell {
      * @return un booleà cert o fals depenent de si està plena o no
      * @author Arnau Valls Fusté
      */
-    private boolean isPlena(List<Integer> list) {
+    private static boolean isPlena(List<Integer> list) {
         for (Integer integer : list) {
             if (integer == Bola.NUL.number()) return false;
         }
@@ -54,7 +54,7 @@ class Taulell {
      * @return un booleà cert o fals depenent de si el Feedback és vàlid o no
      * @author Arnau Valls Fusté
      */
-    private boolean isValidFeedback(List<Integer> list) {
+    private static boolean isValidFeedback(List<Integer> list) {
         List<Integer> valid = List.of(Bola.NUL.number(),Bola.BLANC.number(),Bola.NEGRE.number());
 
         for (Integer bola : list) {
@@ -69,7 +69,7 @@ class Taulell {
      * @return un booleà cert o fals depenent de si l'Intent és vàlid o no
      * @author Arnau Valls Fusté
      */
-    private boolean isValidIntent(List<Integer> list) {
+    private static boolean isValidIntent(List<Integer> list) {
         for (Integer bola : list) {
             if (!Bola.isValid(bola)) return false;
         }
@@ -285,9 +285,39 @@ class Taulell {
      * @param inten una llista d'una llista d'enters representant els intents realitzats
      * @author Arnau Valls Fusté
      */
-    boolean isValidStateIntents(List<List<Integer>> inten) {
+    public static boolean isValidStateIntents(List<List<Integer>> inten) {
         for (int i = 0; i < inten.size() - 1; ++i) { //no mirem l'ultim intent, pot tenir nuls, només mirem si als anteriors hi ha algun nul
             if (!isPlena(inten.get(i))) return false;
+        }
+        return true;
+    }
+
+    /**
+     * Mètode que comprova si una unió d'intents i feedbacks és correcta
+     * @param inten una llista d'una llista d'enters representant els intents realitzats
+     * @param feed una llista d'una llista d'enters representant els feedbacks realitzats
+     * @author Arnau Valls Fusté
+     */
+    public static boolean isValidIntentsFeedbacks(List<List<Integer>> inten, List<List<Integer>> feed) {
+        if (inten.size() > NUMINTENTS ||feed.size() > NUMINTENTS || !isValidStateIntents(inten) || inten.size() - 1 != feed.size()) {
+            return false;
+        }
+
+        for (List<Integer> integers : inten) {
+            if (integers.size() != NUMBOLES) {
+                return false;
+            }
+            if (!isValidIntent(integers)) {
+                return false;
+            }
+        }
+        for (List<Integer> integers : feed) {
+            if (integers.size() != NUMBOLES) {
+                return false;
+            }
+            if (!isValidFeedback(integers)) {
+               return false;
+            }
         }
         return true;
     }
