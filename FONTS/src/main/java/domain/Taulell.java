@@ -40,7 +40,7 @@ class Taulell {
      * @return una llista amb NUMBOLES Bola.NUL
      * @author Arnau Valls Fusté
      */
-    public List<Integer> getNulList() {
+    List<Integer> getNulList() {
         List<Integer> list = new ArrayList<>(Taulell.NUMBOLES);
         for (int i = 0; i < Taulell.NUMBOLES; ++i) {
             list.add(Bola.NUL.number());
@@ -287,7 +287,7 @@ class Taulell {
      * @param inten una llista d'una llista d'enters representant els intents realitzats
      * @author Arnau Valls Fusté
      */
-    public static boolean isValidStateIntents(List<List<Integer>> inten) {
+    static boolean isValidStateIntents(List<List<Integer>> inten) {
         for (int i = 0; i < inten.size() - 1; ++i) { //no mirem l'ultim intent, pot tenir nuls, només mirem si als anteriors hi ha algun nul
             if (!isPlena(inten.get(i))) return false;
         }
@@ -300,7 +300,7 @@ class Taulell {
      * @param feed una llista d'una llista d'enters representant els feedbacks realitzats
      * @author Arnau Valls Fusté
      */
-    public static boolean isValidIntentsFeedbacks(List<List<Integer>> inten, List<List<Integer>> feed) {
+    static boolean isValidIntentsFeedbacks(List<List<Integer>> inten, List<List<Integer>> feed) {
         if (inten.size() > NUMINTENTS ||feed.size() > NUMINTENTS || !isValidStateIntents(inten) || inten.size() - 1 != feed.size()) {
             return false;
         }

@@ -14,7 +14,7 @@ import java.util.List;
  * Classe que representa a un usuari del Joc i les seves estadístiques
  * @author Kamil Przybyszewski
  */
-public class User {
+class User {
     private String name;
     private String username;
 

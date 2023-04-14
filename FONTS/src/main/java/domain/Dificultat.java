@@ -102,7 +102,7 @@ enum NivellDificultat {
      * @return el valor de NivellDificultat corresponent al nombre donat
      * @author Albert Canales
      */
-    public static NivellDificultat findByNumber(Integer number) throws DomainException {
+    static NivellDificultat findByNumber(Integer number) throws DomainException {
         for(NivellDificultat nd : values()){
             if( nd.number() == number){
                 return nd;
@@ -121,7 +121,7 @@ enum NivellDificultat {
      * Mètode per obtenir el nombre de dificultats
      * @return enter que representa el número de dificultats
      */
-    public static int numDificultats() {
+    static int numDificultats() {
         return (values().length);
     }
 
@@ -131,7 +131,7 @@ enum NivellDificultat {
      * @param num enter que representa una dificultat
      * @return un booleà cert si el número correspon a una dificultat
      */
-    public static boolean isValid(int num) {
+    static boolean isValid(int num) {
         return (num > 0) && (num <= numDificultats());
     }
 }
