@@ -66,21 +66,23 @@ public class ControladorDriver {
 
         int dificultat = scanInt();
 
-        if(!NivellDificultat.isValid(dificultat)) {
+        while(!NivellDificultat.isValid(dificultat)) {
             System.out.println("The given dificultat is invalid.");
-            dificultat = scanNivellDificultat();
+            System.out.print("Enter again: ");
+            dificultat = scanInt();
         }
         System.out.printf("The given dificultat is: %d%n", dificultat);
         return dificultat;
     }
 
     static Integer scanAlgorisme() {
-        System.out.println("Enter an algorisme: ");
+        System.out.print("Enter an algorisme: ");
         int algorisme = scanInt();
 
-        if(!TipusAlgorisme.isValid(algorisme)) {
+        while(!TipusAlgorisme.isValid(algorisme)) {
             System.out.println("The given algorisme is invalid.");
-            algorisme = scanAlgorisme();
+            System.out.print("Enter again: ");
+            algorisme = scanInt();
         }
         System.out.printf("The given algorisme is: %d%n", algorisme);
         return algorisme;

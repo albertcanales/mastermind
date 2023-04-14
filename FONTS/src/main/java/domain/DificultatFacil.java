@@ -26,7 +26,7 @@ class DificultatFacil extends Dificultat {
     List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent) throws DomainException {
         if (solucio.size() != intent.size()) throw new SolIntentNotSameSizeException(solucio.size(),intent.size());
         if(!isPlena(intent)) throw new IntentNoCompletException();
-        if(isPlena(solucio)) throw new InvalidSolutionException();
+        if(!isPlena(solucio)) throw new InvalidSolutionException();
         int numboles = solucio.size();
 
         List<Integer> Color_count = countColorsBoles(solucio);

@@ -234,6 +234,10 @@ public class PartidaDriver extends ControladorDriver {
             System.out.println("Error: No s'està jugant cap partida");
             return;
         }
+        if(!cp.isJugadorBreaker()) {
+            System.out.println("Error: En la partida actual el jugador és el maker");
+            return;
+        }
         System.out.printf("El temps transcorregut és de %d ms.%n", cp.getTempsMillis());
     }
 
@@ -244,7 +248,10 @@ public class PartidaDriver extends ControladorDriver {
             System.out.println("Error: No s'està jugant cap partida");
             return;
         }
-
+        if(!cp.isJugadorBreaker()) {
+            System.out.println("Error: En la partida actual el jugador és el maker");
+            return;
+        }
         System.out.print("Enter a temps a afegir: ");
         Long afegit = scanLong();
         System.out.printf("S'ha llegit el valor %d%n", afegit);
@@ -426,7 +433,11 @@ public class PartidaDriver extends ControladorDriver {
             System.out.println("Error: No s'està jugant cap partida");
             return;
         }
-        if(!cp.isPartidaAcabada()) {
+        if(!cp.isJugadorBreaker()) {
+            System.out.println("Error: En la partida actual el jugador és el maker");
+            return;
+        }
+        if(cp.isPartidaAcabada()) {
             System.out.println("Error: La partida actual ja ha acabat");
             return;
         }
@@ -551,7 +562,7 @@ public class PartidaDriver extends ControladorDriver {
                     testIsJugadorBreaker();
                     break;
                 case "19":
-                case "isPartidaGuanyuada":
+                case "isPartidaGuanyada":
                     testIsPartidaGuanyada();
                     break;
                 case "20":

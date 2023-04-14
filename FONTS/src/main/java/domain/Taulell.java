@@ -194,7 +194,7 @@ class Taulell {
      * @author Arnau Valls Fusté
      */
     List<Integer> getUltimFeedback() {
-        // intentActual ha de ser > 0
+        if(intentActual == 0) return null;
         return feedbacks.get(intentActual - 1);
     }
 

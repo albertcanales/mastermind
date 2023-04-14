@@ -154,6 +154,11 @@ class ControladorPartida {
         List<List<Integer>> feedbacks = new ArrayList<>();
         for (List<Integer> intent : intents)
             feedbacks.add(dificultat.validarSequencia(solution, intent));
+        List<Integer> lastIntent = new ArrayList<>();
+        for (int i = 0; i < Taulell.NUMBOLES; i++)
+            lastIntent.add(0);
+        intents.add(lastIntent);
+
         taulell = new Taulell(solution, intents, feedbacks);
     }
 
@@ -166,6 +171,8 @@ class ControladorPartida {
     Long getTempsMillis() throws DomainException {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
+        if(!isJugadorBreaker())
+            throw new InvalidPartidaTypeException("Breaker");
         return partida.getTemps().toMillis();
     }
 
@@ -178,6 +185,8 @@ class ControladorPartida {
     void addTempsMillis(Long millis) throws DomainException {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
+        if(!isJugadorBreaker())
+            throw new InvalidPartidaTypeException("Breaker");
         partida.addMillis(millis);
     }
 
@@ -283,6 +292,7 @@ class ControladorPartida {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
         List<Integer> ultimFeedback = taulell.getUltimFeedback();
+        if(ultimFeedback == null) return Boolean.FALSE;
         for (Integer bola : ultimFeedback) {
             if (!bola.equals(Bola.NEGRE.number()))
                 return Boolean.FALSE;
