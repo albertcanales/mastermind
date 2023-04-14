@@ -68,6 +68,12 @@ public class ControladorPersistencia {
         return null;
     }
 
+    public List<Integer> getUserCurrentWinstreak(String username) {
+        if(username.equals("albert"))
+            return List.of(4, 10, 0);
+        return null;
+    }
+
     public List<Integer> getUserWinstreak(String username) {
         if(username.equals("albert"))
             return List.of(20, 10, 5);

@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author Mar Gonzàlez Català
  */
-abstract class BotBreaker {
+abstract class BotBreaker implements Maquina {
 
     /**
      * @brief Constructor de BotMaker.
@@ -40,7 +40,7 @@ abstract class BotBreaker {
      * @return Llista d'intents.
      * @author Mar Gonzàlez Català
      */
-    abstract List<List<Integer>> solve(List<Integer> solution) throws DomainException;
+    public abstract List<List<Integer>> solve(List<Integer> solution) throws DomainException;
 }
 
 /**

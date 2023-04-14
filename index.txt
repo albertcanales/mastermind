@@ -4,3 +4,5 @@ DOCS/
 EXE/
 FONTS/
 equip.txt
+
+El Makefile del projecte es troba a FONTS, juntament amb indicacions per utilitzar-lo.

@@ -17,7 +17,12 @@ Per generar els JAR en el directori EXE, executa:
 Per executar els Unit Tests:
     make test
 
+Per executar els drivers es pot fer servir:
+    make runDominiDriver
+    make runPartidaDriver
+
 Per esborrar els fitxers generats per gradle en el build:
     make clean
+
 
 Les opcions jar i build també estan incloses en el Makefile, fan el mateix que farien amb gradle.

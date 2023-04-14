@@ -19,7 +19,7 @@ class Genetic extends BotBreaker {
      * @return Llista d'intents.
      * @author Mar Gonzàlez Català
      */
-    List<List<Integer>> solve(List<Integer> solution) throws DomainException {
+    public List<List<Integer>> solve(List<Integer> solution) throws DomainException {
         return null;
     }
 

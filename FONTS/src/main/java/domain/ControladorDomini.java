@@ -86,12 +86,13 @@ public class ControladorDomini {
         List<Long> timePlayed = controladorPersistencia.getUserTimePlayed(username);
         List<Integer> wonGames = controladorPersistencia.getUserWonGames(username);
         List<Integer> lostGames = controladorPersistencia.getUserLostGames(username);
+        List<Integer> currentWinStreak = controladorPersistencia.getUserCurrentWinstreak(username);
         List<Integer> winStreak = controladorPersistencia.getUserWinstreak(username);
         List<Double> avgAsMaker = controladorPersistencia.getUserAvgAsMaker(username);
         List<Double> avgAsBreaker = controladorPersistencia.getUserAvgAsBreaker(username);
         List<Integer> numGamesAsMaker = controladorPersistencia.getUserNumGamesAsMaker(username);
         user = new User(name, username);
-        //user = new User(name, username, personalRecord, timePlayed, wonGames, lostGames, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
+        user = new User(name, username, personalRecord, timePlayed, wonGames, lostGames, currentWinStreak, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
         return true;
     }
 
