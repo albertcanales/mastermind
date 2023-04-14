@@ -78,8 +78,8 @@ public class ControladorDriver {
         System.out.print("Enter an algorisme: ");
         int algorisme = scanInt();
 
-        while(!TipusAlgorisme.isValid(algorisme)) {
-            System.out.println("The given algorisme is invalid.");
+        while(!TipusAlgorisme.isValid(algorisme) || algorisme == 2) {
+            System.out.println("The given algorisme is invalid (or is not yet implemented).");
             System.out.print("Enter again: ");
             algorisme = scanInt();
         }

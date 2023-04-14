@@ -21,6 +21,16 @@ Per executar els drivers es pot fer servir:
     make runDominiDriver
     make runPartidaDriver
 
+Per executar tots els jocs de prova:
+    make jocProves
+
+També es poden executar individualment amb:
+    make jocProvesPartida1
+    make jocProvesPartida2
+    make jocProvesDomini1
+    make jocProvesDomini2
+    make jocProvesDomini3
+
 Per esborrar els fitxers generats per gradle en el build:
     make clean
 
