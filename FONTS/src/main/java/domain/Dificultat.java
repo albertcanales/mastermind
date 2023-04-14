@@ -29,7 +29,7 @@ abstract class Dificultat {
             case DIFICIL:
                 return new DificultatDificil();
         }
-        return null;
+        throw new InvalidEnumValueException("NivellDificultat", nivellDificultat.toString());
     }
 
     /**
@@ -53,7 +53,7 @@ abstract class Dificultat {
      * @return una llista on la posició del valor numèric de la bola representa el seu nombre d'aparicions
      * @author Albert Canales
      */
-    List<Integer> countColorsBoles(List<Integer> sequencia) throws DomainException{
+    List<Integer> countColorsBoles(List<Integer> sequencia) throws DomainException {
         List<Integer> colorList = new ArrayList<Integer>();
         for (int i = 0; i <= Bola.numColors(); ++i) colorList.add(0);
 

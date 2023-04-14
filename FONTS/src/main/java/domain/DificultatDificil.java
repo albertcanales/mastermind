@@ -25,27 +25,18 @@ class DificultatDificil extends Dificultat {
     @Override
     List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent) throws DomainException {
         if (solucio.size() != intent.size()) throw new SolIntentNotSameSizeException(solucio.size(),intent.size());
-
         if(!isPlena(intent)) throw new IntentNoCompletException();
         if(!isPlena(solucio)) throw new InvalidSolutionException();
         int numboles = solucio.size();
 
-        List<Integer> Color_count = countColorsBoles(solucio);
-
         List<Integer> feedback = new ArrayList<>();
-        int blanques = 0;
         for (int i = 0; i < numboles; ++i){
             Integer color_sol = solucio.get(i);
             if (!Bola.isValid(color_sol)) throw new InvalidEnumValueException("Bola", color_sol.toString());
             Integer color_intent = intent.get(i);
             if (!Bola.isValid(color_intent)) throw new InvalidEnumValueException("Bola", color_intent.toString());
 
-            Integer color_count = Color_count.get(color_intent);
-            if (color_count > 0) {
-                feedback.add(Bola.BLANC.number());
-                Integer count = Color_count.get(color_intent); count--;
-                Color_count.set(color_intent, count);
-            }
+            if (Objects.equals(color_sol, color_intent)) feedback.add(Bola.NEGRE.number());
         }
         for (int i = feedback.size(); i < numboles; ++i) feedback.add(Bola.NUL.number());
 
