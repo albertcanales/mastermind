@@ -63,6 +63,12 @@ public class FiveGuessTests {
         });
     }
 
+    @Test
+    public void getTipusAlgorisme() {
+        BotBreaker fiveguess = new FiveGuess();
+        assertEquals(TipusAlgorisme.FIVEGUESS,fiveguess.getTipusAlgorisme());
+    }
+
     public static void main(String[] args) {
         TestRunner.runTestClass(FiveGuessTests.class);
     }
