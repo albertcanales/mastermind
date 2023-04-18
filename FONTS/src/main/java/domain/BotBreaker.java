@@ -15,7 +15,6 @@ abstract class BotBreaker implements Maquina {
     /**
      * Constructor de BotMaker.
      * @param tipusAlgorisme tipus d'Algorisme.
-     * @author Mar Gonzàlez Català
      */
     static BotBreaker create(Integer tipusAlgorisme) throws DomainException {
         switch (TipusAlgorisme.findByNumber(tipusAlgorisme)) {
@@ -29,7 +28,6 @@ abstract class BotBreaker implements Maquina {
 
     /**
      * Getter del tipus d'algorisme
-     * @author Mar Gonzàlez Català
      */
     abstract TipusAlgorisme getTipusAlgorisme();
 
@@ -37,7 +35,6 @@ abstract class BotBreaker implements Maquina {
      * Donada una solució genera la llista d'intents fins a arribar a ella.
      * @param solution seqüència oculta que intentem endevinar.
      * @return Llista d'intents.
-     * @author Mar Gonzàlez Català
      */
     public abstract List<List<Integer>> solve(List<Integer> solution) throws DomainException;
 }
@@ -55,7 +52,6 @@ enum TipusAlgorisme {
     /**
      * onstructor a partir de l'enter que representa el valor
      * @param number és el valor que representa el tipus d'algorisme
-     * @author Mar Gonzàlez Català
      */
     TipusAlgorisme(int number) {
         this.number = number;
@@ -66,7 +62,6 @@ enum TipusAlgorisme {
      * @param number és el valor que representa el tipus d'algorisme
      * @throws DomainException si el nombre no correspon a un algorisme
      * @return el valor de TipusAlgorisme corresponent al nombre donat
-     * @author Mar Gonzàlez Català
      */
     public static TipusAlgorisme findByNumber(Integer number) throws DomainException {
         for(TipusAlgorisme ta : values()){
@@ -79,14 +74,12 @@ enum TipusAlgorisme {
 
     /**
      * Getter del nombre que representa el valor
-     * @author Mar Gonzàlez Català
      */
     int number() { return number; }
 
     /**
      * Mètode per obtenir el nombre d'algorismes
      * @return enter que representa el número d'algorismes
-     * @author Mar Gonzàlez Català
      */
     public static int numAlgorismes() {
         return (values().length);
@@ -96,7 +89,6 @@ enum TipusAlgorisme {
      * Mètode per saber si un número representa un algorisme vàlid
      * @param num enter que representa un algorisme
      * @return un booleà cert si el número correspon a un algorisme, fals si no
-     * @author Mar Gonzàlez Català
      */
     public static boolean isValid(int num) {
         return (num > 0) && (num <= numAlgorismes());

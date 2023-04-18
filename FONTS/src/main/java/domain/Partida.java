@@ -12,7 +12,6 @@ class Partida {
 
     /**
      * Constructor per una nova partida
-     * @author Albert Canales
      */
     Partida() {
         this.temps = Duration.ZERO;
@@ -20,7 +19,6 @@ class Partida {
 
     /**
      * Constructor per una partida pendent
-     * @author Albert Canales
      */
     Partida(Duration temps) {
         this.temps = temps;
@@ -28,7 +26,6 @@ class Partida {
 
     /**
      * Getter de temps
-     * @author Albert Canales
      */
     Duration getTemps() {
         return temps;
@@ -37,7 +34,6 @@ class Partida {
     /**
      * Mètode per afegir temps transcorregut a la partida
      * @param millis milisegons a afegir a la partida
-     * @author Albert Canales
      */
     void addMillis(Long millis) {
         if(millis > 0)

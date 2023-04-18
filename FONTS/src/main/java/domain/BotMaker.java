@@ -16,7 +16,6 @@ class BotMaker {
      * Constructor de BotMaker.
      * @param numboles llargada de la seqüència solució.
      * @param numcolors nombre de colors.
-     * @author Mar Gonzàlez Català
      */
     public BotMaker(Integer numboles, Integer numcolors) {
         this.numboles = numboles;
@@ -26,7 +25,6 @@ class BotMaker {
     /**
      * Genera una solució.
      * @return Solució.
-     * @author Mar Gonzàlez Català
      */
     public ArrayList<Integer> generaSequenciaSolucio(){
         Random rand = new Random();

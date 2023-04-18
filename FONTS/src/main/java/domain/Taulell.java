@@ -26,7 +26,6 @@ class Taulell {
      * Mètode que retorna cert si la llista és plena o fals si no ho és
      * @param list una llista d'enters
      * @return un booleà cert o fals depenent de si està plena o no
-     * @author Arnau Valls Fusté
      */
     private static boolean isPlena(List<Integer> list) {
         for (Integer integer : list) {
@@ -38,7 +37,6 @@ class Taulell {
     /**
      * Mètode que retorna una llista amb NUMBOLES Bola.NUL
      * @return una llista amb NUMBOLES Bola.NUL
-     * @author Arnau Valls Fusté
      */
     List<Integer> getNulList() {
         List<Integer> list = new ArrayList<>(Taulell.NUMBOLES);
@@ -52,7 +50,6 @@ class Taulell {
      * Mètode que comprova si un Feedback és vàlid (que només tingui Bola.NUL, Bola.BLANC i Bola.NEGRE)
      * @param list una llista d'enters
      * @return un booleà cert o fals depenent de si el Feedback és vàlid o no
-     * @author Arnau Valls Fusté
      */
     private static boolean isValidFeedback(List<Integer> list) {
         List<Integer> valid = List.of(Bola.NUL.number(),Bola.BLANC.number(),Bola.NEGRE.number());
@@ -67,7 +64,6 @@ class Taulell {
      * Mètode que comprova si un Intent és vàlid (que només tingui tots el colors definits a Bola)
      * @param list una llista d'enters
      * @return un booleà cert o fals depenent de si l'Intent és vàlid o no
-     * @author Arnau Valls Fusté
      */
     private static boolean isValidIntent(List<Integer> list) {
         for (Integer bola : list) {
@@ -82,7 +78,6 @@ class Taulell {
      * @param sol una llista d'enters representant la solució del Taulell
      * @throws InvalidNumBolesException si el tamany de la solució no és correcte
      * @throws InvalidSolutionException si la solució no és vàlida (té alguna Bola NUL)
-     * @author Arnau Valls Fusté
      */
     Taulell(List <Integer> sol) throws DomainException {
         if (!isPlena(sol)) {
@@ -114,7 +109,6 @@ class Taulell {
      * @throws InvalidFeedbackException si algun feedback és invàlid
      * @throws InvalidIntentException si algun intent és invàlid
      * @throws InvalidIntentActualException si el size dels feedbacks no és el size dels intents - 1
-     * @author Arnau Valls Fusté
      */
     Taulell(List <Integer> sol, List<List<Integer>> inten, List<List<Integer>> feed) throws DomainException{
         if (inten.size() > NUMINTENTS) {
@@ -169,7 +163,6 @@ class Taulell {
      * Mètode que retorna si l'intent actual està ple (no hi ha boles nul·les)
      *
      * @return booleà
-     * @author Arnau Valls Fusté
      */
     Boolean isUltimIntentPle() {
         return isPlena(intents.get(intentActual));
@@ -180,7 +173,6 @@ class Taulell {
      * (últim)
      * 
      * @return una llista d'enters (Boles)
-     * @author Arnau Valls Fusté
      */
     List<Integer> getUltimIntent() {
         return intents.get(intentActual);
@@ -191,7 +183,6 @@ class Taulell {
      * (últim)
      *
      * @return una llista d'enters (Boles) o null si l'intentActual és 0
-     * @author Arnau Valls Fusté
      */
     List<Integer> getUltimFeedback() {
         if(intentActual == 0) return null;
@@ -202,7 +193,6 @@ class Taulell {
      * Mètode que retorna una llista que conté tots els intents del taulell
      *
      * @return una llista d'una llista d'enters
-     * @author Arnau Valls Fusté
      */
     List<List<Integer>> getIntents() {
         return intents;
@@ -212,7 +202,6 @@ class Taulell {
      * Mètode que retorna una llista que conté tots els feedbacks del taulell
      *
      * @return una llista d'una llista d'enters
-     * @author Arnau Valls Fusté
      */
     List<List<Integer>> getFeedbacks() {
         return feedbacks;
@@ -222,7 +211,6 @@ class Taulell {
      * Mètode que retorna l'intent actual del taulell
      *
      * @return un enter amb l'intent actual
-     * @author Arnau Valls Fusté
      */
     int getNumeroIntent() {
         return intentActual;
@@ -235,7 +223,6 @@ class Taulell {
      * @throws InvalidNumBolesException si el tamany de feedback no és correcte
      * @throws InvalidFeedbackException si el feeback és invàlid
      * @throws InvalidNumIntentsException si el taulell està ple
-     * @author Arnau Valls Fusté
      */
     void addFeedback(List<Integer> feedback) throws DomainException {
         if (feedback.size() != NUMBOLES) {
@@ -256,7 +243,6 @@ class Taulell {
     /**
      * Mètode que retorna la solució de l'estat actual
      * @return una llista d'enters que representen Boles
-     * @author Arnau Valls Fusté
      */
     List<Integer> getSolucio() {
         return solucio;
@@ -268,7 +254,6 @@ class Taulell {
      * @param bola enter que representa la bola a establir
      * @throws InvalidEnumValueException si bola no és una Bola vàlida
      * @throws InvalidNumIntentsException si el taulell està ple
-     * @author Arnau Valls Fusté
      */
     void setBola(Integer index, Integer bola) throws DomainException {
         if (!Bola.isValid(bola)) {
@@ -285,7 +270,6 @@ class Taulell {
     /**
      * Mètode que comprova si una unió d'intents és correcta
      * @param inten una llista d'una llista d'enters representant els intents realitzats
-     * @author Arnau Valls Fusté
      */
     static boolean isValidStateIntents(List<List<Integer>> inten) {
         for (int i = 0; i < inten.size() - 1; ++i) { //no mirem l'ultim intent, pot tenir nuls, només mirem si als anteriors hi ha algun nul
@@ -298,7 +282,6 @@ class Taulell {
      * Mètode que comprova si una unió d'intents i feedbacks és correcta
      * @param inten una llista d'una llista d'enters representant els intents realitzats
      * @param feed una llista d'una llista d'enters representant els feedbacks realitzats
-     * @author Arnau Valls Fusté
      */
     static boolean isValidIntentsFeedbacks(List<List<Integer>> inten, List<List<Integer>> feed) {
         if (inten.size() > NUMINTENTS ||feed.size() > NUMINTENTS || !isValidStateIntents(inten) || inten.size() - 1 != feed.size()) {

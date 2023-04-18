@@ -16,7 +16,6 @@ abstract class Dificultat {
      * Mètode per instanciar una subclasse a partir del nombre del nivell de dificultat
      * @param nivellDificultat nombre del nivell de dificultat desitjat
      * @return Nova instància de la dificultat desitjada
-     * @author Albert Canales
      */
     static Dificultat create(Integer nivellDificultat) throws DomainException {
 
@@ -33,7 +32,6 @@ abstract class Dificultat {
 
     /**
      * Getter del nivell de dificultat
-     * @author Albert Canales
      */
     abstract NivellDificultat getNivellDificultat();
 
@@ -42,7 +40,6 @@ abstract class Dificultat {
      * @param solucio és la seqüència correcta de la partida
      * @param intent és l'intent pel qual es vol rebre feedback
      * @return feedback corresponent a l'intent
-     * @author Albert Canales
      */
     abstract List<Integer> validarSequencia(List<Integer> solucio, List<Integer> intent) throws DomainException;
 
@@ -50,7 +47,6 @@ abstract class Dificultat {
      * Mètode que retorna el nombre d'aparicions de cada bola en la seqüència
      * @param sequencia és la seqüència de la qual se'n volen extreure els colors
      * @return una llista on la posició del valor numèric de la bola representa el seu nombre d'aparicions
-     * @author Albert Canales
      */
     List<Integer> countColorsBoles(List<Integer> sequencia) throws DomainException {
         List<Integer> colorList = new ArrayList<>();
@@ -66,6 +62,11 @@ abstract class Dificultat {
         return colorList;
     }
 
+    /**
+     * Mètode per saber si una seqüència donada no conté nul·ls
+     * @param sequencia és la seqüència de la qual se'n vol saber si està plena
+     * @return si està plena o no
+     */
     Boolean isPlena(List<Integer> sequencia) {
         for (Integer bola : sequencia) {
             if(bola.equals(Bola.NUL.number()))
@@ -89,7 +90,6 @@ enum NivellDificultat {
     /**
      * Constructor a partir de l'enter que representa el valor
      * @param number és el valor que representa el nivell de dificultat
-     * @author Albert Canales
      */
     NivellDificultat(int number) {
         this.number = number;
@@ -99,7 +99,6 @@ enum NivellDificultat {
      * Mètode per obtenir en NivellDificultat corresponent a un nombre
      * @param number és el valor que representa el nivell de dificultat
      * @return el valor de NivellDificultat corresponent al nombre donat
-     * @author Albert Canales
      */
     static NivellDificultat findByNumber(Integer number) throws DomainException {
         for(NivellDificultat nd : values()){
@@ -112,7 +111,6 @@ enum NivellDificultat {
 
     /**
      * Getter del nombre que representa el valor
-     * @author Albert Canales
      */
     int number() { return number; }
 

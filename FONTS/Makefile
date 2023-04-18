@@ -37,5 +37,11 @@ jocProvesDomini: jocProvesDomini1 jocProvesDomini2 jocProvesDomini3
 
 jocProves: jocProvesPartida jocProvesDomini
 
+javadoc:
+	./gradlew javadoc
+
+docs: javadoc
+	cp -r ./build/docs/* ../DOCS
+
 clean:
 	./gradlew clean

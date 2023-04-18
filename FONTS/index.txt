@@ -31,6 +31,9 @@ També es poden executar individualment amb:
     make jocProvesDomini2
     make jocProvesDomini3
 
+Per generar la documentació amb Javadoc en el directori DOCS cal:
+    make docs
+
 Per esborrar els fitxers generats per gradle en el build:
     make clean
 

@@ -14,7 +14,6 @@ class Genetic extends BotBreaker {
      *
      * @param solution
      * @return Llista d'intents.
-     * @author Mar Gonzàlez Català
      */
     public List<List<Integer>> solve(List<Integer> solution) {
         return null;
@@ -22,7 +21,6 @@ class Genetic extends BotBreaker {
 
     /**
      * Getter del tipus d'algorisme de Genetic
-     * @author Mar Gonzàlez Català
      * */
     @Override
     TipusAlgorisme getTipusAlgorisme() {

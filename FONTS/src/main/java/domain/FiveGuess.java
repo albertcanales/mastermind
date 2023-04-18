@@ -18,7 +18,6 @@ class FiveGuess extends BotBreaker {
 
     /**
      * Inicialitza el conjunt S de 1296 codis possibles.
-     * @author Mar Gonzàlez Català
      */
     private void initializeSetS(){
         for (int it1 = 1; it1 <= Bola.numColors(); it1++){
@@ -37,7 +36,6 @@ class FiveGuess extends BotBreaker {
      * @param list1 primera llista  a comparar.
      * @param list2 segona llista a comparar.
      * @return Nombre de boles amb color i posició coincidents.
-     * @author Mar Gonzàlez Català
      */
     private Integer compareTwoSequencesBlack(ArrayList<Integer> list1, ArrayList<Integer> list2){
         Integer count = 0;
@@ -54,7 +52,6 @@ class FiveGuess extends BotBreaker {
      * @param list1 primera llista a comparar.
      * @param list2 segona llista a comparar.
      * @return Nombre de boles amb color i posició coincidents.
-     * @author Mar Gonzàlez Català
      */
     private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2){
         Integer count = 0;
@@ -81,7 +78,6 @@ class FiveGuess extends BotBreaker {
     /**
      * Donat un enter el converteix en un vector de dígits
      * @return Vector de dígits de l'enter.
-     * @author Mar Gonzàlez Català
      */
     private ArrayList<Integer> getSequence(Integer intToTranslate){
         ArrayList<Integer> digits = new ArrayList<>();
@@ -98,7 +94,6 @@ class FiveGuess extends BotBreaker {
      * @param black nombre de boles negres en el feedback.
      * @param white nombre de boles blanques en el feedback.
      * @param sequence seqüència donada.
-     * @author Mar Gonzàlez Català
      */
     private void eraseNotPossibleSolutionsfromSetS(int black, int white, ArrayList<Integer> sequence){
         Iterator<Integer> it = possibleSolutions.iterator();
@@ -113,7 +108,6 @@ class FiveGuess extends BotBreaker {
     /**
      * Escull la següent seqüència mitjançant la tècnica minimax.
      * @return Següent seqüència
-     * @author Mar Gonzàlez Català
      */
     private ArrayList<Integer> minimax(){
         int currentMinimax = 1297;
@@ -163,7 +157,6 @@ class FiveGuess extends BotBreaker {
 
     /**
      * Getter del tipus d'algorisme de FiveGuess
-     * @author Mar Gonzàlez Català
      * */
     @Override
     TipusAlgorisme getTipusAlgorisme() {
@@ -174,7 +167,6 @@ class FiveGuess extends BotBreaker {
      * Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem l'algorisme Five Guess
      * @param sol seqüència oculta que volem endevinar
      * @return Llista d'intents
-     * @author Mar Gonzàlez Català
      */
     @Override
     public List<List<Integer>> solve(List<Integer> sol) throws DomainException {

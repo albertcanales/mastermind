@@ -59,3 +59,8 @@ tasks.register('jarTests') {
 jar {
     dependsOn jarTests
 }
+
+javadoc {
+    options.memberLevel = JavadocMemberLevel.PRIVATE
+    options.author = true
+}

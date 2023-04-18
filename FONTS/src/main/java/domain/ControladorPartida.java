@@ -20,7 +20,6 @@ class ControladorPartida {
 
     /**
      * Mètode per saber si s'està jugant una partida actualment
-     * @author Albert Canales
      */
     Boolean isPartidaPresent() {
         return partida != null;
@@ -32,7 +31,6 @@ class ControladorPartida {
      * @param algorisme enter que representa l'algorisme escollit com a breaker
      * @throws DomainException si el tamany de list no és correcte
      * @throws DomainException si algorisme no és vàlid
-     * @author Albert Canales
      */
     void novaPartidaMaker(List<Integer> solucio, Integer algorisme) throws DomainException {
         partida = new Partida();
@@ -47,7 +45,6 @@ class ControladorPartida {
      * @param nivellDificultat enter que representa el nivell de dificultat de la partida
      * @throws DomainException si el tamany de list no és correcte
      * @throws DomainException si el nivellDificultat no és vàlid
-     * @author Albert Canales
      */
     void novaPartidaBreaker(Integer nivellDificultat) throws DomainException {
         partida = new Partida();
@@ -64,7 +61,6 @@ class ControladorPartida {
      * @param solucio  solucio de la partida existent
      * @throws DomainException si el tamany d'alguna list no és correcte
      * @throws DomainException si el nivellDificultat no és vàlid
-     * @author Albert Canales
      */
     void carregarPartidaMaker(Integer algorisme, List<List<Integer>> intents, List<List<Integer>> feedback,
                               List<Integer> solucio) throws DomainException {
@@ -84,7 +80,6 @@ class ControladorPartida {
      * @param temps            temps transcorregut de la partida existent
      * @throws DomainException si el tamany d'alguna list no és correcte
      * @throws DomainException si el nivellDificultat no és vàlid
-     * @author Albert Canales
      */
     void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
                                 List<Integer> solucio, Long temps) throws DomainException {
@@ -98,7 +93,6 @@ class ControladorPartida {
     /**
      * Mètode deixar la partida actual
      * @throws DomainException si no s'està jugant cap partida
-     * @author Albert Canales
      */
     void sortirPartida() throws DomainException {
         if(!isPartidaPresent())
@@ -116,7 +110,6 @@ class ControladorPartida {
      * @throws DomainException si no s'està jugant cap partida
      * @throws DomainException si on la partida que es juga el jugador no es breaker
      * @throws DomainException si el tamany de feedback no és correcte
-     * @author Albert Canales
      */
     List<Integer> validarSequencia() throws DomainException {
         if(!isPartidaPresent())
@@ -138,7 +131,6 @@ class ControladorPartida {
      * Mètode perquè el bot jugui la partida
      * @throws DomainException si no s'està jugant cap partida
      * @throws DomainException si on la partida que es juga el bot no es breaker
-     * @author Albert Canales
      */
     void botSolve() throws DomainException {
         if(!isPartidaPresent())
@@ -166,7 +158,6 @@ class ControladorPartida {
      * Getter per al temps transcorregut de la partida
      * @throws DomainException si no s'està jugant cap partida
      * @return el temps transcorregut amb mil·lisegons
-     * @author Albert Canales
      */
     Long getTempsMillis() throws DomainException {
         if(!isPartidaPresent())
@@ -180,7 +171,6 @@ class ControladorPartida {
      * Mètode per afegir temps transcorregut a la partida
      * @throws DomainException si no s'està jugant cap partida
      * @param millis temps a afegir, amb mil·lisegons
-     * @author Albert Canales
      */
     void addTempsMillis(Long millis) throws DomainException {
         if(!isPartidaPresent())
@@ -192,7 +182,6 @@ class ControladorPartida {
 
     /**
      * Getter del nombre de boles d'una seqüència
-     * @author Albert Canales
      */
     static Integer getNumBoles() {
         return Taulell.NUMBOLES;
@@ -203,7 +192,6 @@ class ControladorPartida {
      * @throws DomainException si no s'està jugant cap partida
      * @throws DomainException si la partida que es juga el jugador no és breaker
      * @return nombre de la dificultat corresponent
-     * @author Albert Canales
      */
     Integer getNivellDificultat() throws DomainException {
         if(!isPartidaPresent())
@@ -218,7 +206,6 @@ class ControladorPartida {
      * @throws DomainException si no s'està jugant cap partida
      * @throws DomainException si la partida que es juga el bot no és breaker
      * @return nombre de l'algorisme corresponent
-     * @author Albert Canales
      */
     Integer getAlgorisme() throws DomainException {
         if(!isPartidaPresent())
@@ -231,7 +218,6 @@ class ControladorPartida {
     /**
      * Getter de la solució de la partida
      * @throws DomainException si no s'està jugant cap partida
-     * @author Albert Canales
      */
     List<Integer> getSequenciaSolucio() throws DomainException {
         if(!isPartidaPresent())
@@ -242,7 +228,6 @@ class ControladorPartida {
     /**
      * Getter del número d'intents de la partida
      * @throws DomainException si no s'està jugant cap partida
-     * @author Albert Canales
      */
     Integer getNumIntents() throws DomainException {
         if(!isPartidaPresent())
@@ -253,7 +238,6 @@ class ControladorPartida {
     /**
      * Getter dels intents de la partida
      * @throws DomainException si no s'està jugant cap partida
-     * @author Albert Canales
      */
     List<List<Integer>> getIntents() throws DomainException {
         if(!isPartidaPresent())
@@ -264,7 +248,6 @@ class ControladorPartida {
     /**
      * Getter dels feedbacks de la partida
      * @throws DomainException si no s'està jugant cap partida
-     * @author Albert Canales
      */
     List<List<Integer>> getFeedbacks() throws DomainException {
         if(!isPartidaPresent())
@@ -275,7 +258,6 @@ class ControladorPartida {
     /**
      * Mètode per saber si el jugador fa de breaker en la partida actual
      * @throws DomainException si no s'està jugant cap partida
-     * @author Albert Canales
      */
     Boolean isJugadorBreaker() throws DomainException {
         if(!isPartidaPresent())
@@ -286,7 +268,6 @@ class ControladorPartida {
     /**
      * Mètode per saber si una partida està guanyada
      * @throws DomainException si no s'està jugant cap partida
-     * @author Albert Canales
      */
     Boolean isPartidaGuanyada() throws DomainException {
         if(!isPartidaPresent())
@@ -303,7 +284,6 @@ class ControladorPartida {
     /**
      * Mètode per saber si una partida està perduda
      * @throws DomainException si no s'està jugant cap partida
-     * @author Albert Canales
      */
     Boolean isPartidaPerduda() throws DomainException {
         if(!isPartidaPresent())
@@ -314,7 +294,6 @@ class ControladorPartida {
     /**
      * Mètode per saber si una partida està acabada
      * @throws DomainException si no s'està jugant cap partida
-     * @author Albert Canales
      */
     Boolean isPartidaAcabada() throws DomainException {
         return isPartidaPerduda() || isPartidaGuanyada();
@@ -323,7 +302,6 @@ class ControladorPartida {
     /**
      * Mètode per saber si l'últim intent està ple
      * @throws DomainException si no s'està jugant cap partida
-     * @author Albert Canales
      */
     Boolean isUltimIntentPle() throws DomainException {
         return taulell.isUltimIntentPle();
@@ -336,7 +314,6 @@ class ControladorPartida {
      * @throws DomainException si bola no és una Bola vàlida
      * @throws DomainException si no s'està jugant cap partida
      * @throws DomainException si en la partida actual el jugador no és breaker
-     * @author Albert Canales
      */
     void setBola(Integer index, Integer bola) throws DomainException {
         if(!isPartidaPresent())
@@ -348,7 +325,6 @@ class ControladorPartida {
 
     /**
      * Mètode per saber si uns intents i feedbacks donats són vàlids
-     * @author Albert Canales
      */
     Boolean isValidIntentsFeedbacks(List<List<Integer>> intents, List<List<Integer>> feedbacks) {
         return Taulell.isValidIntentsFeedbacks(intents, feedbacks);

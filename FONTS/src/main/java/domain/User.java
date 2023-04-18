@@ -31,7 +31,6 @@ class User {
 
     /**
      * Mètode per assignar el valor inicial a les estadístiques com a CodeBreaker de l'usuari
-     * @author Kamil Przybyszewski
      */
     private void initializeBreakerStats(){
         int numDificultats = NivellDificultat.numDificultats();
@@ -56,7 +55,6 @@ class User {
 
     /**
      * Mètode per assignar el valor inicial a les estadístiques com a CodeMaker de l'usuari
-     * @author Kamil Przybyszewski
      */
     private void initializeMakerStats(){
         int numAlgoritmes = TipusAlgorisme.numAlgorismes();
@@ -70,7 +68,6 @@ class User {
 
     /**
      * Mètode per comprovar els tamanys de les estadístiques
-     * @author Kamil Przybyszewski
      */
     private void comprovaSizeStats(List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws InvalidStatSizeException {
         Integer numDificultats = NivellDificultat.numDificultats();
@@ -91,7 +88,6 @@ class User {
      * Constructor d'un usuari nou, amb les estadístiques a 0
      * @param name nom de l'usuari
      * @param username username de l'usuari
-     * @author Kamil Przybyszewski
      */
     User(String name, String username) {
         this.name = name;
@@ -103,7 +99,6 @@ class User {
 
     /**
      * Constructor d'un usuari ja existent
-     * @author Kamil Przybyszewski
      */
     User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws DomainException{
         comprovaSizeStats(personalRecord, timePlayed, wonGames, lostGames, currentWinStreak, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
@@ -129,7 +124,6 @@ class User {
      * @param intents intents realitzats a la partida
      * @param guanyada si l'usuari ha guanyat la partida
      * @param temps duració de la partida
-     * @author Kamil Przybyszewski
      */
     void acabarPartidaBreaker(Integer dificultat, Integer intents, Boolean guanyada, Long temps) throws DomainException {
         if (!NivellDificultat.isValid(dificultat)) throw new InvalidEnumValueException("NivellDificultat", dificultat.toString());
@@ -169,7 +163,6 @@ class User {
      * Mètode per actualitzar les estadístiques de l'usuari quan acaba una partida com a codeMaker
      * @param algoritme algoritme seleccionat pel BotBreaker a la partida
      * @param intents intents del BotBreaker a la partida
-     * @author Kamil Przybyszewski
      */
     void acabarPartidaMaker(Integer algoritme, Integer intents) throws DomainException {
         if (!NivellDificultat.isValid(algoritme)) throw new InvalidEnumValueException("NivellDificultat", algoritme.toString());
@@ -187,7 +180,6 @@ class User {
 
     /**
      * Getter del valor de l'atribut name
-     * @author Kamil Przybyszewski
      */
     String getName() {
         return name;
@@ -195,7 +187,6 @@ class User {
 
     /**
      * Getter del valor de l'atribut username
-     * @author Kamil Przybyszewski
      */
     String getUsername() {
         return username;
@@ -203,7 +194,6 @@ class User {
 
     /**
      * Getter del valor de l'atribut personalRecord
-     * @author Kamil Przybyszewski
      */
     List<Integer> getPersonalRecord(){
         return personalRecord;
@@ -211,7 +201,6 @@ class User {
 
     /**
      * Getter del valor de l'atribut timePlayedFinishedGames
-     * @author Kamil Przybyszewski
      */
     List<Long> getTimePlayed() {
         return timePlayedFinishedGames;
@@ -219,7 +208,6 @@ class User {
 
     /**
      * Getter del valor de l'atribut wonGames
-     * @author Kamil Przybyszewski
      */
     List<Integer> getWonGames() {
         return wonGames;
@@ -227,7 +215,6 @@ class User {
 
     /**
      * Getter del valor de l'atribut lostGames
-     * @author Kamil Przybyszewski
      */
     List<Integer> getLostGames(){
         return lostGames;
@@ -235,7 +222,6 @@ class User {
 
     /**
      * Getter del valor de l'atribut currentWinStreak
-     * @author Kamil Przybyszewski
      */
     List<Integer> getCurrentWinStreak() {
         return currentWinStreak;
@@ -243,7 +229,6 @@ class User {
 
     /**
      * Getter del valor de l'atribut winStreak
-     * @author Kamil Przybyszewski
      */
     List<Integer> getWinStreak() {
         return winStreak;
@@ -251,7 +236,6 @@ class User {
 
     /**
      * Getter del valor de l'atribut averageAsBreaker
-     * @author Kamil Przybyszewski
      */
     List<Double> getAvgAsBreaker() {
         return averageAsBreaker;
@@ -259,7 +243,6 @@ class User {
 
     /**
      * Getter del valor de l'atribut averageAsMaker
-     * @author Kamil Przybyszewski
      */
     List<Double> getAvgAsMaker() {
         return averageAsMaker;
@@ -267,7 +250,6 @@ class User {
 
     /**
      * Getter del valor de l'atribut numGamesAsMaker
-     * @author Kamil Przybyszewski
      */
     List<Integer> getNumGamesAsMaker() {
         return numGamesAsMaker;
@@ -278,7 +260,6 @@ class User {
      * @param username contrasenya a comprovar
      * @param name nom a comprovar
      * @param password contrasenya a comprovar
-     * @author Albert Canales
      */
     static Boolean isValidUser(String username, String name, String password) {
         return !(username.isBlank() || name.isBlank() || password.isBlank());
@@ -287,7 +268,6 @@ class User {
     /**
      * Mètode per obtenir el hash en SHA256 (encoded en base64) d'una contrasenya
      * @param password contrasenya per la qual se'n vol obtenir el hash
-     * @author Albert Canales
      */
     static String getPasswordHash(String password) {
         MessageDigest md;
