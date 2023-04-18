@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,8 +14,8 @@ import java.util.List;
  * @author Kamil Przybyszewski
  */
 class User {
-    private String name;
-    private String username;
+    private final String name;
+    private final String username;
 
     private List<Integer> personalRecord;
     private List<Long> timePlayedFinishedGames;
@@ -60,7 +59,7 @@ class User {
      * @author Kamil Przybyszewski
      */
     private void initializeMakerStats(){
-        Integer numAlgoritmes = TipusAlgorisme.numAlgorismes();
+        int numAlgoritmes = TipusAlgorisme.numAlgorismes();
 
         averageAsMaker = new ArrayList<>(); numGamesAsMaker = new ArrayList<>();
         for (int i = 0; i < numAlgoritmes; ++i){
@@ -147,10 +146,10 @@ class User {
         timePlayedFinishedGames.set(dificultat,newTimePlayed);
 
         Integer numGamesAsBreaker = wonGames.get(dificultat)+lostGames.get(dificultat);
-        Integer totalIntents = (int) (averageAsBreaker.get(dificultat)*numGamesAsBreaker);
+        int totalIntents = (int) (averageAsBreaker.get(dificultat)*numGamesAsBreaker);
         totalIntents += intents;
         numGamesAsBreaker++;
-        Double newAvg = totalIntents.doubleValue()/numGamesAsBreaker;
+        Double newAvg = (double) totalIntents /numGamesAsBreaker;
         averageAsBreaker.set(dificultat, newAvg);
 
         if (guanyada) {
@@ -178,10 +177,10 @@ class User {
 
         algoritme--; //Els valors de TipusAlgoritme no comencen en 0
 
-        Integer totalIntents = (int) (averageAsMaker.get(algoritme)*numGamesAsMaker.get(algoritme));
+        int totalIntents = (int) (averageAsMaker.get(algoritme)*numGamesAsMaker.get(algoritme));
         totalIntents += intents;
-        Integer numGames = numGamesAsMaker.get(algoritme) + 1;
-        Double newAvg = totalIntents.doubleValue()/numGames;
+        int numGames = numGamesAsMaker.get(algoritme) + 1;
+        Double newAvg = (double) totalIntents /numGames;
         averageAsMaker.set(algoritme, newAvg);
         numGamesAsMaker.set(algoritme, numGames);
     }    
@@ -214,13 +213,17 @@ class User {
      * Getter del valor de l'atribut timePlayedFinishedGames
      * @author Kamil Przybyszewski
      */
-    List<Long> getTimePlayed(){ return timePlayedFinishedGames;}
+    List<Long> getTimePlayed() {
+        return timePlayedFinishedGames;
+    }
 
     /**
      * Getter del valor de l'atribut wonGames
      * @author Kamil Przybyszewski
      */
-    List<Integer> getWonGames(){ return wonGames;}
+    List<Integer> getWonGames() {
+        return wonGames;
+    }
 
     /**
      * Getter del valor de l'atribut lostGames
@@ -234,31 +237,41 @@ class User {
      * Getter del valor de l'atribut currentWinStreak
      * @author Kamil Przybyszewski
      */
-    List<Integer> getCurrentWinStreak(){ return currentWinStreak;}
+    List<Integer> getCurrentWinStreak() {
+        return currentWinStreak;
+    }
 
     /**
      * Getter del valor de l'atribut winStreak
      * @author Kamil Przybyszewski
      */
-    List<Integer> getWinStreak(){ return winStreak;}
+    List<Integer> getWinStreak() {
+        return winStreak;
+    }
 
     /**
      * Getter del valor de l'atribut averageAsBreaker
      * @author Kamil Przybyszewski
      */
-    List<Double> getAvgAsBreaker(){ return averageAsBreaker;}
+    List<Double> getAvgAsBreaker() {
+        return averageAsBreaker;
+    }
 
     /**
      * Getter del valor de l'atribut averageAsMaker
      * @author Kamil Przybyszewski
      */
-    List<Double> getAvgAsMaker(){ return averageAsMaker;}
+    List<Double> getAvgAsMaker() {
+        return averageAsMaker;
+    }
 
     /**
      * Getter del valor de l'atribut numGamesAsMaker
      * @author Kamil Przybyszewski
      */
-    List<Integer> getNumGamesAsMaker(){ return numGamesAsMaker;}
+    List<Integer> getNumGamesAsMaker() {
+        return numGamesAsMaker;
+    }
 
     /**
      * Mètode determinar si els paràmetres d'usuari són adequats (bon format)

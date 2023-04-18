@@ -2,7 +2,6 @@ package domain;
 
 import domain.exceptions.DomainException;
 import domain.exceptions.InvalidEnumValueException;
-import domain.exceptions.InvalidNumBolesException;
 
 import java.util.*;
 
@@ -14,7 +13,7 @@ import java.util.*;
 abstract class BotBreaker implements Maquina {
 
     /**
-     * @brief Constructor de BotMaker.
+     * Constructor de BotMaker.
      * @param tipusAlgorisme tipus d'Algorisme.
      * @author Mar Gonzàlez Català
      */
@@ -29,13 +28,13 @@ abstract class BotBreaker implements Maquina {
     }
 
     /**
-     * @Brief Getter del tipus d'algorisme
+     * Getter del tipus d'algorisme
      * @author Mar Gonzàlez Català
      */
     abstract TipusAlgorisme getTipusAlgorisme();
 
     /**
-     * @brief Donada una solució genera la llista d'intents fins a arribar a ella.
+     * Donada una solució genera la llista d'intents fins a arribar a ella.
      * @param solution seqüència oculta que intentem endevinar.
      * @return Llista d'intents.
      * @author Mar Gonzàlez Català
@@ -44,7 +43,7 @@ abstract class BotBreaker implements Maquina {
 }
 
 /**
- * @brief Enum dels diferents algorismes que pot utilitzar el BotBreaker
+ * Enum dels diferents algorismes que pot utilitzar el BotBreaker
  * @author Mar Gonzàlez Català
  */
 enum TipusAlgorisme {
@@ -54,7 +53,7 @@ enum TipusAlgorisme {
     private final int number;
 
     /**
-     * @brief Constructor a partir de l'enter que representa el valor
+     * onstructor a partir de l'enter que representa el valor
      * @param number és el valor que representa el tipus d'algorisme
      * @author Mar Gonzàlez Català
      */
@@ -63,7 +62,7 @@ enum TipusAlgorisme {
     }
 
     /**
-     * @brief Mètode per obtenir el TipusAlgorisme corresponent a un nombre
+     * Mètode per obtenir el TipusAlgorisme corresponent a un nombre
      * @param number és el valor que representa el tipus d'algorisme
      * @throws DomainException si el nombre no correspon a un algorisme
      * @return el valor de TipusAlgorisme corresponent al nombre donat
@@ -79,13 +78,13 @@ enum TipusAlgorisme {
     }
 
     /**
-     * @brief Getter del nombre que representa el valor
+     * Getter del nombre que representa el valor
      * @author Mar Gonzàlez Català
      */
     int number() { return number; }
 
     /**
-     * @brief Mètode per obtenir el nombre d'algorismes
+     * Mètode per obtenir el nombre d'algorismes
      * @return enter que representa el número d'algorismes
      * @author Mar Gonzàlez Català
      */
@@ -94,7 +93,7 @@ enum TipusAlgorisme {
     }
 
     /**
-     * @brief Mètode per saber si un número representa un algorisme vàlid
+     * Mètode per saber si un número representa un algorisme vàlid
      * @param num enter que representa un algorisme
      * @return un booleà cert si el número correspon a un algorisme, fals si no
      * @author Mar Gonzàlez Català

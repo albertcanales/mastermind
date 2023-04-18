@@ -89,12 +89,10 @@ public class UserTests {
     }
 
     @Test
-    public void createExistingUserInvalidStat() throws DomainException {
+    public void createExistingUserInvalidStat() {
         String name = "Pepe"; String username = "pepe2316";
         wonGamesTest = new ArrayList<>(List.of(1,500,3,0));
-        assertThrows(InvalidStatSizeException.class, () -> {
-            new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
-        });
+        assertThrows(InvalidStatSizeException.class, () -> new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest));
     }
 
     @Test
@@ -181,27 +179,21 @@ public class UserTests {
     public void updateForFinishedBreakerGameInvalidDificultat() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
         User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
-        assertThrows(InvalidEnumValueException.class, () -> {
-            user.acabarPartidaBreaker(-2,5,true,5L);
-        });
+        assertThrows(InvalidEnumValueException.class, () -> user.acabarPartidaBreaker(-2,5,true,5L));
     }
 
     @Test
     public void updateForFinishedBreakerGameInvalidIntentsStat() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
         User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
-        assertThrows(InvalidStatIntentsException.class, () -> {
-            user.acabarPartidaBreaker(2,-100,true,5L);
-        });
+        assertThrows(InvalidStatIntentsException.class, () -> user.acabarPartidaBreaker(2,-100,true,5L));
     }
 
     @Test
     public void updateForFinishedBreakerGameInvalidTempsStat() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
         User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
-        assertThrows(InvalidStatTempsException.class, () -> {
-            user.acabarPartidaBreaker(2,5,true,-100L);
-        });
+        assertThrows(InvalidStatTempsException.class, () -> user.acabarPartidaBreaker(2,5,true,-100L));
     }
 
     @Test
@@ -256,18 +248,14 @@ public class UserTests {
     public void updateForFinishedMakerGameInvalidAlgoritme() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
         User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
-        assertThrows(InvalidEnumValueException.class, () -> {
-            user.acabarPartidaMaker(500,5);
-        });
+        assertThrows(InvalidEnumValueException.class, () -> user.acabarPartidaMaker(500,5));
     }
 
     @Test
     public void updateForFinishedMakerGameInvalidIntentsStat() throws DomainException {
         String name = "Pepe"; String username = "pepe2316";
         User user = new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest);
-        assertThrows(InvalidStatIntentsException.class, () -> {
-            user.acabarPartidaMaker(1,-666);
-        });
+        assertThrows(InvalidStatIntentsException.class, () -> user.acabarPartidaMaker(1,-666));
     }
 
     @Test

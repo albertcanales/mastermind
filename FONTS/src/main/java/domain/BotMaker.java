@@ -3,7 +3,7 @@ package domain;
 import java.util.*;
 
 /**
- * @brief Contenidor de les funcionalitats d'un BotMaker.
+ * Contenidor de les funcionalitats d'un BotMaker.
  *
  * @author Mar Gonzàlez Català
  */
@@ -13,7 +13,7 @@ class BotMaker {
     private final Integer numcolors;
 
     /**
-     * @brief Constructor de BotMaker.
+     * Constructor de BotMaker.
      * @param numboles llargada de la seqüència solució.
      * @param numcolors nombre de colors.
      * @author Mar Gonzàlez Català
@@ -24,7 +24,7 @@ class BotMaker {
     }
 
     /**
-     * @brief Genera una solució.
+     * Genera una solució.
      * @return Solució.
      * @author Mar Gonzàlez Català
      */

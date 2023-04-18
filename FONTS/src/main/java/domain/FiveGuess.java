@@ -7,7 +7,7 @@ import domain.exceptions.InvalidNumBolesException;
 import java.util.*;
 
 /**
- * @brief Contenidor de les funcionalitats d'un BotBreaker que empra l'algorisme Five Guess.
+ * Contenidor de les funcionalitats d'un BotBreaker que empra l'algorisme Five Guess.
  * @author Mar Gonzàlez Català
  */
 class FiveGuess extends BotBreaker {
@@ -17,7 +17,7 @@ class FiveGuess extends BotBreaker {
     private HashSet<Integer> possibleSolutions;
 
     /**
-     * @brief Inicialitza el conjunt S de 1296 codis possibles.
+     * Inicialitza el conjunt S de 1296 codis possibles.
      * @author Mar Gonzàlez Català
      */
     private void initializeSetS(){
@@ -33,7 +33,7 @@ class FiveGuess extends BotBreaker {
     }
 
     /**
-     * @brief Donades dues llistes retorna el nombre de boles amb color i posició coincidents.
+     * Donades dues llistes retorna el nombre de boles amb color i posició coincidents.
      * @param list1 primera llista  a comparar.
      * @param list2 segona llista a comparar.
      * @return Nombre de boles amb color i posició coincidents.
@@ -50,7 +50,7 @@ class FiveGuess extends BotBreaker {
     }
 
     /**
-     * @brief Donades dues llistes retorna el nombre de boles amb color però no posició coincidents.
+     * Donades dues llistes, retorna el nombre de boles amb color però no posició coincidents.
      * @param list1 primera llista a comparar.
      * @param list2 segona llista a comparar.
      * @return Nombre de boles amb color i posició coincidents.
@@ -58,7 +58,7 @@ class FiveGuess extends BotBreaker {
      */
     private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2){
         Integer count = 0;
-        Boolean counted = false;
+        boolean counted;
         ArrayList<Integer> added = new ArrayList<>(4);
         for (int it = 0; it < 4; it++){
             added.add(0);
@@ -79,7 +79,7 @@ class FiveGuess extends BotBreaker {
     }
 
     /**
-     * @brief Donat un enter el converteix en un vector de dígits
+     * Donat un enter el converteix en un vector de dígits
      * @return Vector de dígits de l'enter.
      * @author Mar Gonzàlez Català
      */
@@ -93,7 +93,7 @@ class FiveGuess extends BotBreaker {
     }
 
     /**
-     * @brief Donat un feedback i una seqüència elimina de S qualsevol dels codis que de ser solució no rebríem
+     * Donat un feedback i una seqüència elimina de S qualsevol dels codis que de ser solució no rebríem
      * aquest feedback si enviéssim com a intent la seqüència.
      * @param black nombre de boles negres en el feedback.
      * @param white nombre de boles blanques en el feedback.
@@ -111,13 +111,13 @@ class FiveGuess extends BotBreaker {
     }
 
     /**
-     * @brief Escull la següent seqüència mitjançant la tècnica minimax.
+     * Escull la següent seqüència mitjançant la tècnica minimax.
      * @return Següent seqüència
      * @author Mar Gonzàlez Català
      */
     private ArrayList<Integer> minimax(){
         int currentMinimax = 1297;
-        Boolean isInS = false;
+        boolean isInS = false;
         ArrayList<Integer> currentSeqMinimax = new ArrayList<>();
         for (int it1 = 1; it1 <= Bola.numColors(); it1++) {
             for (int it2 = 1; it2 <= Bola.numColors(); it2++) {
@@ -147,11 +147,7 @@ class FiveGuess extends BotBreaker {
                         if (currentMax < currentMinimax) {
                             currentMinimax = currentMax;
                             currentSeqMinimax = sequence;
-                            if (possibleSolutions.contains(sequence.get(0)*1000+sequence.get(1)*100+sequence.get(2)*10+sequence.get(3))){
-                                isInS = true;
-                            } else {
-                                isInS = false;
-                            }
+                            isInS = possibleSolutions.contains(sequence.get(0) * 1000 + sequence.get(1) * 100 + sequence.get(2) * 10 + sequence.get(3));
                         } else if ((currentMax == currentMinimax) && !isInS){
                             if (possibleSolutions.contains(sequence.get(0)*1000+sequence.get(1)*100+sequence.get(2)*10+sequence.get(3))){
                                 currentSeqMinimax = sequence;
@@ -166,21 +162,7 @@ class FiveGuess extends BotBreaker {
     }
 
     /**
-     * @brief Converteix un ArrayList en una List
-     * @param llista a convertir en format ArrayList
-     * @return llista en format List
-     * @author Mar Gonzàlez Català
-     */
-    private static List castArrayToList(ArrayList llista){
-        List result = new ArrayList<>();
-        for (Object object : llista){
-            result.add(object);
-        }
-        return result;
-    }
-
-    /**
-     * @brief Getter del tipus d'algorisme de FiveGuess
+     * Getter del tipus d'algorisme de FiveGuess
      * @author Mar Gonzàlez Català
      * */
     @Override
@@ -189,14 +171,14 @@ class FiveGuess extends BotBreaker {
     }
 
     /**
-     * @brief Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem l'algorisme Five Guess
+     * Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem l'algorisme Five Guess
      * @param sol seqüència oculta que volem endevinar
      * @return Llista d'intents
      * @author Mar Gonzàlez Català
      */
     @Override
     public List<List<Integer>> solve(List<Integer> sol) throws DomainException {
-        ArrayList<Integer> solution = new ArrayList<Integer>(sol);
+        ArrayList<Integer> solution = new ArrayList<>(sol);
 
         if (solution.size() != 4) {
             throw new InvalidNumBolesException(solution.size(),4);
@@ -252,11 +234,6 @@ class FiveGuess extends BotBreaker {
                 eraseNotPossibleSolutionsfromSetS(black, white, currentGuess);
             }
         }
-        List guessesList = new ArrayList<>();
-        for (int it = 0; it < guesses.size(); it++){
-            List guessList = castArrayToList(guesses.get(it));
-            guessesList.add(guessList);
-        }
-        return guessesList;
+        return new ArrayList<>(guesses);
     }
 }

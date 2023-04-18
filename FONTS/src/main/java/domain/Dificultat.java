@@ -4,7 +4,6 @@ import domain.exceptions.DomainException;
 import domain.exceptions.InvalidEnumValueException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,7 +53,7 @@ abstract class Dificultat {
      * @author Albert Canales
      */
     List<Integer> countColorsBoles(List<Integer> sequencia) throws DomainException {
-        List<Integer> colorList = new ArrayList<Integer>();
+        List<Integer> colorList = new ArrayList<>();
         for (int i = 0; i <= Bola.numColors(); ++i) colorList.add(0);
 
         for (Integer color_sol : sequencia){
@@ -68,11 +67,11 @@ abstract class Dificultat {
     }
 
     Boolean isPlena(List<Integer> sequencia) {
-        boolean isPlena = true;
         for (Integer bola : sequencia) {
-            if(bola.equals(Bola.NUL.number())) isPlena = false;
+            if(bola.equals(Bola.NUL.number()))
+                return false;
         }
-        return isPlena;
+        return true;
     }
 }
 

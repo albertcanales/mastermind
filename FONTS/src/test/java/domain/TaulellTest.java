@@ -146,9 +146,7 @@ public class TaulellTest {
         List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS);
         List<List<Integer>> expectedfeed = getListList(421324, false, false, true, Taulell.NUMINTENTS - 1);
 
-        assertThrows(InvalidNumBolesException.class, () -> {
-            new Taulell(solucio, expectedint, expectedfeed);
-        });
+        assertThrows(InvalidNumBolesException.class, () -> new Taulell(solucio, expectedint, expectedfeed));
     }
 
     @Test
@@ -236,7 +234,7 @@ public class TaulellTest {
         List<Integer> solucio = getList(4798378,false, false, false);
 
         Taulell taulell = new Taulell(solucio);
-        assertEquals(null, taulell.getUltimFeedback());
+        assertNull(taulell.getUltimFeedback());
     }
 
     @Test
@@ -460,7 +458,7 @@ public class TaulellTest {
         List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS);
         List<List<Integer>> expectedfeed = getListList(23121, false, false, true,Taulell.NUMINTENTS - 2); //diferencia de 2
 
-        assertEquals(false, Taulell.isValidIntentsFeedbacks(expectedint,expectedfeed));
+        assertFalse(Taulell.isValidIntentsFeedbacks(expectedint, expectedfeed));
     }
 
     @Test
@@ -469,7 +467,7 @@ public class TaulellTest {
         List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS);
         List<List<Integer>> expectedfeed = getListList(23121, false, false, true,Taulell.NUMINTENTS - 1); //diferencia de 2
 
-        assertEquals(true, Taulell.isValidIntentsFeedbacks(expectedint,expectedfeed));
+        assertTrue(Taulell.isValidIntentsFeedbacks(expectedint, expectedfeed));
     }
 
     public static void main(String[] args) {

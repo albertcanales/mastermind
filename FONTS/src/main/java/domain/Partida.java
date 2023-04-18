@@ -1,7 +1,6 @@
 package domain;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 
 /**
  * Classe que representa l'estat de la partida actual

@@ -48,9 +48,7 @@ public class DificultatMitjaTests {
 
         List<Integer> solucio = new ArrayList<>(List.of(1,1,2,2));
         List<Integer> intent = new ArrayList<>(List.of(3,3,3,3,3));
-        assertThrows(SolIntentNotSameSizeException.class, () -> {
-            dificultat.validarSequencia(solucio,intent);
-        });
+        assertThrows(SolIntentNotSameSizeException.class, () -> dificultat.validarSequencia(solucio,intent));
     }
     @Test
     public void IntentNotComplet() throws DomainException{
@@ -58,9 +56,7 @@ public class DificultatMitjaTests {
 
         List<Integer> solucio = new ArrayList<>(List.of(1,1,2,2));
         List<Integer> intent = new ArrayList<>(List.of(3,3,0,3));
-        assertThrows(IntentNoCompletException.class, () -> {
-            dificultat.validarSequencia(solucio,intent);
-        });
+        assertThrows(IntentNoCompletException.class, () -> dificultat.validarSequencia(solucio,intent));
     }
     @Test
     public void SolucioNotComplete() throws DomainException{
@@ -68,9 +64,7 @@ public class DificultatMitjaTests {
 
         List<Integer> solucio = new ArrayList<>(List.of(3,3,0,3));
         List<Integer> intent = new ArrayList<>(List.of(1,1,2,2));
-        assertThrows(InvalidSolutionException.class, () -> {
-            dificultat.validarSequencia(solucio,intent);
-        });
+        assertThrows(InvalidSolutionException.class, () -> dificultat.validarSequencia(solucio,intent));
     }
     @Test
     public void InvalidColorsInSolucio() throws DomainException{
@@ -78,9 +72,7 @@ public class DificultatMitjaTests {
 
         List<Integer> solucio = new ArrayList<>(List.of(3,500,1,3));
         List<Integer> intent = new ArrayList<>(List.of(1,1,2,2));
-        assertThrows(InvalidEnumValueException.class, () -> {
-            dificultat.validarSequencia(solucio,intent);
-        });
+        assertThrows(InvalidEnumValueException.class, () -> dificultat.validarSequencia(solucio,intent));
     }
     @Test
     public void InvalidColorsInIntent() throws DomainException{
@@ -88,9 +80,7 @@ public class DificultatMitjaTests {
 
         List<Integer> solucio = new ArrayList<>(List.of(3,3,1,3));
         List<Integer> intent = new ArrayList<>(List.of(1,1,500,2));
-        assertThrows(InvalidEnumValueException.class, () -> {
-            dificultat.validarSequencia(solucio,intent);
-        });
+        assertThrows(InvalidEnumValueException.class, () -> dificultat.validarSequencia(solucio,intent));
     }
 
     public static void main(String[] args) {

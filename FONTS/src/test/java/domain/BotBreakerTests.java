@@ -21,22 +21,20 @@ public class BotBreakerTests {
         assertEquals(GENETIC, tipusAlgorisme);
     }
     @Test
-    public void createBotBreakerInvalid() throws DomainException {
-        assertThrows(InvalidEnumValueException.class, () -> {
-            BotBreaker.create(500);
-        });
+    public void createBotBreakerInvalid() {
+        assertThrows(InvalidEnumValueException.class, () -> BotBreaker.create(500));
     }
 
     @Test
-    public void isValidCorrectAlgorisme() throws DomainException {
+    public void isValidCorrectAlgorisme() {
         assertTrue(TipusAlgorisme.isValid(1));
     }
     @Test
-    public void isValidIncorrectAlgorisme() throws DomainException {
+    public void isValidIncorrectAlgorisme() {
         assertFalse(TipusAlgorisme.isValid(500));
     }
     @Test
-    public void isValidIncorrectNegativeAlgorisme() throws DomainException {
+    public void isValidIncorrectNegativeAlgorisme() {
         assertFalse(TipusAlgorisme.isValid(-5));
     }
 }

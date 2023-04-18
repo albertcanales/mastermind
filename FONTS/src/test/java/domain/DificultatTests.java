@@ -30,10 +30,8 @@ public class DificultatTests {
         assertEquals(DIFICIL, nivellDificultat);
     }
     @Test
-    public void createDificultatInvalid() throws DomainException {
-        assertThrows(InvalidEnumValueException.class, () -> {
-            Dificultat.create(500);
-        });
+    public void createDificultatInvalid() {
+        assertThrows(InvalidEnumValueException.class, () -> Dificultat.create(500));
     }
     @Test
     public void countColorsOfSequencia() throws DomainException {
@@ -48,9 +46,7 @@ public class DificultatTests {
         Dificultat dificultat = Dificultat.create(FACIL);
 
         List<Integer> Sequencia = new ArrayList<>(List.of(1,1,500,6));
-        assertThrows(InvalidEnumValueException.class, () -> {
-            dificultat.countColorsBoles(Sequencia);
-        });
+        assertThrows(InvalidEnumValueException.class, () -> dificultat.countColorsBoles(Sequencia));
     }
 
     @Test
