@@ -20,7 +20,7 @@ public class ControladorDomini {
     /**
      * Constructor del Controlador de Domini
      */
-    ControladorDomini() {
+    public ControladorDomini() {
         controladorPartida = new ControladorPartida();
         controladorPersistencia = new ControladorPersistencia();
         user = null;

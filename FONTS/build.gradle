@@ -1,5 +1,6 @@
 plugins {
     id("java-library") // or id("application")
+    id("application")
 }
 
 java {
@@ -13,9 +14,14 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.intellij:forms_rt:7.0.3'
     testImplementation 'junit:junit:4.13.2'
     testRuntimeOnly 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.+'
+}
+
+application {
+    mainClass = "presentation.Main"
 }
 
 test {
