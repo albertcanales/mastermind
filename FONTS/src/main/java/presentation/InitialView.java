@@ -17,7 +17,7 @@ public class InitialView {
         initComponents();
     }
 
-    void init() {
+    void show() {
         controladorPresentacio.setContent(panel);
         controladorPresentacio.setTitle("Mastermind");
     }

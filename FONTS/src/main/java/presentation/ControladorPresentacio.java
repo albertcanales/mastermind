@@ -28,12 +28,12 @@ public class ControladorPresentacio {
 
     void showInitialView() {
         InitialView initialView = new InitialView(this);
-        initialView.init();
+        initialView.show();
     }
 
     void showRegisterView() {
         RegisterView registerView = new RegisterView(this);
-        registerView.init();
+        registerView.show();
     }
 
 }
