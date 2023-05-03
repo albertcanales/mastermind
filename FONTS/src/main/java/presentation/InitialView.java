@@ -3,32 +3,32 @@ package presentation;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainView {
+public class InitialView {
 
     private final ControladorPresentacio controladorPresentacio;
-    private JFrame frame;
     private JLabel text;
     private JButton button;
     private JButton changeButton;
     private JPanel panel;
 
-    MainView(ControladorPresentacio controladorPresentacio) {
+    InitialView(ControladorPresentacio controladorPresentacio) {
         this.controladorPresentacio = controladorPresentacio;
         $$$setupUI$$$();
         initComponents();
     }
 
     void init() {
-        frame.setContentPane(panel);
-        frame.setVisible(true);
-        frame.setSize(new Dimension(400, 600));
+        controladorPresentacio.setContent(panel);
+        controladorPresentacio.setTitle("Mastermind");
     }
 
     private void initComponents() {
-        frame = new JFrame("Mastermind");
-
         button.addActionListener(
                 actionEvent -> text.setText("El botó ha estat apretat.")
+        );
+
+        changeButton.addActionListener(
+                actionEvent -> controladorPresentacio.showRegisterView()
         );
     }
 
