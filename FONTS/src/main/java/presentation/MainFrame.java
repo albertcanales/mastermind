@@ -19,4 +19,14 @@ public class MainFrame extends JFrame {
         setContentPane(contentPane);
         revalidate();
     }
+
+    void showWarningDialog(String title, String message) {
+        JOptionPane.showMessageDialog(this,
+                message, title, JOptionPane.WARNING_MESSAGE);
+    }
+
+    void showErrorDialog(String title, String message) {
+        JOptionPane.showMessageDialog(this,
+                message, title, JOptionPane.ERROR_MESSAGE);
+    }
 }

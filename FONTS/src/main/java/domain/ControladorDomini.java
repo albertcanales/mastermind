@@ -53,7 +53,7 @@ public class ControladorDomini {
 
     /**
      * Mètode per saber si els paràmetres d'un usuari són vàlids
-     * @param username contrasenya a comprovar
+     * @param username username a comprovar
      * @param name nom a comprovar
      * @param password contrasenya a comprovar
      */

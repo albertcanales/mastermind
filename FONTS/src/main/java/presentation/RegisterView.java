@@ -2,6 +2,7 @@ package presentation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class RegisterView {
 
@@ -9,7 +10,7 @@ public class RegisterView {
     private JPanel panel;
     private JTextField textFieldNomUsuari;
     private JTextField textFieldNomComplet;
-    private JTextField textFieldContrasenya;
+    private JPasswordField textFieldContrasenya;
     private JButton registraButton;
 
     RegisterView(ControladorPresentacio controladorPresentacio) {
@@ -32,7 +33,16 @@ public class RegisterView {
     void registraButtonClick() {
         String username = textFieldNomUsuari.getText();
         String name = textFieldNomComplet.getText();
-        String password = textFieldContrasenya.getText();
+        String password = Arrays.toString(textFieldContrasenya.getPassword());
+
+        if (!controladorPresentacio.isValidUser(username, name, password))
+            controladorPresentacio.showWarningDialog("Could not register", "Invalid input data");
+        else if (controladorPresentacio.existsUser(username))
+            controladorPresentacio.showWarningDialog("Could not register", "Username already exists");
+        else {
+            controladorPresentacio.registerUser(username, name, password);
+            controladorPresentacio.showInitialView();
+        }
     }
 
     /**
@@ -62,12 +72,14 @@ public class RegisterView {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 40, 0, 40);
         panel1.add(textFieldNomUsuari, gbc);
         textFieldNomComplet = new JTextField();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 40, 0, 40);
         panel1.add(textFieldNomComplet, gbc);
         final JLabel label2 = new JLabel();
         label2.setEnabled(true);
@@ -85,11 +97,12 @@ public class RegisterView {
         gbc.gridy = 6;
         gbc.weightx = 1.0;
         panel1.add(label3, gbc);
-        textFieldContrasenya = new JTextField();
+        textFieldContrasenya = new JPasswordField();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 40, 0, 40);
         panel1.add(textFieldContrasenya, gbc);
         final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
@@ -103,9 +116,12 @@ public class RegisterView {
         gbc.gridy = 5;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer2, gbc);
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel.add(panel2, BorderLayout.SOUTH);
         registraButton = new JButton();
         registraButton.setText("Registra't");
-        panel.add(registraButton, BorderLayout.SOUTH);
+        panel2.add(registraButton);
     }
 
     /**

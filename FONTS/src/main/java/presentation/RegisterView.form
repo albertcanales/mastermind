@@ -27,7 +27,7 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
-              <gridbag weightx="0.0" weighty="0.0"/>
+              <gridbag top="0" left="40" bottom="0" right="40" weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties/>
           </component>
@@ -36,7 +36,7 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
-              <gridbag weightx="0.0" weighty="0.0"/>
+              <gridbag top="0" left="40" bottom="0" right="40" weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties/>
           </component>
@@ -60,12 +60,12 @@
               <text value="Contrasenya"/>
             </properties>
           </component>
-          <component id="784cc" class="javax.swing.JTextField" binding="textFieldContrasenya">
+          <component id="6259a" class="javax.swing.JPasswordField" binding="textFieldContrasenya">
             <constraints>
               <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
-              <gridbag weightx="0.0" weighty="0.0"/>
+              <gridbag top="0" left="40" bottom="0" right="40" weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties/>
           </component>
@@ -83,12 +83,19 @@
           </vspacer>
         </children>
       </grid>
-      <component id="38507" class="javax.swing.JButton" binding="registraButton">
+      <grid id="f4439" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
         <constraints border-constraint="South"/>
-        <properties>
-          <text value="Registra't"/>
-        </properties>
-      </component>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="38507" class="javax.swing.JButton" binding="registraButton">
+            <constraints/>
+            <properties>
+              <text value="Registra't"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>
