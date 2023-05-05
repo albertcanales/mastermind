@@ -11,7 +11,8 @@ public class RegisterView {
     private JTextField textFieldNomUsuari;
     private JTextField textFieldNomComplet;
     private JPasswordField textFieldContrasenya;
-    private JButton registraButton;
+    private JButton buttonRegistra;
+    private JButton buttonTorna;
 
     RegisterView(ControladorPresentacio controladorPresentacio) {
         this.controladorPresentacio = controladorPresentacio;
@@ -25,12 +26,14 @@ public class RegisterView {
     }
 
     void initComponents() {
-        registraButton.addActionListener(actionEvent -> {
+        buttonRegistra.addActionListener(actionEvent -> {
             registraButtonClick();
         });
+
+        buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
     }
 
-    void registraButtonClick() {
+    private void registraButtonClick() {
         String username = textFieldNomUsuari.getText();
         String name = textFieldNomComplet.getText();
         String password = Arrays.toString(textFieldContrasenya.getPassword());
@@ -68,6 +71,7 @@ public class RegisterView {
         gbc.weightx = 1.0;
         panel1.add(label1, gbc);
         textFieldNomUsuari = new JTextField();
+        textFieldNomUsuari.setHorizontalAlignment(0);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -75,6 +79,7 @@ public class RegisterView {
         gbc.insets = new Insets(0, 40, 0, 40);
         panel1.add(textFieldNomUsuari, gbc);
         textFieldNomComplet = new JTextField();
+        textFieldNomComplet.setHorizontalAlignment(0);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -98,6 +103,7 @@ public class RegisterView {
         gbc.weightx = 1.0;
         panel1.add(label3, gbc);
         textFieldContrasenya = new JPasswordField();
+        textFieldContrasenya.setHorizontalAlignment(0);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 7;
@@ -119,9 +125,18 @@ public class RegisterView {
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel.add(panel2, BorderLayout.SOUTH);
-        registraButton = new JButton();
-        registraButton.setText("Registra't");
-        panel2.add(registraButton);
+        buttonRegistra = new JButton();
+        buttonRegistra.setText("Registra't");
+        panel2.add(buttonRegistra);
+        final JPanel panel3 = new JPanel();
+        panel3.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+        panel.add(panel3, BorderLayout.NORTH);
+        buttonTorna = new JButton();
+        buttonTorna.setText("Torna");
+        panel3.add(buttonTorna);
+        label1.setLabelFor(textFieldNomUsuari);
+        label2.setLabelFor(textFieldNomComplet);
+        label3.setLabelFor(textFieldContrasenya);
     }
 
     /**

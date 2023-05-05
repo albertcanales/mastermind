@@ -19,6 +19,7 @@
             </constraints>
             <properties>
               <enabled value="true"/>
+              <labelFor value="776c3"/>
               <text value="Nom d'usuari"/>
             </properties>
           </component>
@@ -29,7 +30,9 @@
               </grid>
               <gridbag top="0" left="40" bottom="0" right="40" weightx="0.0" weighty="0.0"/>
             </constraints>
-            <properties/>
+            <properties>
+              <horizontalAlignment value="0"/>
+            </properties>
           </component>
           <component id="82403" class="javax.swing.JTextField" binding="textFieldNomComplet">
             <constraints>
@@ -38,7 +41,9 @@
               </grid>
               <gridbag top="0" left="40" bottom="0" right="40" weightx="0.0" weighty="0.0"/>
             </constraints>
-            <properties/>
+            <properties>
+              <horizontalAlignment value="0"/>
+            </properties>
           </component>
           <component id="6b0db" class="javax.swing.JLabel">
             <constraints>
@@ -47,6 +52,7 @@
             </constraints>
             <properties>
               <enabled value="true"/>
+              <labelFor value="82403"/>
               <text value="Nom complet"/>
             </properties>
           </component>
@@ -57,6 +63,7 @@
             </constraints>
             <properties>
               <enabled value="true"/>
+              <labelFor value="6259a"/>
               <text value="Contrasenya"/>
             </properties>
           </component>
@@ -67,7 +74,9 @@
               </grid>
               <gridbag top="0" left="40" bottom="0" right="40" weightx="0.0" weighty="0.0"/>
             </constraints>
-            <properties/>
+            <properties>
+              <horizontalAlignment value="0"/>
+            </properties>
           </component>
           <vspacer id="d883a">
             <constraints>
@@ -88,10 +97,23 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="38507" class="javax.swing.JButton" binding="registraButton">
+          <component id="38507" class="javax.swing.JButton" binding="buttonRegistra">
             <constraints/>
             <properties>
               <text value="Registra't"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="3ac8f" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="e7c25" class="javax.swing.JButton" binding="buttonTorna">
+            <constraints/>
+            <properties>
+              <text value="Torna"/>
             </properties>
           </component>
         </children>

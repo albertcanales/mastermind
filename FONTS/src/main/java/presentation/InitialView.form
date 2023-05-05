@@ -1,30 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="presentation.InitialView">
-  <grid id="27dc6" binding="panel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+  <grid id="27dc6" binding="panel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <component id="c1858" class="javax.swing.JLabel" binding="text">
-        <constraints/>
-        <properties>
-          <text value="Label"/>
-        </properties>
-      </component>
-      <component id="5dd87" class="javax.swing.JButton" binding="button">
-        <constraints/>
-        <properties>
-          <text value="Button"/>
-        </properties>
-      </component>
-      <component id="24da7" class="javax.swing.JButton" binding="changeButton">
-        <constraints/>
-        <properties>
-          <text value="Button"/>
-        </properties>
-      </component>
+      <grid id="c7b8e" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="98028" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="West"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="59c81" class="javax.swing.JButton" binding="buttonRanquing">
+                <constraints/>
+                <properties>
+                  <horizontalAlignment value="0"/>
+                  <text value="Rànquing"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="d30d5" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="East"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="5b752" class="javax.swing.JButton" binding="buttonNormes">
+                <constraints/>
+                <properties>
+                  <text value="Normes"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="77f26" layout-manager="GridBagLayout">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="d8539" class="javax.swing.JButton" binding="buttonIniciaSessio">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Inicia Sessió"/>
+            </properties>
+          </component>
+          <component id="ad4c9" class="javax.swing.JButton" binding="buttonRegistra">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Registra't"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>
