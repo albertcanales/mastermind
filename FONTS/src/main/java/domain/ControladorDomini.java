@@ -2,6 +2,7 @@ package domain;
 
 import domain.exceptions.*;
 import persistance.ControladorPersistencia;
+import persistance.exceptions.PersistanceException;
 
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class ControladorDomini {
     /**
      * Constructor del Controlador de Domini
      */
-    public ControladorDomini() {
+    public ControladorDomini() throws PersistanceException {
         controladorPartida = new ControladorPartida();
         controladorPersistencia = new ControladorPersistencia();
         user = null;

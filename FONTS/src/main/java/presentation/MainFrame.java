@@ -3,6 +3,10 @@ package presentation;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Frame de l'aplicació
+ * @author Albert Canales
+ */
 public class MainFrame extends JFrame {
 
     MainFrame() {

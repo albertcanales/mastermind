@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
+/**
+ * Vista del Registre d'un usuari
+ * @author Albert Canales
+ */
 public class RegisterView {
 
     private final ControladorPresentacio controladorPresentacio;

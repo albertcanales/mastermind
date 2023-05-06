@@ -2,6 +2,7 @@ package domain;
 
 import domain.exceptions.DomainException;
 import domain.exceptions.InvalidEnumValueException;
+import persistance.exceptions.PersistanceException;
 
 import java.util.List;
 import java.util.Scanner;
@@ -61,7 +62,7 @@ public class DominiDriver extends ControladorDriver {
         System.out.println("Hint: Com que la persistència està mockejada, ara només hi ha un usuari 'albert' amb contrasenya 'contrasenya' ");
     }
 
-    private static void testConstructor() {
+    private static void testConstructor() throws PersistanceException {
         System.out.println("Testing constructor...");
 
         cd = new ControladorDomini();

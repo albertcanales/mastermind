@@ -2,9 +2,11 @@ package presentation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+/**
+ * Vista inicial per a un usuari no registrat
+ * @author Albert Canales
+ */
 public class InitialView {
 
     private final ControladorPresentacio controladorPresentacio;

@@ -9,9 +9,8 @@ public class ControladorPersistencia {
 
     private final GestorUsuaris gestorUsuaris;
     private static final String basePath = "./"; //TODO: directoris dinàmics
-    public ControladorPersistencia() {
-        //gestorUsuaris = new GestorUsuaris(basePath); //TODO: Excepcions ben fetes
-        gestorUsuaris = null;
+    public ControladorPersistencia() throws PersistanceException {
+        gestorUsuaris = new GestorUsuaris(basePath);
     }
     public Boolean existsUser(String username) {
         try {
