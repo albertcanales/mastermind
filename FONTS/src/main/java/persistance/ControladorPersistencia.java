@@ -1,29 +1,37 @@
 package persistance;
 
+import persistance.exceptions.PersistanceException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorPersistencia {
 
+    private final GestorUsuaris gestorUsuaris;
+    private static final String basePath = "./"; //TODO: directoris dinàmics
+    public ControladorPersistencia() {
+        //gestorUsuaris = new GestorUsuaris(basePath); //TODO: Excepcions ben fetes
+        gestorUsuaris = null;
+    }
     public Boolean existsUser(String username) {
-        return username.equals("albert");
+        try {
+            return gestorUsuaris.existsUser(username);
+        } catch (PersistanceException e) {
+            System.out.println("Guarrada temporal"); //TODO: Excepcions ben fetes
+        }
+        return false;
     }
 
-    public void registerUser(String username, String name, String password) {
-        if(!username.equals("albert"))
-            System.out.println("Sóc persistència, afegiria l'usuari però sóc només un Mock!");
+    public void registerUser(String username, String name, String password) throws PersistanceException {
+        gestorUsuaris.registerUser(username, name, password);
     }
 
-    public String getPasswordHash(String username) {
-        if(username.equals("albert"))
-            return "35cc37601c71c54e90af0a3892f70c3a177daee21df74c5fe24786f02bbe3502";
-        return null;
+    public String getPasswordHash(String username) throws PersistanceException {
+        return gestorUsuaris.getPasswordHash(username);
     }
 
-    public String getUserName(String username) {
-        if(username.equals("albert"))
-            return "Albert Canales";
-        return null;
+    public String getUserName(String username) throws PersistanceException {
+        return gestorUsuaris.getUserName(username);
     }
 
     public List<List<Object>> getRanquing(Integer nivellDificultat) {
