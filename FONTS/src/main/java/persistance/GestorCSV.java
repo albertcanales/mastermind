@@ -91,6 +91,7 @@ public class GestorCSV {
 
     }
 
+    /*
     public void deleteLine(String fileName, String id) throws PersistanceException {
         CSVReader csvReader;
         try {
@@ -118,4 +119,5 @@ public class GestorCSV {
         writer.close();
 
     }
+    */
 }

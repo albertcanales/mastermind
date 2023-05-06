@@ -88,6 +88,11 @@ public class ControladorPresentacio {
         // rankingView.show();
     }
 
+    void showNovaPartidaView() {
+        NovaPartidaView novaPartidaView = new NovaPartidaView(this);
+        novaPartidaView.show();
+    }
+
     void showWarningDialog(String title, String message) {
         mainFrame.showWarningDialog(title, message);
     }
