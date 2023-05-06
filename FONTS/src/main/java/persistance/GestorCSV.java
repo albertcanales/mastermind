@@ -45,18 +45,18 @@ public class GestorCSV {
 
     }
 
-    public String getElement(String fileName, String id, Integer column) throws PersistanceException {//TODO: canviar getLine
+    public String getLineElement(String fileName, String key, Integer column) throws PersistanceException {//TODO: canviar getLine
         String[] row;
         CSVReader csvReader;
         try {
             csvReader = new CSVReader(new FileReader(fileName));
-        } catch (java.io.FileNotFoundException e) { //encara no hem creat el fitxer
-            return null;
+        } catch (java.io.FileNotFoundException e) {
+            throw new InvalidPermissionsException(fileName);
         }
 
         try {
             while ((row = csvReader.readNext()) != null) {
-                if (row[0].equals(id)) return row[column]; //columna 0 és l'id sempre
+                if (row[0].equals(key)) return row[column]; //columna 0 és la key sempre
             }
         } catch (CsvValidationException e) {
             throw new InvalidCSVException(fileName);
@@ -91,31 +91,31 @@ public class GestorCSV {
 
     }
 
-    /*public void deleteLine(String fileName, String id) throws PersistanceException {
+    public void deleteLine(String fileName, String id) throws PersistanceException {
         CSVReader csvReader;
         try {
             csvReader = new CSVReader(new FileReader(fileName));
-        } catch (java.io.FileNotFoundException e) { //encara no hem creat el fitxer, no fem res
+        } catch (java.io.FileNotFoundException e) {
             throw new InvalidPermissionsException(fileName);
         }
-        List<String[]> allElements = null;
+        List<String[]> allLines = null;
         try {
-            allElements = csvReader.readAll();
+            allLines = csvReader.readAll();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (CsvException e) {
-            throw new RuntimeException(e);
+            throw new InvalidPermissionsException(fileName);
         }
         try {
             csvReader.close();
         } catch (IOException e) {
             throw new InvalidPermissionsException(fileName);
         }
-        allElements.remove(rowNumber);
+        allLines.remove(rowNumber);
         FileWriter sw = new FileWriter(filelocation);
         CSVWriter writer = new CSVWriter(sw);
         writer.writeAll(allElements);
         writer.close();
 
-    }*/
+    }
 }

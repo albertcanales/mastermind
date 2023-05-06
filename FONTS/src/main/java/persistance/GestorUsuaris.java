@@ -1,6 +1,5 @@
 package persistance;
 
-import persistance.exceptions.InvalidPermissionsException;
 import persistance.exceptions.PersistanceException;
 
 
@@ -32,7 +31,7 @@ public class GestorUsuaris extends GestorCSV {
     }
 
     public Boolean existsUser(String username) throws PersistanceException {
-        return username.equals(getElement(absoluteUsersPath, username, Header.USERNAME.number));
+        return username.equals(getLineElement(absoluteUsersPath, username, Header.USERNAME.number));
     }
 
     public void registerUser(String username, String name, String password) throws PersistanceException {
@@ -42,11 +41,11 @@ public class GestorUsuaris extends GestorCSV {
     }
 
     public String getPasswordHash(String username) throws PersistanceException {
-        return getElement(absoluteUsersPath, username, Header.PASSWORD.number);
+        return getLineElement(absoluteUsersPath, username, Header.PASSWORD.number);
     }
 
     public String getUserName(String username) throws PersistanceException {
-        return getElement(absoluteUsersPath, username, Header.NAME.number);
+        return getLineElement(absoluteUsersPath, username, Header.NAME.number);
     }
 
     /**
