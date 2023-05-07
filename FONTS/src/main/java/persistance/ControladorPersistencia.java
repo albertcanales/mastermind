@@ -89,7 +89,7 @@ public class ControladorPersistencia {
     public List<Double> getUserAvgAsMaker(String username) {
         if(username.equals("albert"))
             return List.of(4.0, 0.0);
-        return List.of(0.0,0.0,0.0);
+        return List.of(0.0,0.0);
     }
 
     public List<Double> getUserAvgAsBreaker(String username) {

@@ -12,29 +12,36 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="20f2f" layout-manager="GridBagLayout">
+          <grid id="20f2f" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints border-constraint="West"/>
             <properties/>
             <border type="none"/>
             <children>
-              <component id="8c49d" class="javax.swing.JButton" binding="buttonZonaUsuari">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <text value="Zona Usuari"/>
-                </properties>
-              </component>
-              <component id="f434a" class="javax.swing.JButton" binding="buttonRanquing">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <text value="Rànquing"/>
-                </properties>
-              </component>
+              <grid id="d33ad" layout-manager="GridBagLayout">
+                <constraints/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="18ebc" class="javax.swing.JButton" binding="buttonSortir">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <text value="Sortir"/>
+                    </properties>
+                  </component>
+                  <component id="90c66" class="javax.swing.JButton" binding="buttonNormes">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <text value="Normes"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
             </children>
           </grid>
           <grid id="1b683" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
@@ -42,12 +49,31 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="72240" class="javax.swing.JButton" binding="buttonNormes">
+              <grid id="f9b8a" layout-manager="GridBagLayout">
                 <constraints/>
-                <properties>
-                  <text value="Normes"/>
-                </properties>
-              </component>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="a9a64" class="javax.swing.JButton" binding="buttonZonaUsuari">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <text value="Zona Usuari"/>
+                    </properties>
+                  </component>
+                  <component id="d311d" class="javax.swing.JButton" binding="buttonRanquing">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <text value="Rànquing"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
             </children>
           </grid>
         </children>

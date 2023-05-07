@@ -29,7 +29,7 @@ public class NovaPartidaView {
     }
 
     void initComponents() {
-        buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
+        buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showHomeView());
         buttonJuga.addActionListener(actionEvent -> jugaButtonClick());
     }
 
