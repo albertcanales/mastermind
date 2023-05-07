@@ -2,12 +2,12 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="presentation.NovaPartidaView">
   <grid id="27dc6" binding="panel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="685" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <tabbedpane id="decd1">
+      <tabbedpane id="decd1" binding="tabbedPane">
         <constraints border-constraint="Center"/>
         <properties>
           <tabPlacement value="1"/>
@@ -20,7 +20,11 @@
             </constraints>
             <properties/>
             <border type="none"/>
-            <children/>
+            <children>
+              <nested-form id="98835" form-file="presentation/NovaPartidaBreakerPanel.form">
+                <constraints border-constraint="Center"/>
+              </nested-form>
+            </children>
           </grid>
           <grid id="fc306" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints>

@@ -1,12 +1,25 @@
 package presentation;
 
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class NovaPartidaMakerPanel extends JPanel {
 
     private JPanel panel;
+    private JRadioButton radioButtonFiveGuess;
+    private JRadioButton radioButtonGenetic;
+    private JComboBox comboBox1;
+    private JComboBox comboBox2;
+    private JComboBox comboBox3;
+    private JComboBox comboBox4;
+    private JComboBox comboBox5;
+    private JComboBox comboBox6;
 
+    //TODO: Canviar els parametres de la partida a crear segons la interaccio amb la UI
+    //TODO: Representar adequadament la seleccio de la sequencia solucio
     Integer getAlgorisme() {
         return null;
     }
@@ -31,10 +44,45 @@ public class NovaPartidaMakerPanel extends JPanel {
      */
     private void $$$setupUI$$$() {
         panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
         final JLabel label1 = new JLabel();
-        label1.setText("Maker");
-        panel.add(label1);
+        label1.setText("Algoritme:");
+        panel.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel.add(panel1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        radioButtonFiveGuess = new JRadioButton();
+        radioButtonFiveGuess.setText("FiveGuess");
+        panel1.add(radioButtonFiveGuess, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        radioButtonGenetic = new JRadioButton();
+        radioButtonGenetic.setText("Genetic");
+        panel1.add(radioButtonGenetic, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label2 = new JLabel();
+        label2.setText("Seqüència Solució:");
+        panel.add(label2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel.add(panel2, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        comboBox1 = new JComboBox();
+        comboBox1.setEditable(false);
+        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
+        comboBox1.setModel(defaultComboBoxModel1);
+        panel2.add(comboBox1);
+        comboBox2 = new JComboBox();
+        comboBox2.setEditable(false);
+        panel2.add(comboBox2);
+        comboBox3 = new JComboBox();
+        panel2.add(comboBox3);
+        comboBox4 = new JComboBox();
+        panel2.add(comboBox4);
+        comboBox5 = new JComboBox();
+        panel2.add(comboBox5);
+        comboBox6 = new JComboBox();
+        panel2.add(comboBox6);
+        ButtonGroup buttonGroup;
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(radioButtonFiveGuess);
+        buttonGroup.add(radioButtonGenetic);
     }
 
     /**
@@ -43,4 +91,5 @@ public class NovaPartidaMakerPanel extends JPanel {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
+
 }

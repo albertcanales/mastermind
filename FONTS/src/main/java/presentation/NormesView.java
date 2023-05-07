@@ -23,7 +23,8 @@ public class NormesView {
     }
 
     void initComponents() {
-        buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showHomeView());
+
+        buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showHomeView()); //TODO: On torna depen de si hi ha usuari logged
     }
 
     /**

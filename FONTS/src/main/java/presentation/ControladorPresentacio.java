@@ -87,7 +87,7 @@ public class ControladorPresentacio {
         if(controladorDomini == null)
             showErrorDialog("No s'ha pogut iniciar la base de dades");
         else
-            showInitialView();
+            showHomeView();
     }
 
     void setContent(JPanel panel) {
