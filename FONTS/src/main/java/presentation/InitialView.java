@@ -29,7 +29,7 @@ public class InitialView {
 
     private void initComponents() {
         buttonRanquing.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
-        buttonNormes.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
+        buttonNormes.addActionListener(actionEvent -> controladorPresentacio.showNormesView());
         buttonIniciaSessio.addActionListener(actionEvent -> controladorPresentacio.showLoginView());
         buttonRegistra.addActionListener(actionEvent -> controladorPresentacio.showRegisterView());
     }

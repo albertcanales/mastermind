@@ -118,9 +118,9 @@ public class ControladorPresentacio {
         homeView.show();
     }
 
-    void showRulesView() {
-        // RulesView rulesView = new RulesView(this);
-        // rulesView.show();
+    void showNormesView() {
+         NormesView normesView = new NormesView(this);
+         normesView.show();
     }
 
     void showRankingView() {

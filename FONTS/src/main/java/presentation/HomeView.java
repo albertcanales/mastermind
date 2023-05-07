@@ -34,7 +34,7 @@ public class HomeView {
             buttonCarregarPartida.setEnabled(false);
         }
         //buttonRanquing.addActionListener(actionEvent -> controladorPresentacio.showRanquingView());
-        //buttonNormes.addActionListener(actionEvent -> controladorPresentacio.showNormesView());
+        buttonNormes.addActionListener(actionEvent -> controladorPresentacio.showNormesView());
         buttonNovaPartida.addActionListener(actionEvent -> controladorPresentacio.showNovaPartidaView());
         buttonCarregarPartida.addActionListener(actionEvent -> carregarPartidaButtonClick());
         buttonSortir.addActionListener(actionEvent -> sortirButtonClick());
