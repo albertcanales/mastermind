@@ -9,12 +9,12 @@ public class NovaPartidaView {
 
     private final ControladorPresentacio controladorPresentacio;
     private JPanel panel;
-    private JPanel panelBreaker;
     private JButton buttonTorna;
     private NovaPartidaMakerPanel panelMaker;
     private JButton buttonJuga;
     private JSlider sliderDificultat;
     private JTabbedPane tabbedPane;
+    private NovaPartidaBreakerPanel panelBreaker;
 
     NovaPartidaView(ControladorPresentacio controladorPresentacio) {
         this.controladorPresentacio = controladorPresentacio;
@@ -33,7 +33,7 @@ public class NovaPartidaView {
         buttonJuga.addActionListener(actionEvent -> jugaButtonClick());
     }
 
-    private void jugaButtonClick() { //TODO: cridar creacio de partida y canviar de view
+    private void jugaButtonClick() { //TODO: cridar creacio de partida i canviar de view
 
     }
 
@@ -50,28 +50,28 @@ public class NovaPartidaView {
         tabbedPane = new JTabbedPane();
         tabbedPane.setTabPlacement(1);
         panel.add(tabbedPane, BorderLayout.CENTER);
-        panelBreaker = new JPanel();
-        panelBreaker.setLayout(new BorderLayout(0, 0));
-        tabbedPane.addTab("Breaker", panelBreaker);
-        final NovaPartidaBreakerPanel nestedForm1 = new NovaPartidaBreakerPanel();
-        panelBreaker.add(nestedForm1.$$$getRootComponent$$$(), BorderLayout.CENTER);
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        tabbedPane.addTab("Maker", panel1);
-        panelMaker = new NovaPartidaMakerPanel();
-        panel1.add(panelMaker.$$$getRootComponent$$$());
+        panel1.setLayout(new BorderLayout(0, 0));
+        tabbedPane.addTab("Breaker", panel1);
+        panelBreaker = new NovaPartidaBreakerPanel();
+        panel1.add(panelBreaker.$$$getRootComponent$$$(), BorderLayout.CENTER);
         final JPanel panel2 = new JPanel();
-        panel2.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-        panel.add(panel2, BorderLayout.NORTH);
+        panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        tabbedPane.addTab("Maker", panel2);
+        panelMaker = new NovaPartidaMakerPanel();
+        panel2.add(panelMaker.$$$getRootComponent$$$());
+        final JPanel panel3 = new JPanel();
+        panel3.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+        panel.add(panel3, BorderLayout.NORTH);
         buttonTorna = new JButton();
         buttonTorna.setText("Torna");
-        panel2.add(buttonTorna);
-        final JPanel panel3 = new JPanel();
-        panel3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        panel.add(panel3, BorderLayout.SOUTH);
+        panel3.add(buttonTorna);
+        final JPanel panel4 = new JPanel();
+        panel4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel.add(panel4, BorderLayout.SOUTH);
         buttonJuga = new JButton();
         buttonJuga.setText("Juga!");
-        panel3.add(buttonJuga);
+        panel4.add(buttonJuga);
     }
 
     /**

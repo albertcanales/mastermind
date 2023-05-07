@@ -63,13 +63,14 @@ public class NovaPartidaBreakerPanel extends JPanel {
         panel2.setLayout(new GridLayoutManager(1, 3, new Insets(0, 0, 0, 0), -1, -1));
         panel1.add(panel2, BorderLayout.CENTER);
         sliderDificultat = new JSlider();
-        sliderDificultat.setMajorTickSpacing(2);
+        sliderDificultat.setMajorTickSpacing(3);
         sliderDificultat.setMaximum(3);
         sliderDificultat.setMinimum(1);
         sliderDificultat.setMinorTickSpacing(1);
         sliderDificultat.setPaintLabels(true);
         sliderDificultat.setPaintTicks(false);
         sliderDificultat.setPaintTrack(true);
+        sliderDificultat.setValue(2);
         panel2.add(sliderDificultat, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel2.add(spacer1, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));

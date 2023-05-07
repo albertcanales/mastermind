@@ -14,14 +14,14 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="b8250" binding="panelBreaker" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="b8250" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
               <tabbedpane title="Breaker"/>
             </constraints>
             <properties/>
             <border type="none"/>
             <children>
-              <nested-form id="98835" form-file="presentation/NovaPartidaBreakerPanel.form">
+              <nested-form id="98835" form-file="presentation/NovaPartidaBreakerPanel.form" binding="panelBreaker">
                 <constraints border-constraint="Center"/>
               </nested-form>
             </children>
