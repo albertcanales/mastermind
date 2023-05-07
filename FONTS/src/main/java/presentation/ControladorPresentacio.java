@@ -114,8 +114,8 @@ public class ControladorPresentacio {
     }
 
     void showHomeView() {
-        // HomeView homeView = new HomeView(this);
-        // homeView.show();
+        HomeView homeView = new HomeView(this);
+        homeView.show();
     }
 
     void showRulesView() {
