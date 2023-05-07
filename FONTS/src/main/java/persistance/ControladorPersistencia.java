@@ -8,7 +8,7 @@ import java.util.List;
 public class ControladorPersistencia {
 
     private final GestorUsuaris gestorUsuaris;
-    private static final String basePath = "./"; //TODO: directoris dinàmics
+    private static final String basePath = "./db/"; //TODO: directoris dinàmics
     public ControladorPersistencia() throws PersistanceException {
         gestorUsuaris = new GestorUsuaris(basePath);
     }
@@ -53,55 +53,55 @@ public class ControladorPersistencia {
     public List<Integer> getUserPersonalRecord(String username) {
         if(username.equals("albert"))
             return List.of(2, 4, 7);
-        return null;
+        return List.of(0,0,0);
     }
 
     public List<Long> getUserTimePlayed(String username) {
         if(username.equals("albert"))
             return List.of(400000L, 500000L, 600000L);
-        return null;
+        return List.of(0L,0L,0L);
     }
 
     public List<Integer> getUserWonGames(String username) {
         if(username.equals("albert"))
             return List.of(20, 15, 10);
-        return null;
+        return List.of(0,0,0);
     }
 
     public List<Integer> getUserLostGames(String username) {
         if(username.equals("albert"))
             return List.of(0, 5, 10);
-        return null;
+        return List.of(0,0,0);
     }
 
     public List<Integer> getUserCurrentWinstreak(String username) {
         if(username.equals("albert"))
             return List.of(4, 10, 0);
-        return null;
+        return List.of(0,0,0);
     }
 
     public List<Integer> getUserWinstreak(String username) {
         if(username.equals("albert"))
             return List.of(20, 10, 5);
-        return null;
+        return List.of(0,0,0);
     }
 
     public List<Double> getUserAvgAsMaker(String username) {
         if(username.equals("albert"))
             return List.of(4.0, 0.0);
-        return null;
+        return List.of(0.0,0.0,0.0);
     }
 
     public List<Double> getUserAvgAsBreaker(String username) {
         if(username.equals("albert"))
             return List.of(4.0, 6.0, 8.0);
-        return null;
+        return List.of(0.0,0.0,0.0);
     }
 
     public List<Integer> getUserNumGamesAsMaker(String username) {
         if(username.equals("albert"))
             return List.of(10, 0);
-        return null;
+        return List.of(0,0);
     }
 
     public Integer getNivellDificultatPartidaGuardada(String username) {

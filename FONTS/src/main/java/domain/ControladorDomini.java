@@ -85,7 +85,6 @@ public class ControladorDomini {
         List<Double> avgAsMaker = controladorPersistencia.getUserAvgAsMaker(username);
         List<Double> avgAsBreaker = controladorPersistencia.getUserAvgAsBreaker(username);
         List<Integer> numGamesAsMaker = controladorPersistencia.getUserNumGamesAsMaker(username);
-        user = new User(name, username);
         user = new User(name, username, personalRecord, timePlayed, wonGames, lostGames, currentWinStreak, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
         return true;
     }
@@ -102,7 +101,7 @@ public class ControladorDomini {
             throw new UserAlreadyExistsException(username);
         if(!isValidUser(username, name, password))
             throw new InvalidUserException();
-        controladorPersistencia.registerUser(username, name, password);
+        controladorPersistencia.registerUser(username, name, User.getPasswordHash(password));
         user = new User(name, username);
     }
 

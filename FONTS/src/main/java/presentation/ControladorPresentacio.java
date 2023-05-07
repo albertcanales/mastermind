@@ -2,6 +2,8 @@ package presentation;
 
 import domain.ControladorDomini;
 import domain.exceptions.DomainException;
+import domain.exceptions.NoGameSavedException;
+import domain.exceptions.NotLoggedInException;
 import persistance.exceptions.PersistanceException;
 
 import javax.swing.*;
@@ -43,6 +45,44 @@ public class ControladorPresentacio {
         }
     }
 
+    public Boolean loginUser(String username, String password) {
+        try {
+            return controladorDomini.loginUser(username, password);
+        } catch (DomainException e) {
+            showErrorDialog("L'usuari no existeix");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void logoutUser() {
+        try {
+            controladorDomini.logoutUser();
+        } catch (DomainException e) {
+            showErrorDialog("No s'havia iniciat sessió");
+            e.printStackTrace();
+        }
+    }
+
+    public Boolean existsPartidaGuardada() {
+        try {
+            return controladorDomini.existsPartidaGuardada();
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha iniciat sessió");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void carregarPartida() {
+        try {
+            controladorDomini.carregarPartida();
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut carregar la partida");
+            e.printStackTrace();
+        }
+    }
+
     void run() {
         if(controladorDomini == null)
             showErrorDialog("No s'ha pogut iniciar la base de dades");
@@ -69,8 +109,8 @@ public class ControladorPresentacio {
     }
 
     void showLoginView() {
-        // LoginView loginView = new LoginView(this);
-        // loginView.show();
+        LoginView loginView = new LoginView(this);
+        loginView.show();
     }
 
     void showHomeView() {

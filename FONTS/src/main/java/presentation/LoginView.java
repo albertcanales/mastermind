@@ -9,7 +9,7 @@ public class LoginView {
     private JPanel panel;
     private JButton buttonTorna;
     private JTextField textFieldNomUsuari;
-    private JTextField textFieldContrasenya;
+    private JPasswordField textFieldContrasenya;
     private JButton buttonIniciaSessio;
 
     LoginView(ControladorPresentacio controladorPresentacio) {
@@ -31,13 +31,11 @@ public class LoginView {
     private void iniciaSessioButtonClick() {
         String username = textFieldNomUsuari.getText();
         String password = Arrays.toString(textFieldContrasenya.getPassword());
-        /**
-        if (algo q miri si la contra i l'user es corresponen)
-            controladorPresentacio.showWarningDialog("Could not register", "Invalid input data");
-        else {
-            controladorPresentacio.logInUser(username, password); No existeix aquesta funcio pero hauria
-            controladorPresentacio.showInitialView();
-        }**/
+        if (controladorPresentacio.existsUser(username) && controladorPresentacio.loginUser(username, password)) {
+            controladorPresentacio.showHomeView();
+        } else {
+            controladorPresentacio.showWarningDialog("No s'ha pogut iniciar sessió", "La combinació usuari/contrasenya no es correcta");
+        }
     }
 
     /**
@@ -50,15 +48,15 @@ public class LoginView {
     private void $$$setupUI$$$() {
         panel = new JPanel();
         panel.setLayout(new BorderLayout(0, 0));
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-        panel.add(panel2, BorderLayout.NORTH);
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+        panel.add(panel1, BorderLayout.NORTH);
         buttonTorna = new JButton();
         buttonTorna.setText("Torna");
-        panel2.add(buttonTorna);
-        final JPanel panel3 = new JPanel();
-        panel3.setLayout(new GridBagLayout());
-        panel.add(panel3, BorderLayout.CENTER);
+        panel1.add(buttonTorna);
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridBagLayout());
+        panel.add(panel2, BorderLayout.CENTER);
         final JLabel label1 = new JLabel();
         label1.setHorizontalAlignment(0);
         label1.setText("Nom d'usuari");
@@ -68,7 +66,7 @@ public class LoginView {
         gbc.gridy = 0;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel3.add(label1, gbc);
+        panel2.add(label1, gbc);
         textFieldNomUsuari = new JTextField();
         textFieldNomUsuari.setHorizontalAlignment(0);
         gbc = new GridBagConstraints();
@@ -77,8 +75,8 @@ public class LoginView {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 40, 0, 40);
-        panel3.add(textFieldNomUsuari, gbc);
-        textFieldContrasenya = new JTextField();
+        panel2.add(textFieldNomUsuari, gbc);
+        textFieldContrasenya = new JPasswordField();
         textFieldContrasenya.setHorizontalAlignment(0);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -86,13 +84,13 @@ public class LoginView {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 40, 0, 40);
-        panel3.add(textFieldContrasenya, gbc);
+        panel2.add(textFieldContrasenya, gbc);
         final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.VERTICAL;
-        panel3.add(spacer1, gbc);
+        panel2.add(spacer1, gbc);
         final JLabel label2 = new JLabel();
         label2.setEnabled(true);
         label2.setHorizontalAlignment(0);
@@ -102,13 +100,13 @@ public class LoginView {
         gbc.gridy = 3;
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel3.add(label2, gbc);
-        final JPanel panel4 = new JPanel();
-        panel4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        panel.add(panel4, BorderLayout.SOUTH);
+        panel2.add(label2, gbc);
+        final JPanel panel3 = new JPanel();
+        panel3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel.add(panel3, BorderLayout.SOUTH);
         buttonIniciaSessio = new JButton();
         buttonIniciaSessio.setText("Inicia Sessió");
-        panel4.add(buttonIniciaSessio);
+        panel3.add(buttonIniciaSessio);
         label1.setLabelFor(textFieldNomUsuari);
         label2.setLabelFor(textFieldContrasenya);
     }

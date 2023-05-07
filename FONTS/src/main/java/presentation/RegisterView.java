@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 /**
  * Vista del Registre d'un usuari
+ *
  * @author Albert Canales
  */
 public class RegisterView {
@@ -48,7 +49,8 @@ public class RegisterView {
             controladorPresentacio.showWarningDialog("Could not register", "Username already exists");
         else {
             controladorPresentacio.registerUser(username, name, password);
-            controladorPresentacio.showInitialView();
+            controladorPresentacio.loginUser(username, password);
+            controladorPresentacio.showHomeView();
         }
     }
 
@@ -92,20 +94,12 @@ public class RegisterView {
         panel1.add(textFieldNomComplet, gbc);
         final JLabel label2 = new JLabel();
         label2.setEnabled(true);
-        label2.setText("Nom complet");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.weightx = 1.0;
-        panel1.add(label2, gbc);
-        final JLabel label3 = new JLabel();
-        label3.setEnabled(true);
-        label3.setText("Contrasenya");
+        label2.setText("Contrasenya");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.weightx = 1.0;
-        panel1.add(label3, gbc);
+        panel1.add(label2, gbc);
         textFieldContrasenya = new JPasswordField();
         textFieldContrasenya.setHorizontalAlignment(0);
         gbc = new GridBagConstraints();
@@ -126,6 +120,14 @@ public class RegisterView {
         gbc.gridy = 5;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer2, gbc);
+        final JLabel label3 = new JLabel();
+        label3.setEnabled(true);
+        label3.setText("Nom complet");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weightx = 1.0;
+        panel1.add(label3, gbc);
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel.add(panel2, BorderLayout.SOUTH);
@@ -139,8 +141,8 @@ public class RegisterView {
         buttonTorna.setText("Torna");
         panel3.add(buttonTorna);
         label1.setLabelFor(textFieldNomUsuari);
-        label2.setLabelFor(textFieldNomComplet);
-        label3.setLabelFor(textFieldContrasenya);
+        label2.setLabelFor(textFieldContrasenya);
+        label3.setLabelFor(textFieldNomComplet);
     }
 
     /**
