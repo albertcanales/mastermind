@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="presentation.NormesView">
+  <grid id="27dc6" binding="panel" default-binding="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="752"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="29db1" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="4ff5c" class="javax.swing.JButton" binding="buttonTorna">
+            <constraints/>
+            <properties>
+              <text value="Torna"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="83538" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="69841" class="javax.swing.JTextPane" default-binding="true">
+            <constraints border-constraint="North"/>
+            <properties>
+              <editable value="false"/>
+              <text value="Normes del Mastermind"/>
+            </properties>
+          </component>
+          <component id="e1292" class="javax.swing.JTextPane" default-binding="true">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <editable value="false"/>
+              <text value="lapx xwxm weiokx owj wdecjicj ie x eje ce cjed jcei weweioewc, x wexe."/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

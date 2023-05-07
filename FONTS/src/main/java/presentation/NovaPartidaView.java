@@ -3,11 +3,6 @@ package presentation;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Vista del Registre d'un usuari
- *
- * @author Albert Canales
- */
 public class NovaPartidaView {
 
     private final ControladorPresentacio controladorPresentacio;
