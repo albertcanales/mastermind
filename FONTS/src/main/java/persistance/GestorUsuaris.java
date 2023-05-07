@@ -1,5 +1,7 @@
 package persistance;
 
+import persistance.exceptions.ElementNotFoundException;
+import persistance.exceptions.InvalidCSVException;
 import persistance.exceptions.PersistanceException;
 
 
@@ -24,28 +26,58 @@ public class GestorUsuaris extends GestorCSV {
         System.out.println(String.format("Name for \"sussy:\" %s", gestor.getUserName("sussy")));
         System.out.println(String.format("Name for \"morethansus:\" %s", gestor.getUserName("morethansus")));
 
+        System.out.println(String.format("Password for \"arnau:\" %s", gestor.getPasswordHash("arnau")));
+        System.out.println(String.format("Password for \"sussy:\" %s", gestor.getPasswordHash("sussy")));
+        System.out.println(String.format("Password for \"morethansus:\" %s", gestor.getPasswordHash("morethansus")));
+
+        gestor.esborrarUsuari("sussy");
+        System.out.println(String.format("Exists user \"sussy:\" %s", gestor.existsUser("sussy")));
+
     }
-    public GestorUsuaris(String basePath) throws PersistanceException {
+    GestorUsuaris(String basePath) throws PersistanceException {
         this.absoluteUsersPath = basePath + relativeUsersPath;
-        createFileandDir(absoluteUsersPath);
+        createFileandDir(absoluteUsersPath, Header.getHeader());
     }
 
     public Boolean existsUser(String username) throws PersistanceException {
-        return username.equals(getLineElement(absoluteUsersPath, username, Header.USERNAME.number));
+        try {
+            String ignore = getLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)[Header.USERNAME.number];
+        } catch (ElementNotFoundException e) {
+            return false;
+        }
+        return true;
     }
 
     public void registerUser(String username, String name, String password) throws PersistanceException {
-        if (!existsUser(username)) { //TODO: Maybe not needed
+        if (!existsUser(username)) { //TODO: Maybe not needed si Domini ens ho garanteix
             addLine(absoluteUsersPath, new String[]{username, name, password});
         }
     }
 
     public String getPasswordHash(String username) throws PersistanceException {
-        return getLineElement(absoluteUsersPath, username, Header.PASSWORD.number);
+        try {
+            return getLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)[Header.PASSWORD.number];
+        } catch (ElementNotFoundException e) {
+            throw new InvalidCSVException(absoluteUsersPath); //TODO: Assumim que Domini ens garanteix que l'usuari existeix, llavors vol dir que l'arxiu s'ha corromput
+        }
     }
 
     public String getUserName(String username) throws PersistanceException {
-        return getLineElement(absoluteUsersPath, username, Header.NAME.number);
+        try {
+            return getLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)[Header.NAME.number];
+        } catch (ElementNotFoundException e) {
+            throw new InvalidCSVException(absoluteUsersPath); //TODO: Assumim que Domini ens garanteix que l'usuari existeix, llavors vol dir que l'arxiu s'ha corromput
+        }
+    }
+
+    public void esborrarUsuari(String username) throws PersistanceException {
+        if (existsUser(username)) { //TODO: Maybe not needed si Domini ens ho garanteix
+            try {
+                removeLinebyKey(absoluteUsersPath, username, Header.USERNAME.number);
+            } catch (ElementNotFoundException e) {
+                throw new InvalidCSVException(absoluteUsersPath); //TODO: Assumim que Domini ens garanteix que l'usuari existeix, llavors vol dir que l'arxiu s'ha corromput
+            }
+        }
     }
 
     /**
@@ -67,5 +99,18 @@ public class GestorUsuaris extends GestorCSV {
             this.number = number;
         }
 
+        /**
+         * Genera un array d'strings amb el Header corresponent
+         * @return un array d'strings
+         */
+        private static String[] getHeader() {
+            String[] header = new String[values().length + 1];
+
+            for(int i = 0; i < values().length; ++i){
+                header[i] = values()[i].name();
+
+            }
+            return header;
+        }
     }
 }

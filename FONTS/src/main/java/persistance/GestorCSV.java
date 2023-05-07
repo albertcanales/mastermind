@@ -3,82 +3,40 @@ package persistance;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
-import com.opencsv.exceptions.CsvValidationException;
+import persistance.exceptions.ElementNotFoundException;
 import persistance.exceptions.InvalidCSVException;
-import persistance.exceptions.InvalidPermissionsException;
+import persistance.exceptions.InvalidFileAccess;
 import persistance.exceptions.PersistanceException;
 
 import java.io.*;
 import java.util.List;
 
+/**
+ * Gestor per crear, consultar, modificar i esborrar fitxers CSV
+ *
+ * @author Arnau Valls Fusté
+ */
 public class GestorCSV {
-    private Integer getRowOf(String fileName, String key, CSVReader csvReader) throws PersistanceException {
-        String[] row;
-        try {
-            csvReader = new CSVReader(new FileReader(fileName));
-        } catch (java.io.FileNotFoundException e) { //encara no hem creat el fitxer
-            return null;
-        }
+    private static final int headerPos = 0; //El header sempre està a la posició 0 d'un CSV
 
-        Integer i = 0;
-        try {
-            while ((row = csvReader.readNext()) != null) {
-                if (row[0].equals(key)) return i; //columna 0 és key (si en tenim)
-                i++;
-            }
-        } catch (CsvValidationException e) {
-            throw new InvalidCSVException(fileName);
-        } catch (IOException e) {
-            throw new InvalidPermissionsException(fileName);
-        }
-
-        return -1;
-    }
-    public void createFileandDir(String fileName) throws InvalidPermissionsException {
+    public void createFileandDir(String fileName, String[] header) throws PersistanceException {
         File file = new File(fileName);
         file.getParentFile().mkdirs();
+
         try {
-            file.createNewFile();
+            if (file.createNewFile()) addLine(fileName, header); //Si l'acabem de crear, posem el header
         } catch (IOException e) {
-            throw new InvalidPermissionsException(fileName);
+            throw new InvalidFileAccess(fileName);
         }
 
-    }
-
-    public String getLineElement(String fileName, String key, Integer column) throws PersistanceException {//TODO: canviar getLine
-        String[] row;
-        CSVReader csvReader;
-        try {
-            csvReader = new CSVReader(new FileReader(fileName));
-        } catch (java.io.FileNotFoundException e) {
-            throw new InvalidPermissionsException(fileName);
-        }
-
-        try {
-            while ((row = csvReader.readNext()) != null) {
-                if (row[0].equals(key)) return row[column]; //columna 0 és la key sempre
-            }
-        } catch (CsvValidationException e) {
-            throw new InvalidCSVException(fileName);
-        } catch (IOException e) {
-            throw new InvalidPermissionsException(fileName);
-        }
-
-        try {
-            csvReader.close();
-        } catch (IOException e) {
-            throw new InvalidPermissionsException(fileName);
-        }
-
-        return null;
     }
 
     public void addLine(String fileName, String[] line) throws PersistanceException {
         CSVWriter csvWriter;
         try {
-            csvWriter = new CSVWriter(new FileWriter(fileName, true));
+            csvWriter = new CSVWriter(new FileWriter(fileName, true)); //fem append
         } catch (IOException e) {
-            throw new InvalidPermissionsException(fileName);
+            throw new InvalidFileAccess(fileName);
         }
 
         csvWriter.writeNext(line);
@@ -86,38 +44,117 @@ public class GestorCSV {
         try {
             csvWriter.close();
         } catch (IOException e) {
-            throw new InvalidPermissionsException(fileName);
+            throw new InvalidFileAccess(fileName);
         }
 
     }
 
-    /*
-    public void deleteLine(String fileName, String id) throws PersistanceException {
+    private static Integer getRowNumberOf(List<String[]> allLines, String key, Integer keyPos, String fileName) throws PersistanceException {
+        int i = 0;
+        while (i < allLines.size()) {
+            if (allLines.get(i)[keyPos].equals(key)) return i;
+            ++i;
+        }
+        throw new ElementNotFoundException(key, fileName);
+    }
+
+    public List<String[]> getLines(String fileName) throws PersistanceException {
         CSVReader csvReader;
         try {
             csvReader = new CSVReader(new FileReader(fileName));
         } catch (java.io.FileNotFoundException e) {
-            throw new InvalidPermissionsException(fileName);
+            throw new InvalidFileAccess(fileName);
         }
-        List<String[]> allLines = null;
+        List<String[]> allLines;
         try {
             allLines = csvReader.readAll();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new InvalidFileAccess(fileName);
         } catch (CsvException e) {
-            throw new InvalidPermissionsException(fileName);
+            throw new InvalidCSVException(fileName);
         }
         try {
             csvReader.close();
         } catch (IOException e) {
-            throw new InvalidPermissionsException(fileName);
+            throw new InvalidFileAccess(fileName);
         }
-        allLines.remove(rowNumber);
-        FileWriter sw = new FileWriter(filelocation);
-        CSVWriter writer = new CSVWriter(sw);
-        writer.writeAll(allElements);
-        writer.close();
+
+        allLines.remove(headerPos); //Treiem el Header
+        return allLines;
+    }
+
+    public String[] getLinebyKey(String fileName, String key, Integer keyPos) throws PersistanceException {
+        CSVReader csvReader;
+        try {
+            csvReader = new CSVReader(new FileReader(fileName));
+        } catch (java.io.FileNotFoundException e) {
+            throw new InvalidFileAccess(fileName);
+        }
+        List<String[]> allLines;
+        try {
+            allLines = csvReader.readAll();
+        } catch (IOException e) {
+            throw new InvalidFileAccess(fileName);
+        } catch (CsvException e) {
+            throw new InvalidCSVException(fileName);
+        }
+        try {
+            csvReader.close();
+        } catch (IOException e) {
+            throw new InvalidFileAccess(fileName);
+        }
+
+        allLines.remove(headerPos); //Treiem el Header per no recorre'l
+        int rowNumber = getRowNumberOf(allLines, key, keyPos, fileName);
+        return allLines.get(rowNumber);
+    }
+
+    public void removeLinebyKey(String fileName, String key, Integer keyPos) throws PersistanceException {
+        CSVReader csvReader;
+        try {
+            csvReader = new CSVReader(new FileReader(fileName));
+        } catch (java.io.FileNotFoundException e) {
+            throw new InvalidFileAccess(fileName);
+        }
+        List<String[]> allLines;
+        try {
+            allLines = csvReader.readAll();
+        } catch (IOException e) {
+            throw new InvalidFileAccess(fileName);
+        } catch (CsvException e) {
+            throw new InvalidCSVException(fileName);
+        }
+        try {
+            csvReader.close();
+        } catch (IOException e) {
+            throw new InvalidFileAccess(fileName);
+        }
+
+
+
+        String[] header = allLines.get(headerPos);
+        allLines.remove(headerPos); //Treiem el Header per no recorre'l
+
+
+        int rowNumber = getRowNumberOf(allLines, key, keyPos, fileName);
+        allLines.remove(rowNumber); //TODO: Assumim que Domini ens garanteix que la key existeix
+
+        allLines.add(headerPos, header); //I el tornem a posar
+
+        CSVWriter csvWriter;
+        try {
+            csvWriter = new CSVWriter(new FileWriter(fileName, false));
+        } catch (IOException e) {
+            throw new InvalidFileAccess(fileName);
+        }
+        csvWriter.writeAll(allLines);
+
+        try {
+            csvWriter.close();
+        } catch (IOException e) {
+            throw new InvalidFileAccess(fileName);
+        }
 
     }
-    */
+
 }
