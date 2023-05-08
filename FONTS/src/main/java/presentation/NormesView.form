@@ -20,27 +20,29 @@
           </component>
         </children>
       </grid>
-      <grid id="83538" layout-manager="BorderLayout" hgap="0" vgap="0">
+      <scrollpane id="322d7">
         <constraints border-constraint="Center"/>
-        <properties/>
+        <properties>
+          <verticalScrollBar value="5ce20"/>
+        </properties>
         <border type="none"/>
         <children>
-          <component id="69841" class="javax.swing.JTextPane" default-binding="true">
-            <constraints border-constraint="North"/>
+          <component id="46698" class="javax.swing.JEditorPane" binding="editorPaneNormes">
+            <constraints/>
             <properties>
+              <contentType value="text/html"/>
               <editable value="false"/>
-              <text value="Normes del Mastermind"/>
-            </properties>
-          </component>
-          <component id="e1292" class="javax.swing.JTextPane" default-binding="true">
-            <constraints border-constraint="Center"/>
-            <properties>
-              <editable value="false"/>
-              <text value="lapx xwxm weiokx owj wdecjicj ie x eje ce cjed jcei weweioewc, x wexe."/>
+              <text value="&lt;html&gt;&#10;  &lt;head&gt;&#10;    &#10;  &lt;/head&gt;&#10;  &lt;body&gt;&#10;    &lt;h1&gt;&#10;      Bonum integritas corporis: misera debilitas.&#10;    &lt;/h1&gt;&#10;    &lt;p&gt;&#10;      Lorem ipsum dolor sit amet, consectetur adipiscing elit. &lt;i&gt;Nunc vides, &#10;      quid faciat.&lt;/i&gt; Duo Reges: constructio interrete. Bork De illis, cum &#10;      volemus.&#10;    &lt;/p&gt;&#10;    &lt;p&gt;&#10;      Ut id aliis narrare gestiant? Neutrum vero, inquit ille. Ratio quidem &#10;      vestra sic cogit. Nec vero alia sunt quaerenda contra Carneadeam illam &#10;      sententiam. Non laboro, inquit, de nomine.&#10;    &lt;/p&gt;&#10;    &lt;ol&gt;&#10;      &lt;li&gt;&#10;        Itaque rursus eadem ratione, qua sum paulo ante usus, haerebitis.&#10;      &lt;/li&gt;&#10;      &lt;li&gt;&#10;        Transfer idem ad modestiam vel temperantiam, quae est moderatio &#10;        cupiditatum rationi oboediens.&#10;      &lt;/li&gt;&#10;      &lt;li&gt;&#10;        Quam illa ardentis amores excitaret sui! Cur tandem?&#10;      &lt;/li&gt;&#10;      &lt;li&gt;&#10;        Ita fit beatae vitae domina fortuna, quam Epicurus ait exiguam &#10;        intervenire sapienti.&#10;      &lt;/li&gt;&#10;      &lt;li&gt;&#10;        De malis autem et bonis ab iis animalibus, quae nondum depravata sint, &#10;        ait optime iudicari.&#10;      &lt;/li&gt;&#10;    &lt;/ol&gt;&#10;    &lt;ul&gt;&#10;      &lt;li&gt;&#10;        Atque ab isto capite fluere necesse est omnem rationem bonorum et &#10;        malorum.&#10;      &lt;/li&gt;&#10;      &lt;li&gt;&#10;        Sed quid attinet de rebus tam apertis plura requirere?&#10;      &lt;/li&gt;&#10;      &lt;li&gt;&#10;        Itaque hic ipse iam pridem est reiectus;&#10;      &lt;/li&gt;&#10;      &lt;li&gt;&#10;        Deinde disputat, quod cuiusque generis animantium statui deceat &#10;        extremum.&#10;      &lt;/li&gt;&#10;    &lt;/ul&gt;&#10;    &lt;p&gt;&#10;      Si quicquam extra virtutem habeatur in bonis. Quam ob rem tandem, &#10;      inquit, non satisfacit? Tanta vis admonitionis inest in locis; &lt;i&gt;Sed &#10;      quid sentiat, non videtis.&lt;/i&gt; Itaque fecimus. Age, inquies, ista parva &#10;      sunt.&#10;    &lt;/p&gt;&#10;  &lt;/body&gt;&#10;&lt;/html&gt;&#10;"/>
             </properties>
           </component>
         </children>
-      </grid>
+      </scrollpane>
+      <component id="5ce20" class="javax.swing.JScrollBar" binding="scrollBar1" default-binding="true">
+        <constraints border-constraint="East"/>
+        <properties>
+          <unitIncrement value="20"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

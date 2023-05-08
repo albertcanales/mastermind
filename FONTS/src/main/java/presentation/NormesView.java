@@ -1,8 +1,5 @@
 package presentation;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,6 +7,8 @@ public class NormesView {
     private final ControladorPresentacio controladorPresentacio;
     private JPanel panel;
     private JButton buttonTorna;
+    private JEditorPane editorPaneNormes;
+    private JScrollBar scrollBar1;
 
     NormesView(ControladorPresentacio controladorPresentacio) {
         this.controladorPresentacio = controladorPresentacio;
@@ -23,8 +22,7 @@ public class NormesView {
     }
 
     void initComponents() {
-
-        buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showHomeView()); //TODO: On torna depen de si hi ha usuari logged
+        buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialOrHomeView());
     }
 
     /**
@@ -43,17 +41,17 @@ public class NormesView {
         buttonTorna = new JButton();
         buttonTorna.setText("Torna");
         panel1.add(buttonTorna);
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new BorderLayout(0, 0));
-        panel.add(panel2, BorderLayout.CENTER);
-        final JTextPane textPane1 = new JTextPane();
-        textPane1.setEditable(false);
-        textPane1.setText("Normes del Mastermind");
-        panel2.add(textPane1, BorderLayout.NORTH);
-        final JTextPane textPane2 = new JTextPane();
-        textPane2.setEditable(false);
-        textPane2.setText("lapx xwxm weiokx owj wdecjicj ie x eje ce cjed jcei weweioewc, x wexe.");
-        panel2.add(textPane2, BorderLayout.CENTER);
+        final JScrollPane scrollPane1 = new JScrollPane();
+        panel.add(scrollPane1, BorderLayout.CENTER);
+        editorPaneNormes = new JEditorPane();
+        editorPaneNormes.setContentType("text/html");
+        editorPaneNormes.setEditable(false);
+        editorPaneNormes.setText("<html>\n  <head>\n    \n  </head>\n  <body>\n    <h1>\n      Bonum integritas corporis: misera debilitas.\n    </h1>\n    <p>\n      Lorem ipsum dolor sit amet, consectetur adipiscing elit. <i>Nunc vides, \n      quid faciat.</i> Duo Reges: constructio interrete. Bork De illis, cum \n      volemus.\n    </p>\n    <p>\n      Ut id aliis narrare gestiant? Neutrum vero, inquit ille. Ratio quidem \n      vestra sic cogit. Nec vero alia sunt quaerenda contra Carneadeam illam \n      sententiam. Non laboro, inquit, de nomine.\n    </p>\n    <ol>\n      <li>\n        Itaque rursus eadem ratione, qua sum paulo ante usus, haerebitis.\n      </li>\n      <li>\n        Transfer idem ad modestiam vel temperantiam, quae est moderatio \n        cupiditatum rationi oboediens.\n      </li>\n      <li>\n        Quam illa ardentis amores excitaret sui! Cur tandem?\n      </li>\n      <li>\n        Ita fit beatae vitae domina fortuna, quam Epicurus ait exiguam \n        intervenire sapienti.\n      </li>\n      <li>\n        De malis autem et bonis ab iis animalibus, quae nondum depravata sint, \n        ait optime iudicari.\n      </li>\n    </ol>\n    <ul>\n      <li>\n        Atque ab isto capite fluere necesse est omnem rationem bonorum et \n        malorum.\n      </li>\n      <li>\n        Sed quid attinet de rebus tam apertis plura requirere?\n      </li>\n      <li>\n        Itaque hic ipse iam pridem est reiectus;\n      </li>\n      <li>\n        Deinde disputat, quod cuiusque generis animantium statui deceat \n        extremum.\n      </li>\n    </ul>\n    <p>\n      Si quicquam extra virtutem habeatur in bonis. Quam ob rem tandem, \n      inquit, non satisfacit? Tanta vis admonitionis inest in locis; <i>Sed \n      quid sentiat, non videtis.</i> Itaque fecimus. Age, inquies, ista parva \n      sunt.\n    </p>\n  </body>\n</html>\n");
+        scrollPane1.setViewportView(editorPaneNormes);
+        scrollBar1 = new JScrollBar();
+        scrollBar1.setUnitIncrement(20);
+        panel.add(scrollBar1, BorderLayout.EAST);
+        scrollPane1.setVerticalScrollBar(scrollBar1);
     }
 
     /**
