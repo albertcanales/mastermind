@@ -12,7 +12,6 @@ public class NovaPartidaView {
     private JButton buttonTorna;
     private NovaPartidaMakerPanel panelMaker;
     private JButton buttonJuga;
-    private JSlider sliderDificultat;
     private JTabbedPane tabbedPane;
     private NovaPartidaBreakerPanel panelBreaker;
 
@@ -33,8 +32,17 @@ public class NovaPartidaView {
         buttonJuga.addActionListener(actionEvent -> jugaButtonClick());
     }
 
-    private void jugaButtonClick() { //TODO: cridar creacio de partida i canviar de view
-
+    private void jugaButtonClick() {
+        switch (tabbedPane.getSelectedIndex()) {
+            case 0:
+                controladorPresentacio.novaPartidaBreaker(panelBreaker.getDificultat());
+                //controladorPresentacio.showPartidaBreaker();
+                break;
+            case 1:
+                controladorPresentacio.novaPartidaMaker(panelMaker.getSolucio(), panelMaker.getAlgorisme());
+                //controladorPresentacio.showPartidaMaker();
+                break;
+        }
     }
 
     /**
