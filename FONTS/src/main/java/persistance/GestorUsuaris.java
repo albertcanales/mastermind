@@ -1,6 +1,6 @@
 package persistance;
 
-import persistance.exceptions.ElementNotFoundException;
+import persistance.exceptions.LineNotFoundException;
 import persistance.exceptions.InvalidCSVException;
 import persistance.exceptions.PersistanceException;
 
@@ -32,6 +32,7 @@ public class GestorUsuaris extends GestorCSV {
 
         gestor.esborrarUsuari("sussy");
         System.out.println(String.format("Exists user \"sussy:\" %s", gestor.existsUser("sussy")));
+        //gestor.deleteFile(gestor.absoluteUsersPath);
 
     }
     GestorUsuaris(String basePath) throws PersistanceException {
@@ -40,32 +41,34 @@ public class GestorUsuaris extends GestorCSV {
     }
 
     public Boolean existsUser(String username) throws PersistanceException {
-        try {
-            String ignore = getLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)[Header.USERNAME.number];
-        } catch (ElementNotFoundException e) {
-            return false;
-        }
-        return true;
+        return existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number);
     }
 
     public void registerUser(String username, String name, String password) throws PersistanceException {
         if (!existsUser(username)) { //TODO: Maybe not needed si Domini ens ho garanteix
             addLine(absoluteUsersPath, new String[]{username, name, password});
         }
+        if (!existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number))
+        {
+            addLine(absoluteUsersPath, new String[]{username, name, password});
+        }
+        //throws??
+
     }
 
     public String getPasswordHash(String username) throws PersistanceException {
-        try {
+        if (existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number))
+        {
             return getLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)[Header.PASSWORD.number];
-        } catch (ElementNotFoundException e) {
-            throw new InvalidCSVException(absoluteUsersPath); //TODO: Assumim que Domini ens garanteix que l'usuari existeix, llavors vol dir que l'arxiu s'ha corromput
         }
+        return null;
+
     }
 
     public String getUserName(String username) throws PersistanceException {
         try {
             return getLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)[Header.NAME.number];
-        } catch (ElementNotFoundException e) {
+        } catch (LineNotFoundException e) {
             throw new InvalidCSVException(absoluteUsersPath); //TODO: Assumim que Domini ens garanteix que l'usuari existeix, llavors vol dir que l'arxiu s'ha corromput
         }
     }
@@ -74,7 +77,7 @@ public class GestorUsuaris extends GestorCSV {
         if (existsUser(username)) { //TODO: Maybe not needed si Domini ens ho garanteix
             try {
                 removeLinebyKey(absoluteUsersPath, username, Header.USERNAME.number);
-            } catch (ElementNotFoundException e) {
+            } catch (LineNotFoundException e) {
                 throw new InvalidCSVException(absoluteUsersPath); //TODO: Assumim que Domini ens garanteix que l'usuari existeix, llavors vol dir que l'arxiu s'ha corromput
             }
         }
