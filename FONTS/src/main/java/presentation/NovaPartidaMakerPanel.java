@@ -5,6 +5,8 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NovaPartidaMakerPanel extends JPanel {
@@ -16,12 +18,6 @@ public class NovaPartidaMakerPanel extends JPanel {
     private JComboBox comboBox2;
     private JComboBox comboBox3;
     private JComboBox comboBox4;
-    private JComboBox comboBox5;
-    private JComboBox comboBox6;
-
-    private Integer algoritme;
-
-    private List<Integer> solucio;
 
     //TODO: Canviar els parametres de la partida a crear segons la interaccio amb la UI
     //TODO: Representar adequadament la seleccio de la sequencia solucio
@@ -31,17 +27,70 @@ public class NovaPartidaMakerPanel extends JPanel {
     }
 
     void initComponents() {
+        initComboBox();
 
-        radioButtonFiveGuess.addActionListener(actionEvent -> algoritme = 1);
-        radioButtonGenetic.addActionListener(actionEvent -> algoritme = 2);
+        comboBox1.addActionListener(actionEvent -> colorComboBox(actionEvent));
+        comboBox2.addActionListener(actionEvent -> colorComboBox(actionEvent));
+        comboBox3.addActionListener(actionEvent -> colorComboBox(actionEvent));
+        comboBox4.addActionListener(actionEvent -> colorComboBox(actionEvent));
+    }
+
+    private void colorComboBox(ActionEvent actionEvent) {
+        JComboBox comboBox = (JComboBox) actionEvent.getSource();
+        Object value = comboBox.getSelectedItem();
+
+        if (value.equals(1)) comboBox.setForeground(Color.WHITE);
+        else if (value.equals(2)) comboBox.setForeground(Color.BLACK);
+        else if (value.equals(3)) comboBox.setForeground(Color.RED);
+        else if (value.equals(4)) comboBox.setForeground(Color.BLUE);
+        else if (value.equals(5)) comboBox.setForeground(Color.ORANGE);
+        else if (value.equals(6)) comboBox.setForeground(Color.PINK);
+    }
+
+    class MyRenderer extends DefaultListCellRenderer {
+        public Component getListCellRendererComponent(JList list, Object value,
+                                                      int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value.equals(0)) lbl.setText("");
+            else lbl.setText("O");
+
+            if (value.equals(1)) lbl.setForeground(Color.WHITE);
+            else if (value.equals(2)) lbl.setForeground(Color.BLACK);
+            else if (value.equals(3)) lbl.setForeground(Color.RED);
+            else if (value.equals(4)) lbl.setForeground(Color.BLUE);
+            else if (value.equals(5)) lbl.setForeground(Color.ORANGE);
+            else if (value.equals(6)) lbl.setForeground(Color.PINK);
+
+            return lbl;
+        }
+    }
+
+    public void initComboBox() {
+        Integer color_options[] = {0, 1, 2, 3, 4, 5, 6};
+        DefaultComboBoxModel model = new DefaultComboBoxModel<>(color_options);
+
+        comboBox1.setModel(new DefaultComboBoxModel<>(color_options));
+        comboBox2.setModel(new DefaultComboBoxModel<>(color_options));
+        comboBox3.setModel(new DefaultComboBoxModel<>(color_options));
+        comboBox4.setModel(new DefaultComboBoxModel<>(color_options));
+        comboBox1.setRenderer(new MyRenderer());
+        comboBox2.setRenderer(new MyRenderer());
+        comboBox3.setRenderer(new MyRenderer());
+        comboBox4.setRenderer(new MyRenderer());
     }
 
     Integer getAlgorisme() {
-        return algoritme;
+        if (radioButtonFiveGuess.isSelected()) return 1;
+        else return 2; //radioButtonGenetic.isSelected()
     }
 
     List<Integer> getSolucio() {
-        return null;
+        List<Integer> solucio = new ArrayList<>();
+        solucio.add((Integer) comboBox1.getSelectedItem());
+        solucio.add((Integer) comboBox2.getSelectedItem());
+        solucio.add((Integer) comboBox3.getSelectedItem());
+        solucio.add((Integer) comboBox4.getSelectedItem());
+        return solucio;
     }
 
     /**
@@ -86,10 +135,6 @@ public class NovaPartidaMakerPanel extends JPanel {
         panel2.add(comboBox3);
         comboBox4 = new JComboBox();
         panel2.add(comboBox4);
-        comboBox5 = new JComboBox();
-        panel2.add(comboBox5);
-        comboBox6 = new JComboBox();
-        panel2.add(comboBox6);
         ButtonGroup buttonGroup;
         buttonGroup = new ButtonGroup();
         buttonGroup.add(radioButtonFiveGuess);

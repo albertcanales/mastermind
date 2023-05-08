@@ -4,6 +4,7 @@ import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class NovaPartidaView {
 
@@ -39,7 +40,14 @@ public class NovaPartidaView {
                 //controladorPresentacio.showPartidaBreaker();
                 break;
             case 1:
-                controladorPresentacio.novaPartidaMaker(panelMaker.getSolucio(), panelMaker.getAlgorisme());
+                List<Integer> solucio = panelMaker.getSolucio();
+                for (int i = 0; i < solucio.size(); ++i) {
+                    if (solucio.get(i) == 0) {
+                        controladorPresentacio.showWarningDialog("No s'ha pogut crear la partida", "Hi ha una bola buida a la seqüència solució");
+                        return;
+                    }
+                }
+                controladorPresentacio.novaPartidaMaker(solucio, panelMaker.getAlgorisme());
                 //controladorPresentacio.showPartidaMaker();
                 break;
         }

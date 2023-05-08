@@ -13,8 +13,6 @@ public class NovaPartidaBreakerPanel extends JPanel {
     private JPanel panel;
     private JSlider sliderDificultat;
 
-    private Integer dificultat;
-
     NovaPartidaBreakerPanel() {
         $$$setupUI$$$();
         initComponents();
@@ -22,8 +20,6 @@ public class NovaPartidaBreakerPanel extends JPanel {
 
     void initComponents() {
         initSlider();
-
-        sliderDificultat.addChangeListener(changeEvent -> chooseDificultatSliderChange());
     }
 
     private void initSlider() {
@@ -34,12 +30,8 @@ public class NovaPartidaBreakerPanel extends JPanel {
         sliderDificultat.setLabelTable(labelTable);
     }
 
-    private void chooseDificultatSliderChange() {
-        dificultat = sliderDificultat.getValue();
-    }
-
     Integer getDificultat() {
-        return dificultat;
+        return sliderDificultat.getValue();
     }
 
     /**
