@@ -11,39 +11,35 @@ import java.util.Hashtable;
 public class NovaPartidaBreakerPanel extends JPanel {
 
     private JPanel panel;
-    private JRadioButton radioButton1;
-    private JRadioButton radioButton2;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
-    private JComboBox comboBox3;
-    private JComboBox comboBox4;
-    private JComboBox comboBox5;
-    private JComboBox comboBox6;
-    private JPanel panel1;
     private JSlider sliderDificultat;
+
+    private Integer dificultat;
 
     NovaPartidaBreakerPanel() {
         $$$setupUI$$$();
         initComponents();
     }
 
-    void initComponents() { //TODO: Canviar els parametres de la partida a crear segons la interaccio amb la UI
+    void initComponents() {
         initSlider();
+
+        sliderDificultat.addChangeListener(changeEvent -> chooseDificultatSliderChange());
     }
 
     private void initSlider() {
         Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
-        labelTable.put(new Integer(1),
-                new JLabel("Facil"));
-        labelTable.put(new Integer(2),
-                new JLabel("Mitja"));
-        labelTable.put(new Integer(3),
-                new JLabel("Dificil"));
+        labelTable.put(1, new JLabel("Facil"));
+        labelTable.put(2, new JLabel("Mitja"));
+        labelTable.put(3, new JLabel("Dificil"));
         sliderDificultat.setLabelTable(labelTable);
     }
 
-    Integer getAlgorisme() {
-        return null;
+    private void chooseDificultatSliderChange() {
+        dificultat = sliderDificultat.getValue();
+    }
+
+    Integer getDificultat() {
+        return dificultat;
     }
 
     /**
@@ -54,14 +50,14 @@ public class NovaPartidaBreakerPanel extends JPanel {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        panel1 = new JPanel();
-        panel1.setLayout(new BorderLayout(0, 0));
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout(0, 0));
         final JLabel label1 = new JLabel();
         label1.setText("Dificultat:");
-        panel1.add(label1, BorderLayout.NORTH);
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayoutManager(1, 3, new Insets(0, 0, 0, 0), -1, -1));
-        panel1.add(panel2, BorderLayout.CENTER);
+        panel.add(label1, BorderLayout.NORTH);
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new GridLayoutManager(1, 3, new Insets(0, 0, 0, 0), -1, -1));
+        panel.add(panel1, BorderLayout.CENTER);
         sliderDificultat = new JSlider();
         sliderDificultat.setMajorTickSpacing(3);
         sliderDificultat.setMaximum(3);
@@ -71,18 +67,18 @@ public class NovaPartidaBreakerPanel extends JPanel {
         sliderDificultat.setPaintTicks(false);
         sliderDificultat.setPaintTrack(true);
         sliderDificultat.setValue(2);
-        panel2.add(sliderDificultat, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(sliderDificultat, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
-        panel2.add(spacer1, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        panel1.add(spacer1, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
-        panel2.add(spacer2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        panel1.add(spacer2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     }
 
     /**
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {
-        return panel1;
+        return panel;
     }
 
 }

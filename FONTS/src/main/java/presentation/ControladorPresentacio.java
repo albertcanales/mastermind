@@ -7,6 +7,7 @@ import domain.exceptions.NotLoggedInException;
 import persistance.exceptions.PersistanceException;
 
 import javax.swing.*;
+import java.util.List;
 
 /**
  * Controlador de Presentació
@@ -85,6 +86,24 @@ public class ControladorPresentacio {
             controladorDomini.carregarPartida();
         } catch (DomainException e) {
             showErrorDialog("No s'ha pogut carregar la partida");
+            e.printStackTrace();
+        }
+    }
+
+    public void novaPartidaMaker(List<Integer> solucio, Integer algorisme){
+        try {
+            controladorDomini.novaPartidaMaker(solucio, algorisme);
+        } catch (DomainException e){
+            showErrorDialog("No s'ha pogut crear la partida");
+            e.printStackTrace();
+        }
+    }
+
+    public void novaPartidaBreaker(Integer nivellDificultat){
+        try {
+            controladorDomini.novaPartidaBreaker(nivellDificultat);
+        } catch (DomainException e){
+            showErrorDialog("No s'ha pogut crear la partida");
             e.printStackTrace();
         }
     }
