@@ -12,13 +12,9 @@ public class ControladorPersistencia {
     public ControladorPersistencia() throws PersistanceException {
         gestorUsuaris = new GestorUsuaris(basePath);
     }
-    public Boolean existsUser(String username) {
-        try {
-            return gestorUsuaris.existsUser(username);
-        } catch (PersistanceException e) {
-            System.out.println("Guarrada temporal"); //TODO: Excepcions ben fetes
-        }
-        return false;
+    public Boolean existsUser(String username) throws PersistanceException {
+        return gestorUsuaris.existsUser(username);
+
     }
 
     public void registerUser(String username, String name, String password) throws PersistanceException {
@@ -155,8 +151,8 @@ public class ControladorPersistencia {
         System.out.println("Sóc persistència, entraria la partida guardada als registres però sóc un Mock!");
     }
 
-    public void esborrarUsuari(String username) {
-        System.out.println("Sóc persistència, esborraria l'usuari però sóc un Mock!");
+    public void esborrarUsuari(String username) throws PersistanceException {
+        gestorUsuaris.esborrarUsuari(username);
     }
 
     public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) {

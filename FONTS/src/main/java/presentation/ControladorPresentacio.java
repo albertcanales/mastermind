@@ -33,14 +33,20 @@ public class ControladorPresentacio {
     }
 
     public Boolean existsUser(String username) {
-        return controladorDomini.existsUser(username);
+        try {
+            return controladorDomini.existsUser(username);
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut comprovar si existeix l'usuari");
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void registerUser(String username, String name, String password) {
         try {
             controladorDomini.registerUser(username, name, password);
         } catch (DomainException e) {
-            showErrorDialog("No s'ha pogut registrar d'usuari");
+            showErrorDialog("No s'ha pogut registrar l'usuari");
             e.printStackTrace();
         }
     }

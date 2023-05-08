@@ -48,7 +48,7 @@ public class ControladorDomini {
      * @param username username de l'usuari a comprovar
      * @return si l'usuari donat existeix
      */
-    public Boolean existsUser(String username) {
+    public Boolean existsUser(String username) throws DomainException {
         return controladorPersistencia.existsUser(username);
     }
 
