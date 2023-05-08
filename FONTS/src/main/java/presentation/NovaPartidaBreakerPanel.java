@@ -12,7 +12,6 @@ public class NovaPartidaBreakerPanel extends JPanel {
 
     private JPanel panel;
     private JSlider sliderDificultat;
-    private Integer dificultat;
 
     NovaPartidaBreakerPanel() {
         $$$setupUI$$$();

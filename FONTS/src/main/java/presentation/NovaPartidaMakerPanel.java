@@ -19,8 +19,6 @@ public class NovaPartidaMakerPanel extends JPanel {
     private JComboBox comboBox3;
     private JComboBox comboBox4;
 
-    private Integer algoritme;
-
     //TODO: Canviar els parametres de la partida a crear segons la interaccio amb la UI
     //TODO: Representar adequadament la seleccio de la sequencia solucio
     NovaPartidaMakerPanel() {
@@ -53,7 +51,9 @@ public class NovaPartidaMakerPanel extends JPanel {
         public Component getListCellRendererComponent(JList list, Object value,
                                                       int index, boolean isSelected, boolean cellHasFocus) {
             JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            lbl.setText("O");
+            if (value.equals(0)) lbl.setText("");
+            else lbl.setText("O");
+
             if (value.equals(1)) lbl.setForeground(Color.WHITE);
             else if (value.equals(2)) lbl.setForeground(Color.BLACK);
             else if (value.equals(3)) lbl.setForeground(Color.RED);
@@ -66,7 +66,7 @@ public class NovaPartidaMakerPanel extends JPanel {
     }
 
     public void initComboBox() {
-        Integer color_options[] = {1, 2, 3, 4, 5, 6};
+        Integer color_options[] = {0, 1, 2, 3, 4, 5, 6};
         DefaultComboBoxModel model = new DefaultComboBoxModel<>(color_options);
 
         comboBox1.setModel(new DefaultComboBoxModel<>(color_options));
