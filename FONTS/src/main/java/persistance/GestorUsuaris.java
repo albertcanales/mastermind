@@ -1,5 +1,6 @@
 package persistance;
 
+import persistance.exceptions.LineAlreadyExistsException;
 import persistance.exceptions.LineNotFoundException;
 import persistance.exceptions.InvalidCSVException;
 import persistance.exceptions.PersistanceException;
@@ -45,41 +46,40 @@ public class GestorUsuaris extends GestorCSV {
     }
 
     public void registerUser(String username, String name, String password) throws PersistanceException {
-        if (!existsUser(username)) { //TODO: Maybe not needed si Domini ens ho garanteix
-            addLine(absoluteUsersPath, new String[]{username, name, password});
-        }
         if (!existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number))
         {
             addLine(absoluteUsersPath, new String[]{username, name, password});
         }
-        //throws??
+        else {
+            throw new LineAlreadyExistsException(username, absoluteUsersPath);
+        }
 
     }
 
     public String getPasswordHash(String username) throws PersistanceException {
-        if (existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number))
-        {
+        if (existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)) {
             return getLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)[Header.PASSWORD.number];
         }
-        return null;
-
+        else {
+            throw new LineNotFoundException(username, absoluteUsersPath);
+        }
     }
 
     public String getUserName(String username) throws PersistanceException {
-        try {
+        if (existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)) {
             return getLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)[Header.NAME.number];
-        } catch (LineNotFoundException e) {
-            throw new InvalidCSVException(absoluteUsersPath); //TODO: Assumim que Domini ens garanteix que l'usuari existeix, llavors vol dir que l'arxiu s'ha corromput
+        }
+        else {
+            throw new LineNotFoundException(username, absoluteUsersPath);
         }
     }
 
     public void esborrarUsuari(String username) throws PersistanceException {
-        if (existsUser(username)) { //TODO: Maybe not needed si Domini ens ho garanteix
-            try {
+        if (existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)) {
                 removeLinebyKey(absoluteUsersPath, username, Header.USERNAME.number);
-            } catch (LineNotFoundException e) {
-                throw new InvalidCSVException(absoluteUsersPath); //TODO: Assumim que Domini ens garanteix que l'usuari existeix, llavors vol dir que l'arxiu s'ha corromput
-            }
+        }
+        else {
+            throw new LineNotFoundException(username, absoluteUsersPath);
         }
     }
 
