@@ -14,10 +14,10 @@ public class NovaPartidaMakerPanel extends JPanel {
     private JPanel panel;
     private JRadioButton radioButtonFiveGuess;
     private JRadioButton radioButtonGenetic;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
-    private JComboBox comboBox3;
-    private JComboBox comboBox4;
+    private JComboBox<Integer> comboBox1;
+    private JComboBox<Integer> comboBox2;
+    private JComboBox<Integer> comboBox3;
+    private JComboBox<Integer> comboBox4;
 
     //TODO: Canviar els parametres de la partida a crear segons la interaccio amb la UI
     //TODO: Representar adequadament la seleccio de la sequencia solucio
@@ -29,14 +29,14 @@ public class NovaPartidaMakerPanel extends JPanel {
     void initComponents() {
         initComboBox();
 
-        comboBox1.addActionListener(actionEvent -> colorComboBox(actionEvent));
-        comboBox2.addActionListener(actionEvent -> colorComboBox(actionEvent));
-        comboBox3.addActionListener(actionEvent -> colorComboBox(actionEvent));
-        comboBox4.addActionListener(actionEvent -> colorComboBox(actionEvent));
+        comboBox1.addActionListener(this::colorComboBox);
+        comboBox2.addActionListener(this::colorComboBox);
+        comboBox3.addActionListener(this::colorComboBox);
+        comboBox4.addActionListener(this::colorComboBox);
     }
 
     private void colorComboBox(ActionEvent actionEvent) {
-        JComboBox comboBox = (JComboBox) actionEvent.getSource();
+        JComboBox<Integer> comboBox = (JComboBox<Integer>) actionEvent.getSource();
         Object value = comboBox.getSelectedItem();
 
         if (value.equals(1)) comboBox.setForeground(Color.WHITE);
@@ -47,7 +47,7 @@ public class NovaPartidaMakerPanel extends JPanel {
         else if (value.equals(6)) comboBox.setForeground(Color.PINK);
     }
 
-    class MyRenderer extends DefaultListCellRenderer {
+    static class MyRenderer extends DefaultListCellRenderer {
         public Component getListCellRendererComponent(JList list, Object value,
                                                       int index, boolean isSelected, boolean cellHasFocus) {
             JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -66,8 +66,8 @@ public class NovaPartidaMakerPanel extends JPanel {
     }
 
     public void initComboBox() {
-        Integer color_options[] = {0, 1, 2, 3, 4, 5, 6};
-        DefaultComboBoxModel model = new DefaultComboBoxModel<>(color_options);
+        Integer[] color_options = {0, 1, 2, 3, 4, 5, 6};
+        DefaultComboBoxModel<Integer> model = new DefaultComboBoxModel<>(color_options);
 
         comboBox1.setModel(new DefaultComboBoxModel<>(color_options));
         comboBox2.setModel(new DefaultComboBoxModel<>(color_options));
