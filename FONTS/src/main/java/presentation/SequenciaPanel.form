@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="presentation.SequenciaPanel">
+  <grid id="27dc6" binding="panel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <nested-form id="f5ea7" form-file="presentation/BolaButton.form" binding="bolaButton1">
+        <constraints/>
+      </nested-form>
+      <nested-form id="9dc82" form-file="presentation/BolaButton.form" binding="bolaButton2">
+        <constraints/>
+      </nested-form>
+      <nested-form id="3dd7b" form-file="presentation/BolaButton.form" binding="bolaButton3">
+        <constraints/>
+      </nested-form>
+      <nested-form id="774ee" form-file="presentation/BolaButton.form" binding="bolaButton4">
+        <constraints/>
+      </nested-form>
+    </children>
+  </grid>
+</form>
