@@ -48,7 +48,9 @@ public class GestorCSVFile {
 
         if (hasJustBeenCreated) addLine(header); //Si l'acabem de crear, posem el header
         else {
-            if (!Arrays.equals(getLines().get(headerPos), header)) throw new InvalidCSVException(file.getName()); //Si existeix i el header és erroni tirem excepció
+            if (!Arrays.equals(readAllLines().get(headerPos), header)) {
+                throw new InvalidCSVException(file.getName()); //Si existeix i el header és erroni tirem excepció
+            }
         }
 
         this.keyPos = keyPos;

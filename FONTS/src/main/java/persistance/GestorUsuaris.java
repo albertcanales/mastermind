@@ -107,7 +107,7 @@ public class GestorUsuaris {
          * @return un array d'strings
          */
         private static String[] getHeader() {
-            String[] header = new String[values().length + 1];
+            String[] header = new String[values().length];
 
             for(int i = 0; i < values().length; ++i){
                 header[i] = values()[i].name();

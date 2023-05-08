@@ -102,7 +102,7 @@ public class DominiDriver extends ControladorDriver {
             System.out.println("The given user data is invalid");
     }
 
-    private static void testExistsUser() {
+    private static void testExistsUser() throws DomainException {
         System.out.println("Testing existsUser...");
 
         System.out.print("Enter un username: ");
