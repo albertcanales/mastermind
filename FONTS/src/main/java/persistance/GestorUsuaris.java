@@ -2,7 +2,6 @@ package persistance;
 
 import persistance.exceptions.LineAlreadyExistsException;
 import persistance.exceptions.LineNotFoundException;
-import persistance.exceptions.InvalidCSVException;
 import persistance.exceptions.PersistanceException;
 
 
@@ -11,13 +10,14 @@ import persistance.exceptions.PersistanceException;
  *
  * @author Arnau Valls Fusté
  */
-public class GestorUsuaris extends GestorCSV {
+public class GestorUsuaris {
 
     private static final String relativeUsersPath = "users/users.csv";
-    private final String absoluteUsersPath;
+
+    private final GestorCSVFile csvFile;
 
     public static void main(String[] args) throws PersistanceException {
-        GestorUsuaris gestor = new GestorUsuaris("./");
+        GestorUsuaris gestor = new GestorUsuaris("./db/");
 
         gestor.registerUser("arnau", "Arnau", "securepass");
         gestor.registerUser("sussy", "Amongus", "securepass2");
@@ -33,53 +33,53 @@ public class GestorUsuaris extends GestorCSV {
 
         gestor.esborrarUsuari("sussy");
         System.out.println(String.format("Exists user \"sussy:\" %s", gestor.existsUser("sussy")));
-        //gestor.deleteFile(gestor.absoluteUsersPath);
+
 
     }
     GestorUsuaris(String basePath) throws PersistanceException {
-        this.absoluteUsersPath = basePath + relativeUsersPath;
-        createFileandDir(absoluteUsersPath, Header.getHeader());
+        csvFile = new GestorCSVFile(basePath + relativeUsersPath, Header.getHeader(), Header.USERNAME.number);
+
     }
 
     public Boolean existsUser(String username) throws PersistanceException {
-        return existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number);
+        return csvFile.existsLinebyKey(username);
     }
 
     public void registerUser(String username, String name, String password) throws PersistanceException {
-        if (!existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number))
+        if (!csvFile.existsLinebyKey(username))
         {
-            addLine(absoluteUsersPath, new String[]{username, name, password});
+            csvFile.addLine(new String[]{username, name, password});
         }
         else {
-            throw new LineAlreadyExistsException(username, absoluteUsersPath);
+            throw new LineAlreadyExistsException(username, relativeUsersPath);
         }
 
     }
 
     public String getPasswordHash(String username) throws PersistanceException {
-        if (existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)) {
-            return getLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)[Header.PASSWORD.number];
+        if (csvFile.existsLinebyKey(username)) {
+            return csvFile.getLinebyKey(username)[Header.PASSWORD.number];
         }
         else {
-            throw new LineNotFoundException(username, absoluteUsersPath);
+            throw new LineNotFoundException(username, relativeUsersPath);
         }
     }
 
     public String getUserName(String username) throws PersistanceException {
-        if (existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)) {
-            return getLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)[Header.NAME.number];
+        if (csvFile.existsLinebyKey(username)) {
+            return csvFile.getLinebyKey(username)[Header.NAME.number];
         }
         else {
-            throw new LineNotFoundException(username, absoluteUsersPath);
+            throw new LineNotFoundException(username, relativeUsersPath);
         }
     }
 
     public void esborrarUsuari(String username) throws PersistanceException {
-        if (existsLinebyKey(absoluteUsersPath, username, Header.USERNAME.number)) {
-                removeLinebyKey(absoluteUsersPath, username, Header.USERNAME.number);
+        if (csvFile.existsLinebyKey(username)) {
+            csvFile.removeLinebyKey(username);
         }
         else {
-            throw new LineNotFoundException(username, absoluteUsersPath);
+            throw new LineNotFoundException(username, relativeUsersPath);
         }
     }
 
