@@ -117,7 +117,20 @@ public class ControladorPersistencia {
         return intents;
     }
 
+    public List<List<Integer>> setIntentsPartidaGuardada(String username) {
+        List<List<Integer>> intents =  new ArrayList<>();
+        intents.add(List.of(3, 2, 3, 6));
+        intents.add(List.of(0, 1, 0, 0));
+        return intents;
+    }
+
     public List<List<Integer>> getFeedbackPartidaGuardada(String username) {
+        List<List<Integer>> feedbacks =  new ArrayList<>();
+        feedbacks.add(List.of(2, 2, 1, 0));
+        return feedbacks;
+    }
+
+    public List<List<Integer>> setFeedbackPartidaGuardada(String username) {
         List<List<Integer>> feedbacks =  new ArrayList<>();
         feedbacks.add(List.of(2, 2, 1, 0));
         return feedbacks;
@@ -153,12 +166,13 @@ public class ControladorPersistencia {
 
     public void esborrarUsuari(String username) throws PersistanceException {
         gestorUsuaris.esborrarUsuari(username);
+        //TODO: esborrar Usuari de PartidesActuals
     }
 
-    public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) {
+    public void novaPartidaMaker(String username, List<Integer> solucio, Integer algorisme) {
         System.out.println("Sóc persistència, substituiria la partida guardada però sóc un Mock!");
     }
-    public void novaPartidaBreaker(Integer nivellDificultat) {
+    public void novaPartidaBreaker(String username, Integer nivellDificultat) {
         System.out.println("Sóc persistència, substituiria la partida guardada però sóc un Mock!");
     }
 }
