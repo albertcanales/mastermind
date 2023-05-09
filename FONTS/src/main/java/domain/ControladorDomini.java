@@ -138,7 +138,8 @@ public class ControladorDomini {
         if(!userLoggedIn())
             throw new NotLoggedInException();
         controladorPartida.novaPartidaBreaker(nivellDificultat);
-        controladorPersistencia.novaPartidaBreaker(user.getUsername(), nivellDificultat);
+        List<Integer> solucio = controladorPartida.getSequenciaSolucio();
+        controladorPersistencia.novaPartidaBreaker(user.getUsername(), nivellDificultat, solucio);
     }
 
     /**

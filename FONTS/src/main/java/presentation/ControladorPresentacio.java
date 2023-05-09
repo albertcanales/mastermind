@@ -2,8 +2,6 @@ package presentation;
 
 import domain.ControladorDomini;
 import domain.exceptions.DomainException;
-import domain.exceptions.NoGameSavedException;
-import domain.exceptions.NotLoggedInException;
 import persistance.exceptions.PersistanceException;
 
 import javax.swing.*;
@@ -18,6 +16,9 @@ public class ControladorPresentacio {
     private final ControladorDomini controladorDomini;
     private final MainFrame mainFrame;
 
+    /**
+     * Constructor del Controlador de Presentació
+     */
     ControladorPresentacio() {
         ControladorDomini controladorDomini;
         mainFrame = new MainFrame();
@@ -29,10 +30,19 @@ public class ControladorPresentacio {
         this.controladorDomini = controladorDomini;
     }
 
+    /**
+     * Mètode per saber si un usuari donat és vàlid (bon format)
+     * @param username Username a comprovar
+     * @param name Nom a comprovar
+     */
     public Boolean isValidUser(String username, String name, String password) {
         return controladorDomini.isValidUser(username, name, password);
     }
 
+    /**
+     * Mètode per saber si un usuari existeix. Es mostra un error si hi ha problemes d'accés a la DB.
+     * @param username Username a comprovar
+     */
     public Boolean existsUser(String username) {
         try {
             return controladorDomini.existsUser(username);
@@ -43,6 +53,12 @@ public class ControladorPresentacio {
         return false;
     }
 
+    /**
+     * Mètode per registrar un usuari. Es mostra un error si ja existeix.
+     * @param username Username a registrar
+     * @param name Nom a registrar
+     * @param password Contrasenya a registrar
+     */
     public void registerUser(String username, String name, String password) {
         try {
             controladorDomini.registerUser(username, name, password);
@@ -52,6 +68,11 @@ public class ControladorPresentacio {
         }
     }
 
+    /**
+     * Mètode per iniciar sessió d'un usuari. Es mostra un error si no existeix.
+     * @param username Username per l'inici de sessió
+     * @param password Contrasenya per l'inici de sessió
+     */
     public Boolean loginUser(String username, String password) {
         try {
             return controladorDomini.loginUser(username, password);
@@ -62,6 +83,9 @@ public class ControladorPresentacio {
         return false;
     }
 
+    /**
+     * Mètode per tancar una sessió. Es mostra un error si no estava iniciada.
+     */
     public void logoutUser() {
         try {
             controladorDomini.logoutUser();
@@ -71,6 +95,10 @@ public class ControladorPresentacio {
         }
     }
 
+    /**
+     * Mètode saber si hi ha una partida guardada. Es mostra un error si no s'ha iniciat sessió.
+     * @return Si existeix la partida guardada. En cas d'error, es retorna fals.
+     */
     public Boolean existsPartidaGuardada() {
         try {
             return controladorDomini.existsPartidaGuardada();
@@ -81,6 +109,9 @@ public class ControladorPresentacio {
         return false;
     }
 
+    /**
+     * Mètode per carregar la partida guardada. Es mostra un error si no existeix.
+     */
     public void carregarPartida() {
         try {
             controladorDomini.carregarPartida();
@@ -90,6 +121,11 @@ public class ControladorPresentacio {
         }
     }
 
+    /**
+     * Mètode per iniciar una nova partida com a Maker. Es mostra un error en cas de no poder crear-la
+     * @param solucio Solució per a la nova partida
+     * @param algorisme ALgorisme per a la nova partida
+     */
     public void novaPartidaMaker(List<Integer> solucio, Integer algorisme){
         try {
             controladorDomini.novaPartidaMaker(solucio, algorisme);
@@ -99,6 +135,10 @@ public class ControladorPresentacio {
         }
     }
 
+    /**
+     * Mètode per iniciar una nova partida com a Breaker. Es mostra un error en cas de no poder crear-la
+     * @param nivellDificultat NivellDificultat per la nova partida
+     */
     public void novaPartidaBreaker(Integer nivellDificultat){
         try {
             controladorDomini.novaPartidaBreaker(nivellDificultat);
@@ -108,6 +148,9 @@ public class ControladorPresentacio {
         }
     }
 
+    /**
+     * Punt d'entrada per mostrar l'aplicació
+     */
     void run() {
         if(controladorDomini == null)
             showErrorDialog("No s'ha pogut iniciar la base de dades");
@@ -115,39 +158,66 @@ public class ControladorPresentacio {
             showInitialView();
     }
 
+    /**
+     * Mètode per assignar el contingut del frame de l'aplicació
+     * @param panel Contingut a assignar
+     */
     void setContent(JPanel panel) {
         mainFrame.setContent(panel);
     }
 
+    /**
+     * Mètode per assignar el títol del frame de l'aplicació
+     * @param title Títol a assignar
+     */
     public void setTitle(String title) {
         mainFrame.setTitle(title);
     }
 
+    /**
+     * Mètode per mostrar la vista InitialView
+     */
     void showInitialView() {
         InitialView initialView = new InitialView(this);
         initialView.show();
     }
 
+    /**
+     * Mètode per mostrar la vista RegisterView
+     */
     void showRegisterView() {
         RegisterView registerView = new RegisterView(this);
         registerView.show();
     }
 
+    /**
+     * Mètode per mostrar la vista LoginView
+     */
     void showLoginView() {
         LoginView loginView = new LoginView(this);
         loginView.show();
     }
 
+    /**
+     * Mètode per mostrar la vista HomeView
+     */
     void showHomeView() {
         HomeView homeView = new HomeView(this);
         homeView.show();
     }
 
+    /**
+     * Mètode per mostrar la vista NormesView
+     */
     void showNormesView() {
          NormesView normesView = new NormesView(this);
          normesView.show();
     }
 
+    /**
+     * Mètode per mostrar la vista HomeView o InitialView,
+     * en funció de si l'usuari ha iniciat sessió o no (respectivament)
+     */
     void showInitialOrHomeView() {
         if(controladorDomini.userLoggedIn())
             showHomeView();
@@ -155,22 +225,37 @@ public class ControladorPresentacio {
             showInitialView();
     }
 
+    /**
+     * Mètode per mostrar la vista RankingView
+     */
     void showRankingView() {
         // RankingView rankingView = new RankingView(this);
         // rankingView.show();
     }
 
+    /**
+     * Mètode per mostrar la vista NovaPartidaView
+     */
     void showNovaPartidaView() {
         NovaPartidaView novaPartidaView = new NovaPartidaView(this);
         novaPartidaView.show();
     }
 
+    /**
+     * Mètode per mostrar un diàleg de warning
+     * @param title Títol del diàleg
+     * @param message Missatge del diàleg
+     */
     void showWarningDialog(String title, String message) {
         mainFrame.showWarningDialog(title, message);
     }
 
+    /**
+     * Mètode per mostrar un diàleg d'error
+     * @param message Missatge del diàleg
+     */
     void showErrorDialog(String message) {
-        mainFrame.showErrorDialog("Error Intern", message);
+        mainFrame.showErrorDialog(message);
     }
 
 }

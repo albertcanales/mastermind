@@ -172,7 +172,7 @@ public class ControladorPersistencia {
     public void novaPartidaMaker(String username, List<Integer> solucio, Integer algorisme) {
         System.out.println("Sóc persistència, substituiria la partida guardada però sóc un Mock!");
     }
-    public void novaPartidaBreaker(String username, Integer nivellDificultat) {
+    public void novaPartidaBreaker(String username, Integer nivellDificultat, List<Integer> solucio) {
         System.out.println("Sóc persistència, substituiria la partida guardada però sóc un Mock!");
     }
 }
