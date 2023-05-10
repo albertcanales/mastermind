@@ -10,17 +10,30 @@ import java.util.List;
 
 /**
  * Controlador de Presentació
+ * Segueix el patró de Singleton
  * @author Albert Canales
  */
 public class ControladorPresentacio {
 
+    /**
+     * Instància de la classe per la implementació del patró Singleton
+     */
+    private static final ControladorPresentacio instance = new ControladorPresentacio();
+
+    /**
+     * Instància del controlador de domini
+     */
     private final ControladorDomini controladorDomini;
+
+    /**
+     * Frame de l'aplicació
+     */
     private final MainFrame mainFrame;
 
     /**
-     * Constructor del Controlador de Presentació
+     * Constructor del Controlador de Presentació, privat perquè és un Singleton
      */
-    ControladorPresentacio() {
+    private ControladorPresentacio() {
         ControladorDomini controladorDomini;
         mainFrame = new MainFrame();
         try {
@@ -29,6 +42,13 @@ public class ControladorPresentacio {
             controladorDomini = null;
         }
         this.controladorDomini = controladorDomini;
+    }
+
+    /**
+     * Mètode per obtenir l'única instància del controlador de presentació
+     */
+    public static ControladorPresentacio getInstance() {
+        return instance;
     }
 
     /**
@@ -179,7 +199,7 @@ public class ControladorPresentacio {
      * Mètode per mostrar la vista InitialView
      */
     void showInitialView() {
-        InitialView initialView = new InitialView(this);
+        InitialView initialView = new InitialView();
         initialView.show();
     }
 
@@ -187,7 +207,7 @@ public class ControladorPresentacio {
      * Mètode per mostrar la vista RegisterView
      */
     void showRegisterView() {
-        RegisterView registerView = new RegisterView(this);
+        RegisterView registerView = new RegisterView();
         registerView.show();
     }
 
@@ -195,7 +215,7 @@ public class ControladorPresentacio {
      * Mètode per mostrar la vista LoginView
      */
     void showLoginView() {
-        LoginView loginView = new LoginView(this);
+        LoginView loginView = new LoginView();
         loginView.show();
     }
 
@@ -203,7 +223,7 @@ public class ControladorPresentacio {
      * Mètode per mostrar la vista HomeView
      */
     void showHomeView() {
-        HomeView homeView = new HomeView(this);
+        HomeView homeView = new HomeView();
         homeView.show();
     }
 
@@ -211,7 +231,7 @@ public class ControladorPresentacio {
      * Mètode per mostrar la vista NormesView
      */
     void showNormesView() {
-         NormesView normesView = new NormesView(this);
+         NormesView normesView = new NormesView();
          normesView.show();
     }
 
@@ -230,7 +250,7 @@ public class ControladorPresentacio {
      * Mètode per mostrar la vista RankingView
      */
     void showRankingView() {
-        // RankingView rankingView = new RankingView(this);
+        // RankingView rankingView = new RankingView();
         // rankingView.show();
     }
 
@@ -238,7 +258,7 @@ public class ControladorPresentacio {
      * Mètode per mostrar la vista NovaPartidaView
      */
     void showNovaPartidaView() {
-        NovaPartidaView novaPartidaView = new NovaPartidaView(this);
+        NovaPartidaView novaPartidaView = new NovaPartidaView();
         novaPartidaView.show();
     }
 

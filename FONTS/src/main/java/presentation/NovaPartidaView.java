@@ -16,8 +16,8 @@ public class NovaPartidaView {
     private JTabbedPane tabbedPane;
     private NovaPartidaBreakerPanel panelBreaker;
 
-    NovaPartidaView(ControladorPresentacio controladorPresentacio) {
-        this.controladorPresentacio = controladorPresentacio;
+    NovaPartidaView() {
+        controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }

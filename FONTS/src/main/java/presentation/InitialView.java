@@ -41,10 +41,9 @@ public class InitialView {
 
     /**
      * Constructor per defecte de la vista
-     * @param controladorPresentacio Instància del controlador de presentació
      */
-    InitialView(ControladorPresentacio controladorPresentacio) {
-        this.controladorPresentacio = controladorPresentacio;
+    InitialView() {
+        controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }

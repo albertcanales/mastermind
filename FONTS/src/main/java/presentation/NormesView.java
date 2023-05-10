@@ -10,8 +10,8 @@ public class NormesView {
     private JEditorPane editorPaneNormes;
     private JScrollBar scrollBar1;
 
-    NormesView(ControladorPresentacio controladorPresentacio) {
-        this.controladorPresentacio = controladorPresentacio;
+    NormesView() {
+        controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }

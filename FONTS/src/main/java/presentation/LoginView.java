@@ -12,8 +12,8 @@ public class LoginView {
     private JPasswordField textFieldContrasenya;
     private JButton buttonIniciaSessio;
 
-    LoginView(ControladorPresentacio controladorPresentacio) {
-        this.controladorPresentacio = controladorPresentacio;
+    LoginView() {
+        controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }

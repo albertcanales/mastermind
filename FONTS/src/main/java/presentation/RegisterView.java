@@ -47,10 +47,9 @@ public class RegisterView {
 
     /**
      * Constructor per defecte de la vista
-     * @param controladorPresentacio Instància del controlador de presentació
      */
-    RegisterView(ControladorPresentacio controladorPresentacio) {
-        this.controladorPresentacio = controladorPresentacio;
+    RegisterView() {
+        controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }

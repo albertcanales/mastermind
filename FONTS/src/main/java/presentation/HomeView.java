@@ -18,8 +18,8 @@ public class HomeView {
     private JButton buttonSortir;
     private JButton buttonNormes;
 
-    HomeView(ControladorPresentacio controladorPresentacio) {
-        this.controladorPresentacio = controladorPresentacio;
+    HomeView() {
+        controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }
