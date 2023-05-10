@@ -1,6 +1,9 @@
 package domain;
 
-import domain.exceptions.*;
+import exceptions.domain.DomainException;
+import exceptions.domain.InvalidPartidaTypeException;
+import exceptions.domain.NotPlayingPartidaException;
+import exceptions.domain.PartidaAlreadyFinished;
 
 import java.time.Duration;
 import java.util.ArrayList;

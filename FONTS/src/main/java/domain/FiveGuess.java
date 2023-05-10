@@ -1,8 +1,8 @@
 package domain;
 
-import domain.exceptions.DomainException;
-import domain.exceptions.InvalidEnumValueException;
-import domain.exceptions.InvalidNumBolesException;
+import exceptions.domain.DomainException;
+import exceptions.domain.InvalidEnumValueException;
+import exceptions.domain.InvalidNumBolesException;
 
 import java.util.*;
 

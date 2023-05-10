@@ -1,4 +1,4 @@
-package domain.exceptions;
+package exceptions.domain;
 
 public class InvalidStatIntentsException extends DomainException {
     public InvalidStatIntentsException(String value) {

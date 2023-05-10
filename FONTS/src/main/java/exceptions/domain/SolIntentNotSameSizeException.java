@@ -1,4 +1,4 @@
-package domain.exceptions;
+package exceptions.domain;
 
 public class SolIntentNotSameSizeException extends DomainException{
     public SolIntentNotSameSizeException(Integer solutionSize, Integer intentSize){

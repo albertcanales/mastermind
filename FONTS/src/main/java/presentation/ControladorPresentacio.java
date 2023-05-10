@@ -1,8 +1,9 @@
 package presentation;
 
 import domain.ControladorDomini;
-import domain.exceptions.DomainException;
-import persistance.exceptions.PersistanceException;
+import exceptions.GeneralException;
+import exceptions.domain.DomainException;
+import exceptions.persistance.PersistanceException;
 
 import javax.swing.*;
 import java.util.List;
@@ -46,7 +47,7 @@ public class ControladorPresentacio {
     public Boolean existsUser(String username) {
         try {
             return controladorDomini.existsUser(username);
-        } catch (DomainException e) {
+        } catch (PersistanceException e) {
             showErrorDialog("No s'ha pogut comprovar si existeix l'usuari");
             e.printStackTrace();
         }
@@ -62,7 +63,7 @@ public class ControladorPresentacio {
     public void registerUser(String username, String name, String password) {
         try {
             controladorDomini.registerUser(username, name, password);
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut registrar l'usuari");
             e.printStackTrace();
         }
@@ -76,7 +77,7 @@ public class ControladorPresentacio {
     public Boolean loginUser(String username, String password) {
         try {
             return controladorDomini.loginUser(username, password);
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("L'usuari no existeix");
             e.printStackTrace();
         }

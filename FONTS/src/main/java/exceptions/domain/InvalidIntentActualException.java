@@ -1,4 +1,4 @@
-package domain.exceptions;
+package exceptions.domain;
 
 public class InvalidIntentActualException extends DomainException {
     public InvalidIntentActualException(Integer intents, Integer feebacks) {

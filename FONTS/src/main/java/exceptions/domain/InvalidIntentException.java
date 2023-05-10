@@ -1,4 +1,4 @@
-package domain.exceptions;
+package exceptions.domain;
 
 import java.util.List;
 

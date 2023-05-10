@@ -3,10 +3,10 @@ package persistance;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
-import persistance.exceptions.InvalidCSVException;
-import persistance.exceptions.InvalidFileAccess;
-import persistance.exceptions.LineNotFoundException;
-import persistance.exceptions.PersistanceException;
+import exceptions.persistance.InvalidCSVException;
+import exceptions.persistance.InvalidFileAccess;
+import exceptions.persistance.LineNotFoundException;
+import exceptions.persistance.PersistanceException;
 
 import java.io.File;
 import java.io.FileReader;

@@ -1,4 +1,4 @@
-package domain.exceptions;
+package exceptions.domain;
 
 public class InvalidNumIntentsException extends DomainException {
     public InvalidNumIntentsException(Integer actualSize, Integer expectedSize) {

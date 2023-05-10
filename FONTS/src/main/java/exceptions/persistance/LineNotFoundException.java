@@ -1,4 +1,4 @@
-package persistance.exceptions;
+package exceptions.persistance;
 
 public class LineNotFoundException extends PersistanceException {
 

@@ -1,6 +1,6 @@
 package domain;
 
-import domain.exceptions.*;
+import exceptions.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;

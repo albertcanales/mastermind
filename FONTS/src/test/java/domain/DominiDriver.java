@@ -1,8 +1,9 @@
 package domain;
 
-import domain.exceptions.DomainException;
-import domain.exceptions.InvalidEnumValueException;
-import persistance.exceptions.PersistanceException;
+import exceptions.GeneralException;
+import exceptions.domain.DomainException;
+import exceptions.domain.InvalidEnumValueException;
+import exceptions.persistance.PersistanceException;
 
 import java.util.List;
 import java.util.Scanner;
@@ -102,7 +103,7 @@ public class DominiDriver extends ControladorDriver {
             System.out.println("The given user data is invalid");
     }
 
-    private static void testExistsUser() throws DomainException {
+    private static void testExistsUser() throws PersistanceException {
         System.out.println("Testing existsUser...");
 
         System.out.print("Enter un username: ");
@@ -114,7 +115,7 @@ public class DominiDriver extends ControladorDriver {
             System.out.printf("User %s does not exists%n", username);
     }
 
-    private static void testLoginUser() throws DomainException {
+    private static void testLoginUser() throws GeneralException {
         System.out.println("Testing loginUser...");
 
         System.out.print("Enter un username: ");
@@ -133,7 +134,7 @@ public class DominiDriver extends ControladorDriver {
             System.out.println("Error: Wrong password");
     }
 
-    private static void testRegisterUser() throws DomainException {
+    private static void testRegisterUser() throws GeneralException {
         System.out.println("Testing registerUser...");
 
         System.out.print("Enter un username: ");
@@ -585,7 +586,7 @@ public class DominiDriver extends ControladorDriver {
         cd.sortirPartida();
     }
 
-    private static void testEsborrarUsuari() throws DomainException {
+    private static void testEsborrarUsuari() throws GeneralException {
         System.out.println("Testing esborrarUsuari...");
 
         if(!cd.userLoggedIn()) {
@@ -596,7 +597,7 @@ public class DominiDriver extends ControladorDriver {
         cd.esborrarUsuari();
     }
 
-    public static void main(String[] args) throws DomainException {
+    public static void main(String[] args) throws GeneralException {
         cd = new ControladorDomini();
         in = new Scanner(System.in);
         System.out.println("A continuació es mostren les comandes possibles:");

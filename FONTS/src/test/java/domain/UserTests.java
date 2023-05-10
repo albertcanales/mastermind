@@ -1,9 +1,8 @@
 package domain;
 
+import exceptions.domain.*;
 import org.junit.Test;
 import org.junit.Before;
-
-import domain.exceptions.*;
 
 import java.util.ArrayList;
 import java.util.List;

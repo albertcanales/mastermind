@@ -1,8 +1,9 @@
 package domain;
 
-import domain.exceptions.*;
+import exceptions.GeneralException;
+import exceptions.domain.*;
 import persistance.ControladorPersistencia;
-import persistance.exceptions.PersistanceException;
+import exceptions.persistance.PersistanceException;
 
 import java.util.List;
 import java.util.Objects;
@@ -48,7 +49,7 @@ public class ControladorDomini {
      * @param username username de l'usuari a comprovar
      * @return si l'usuari donat existeix
      */
-    public Boolean existsUser(String username) throws DomainException {
+    public Boolean existsUser(String username) throws PersistanceException {
         return controladorPersistencia.existsUser(username);
     }
 
@@ -69,7 +70,7 @@ public class ControladorDomini {
      * @throws UserNotExistsExeption si l'usuari no existeix
      * @return si la contrasenya donada és correcta
      */
-    public Boolean loginUser(String username, String password) throws DomainException {
+    public Boolean loginUser(String username, String password) throws GeneralException {
         if(!existsUser(username))
             throw new UserNotExistsExeption(username);
         String hash = controladorPersistencia.getPasswordHash(username);
@@ -96,7 +97,7 @@ public class ControladorDomini {
      * @param password contrasenya del nou usuari
      * @throws UserAlreadyExistsException si l'usuari ja existeix
      */
-    public void registerUser(String username, String name, String password) throws DomainException {
+    public void registerUser(String username, String name, String password) throws GeneralException {
         if(existsUser(username))
             throw new UserAlreadyExistsException(username);
         if(!isValidUser(username, name, password))
@@ -441,7 +442,7 @@ public class ControladorDomini {
      * També tanca la sessió automàticament
      * @throws DomainException si no s'està jugant cap partida
      */
-    public void esborrarUsuari() throws DomainException {
+    public void esborrarUsuari() throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
         String username = user.getUsername();

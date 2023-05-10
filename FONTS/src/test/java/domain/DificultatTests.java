@@ -1,8 +1,9 @@
 package domain;
 
+import exceptions.domain.DomainException;
+import exceptions.domain.InvalidEnumValueException;
 import org.junit.Test;
 
-import domain.exceptions.*;
 import java.util.ArrayList;
 import java.util.List;
 

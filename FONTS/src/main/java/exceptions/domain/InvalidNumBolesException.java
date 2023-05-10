@@ -1,4 +1,4 @@
-package domain.exceptions;
+package exceptions.domain;
 
 public class InvalidNumBolesException extends DomainException {
     public InvalidNumBolesException(Integer actualSize, Integer expectedSize) {

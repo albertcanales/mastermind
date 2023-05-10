@@ -1,4 +1,4 @@
-package domain.exceptions;
+package exceptions.domain;
 
 public class NoGameSavedException extends DomainException {
 

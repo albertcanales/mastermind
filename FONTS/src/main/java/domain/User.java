@@ -1,6 +1,6 @@
 package domain;
 
-import domain.exceptions.*;
+import exceptions.domain.*;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -100,7 +100,7 @@ class User {
     /**
      * Constructor d'un usuari ja existent
      */
-    User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws DomainException{
+    User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws DomainException {
         comprovaSizeStats(personalRecord, timePlayed, wonGames, lostGames, currentWinStreak, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
 
         this.name = name;
