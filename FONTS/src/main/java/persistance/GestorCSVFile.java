@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +27,109 @@ public class GestorCSVFile {
     private final Integer keyPos;
 
     private static final int headerPos = 0; //El header sempre està a la posició 0 d'un CSV
+
+    private static final int listSize = 4;
+
+    private static final int listListRows = 48;
+    private static final int listListSize = listListRows/listSize;
+
+    private void listToStringArray(List<Integer> list, String[] line, Integer start, Integer end) {
+        for (int i = start; i <= end; ++i) {
+            int listPosition = i - start;
+            if (list.get(listPosition) == null) {
+                line[i] = "null";
+            } else {
+                line[i] = list.get(listPosition).toString();
+            }
+
+        }
+    }
+
+    private List<Integer> stringArrayToList(String[] line, Integer start, Integer end) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = start; i <= end; ++i) {
+            if (line[i].equals("null")) {
+                list.add(null);
+            } else {
+                list.add(Integer.parseInt(line[i]));
+            }
+        }
+        return list;
+    }
+
+    private List<Integer> listListToList(List<List<Integer>> list) {
+        List<Integer> flattenedlist = new ArrayList<>();
+
+        for (int i = 0; i < listListRows; ++i) flattenedlist.add(0);
+
+        for (int i = 0; i < list.size(); ++i) {
+            for (int j = 0; j < list.get(i).size(); ++j) {
+                flattenedlist.set((4) * i + j, list.get(i).get(j));
+            }
+        }
+        return flattenedlist;
+
+    }
+
+    private List<List<Integer>> listToListList(List<Integer> list) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        for (int i = 0; i < listListSize; ++i) {
+            List<Integer> resultTemp = new ArrayList<>();
+            for (int j = 0; j < listSize; ++j) {
+                resultTemp.add(0);
+            }
+            result.add(resultTemp);
+        }
+
+        for (int i = 0; i < listListSize; ++i) {
+            for (int j = 0; j < listSize; ++j) {
+                result.get(i).set(j, list.get(listSize * i + j));
+            }
+        }
+        return result;
+
+    }
+
+    private List<List<Integer>> fillListListWithNull(List<List<Integer>> list) {
+        List<List<Integer>> nullList = new ArrayList<>(list);
+        for (int i = nullList.size(); i < listListSize; ++i) {
+            List<Integer> temp = new ArrayList<>();
+            for (int j = 0; j < listSize; ++j) {
+                temp.add(null);
+            }
+            nullList.add(temp);
+        }
+        return nullList;
+    }
+
+    private void removeNullFromList(List<List<Integer>> list) {
+        for (int i = list.size() - 1; i >= 0; --i) {
+            if (list.get(i).get(0) == null) {
+                list.remove(i);
+            }
+        }
+    }
+
+    public void setListinString(List<Integer> list, String[] line, Integer start, Integer end) {
+        listToStringArray(list, line, start, end);
+    }
+
+    public List<Integer> getListinString(String[] line, Integer start, Integer end) {
+        return stringArrayToList(line, start, end);
+    }
+
+    public void setListListinString(List<List<Integer>> list, String[] line, Integer start, Integer end) {
+        List<Integer> contiguousList = listListToList(fillListListWithNull(list));
+        listToStringArray(contiguousList, line, start, end);
+    }
+
+    public List<List<Integer>> getListListinString(String[] line, Integer start, Integer end) {
+        List<Integer> list = stringArrayToList(line, start, end);
+        List<List<Integer>> listList = listToListList(list);
+        removeNullFromList(listList);
+        return listList;
+    }
 
     /**
      * Crea el fitxer donat si no existeix i el seu directori pare si no existeix
