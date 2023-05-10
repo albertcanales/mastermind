@@ -9,24 +9,57 @@ import java.awt.*;
  */
 public class InitialView {
 
+    /**
+     * Controlador de presentació
+     */
     private final ControladorPresentacio controladorPresentacio;
+
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+
+    /**
+     * Botó per veure el rànquing
+     */
     private JButton buttonRanquing;
+
+    /**
+     * Botó per veure les normes
+     */
     private JButton buttonNormes;
+
+    /**
+     * Botó per iniciar sessió
+     */
     private JButton buttonIniciaSessio;
+
+    /**
+     * Botó per registrar-se
+     */
     private JButton buttonRegistra;
 
+    /**
+     * Constructor per defecte de la vista
+     * @param controladorPresentacio Instància del controlador de presentació
+     */
     InitialView(ControladorPresentacio controladorPresentacio) {
         this.controladorPresentacio = controladorPresentacio;
         $$$setupUI$$$();
         initComponents();
     }
 
+    /**
+     * Mètode per mostrar la vista
+     */
     void show() {
         controladorPresentacio.setContent(panel);
         controladorPresentacio.setTitle("Mastermind");
     }
 
+    /**
+     * Mètode per inicialitzar els components de la vista
+     */
     private void initComponents() {
         buttonRanquing.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
         buttonNormes.addActionListener(actionEvent -> controladorPresentacio.showNormesView());

@@ -1,6 +1,15 @@
 package presentation;
 
+/**
+ * Observer del patró de disseny Subjecte-Observer
+ * @author Albert Canales (Teoria)
+ */
 interface Observer {
-    //actualiza el estado del observador concreto de acuerdo con el del sujeto
+
+    /**
+     * Mètode perquè els observadors puguin rebre una actualització del subjecte
+     * @param s Subjecte del qual prové la notificació
+     */
     void Update(Subject s);
+
 }

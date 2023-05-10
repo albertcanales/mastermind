@@ -3,13 +3,40 @@ package presentation;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Representació d'una seqüència del joc en la interfície de Swing
+ * @author Albert Canales Ros
+ */
 public class SequenciaPanel extends Subject {
+
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+
+    /**
+     * Primera bola de la seqüència
+     */
     private BolaButton bolaButton1;
+
+    /**
+     * Segona bola de la seqüència
+     */
     private BolaButton bolaButton2;
+
+    /**
+     * Tercera bola de la seqüència
+     */
     private BolaButton bolaButton3;
+
+    /**
+     * Quarta bola de la seqüència
+     */
     private BolaButton bolaButton4;
 
+    /**
+     * Constructor per defecte de la seqüència. No assigna color a cap de les boles
+     */
     SequenciaPanel() {
 
         $$$setupUI$$$();

@@ -1,19 +1,42 @@
 package presentation;
 
+import exceptions.domain.DomainException;
+
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Representació de les boles del joc en forma de botó en la interfície de Swing
+ * @author Albert Canales Ros
+ */
 class BolaButton extends Subject {
 
+    /**
+     * Botó de la interfície
+     */
     private JButton button;
+
+    /**
+     * Color del qual es pinta el botó
+     */
     private BolaColor bolaColor;
+
+    /**
+     * Panell contenidor del botó
+     */
     private JPanel panel;
 
+    /**
+     * Constructor per defecte, no assigna cap color a la bola
+     */
     BolaButton() {
         $$$setupUI$$$();
         setBolaColor(BolaColor.NONE);
     }
 
+    /**
+     * Mètode per canviar el color de la bola
+     */
     void setBolaColor(BolaColor bolaColor) {
         this.bolaColor = bolaColor;
         if (bolaColor.color != null)
@@ -22,6 +45,9 @@ class BolaButton extends Subject {
             button.setIcon(null);
     }
 
+    /**
+     * Getter del color de la bola
+     */
     BolaColor getBolaColor() {
         return bolaColor;
     }
@@ -51,6 +77,10 @@ class BolaButton extends Subject {
         return panel;
     }
 
+    /**
+     * Classe per pintar un cercle com a icona d'un component de Swing
+     * @author Albert Canales Ros
+     */
     private static class ColorIcon implements Icon {
 
         private final int size;
@@ -83,6 +113,11 @@ class BolaButton extends Subject {
     }
 }
 
+/**
+ * Enum per encapsular els colors amb els quals es pinten de les boles del joc
+ * El valor NUL (null) es fa servir quan no s'ha de pintar cap color.
+ * @author Albert Canales Ros
+ */
 enum BolaColor {
 
     NONE(null), RED(Color.RED), GREEN(Color.green), BLUE(Color.blue);

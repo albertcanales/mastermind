@@ -6,30 +6,66 @@ import java.util.Arrays;
 
 /**
  * Vista del Registre d'un usuari
- *
  * @author Albert Canales
  */
 public class RegisterView {
 
+    /**
+     * Controlador de presentació
+     */
     private final ControladorPresentacio controladorPresentacio;
+
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+
+    /**
+     * Camp de text pel nom d'usuari
+     */
     private JTextField textFieldNomUsuari;
+
+    /**
+     * Camp de text pel nom complet
+     */
     private JTextField textFieldNomComplet;
+
+    /**
+     * Camp de text per la contrasenya
+     */
     private JPasswordField textFieldContrasenya;
+
+    /**
+     * Botó per registrar l'usuari
+     */
     private JButton buttonRegistra;
+
+    /**
+     * Botó per tornar a la vista anterior
+     */
     private JButton buttonTorna;
 
+    /**
+     * Constructor per defecte de la vista
+     * @param controladorPresentacio Instància del controlador de presentació
+     */
     RegisterView(ControladorPresentacio controladorPresentacio) {
         this.controladorPresentacio = controladorPresentacio;
         $$$setupUI$$$();
         initComponents();
     }
 
+    /**
+     * Mètode per mostrar la vista
+     */
     void show() {
         controladorPresentacio.setContent(panel);
         controladorPresentacio.setTitle("Registre");
     }
 
+    /**
+     * Mètode per inicialitzar els components de la vista
+     */
     void initComponents() {
         buttonRegistra.addActionListener(actionEvent -> {
             registraButtonClick();
@@ -38,6 +74,9 @@ public class RegisterView {
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
     }
 
+    /**
+     * Mètode que efectua les accions pertinents en clicar el botó per registrar-se
+     */
     private void registraButtonClick() {
         String username = textFieldNomUsuari.getText();
         String name = textFieldNomComplet.getText();
