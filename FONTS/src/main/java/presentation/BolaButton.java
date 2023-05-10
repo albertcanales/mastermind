@@ -46,6 +46,13 @@ class BolaButton extends Subject {
     }
 
     /**
+     * Mètode per canviar l'estat (activat o desactivat) de la bola
+     */
+    void setEnabled(Boolean enabled) {
+        button.setEnabled(enabled);
+    }
+
+    /**
      * Getter del color de la bola
      */
     BolaColor getBolaColor() {
