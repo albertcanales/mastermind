@@ -50,7 +50,7 @@ public class ZonaUsuariView {
 
     void show() {
         controladorPresentacio.setContent(panel);
-        controladorPresentacio.setTitle("ZonaUsuari");
+        controladorPresentacio.setTitle("Zona Usuari");
     }
 
     private void initComponents() {

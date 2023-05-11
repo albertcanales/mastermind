@@ -229,8 +229,8 @@ public class ControladorDomini {
     }
 
     /**
-     * Getter del rècord personal (nombre mínim d'intents per guanyar) de l'usuari actual
-     * @return Una llista amb el rècord personal per a cada nivell de dificultat
+     * Getter del temps jugat com a breaker de l'usuari actual
+     * @return Una llista amb el temps jugat com a breaker per a cada nivell de dificultat
      * @throws NotLoggedInException si no s'ha iniciat sessió
      */
     public List<Long> getTimePlayed() throws DomainException {

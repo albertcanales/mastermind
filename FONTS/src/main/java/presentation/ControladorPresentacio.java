@@ -3,6 +3,7 @@ package presentation;
 import domain.ControladorDomini;
 import exceptions.GeneralException;
 import exceptions.domain.DomainException;
+import exceptions.domain.NotLoggedInException;
 import exceptions.persistance.PersistanceException;
 
 import javax.swing.*;
@@ -170,6 +171,146 @@ public class ControladorPresentacio {
     }
 
     /**
+     * Getter del nom de l'usuari que ha iniciat sessió. Es mostra un error si no s'ha iniciat sessió
+     */
+    public String getUserName() throws DomainException {
+        try {
+            return controladorDomini.getUserName();
+        }
+        catch (GeneralException e) {
+            showErrorDialog("No s'ha iniciat sessió");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Getter del rècord personal (nombre mínim d'intents per guanyar) de l'usuari que ha iniciat sessió.
+     * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
+     * @return Una llista amb el rècord personal per a cada nivell de dificultat
+     */
+    public List<Integer> getPersonalRecord() {
+        try {
+            return controladorDomini.getPersonalRecord();
+        }
+        catch (GeneralException e) {
+            showErrorDialog("No s'ha iniciat sessió");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Getter del temps jugat com a breaker de l'usuari actual.
+     * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
+     * @return Una llista amb el temps jugat com a breaker per a cada nivell de dificultat
+     */
+    public List<Long> getTimePlayed()  {
+        try {
+            return controladorDomini.getTimePlayed();
+        }
+        catch (GeneralException e) {
+            showErrorDialog("No s'ha iniciat sessió");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Getter del nombre de victòries de l'usuari que ha iniciat sessió.
+     * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
+     * @return Una llista amb el nombre de partides guanyades per a cada nivell de dificultat
+     */
+    public List<Integer> getWonGames() {
+        try {
+            return controladorDomini.getWonGames();
+        }
+        catch (GeneralException e) {
+            showErrorDialog("No s'ha iniciat sessió");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Getter del nombre de derrotes de l'usuari que ha iniciat sessió.
+     * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
+     * @return Una llista amb el nombre de partides perdudes per a cada nivell de dificultat
+     */
+    public List<Integer> getLostGames() {
+        try {
+            return controladorDomini.getLostGames();
+        }
+        catch (GeneralException e) {
+            showErrorDialog("No s'ha iniciat sessió");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Getter de ratxa de victòries de l'usuari que ha iniciat sessió.
+     * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
+     * @return Una llista amb la màxima ratxa de victòries per a cada nivell de dificultat
+     */
+    public List<Integer> getWinstreak() {
+        try {
+            return controladorDomini.getWinstreak();
+        }
+        catch (GeneralException e) {
+            showErrorDialog("No s'ha iniciat sessió");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Getter de mitjana d'intents de l'usuari que ha iniciat sessió com a breaker.
+     * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
+     * @return Una llista amb la mitjana d'intents de l'usuari per a cada dificultat
+     */
+    public List<Double> getAverageAsBreaker() {
+        try {
+            return controladorDomini.getAverageAsBreaker();
+        }
+        catch (GeneralException e) {
+            showErrorDialog("No s'ha iniciat sessió");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Getter de mitjana d'intents de l'usuari que ha iniciat sessió com a maker.
+     * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
+     * @return Una llista amb la mitjana d'intents que ha necessitat la màquina per a cada algorisme
+     */
+    public List<Double> getAverageAsMaker() {
+        try {
+            return controladorDomini.getAverageAsMaker();
+        }
+        catch (GeneralException e) {
+            showErrorDialog("No s'ha iniciat sessió");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Mètode per esborrar l'usuari que ha iniciat sessió.
+     * Es mostra un error si no estava iniciada.
+     */
+    public void esborrarUsuari() {
+        try {
+            controladorDomini.esborrarUsuari();
+        }
+        catch (GeneralException e) {
+            showErrorDialog("No s'ha iniciat sessió");
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Punt d'entrada per mostrar l'aplicació
      */
     void run() {
@@ -260,6 +401,14 @@ public class ControladorPresentacio {
     void showNovaPartidaView() {
         NovaPartidaView novaPartidaView = new NovaPartidaView();
         novaPartidaView.show();
+    }
+
+    /**
+     * Mètode per mostrar la vista ZonaUsuariView
+     */
+    void showZonaUsuariView() {
+        ZonaUsuariView zonaUsuariView = new ZonaUsuariView();
+        zonaUsuariView.show();
     }
 
     /**
