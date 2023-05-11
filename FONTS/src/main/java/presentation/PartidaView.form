@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="presentation.PartidaView">
+  <grid id="27dc6" binding="panel" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="793" height="546"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="5bc5" layout-manager="GridBagLayout">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <nested-form id="a79fd" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback11">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <hspacer id="1dc02">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </hspacer>
+          <nested-form id="4e90f" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback10">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="fdad9" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback9">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="8a606" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback8">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="1aa74" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback7">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="48b53" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback6">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="19cb5" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback5">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="18844" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback4">
+            <constraints>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="1749e" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback3">
+            <constraints>
+              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="939f2" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback2">
+            <constraints>
+              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="25a2" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback1">
+            <constraints>
+              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="7e4d8" form-file="presentation/SequenciaPanel.form" binding="sequenciaFeedback0">
+            <constraints>
+              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="41231" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent11">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="406b3" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent10">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="8cafc" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent9">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="e78cd" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent8">
+            <constraints>
+              <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="21208" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent7">
+            <constraints>
+              <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="b43db" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent6">
+            <constraints>
+              <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="49242" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent5">
+            <constraints>
+              <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="f9994" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent4">
+            <constraints>
+              <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="23de7" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent3">
+            <constraints>
+              <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="d49b6" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent2">
+            <constraints>
+              <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="5a033" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent1">
+            <constraints>
+              <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <nested-form id="21ba9" form-file="presentation/SequenciaPanel.form" binding="sequenciaIntent0">
+            <constraints>
+              <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </nested-form>
+          <component id="f709e" class="javax.swing.JButton" binding="buttonOK1">
+            <constraints>
+              <grid row="10" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+          <component id="653c6" class="javax.swing.JButton" binding="buttonOK0">
+            <constraints>
+              <grid row="11" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+          <component id="adabe" class="javax.swing.JButton" binding="buttonOK2">
+            <constraints>
+              <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+          <component id="beb69" class="javax.swing.JButton" binding="buttonOK3">
+            <constraints>
+              <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+          <component id="548c2" class="javax.swing.JButton" binding="buttonOK4">
+            <constraints>
+              <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+          <component id="d6047" class="javax.swing.JButton" binding="buttonOK5">
+            <constraints>
+              <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+          <component id="61195" class="javax.swing.JButton" binding="buttonOK6">
+            <constraints>
+              <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+          <component id="45749" class="javax.swing.JButton" binding="buttonOK7">
+            <constraints>
+              <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+          <component id="f8b1" class="javax.swing.JButton" binding="buttonOK8">
+            <constraints>
+              <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+          <component id="dadf1" class="javax.swing.JButton" binding="buttonOK9">
+            <constraints>
+              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+          <component id="1bcbb" class="javax.swing.JButton" binding="buttonOK10">
+            <constraints>
+              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+          <component id="15900" class="javax.swing.JButton" binding="buttonOK11">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <borderPainted value="true"/>
+              <font size="20"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <iconTextGap value="0"/>
+              <preferredSize width="30" height="30"/>
+              <text value="✓"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <nested-form id="824b7" form-file="presentation/SequenciaPanel.form" binding="sequenciaSolucio">
+        <constraints border-constraint="North"/>
+      </nested-form>
+    </children>
+  </grid>
+</form>

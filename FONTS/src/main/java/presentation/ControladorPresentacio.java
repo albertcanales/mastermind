@@ -412,6 +412,16 @@ public class ControladorPresentacio {
     }
 
     /**
+     * TESTING
+     * Mètode per mostrar la vista PartidaView
+     */
+    void showPartidaView() {
+        PartidaView partidaView = new PartidaView();
+        partidaView.show();
+    }
+
+
+    /**
      * Mètode per mostrar un diàleg de warning
      * @param title Títol del diàleg
      * @param message Missatge del diàleg
