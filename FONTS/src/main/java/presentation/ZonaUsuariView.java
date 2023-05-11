@@ -5,6 +5,10 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+
+import static java.lang.Integer.max;
+import static java.lang.Integer.min;
 
 public class ZonaUsuariView {
 
@@ -13,33 +17,33 @@ public class ZonaUsuariView {
     private JButton buttonTorna;
     private JTabbedPane tabbedPaneBreaker;
     private JTabbedPane tabbedPaneMaker;
-    private JTextField textFieldMitjanaIntentsMakerFiveGuess;
-    private JTextField textFieldMitjanaIntentsMakerGenetic;
-    private JTextField textFieldMitjanaIntentsMakerTotal;
-    private JTextField textFieldRecordPersonalFacil;
-    private JTextField textFieldTempsFacil;
-    private JTextField textFieldGuanyadesFacil;
-    private JTextField textFieldPerdudesFacil;
-    private JTextField textFieldRatxaVictoriesFacil;
-    private JTextField textFieldMitjanaIntentsBreakerFacil;
-    private JTextField textFieldRecordPersonalMig;
-    private JTextField textFieldTempsMig;
-    private JTextField textFieldGuanyadesMig;
-    private JTextField textFieldPerdudesMig;
-    private JTextField textFieldRatxaVictoriesMig;
-    private JTextField textFieldMitjanaIntentsBreakerMig;
-    private JTextField textFieldRecordPersonalDificil;
-    private JTextField textFieldTempsDificil;
-    private JTextField textFieldGuanyadesDificil;
-    private JTextField textFieldPerdudesDificil;
-    private JTextField textFieldRatxaVictoriesDificil;
-    private JTextField textFieldMitjanaIntentsBreakerDificil;
-    private JTextField textFieldRecordPersonalTotal;
-    private JTextField textFieldTempsTotal;
-    private JTextField textFieldGuanyadesTotal;
-    private JTextField textFieldPerdudesTotal;
-    private JTextField textFieldRatxaVictoriesTotal;
-    private JTextField textFieldMitjanaIntentsBreakerTotal;
+    private JLabel JLabelRecordPersonalFacil;
+    private JLabel JLabelTempsFacil;
+    private JLabel JLabelGuanyadesFacil;
+    private JLabel JLabelPerdudesFacil;
+    private JLabel JLabelRatxaVictoriesFacil;
+    private JLabel JLabelMitjanaIntentsFacil;
+    private JLabel JLabelRecordPersonalMig;
+    private JLabel JLabelTempsMig;
+    private JLabel JLabelGuanyadesMig;
+    private JLabel JLabelPerdudesMig;
+    private JLabel JLabelRatxaVictoriesMig;
+    private JLabel JLabelMitjanaIntentsMig;
+    private JLabel JLabelRecordPersonalDificil;
+    private JLabel JLabelTempsDificil;
+    private JLabel JLabelGuanyadesDificil;
+    private JLabel JLabelPerdudesDificil;
+    private JLabel JLabelRatxaVictoriesDificil;
+    private JLabel JLabelMitjanaIntentsDificil;
+    private JLabel JLabelRecordPersonalTotal;
+    private JLabel JLabelTempsTotal;
+    private JLabel JLabelGuanyadesTotal;
+    private JLabel JLabelPerdudesTotal;
+    private JLabel JLabelRatxaVictoriesTotal;
+    private JLabel JLabelMitjanaIntentsBreakerTotal;
+    private JLabel JLabelMitjanaIntentsFiveGuess;
+    private JLabel JLabelMitjanaIntentsGenetic;
+    private JLabel JLabelMitjanaIntentsMakerTotal;
 
 
     ZonaUsuariView() {
@@ -54,8 +58,82 @@ public class ZonaUsuariView {
     }
 
     private void initComponents() {
-
+        buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showHomeView());
+        setRecordPersonal();
+        setTemps();
+        setGuanyades();
+        setPerdudes();
+        setRatxaVictories();
+        setMitjanaIntentsBreaker();
+        setMitjanaIntentsMaker();
     }
+
+    private void setRecordPersonal() {
+        List<Integer> record = controladorPresentacio.getPersonalRecord();
+        JLabelRecordPersonalFacil.setText(Integer.toString(record.get(0)));
+        JLabelRecordPersonalMig.setText(Integer.toString(record.get(1)));
+        JLabelRecordPersonalDificil.setText(Integer.toString(record.get(2)));
+        Integer total = min(record.get(0), min(record.get(1),record.get(2)));
+        JLabelRecordPersonalTotal.setText(Integer.toString(total));
+    }
+
+    private void setTemps() {
+        List<Long> temps = controladorPresentacio.getTimePlayed();
+        JLabelTempsFacil.setText(Long.toString(temps.get(0)));
+        JLabelTempsFacil.setText(Long.toString(temps.get(1)));
+        JLabelTempsFacil.setText(Long.toString(temps.get(2)));
+        Long total = temps.get(0) + temps.get(1) + temps.get(2);
+        JLabelTempsFacil.setText(Long.toString(total));
+    }
+
+    private void setGuanyades() {
+        List<Integer> guanyades = controladorPresentacio.getWonGames();
+        JLabelGuanyadesFacil.setText(Integer.toString(guanyades.get(0)));
+        JLabelGuanyadesMig.setText(Integer.toString(guanyades.get(1)));
+        JLabelGuanyadesDificil.setText(Integer.toString(guanyades.get(2)));
+        Integer total = guanyades.get(0) + guanyades.get(1) + guanyades.get(2);
+        JLabelGuanyadesTotal.setText(Integer.toString(total));
+    }
+
+    private void setPerdudes() {
+        List<Integer> perdudes = controladorPresentacio.getLostGames();
+        JLabelPerdudesFacil.setText(Integer.toString(perdudes.get(0)));
+        JLabelPerdudesMig.setText(Integer.toString(perdudes.get(1)));
+        JLabelPerdudesDificil.setText(Integer.toString(perdudes.get(2)));
+        Integer total = perdudes.get(0) + perdudes.get(1) + perdudes.get(2);
+        JLabelPerdudesTotal.setText(Integer.toString(total));
+    }
+
+    private void setRatxaVictories() {
+        List<Integer> winStreak = controladorPresentacio.getWinstreak();
+        JLabelRatxaVictoriesFacil.setText(Integer.toString(winStreak.get(0)));
+        JLabelRatxaVictoriesMig.setText(Integer.toString(winStreak.get(1)));
+        JLabelRatxaVictoriesDificil.setText(Integer.toString(winStreak.get(2)));
+        Integer total = max(winStreak.get(0), max(winStreak.get(1), winStreak.get(2)));
+        JLabelRatxaVictoriesTotal.setText(Integer.toString(total));
+    }
+
+    private void setMitjanaIntentsBreaker() {
+        List<Double> average = controladorPresentacio.getAverageAsBreaker();
+        JLabelMitjanaIntentsFacil.setText(Double.toString(average.get(0)));
+        JLabelMitjanaIntentsMig.setText(Double.toString(average.get(1)));
+        JLabelMitjanaIntentsDificil.setText(Double.toString(average.get(2)));
+        Double total = (average.get(0) + average.get(1) + average.get(2))/3;
+        JLabelMitjanaIntentsBreakerTotal.setText(Double.toString(total));
+    }
+
+    private void setMitjanaIntentsMaker() {
+        List<Double> average = controladorPresentacio.getAverageAsMaker();
+        JLabelMitjanaIntentsFiveGuess.setText(Double.toString(average.get(0)));
+        JLabelMitjanaIntentsGenetic.setText(Double.toString(average.get(1)));
+        Double total = (average.get(0) + average.get(1))/2;
+        JLabelMitjanaIntentsMakerTotal.setText(Double.toString(total));
+    }
+
+
+// GUI initializer generated by IntelliJ IDEA GUI Designer
+// >>> IMPORTANT!! <<<
+// DO NOT EDIT OR ADD ANY CODE HERE!
 
     /**
      * Method generated by IntelliJ IDEA GUI Designer
@@ -97,18 +175,24 @@ public class ZonaUsuariView {
         final JLabel label6 = new JLabel();
         label6.setText("Mitjana d'intents:");
         panel2.add(label6, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        textFieldRecordPersonalFacil = new JTextField();
-        panel2.add(textFieldRecordPersonalFacil, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldTempsFacil = new JTextField();
-        panel2.add(textFieldTempsFacil, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldGuanyadesFacil = new JTextField();
-        panel2.add(textFieldGuanyadesFacil, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldPerdudesFacil = new JTextField();
-        panel2.add(textFieldPerdudesFacil, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldRatxaVictoriesFacil = new JTextField();
-        panel2.add(textFieldRatxaVictoriesFacil, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldMitjanaIntentsBreakerFacil = new JTextField();
-        panel2.add(textFieldMitjanaIntentsBreakerFacil, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        JLabelRecordPersonalFacil = new JLabel();
+        JLabelRecordPersonalFacil.setText("");
+        panel2.add(JLabelRecordPersonalFacil, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelTempsFacil = new JLabel();
+        JLabelTempsFacil.setText("");
+        panel2.add(JLabelTempsFacil, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelGuanyadesFacil = new JLabel();
+        JLabelGuanyadesFacil.setText("");
+        panel2.add(JLabelGuanyadesFacil, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelPerdudesFacil = new JLabel();
+        JLabelPerdudesFacil.setText("");
+        panel2.add(JLabelPerdudesFacil, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelRatxaVictoriesFacil = new JLabel();
+        JLabelRatxaVictoriesFacil.setText("");
+        panel2.add(JLabelRatxaVictoriesFacil, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelMitjanaIntentsFacil = new JLabel();
+        JLabelMitjanaIntentsFacil.setText("");
+        panel2.add(JLabelMitjanaIntentsFacil, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridLayoutManager(6, 2, new Insets(0, 0, 0, 0), -1, -1));
         tabbedPaneBreaker.addTab("Mig", panel3);
@@ -130,18 +214,24 @@ public class ZonaUsuariView {
         final JLabel label12 = new JLabel();
         label12.setText("Mitjana d'intents:");
         panel3.add(label12, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        textFieldRecordPersonalMig = new JTextField();
-        panel3.add(textFieldRecordPersonalMig, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldTempsMig = new JTextField();
-        panel3.add(textFieldTempsMig, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldGuanyadesMig = new JTextField();
-        panel3.add(textFieldGuanyadesMig, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldPerdudesMig = new JTextField();
-        panel3.add(textFieldPerdudesMig, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldRatxaVictoriesMig = new JTextField();
-        panel3.add(textFieldRatxaVictoriesMig, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldMitjanaIntentsBreakerMig = new JTextField();
-        panel3.add(textFieldMitjanaIntentsBreakerMig, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        JLabelRecordPersonalMig = new JLabel();
+        JLabelRecordPersonalMig.setText("");
+        panel3.add(JLabelRecordPersonalMig, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelTempsMig = new JLabel();
+        JLabelTempsMig.setText("");
+        panel3.add(JLabelTempsMig, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelGuanyadesMig = new JLabel();
+        JLabelGuanyadesMig.setText("");
+        panel3.add(JLabelGuanyadesMig, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelPerdudesMig = new JLabel();
+        JLabelPerdudesMig.setText("");
+        panel3.add(JLabelPerdudesMig, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelRatxaVictoriesMig = new JLabel();
+        JLabelRatxaVictoriesMig.setText("");
+        panel3.add(JLabelRatxaVictoriesMig, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelMitjanaIntentsMig = new JLabel();
+        JLabelMitjanaIntentsMig.setText("");
+        panel3.add(JLabelMitjanaIntentsMig, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new GridLayoutManager(6, 2, new Insets(0, 0, 0, 0), -1, -1));
         tabbedPaneBreaker.addTab("Difícil", panel4);
@@ -163,18 +253,24 @@ public class ZonaUsuariView {
         final JLabel label18 = new JLabel();
         label18.setText("Mitjana d'intents:");
         panel4.add(label18, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        textFieldRecordPersonalDificil = new JTextField();
-        panel4.add(textFieldRecordPersonalDificil, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldTempsDificil = new JTextField();
-        panel4.add(textFieldTempsDificil, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldGuanyadesDificil = new JTextField();
-        panel4.add(textFieldGuanyadesDificil, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldPerdudesDificil = new JTextField();
-        panel4.add(textFieldPerdudesDificil, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldRatxaVictoriesDificil = new JTextField();
-        panel4.add(textFieldRatxaVictoriesDificil, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldMitjanaIntentsBreakerDificil = new JTextField();
-        panel4.add(textFieldMitjanaIntentsBreakerDificil, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        JLabelRecordPersonalDificil = new JLabel();
+        JLabelRecordPersonalDificil.setText("");
+        panel4.add(JLabelRecordPersonalDificil, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelTempsDificil = new JLabel();
+        JLabelTempsDificil.setText("");
+        panel4.add(JLabelTempsDificil, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelGuanyadesDificil = new JLabel();
+        JLabelGuanyadesDificil.setText("");
+        panel4.add(JLabelGuanyadesDificil, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelPerdudesDificil = new JLabel();
+        JLabelPerdudesDificil.setText("");
+        panel4.add(JLabelPerdudesDificil, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelRatxaVictoriesDificil = new JLabel();
+        JLabelRatxaVictoriesDificil.setText("");
+        panel4.add(JLabelRatxaVictoriesDificil, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelMitjanaIntentsDificil = new JLabel();
+        JLabelMitjanaIntentsDificil.setText("");
+        panel4.add(JLabelMitjanaIntentsDificil, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel5 = new JPanel();
         panel5.setLayout(new GridLayoutManager(6, 2, new Insets(0, 0, 0, 0), -1, -1));
         tabbedPaneBreaker.addTab("Total", panel5);
@@ -196,18 +292,24 @@ public class ZonaUsuariView {
         final JLabel label24 = new JLabel();
         label24.setText("Mitjana d'intents:");
         panel5.add(label24, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        textFieldRecordPersonalTotal = new JTextField();
-        panel5.add(textFieldRecordPersonalTotal, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldTempsTotal = new JTextField();
-        panel5.add(textFieldTempsTotal, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldGuanyadesTotal = new JTextField();
-        panel5.add(textFieldGuanyadesTotal, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldPerdudesTotal = new JTextField();
-        panel5.add(textFieldPerdudesTotal, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldRatxaVictoriesTotal = new JTextField();
-        panel5.add(textFieldRatxaVictoriesTotal, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        textFieldMitjanaIntentsBreakerTotal = new JTextField();
-        panel5.add(textFieldMitjanaIntentsBreakerTotal, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        JLabelRecordPersonalTotal = new JLabel();
+        JLabelRecordPersonalTotal.setText("");
+        panel5.add(JLabelRecordPersonalTotal, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelTempsTotal = new JLabel();
+        JLabelTempsTotal.setText("");
+        panel5.add(JLabelTempsTotal, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelGuanyadesTotal = new JLabel();
+        JLabelGuanyadesTotal.setText("");
+        panel5.add(JLabelGuanyadesTotal, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelPerdudesTotal = new JLabel();
+        JLabelPerdudesTotal.setText("");
+        panel5.add(JLabelPerdudesTotal, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelRatxaVictoriesTotal = new JLabel();
+        JLabelRatxaVictoriesTotal.setText("");
+        panel5.add(JLabelRatxaVictoriesTotal, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        JLabelMitjanaIntentsBreakerTotal = new JLabel();
+        JLabelMitjanaIntentsBreakerTotal.setText("");
+        panel5.add(JLabelMitjanaIntentsBreakerTotal, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         tabbedPaneMaker = new JTabbedPane();
         panel.add(tabbedPaneMaker, BorderLayout.SOUTH);
         final JPanel panel6 = new JPanel();
@@ -216,25 +318,27 @@ public class ZonaUsuariView {
         final JLabel label25 = new JLabel();
         label25.setText("Mitjana d'intents:");
         panel6.add(label25, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        textFieldMitjanaIntentsMakerFiveGuess = new JTextField();
-        textFieldMitjanaIntentsMakerFiveGuess.setText("");
-        panel6.add(textFieldMitjanaIntentsMakerFiveGuess, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        JLabelMitjanaIntentsFiveGuess = new JLabel();
+        JLabelMitjanaIntentsFiveGuess.setText("");
+        panel6.add(JLabelMitjanaIntentsFiveGuess, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel7 = new JPanel();
         panel7.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
         tabbedPaneMaker.addTab("Genetic", panel7);
         final JLabel label26 = new JLabel();
         label26.setText("Mitjana d'intents:");
         panel7.add(label26, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        textFieldMitjanaIntentsMakerGenetic = new JTextField();
-        panel7.add(textFieldMitjanaIntentsMakerGenetic, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        JLabelMitjanaIntentsGenetic = new JLabel();
+        JLabelMitjanaIntentsGenetic.setText("");
+        panel7.add(JLabelMitjanaIntentsGenetic, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel8 = new JPanel();
         panel8.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
         tabbedPaneMaker.addTab("Total", panel8);
         final JLabel label27 = new JLabel();
         label27.setText("Mitjana d'intents:");
         panel8.add(label27, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        textFieldMitjanaIntentsMakerTotal = new JTextField();
-        panel8.add(textFieldMitjanaIntentsMakerTotal, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        JLabelMitjanaIntentsMakerTotal = new JLabel();
+        JLabelMitjanaIntentsMakerTotal.setText("");
+        panel8.add(JLabelMitjanaIntentsMakerTotal, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -243,5 +347,4 @@ public class ZonaUsuariView {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
-
 }
