@@ -1,8 +1,8 @@
 package persistance;
 
-import persistance.exceptions.LineAlreadyExistsException;
-import persistance.exceptions.LineNotFoundException;
-import persistance.exceptions.PersistanceException;
+import exceptions.persistance.LineAlreadyExistsException;
+import exceptions.persistance.LineNotFoundException;
+import exceptions.persistance.PersistanceException;
 
 import java.util.ArrayList;
 import java.util.Arrays;

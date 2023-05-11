@@ -1,6 +1,6 @@
 package persistance;
 
-import persistance.exceptions.PersistanceException;
+import exceptions.persistance.PersistanceException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
