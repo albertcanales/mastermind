@@ -1,10 +1,12 @@
 package domain;
 
+import com.sun.tools.jconsole.JConsoleContext;
 import exceptions.GeneralException;
 import exceptions.domain.*;
 import persistance.ControladorPersistencia;
 import exceptions.persistance.PersistanceException;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -104,6 +106,8 @@ public class ControladorDomini {
             throw new InvalidUserException();
         controladorPersistencia.registerUser(username, name, User.getPasswordHash(password));
         user = new User(name, username);
+        controladorPersistencia.setUserStats(username, user.getPersonalRecord(), user.getTimePlayed(), user.getWonGames(), user.getLostGames(),
+                user.getCurrentWinStreak(), user.getWinStreak(), user.getAvgAsMaker(), user.getAvgAsBreaker(), user.getNumGamesAsMaker());
     }
 
     /**
