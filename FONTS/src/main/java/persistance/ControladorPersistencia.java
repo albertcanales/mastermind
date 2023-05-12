@@ -159,10 +159,12 @@ public class ControladorPersistencia {
         //TODO: esborrar del RanquingGestor
     }
 
-    public void novaPartidaMaker(String username, List<Integer> solucio, Integer algorisme) throws GeneralException {
-        gestorPartidesActualsMaker.novaPartidaMaker(username, algorisme, solucio);
+    public void novaPartidaMaker(String username, List<Integer> solucio, Integer algorisme, List<List<Integer>> intents,
+                                 List<List<Integer>> feedback) throws GeneralException {
+        gestorPartidesActualsMaker.novaPartidaMaker(username, algorisme, solucio, intents, feedback);
     }
-    public void novaPartidaBreaker(String username, Integer nivellDificultat, List<Integer> solucio) throws GeneralException {
-        gestorPartidesActualsBreaker.novaPartidaBreaker(username, 0L, nivellDificultat, solucio);
+    public void novaPartidaBreaker(String username, Integer nivellDificultat, Long temps, List<Integer> solucio, List<List<Integer>> intents,
+                                   List<List<Integer>> feedback) throws GeneralException {
+        gestorPartidesActualsBreaker.novaPartidaBreaker(username, temps, nivellDificultat, solucio, intents, feedback);
     }
 }

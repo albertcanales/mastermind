@@ -29,7 +29,7 @@ public class GestorPartidesActualsBreaker {
 
     public static void main(String[] args) throws PersistanceException {
         GestorPartidesActualsBreaker gestor = new GestorPartidesActualsBreaker("./db/");
-        gestor.novaPartidaBreaker("arnau", 1000L, 2, List.of(0, 4, 6, 8));
+        //gestor.novaPartidaBreaker("arnau", 1000L, 2, List.of(0, 4, 6, 8));
 
 
         //List<List<Integer>> list = gestor.getListList(32131);
@@ -49,7 +49,8 @@ public class GestorPartidesActualsBreaker {
 
     }
 
-    public void novaPartidaBreaker(String username, Long temps, Integer dificultat, List<Integer> solucio) throws PersistanceException {
+    public void novaPartidaBreaker(String username, Long temps, Integer dificultat, List<Integer> solucio, List<List<Integer>> intents,
+                                   List<List<Integer>> feedback) throws PersistanceException {
         //TODO: solucio size 4 etc
         if (!csvFile.existsLinebyKey(username)) {
             String[] line = new String[HeaderBreaker.getLength()];
@@ -59,13 +60,9 @@ public class GestorPartidesActualsBreaker {
 
             csvFile.setListIntinString(solucio, line, HeaderBreaker.SOLUCIO.start, HeaderBreaker.SOLUCIO.end);
 
-            List<List<Integer>> intents = getListListFirstNull();
-
-            List<List<Integer>> feedbacks = new ArrayList<>();
-
             csvFile.setListListinString(intents, line, HeaderBreaker.INTENTS.start, HeaderBreaker.INTENTS.end);
 
-            csvFile.setListListinString(feedbacks, line, HeaderBreaker.FEEDBACKS.start, HeaderBreaker.FEEDBACKS.end);
+            csvFile.setListListinString(feedback, line, HeaderBreaker.FEEDBACKS.start, HeaderBreaker.FEEDBACKS.end);
 
             csvFile.addLine(line);
 

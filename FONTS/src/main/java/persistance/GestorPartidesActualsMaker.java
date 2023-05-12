@@ -30,7 +30,7 @@ public class GestorPartidesActualsMaker {
 
     public static void main(String[] args) throws PersistanceException {
         GestorPartidesActualsMaker gestor = new GestorPartidesActualsMaker("./db/");
-        gestor.novaPartidaMaker("arnau", 2, List.of(0, 4, 6, 8));
+        //gestor.novaPartidaMaker("arnau", 2, List.of(0, 4, 6, 8));
 
 
         //List<List<Integer>> list = gestor.getListList(32131);
@@ -51,7 +51,8 @@ public class GestorPartidesActualsMaker {
 
     }
 
-    public void novaPartidaMaker(String username, Integer algorisme, List<Integer> solucio) throws PersistanceException {
+    public void novaPartidaMaker(String username, Integer algorisme, List<Integer> solucio, List<List<Integer>> intents,
+                                 List<List<Integer>> feedback) throws PersistanceException {
         //TODO: solucio size 4 etc
         if (!csvFile.existsLinebyKey(username)) {
             String[] line = new String[HeaderMaker.getLength()];
@@ -60,13 +61,9 @@ public class GestorPartidesActualsMaker {
 
             csvFile.setListIntinString(solucio, line, HeaderMaker.SOLUCIO.start, HeaderMaker.SOLUCIO.end);
 
-            List<List<Integer>> intents = getListListFirstNull();
-
-            List<List<Integer>> feedbacks = new ArrayList<>();
-
             csvFile.setListListinString(intents, line, HeaderMaker.INTENTS.start, HeaderMaker.INTENTS.end);
 
-            csvFile.setListListinString(feedbacks, line, HeaderMaker.FEEDBACKS.start, HeaderMaker.FEEDBACKS.end);
+            csvFile.setListListinString(feedback, line, HeaderMaker.FEEDBACKS.start, HeaderMaker.FEEDBACKS.end);
 
             csvFile.addLine(line);
 
