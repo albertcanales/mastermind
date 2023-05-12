@@ -1,12 +1,9 @@
 package domain;
 
-import com.sun.tools.jconsole.JConsoleContext;
 import exceptions.GeneralException;
 import exceptions.domain.*;
 import persistance.ControladorPersistencia;
-import exceptions.persistance.PersistanceException;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
