@@ -1,5 +1,6 @@
 package persistance;
 
+import exceptions.GeneralException;
 import exceptions.persistance.PersistanceException;
 
 import java.util.ArrayList;
@@ -8,24 +9,28 @@ import java.util.List;
 public class ControladorPersistencia {
 
     private final GestorUsuaris gestorUsuaris;
+    private final GestorPartidesActualsBreaker gestorPartidesActualsBreaker;
+    private final GestorPartidesActualsMaker gestorPartidesActualsMaker;
     private static final String basePath = "./db/"; //TODO: directoris dinàmics
-    public ControladorPersistencia() throws PersistanceException {
+    public ControladorPersistencia() throws GeneralException {
         gestorUsuaris = new GestorUsuaris(basePath);
+        gestorPartidesActualsBreaker = new GestorPartidesActualsBreaker(basePath);
+        gestorPartidesActualsMaker = new GestorPartidesActualsMaker(basePath);
     }
-    public Boolean existsUser(String username) throws PersistanceException {
+    public Boolean existsUser(String username) throws GeneralException {
         return gestorUsuaris.existsUser(username);
 
     }
 
-    public void registerUser(String username, String name, String password) throws PersistanceException {
+    public void registerUser(String username, String name, String password) throws GeneralException {
         gestorUsuaris.registerUser(username, name, password);
     }
 
-    public String getPasswordHash(String username) throws PersistanceException {
+    public String getPasswordHash(String username) throws GeneralException {
         return gestorUsuaris.getPasswordHash(username);
     }
 
-    public String getUserName(String username) throws PersistanceException {
+    public String getUserName(String username) throws GeneralException {
         return gestorUsuaris.getUserName(username);
     }
 
@@ -100,21 +105,19 @@ public class ControladorPersistencia {
         return List.of(0,0);
     }
 
-    public Integer getNivellDificultatPartidaGuardada(String username) {
-        if(username.equals("albert"))
-            return 2;
-        return null;
+    public Integer getNivellDificultatPartidaGuardada(String username) throws GeneralException {
+        return gestorPartidesActualsBreaker.getDificultat(username);
     }
 
-    public Integer getAlgorismePartidaGuardada(String username) {
-        return null;
+    public Integer getAlgorismePartidaGuardada(String username) throws GeneralException {
+        return gestorPartidesActualsMaker.getAlgorisme(username);
     }
 
-    public List<List<Integer>> getIntentsPartidaGuardada(String username) {
-        List<List<Integer>> intents =  new ArrayList<>();
-        intents.add(List.of(3, 2, 3, 6));
-        intents.add(List.of(0, 1, 0, 0));
-        return intents;
+    public List<List<Integer>> getIntentsPartidaGuardada(String username) throws GeneralException {
+        if (gestorPartidesActualsBreaker.existsPartidaActual(username)) {
+            return gestorPartidesActualsBreaker.getIntents(username);
+        }
+        return gestorPartidesActualsMaker.getIntents(username);
     }
 
     public List<List<Integer>> setIntentsPartidaGuardada(String username) {
@@ -124,10 +127,11 @@ public class ControladorPersistencia {
         return intents;
     }
 
-    public List<List<Integer>> getFeedbackPartidaGuardada(String username) {
-        List<List<Integer>> feedbacks =  new ArrayList<>();
-        feedbacks.add(List.of(2, 2, 1, 0));
-        return feedbacks;
+    public List<List<Integer>> getFeedbackPartidaGuardada(String username) throws GeneralException {
+        if (gestorPartidesActualsBreaker.existsPartidaActual(username)) {
+            return gestorPartidesActualsBreaker.getFeedbacks(username);
+        }
+        return gestorPartidesActualsMaker.getFeedbacks(username);
     }
 
     public List<List<Integer>> setFeedbackPartidaGuardada(String username) {
@@ -136,43 +140,42 @@ public class ControladorPersistencia {
         return feedbacks;
     }
 
-    public List<Integer> getSolucioPartidaGuardada(String username) {
-        if(username.equals("albert"))
-            return List.of(1, 2, 3, 4);
-        return null;
+    public List<Integer> getSolucioPartidaGuardada(String username) throws GeneralException {
+        if (gestorPartidesActualsBreaker.existsPartidaActual(username)) {
+            return gestorPartidesActualsBreaker.getSolucio(username);
+        }
+        return gestorPartidesActualsMaker.getSolucio(username);
     }
 
-    public Boolean isBreakerPartidaGuardada(String username) {
-        if(username.equals("albert"))
-            return true;
-        return null;
+    public Boolean isBreakerPartidaGuardada(String username) throws GeneralException {
+        return gestorPartidesActualsBreaker.existsPartidaActual(username);
     }
 
-    public Boolean existsPartidaGuardada(String username) {
-        if(username.equals("albert"))
-            return true;
-        return null;
+    public Boolean existsPartidaGuardada(String username) throws GeneralException {
+        return gestorPartidesActualsBreaker.existsPartidaActual(username) || gestorPartidesActualsMaker.existsPartidaActual(username);
     }
 
-    public Long getTempsPartidaGuardada(String username) {
-        if(username.equals("albert"))
-            return 1000L;
-        return null;
+    public Long getTempsPartidaGuardada(String username) throws GeneralException {
+        return gestorPartidesActualsBreaker.getTemps(username);
     }
 
     public void acabarPartidaGuardada(String username) {
-        System.out.println("Sóc persistència, entraria la partida guardada als registres però sóc un Mock!");
+        System.out.println("Sóc persistència, entraria la partida guardada als registres però sóc un Mock!"); //TODO: algo s'ha de fer
     }
 
-    public void esborrarUsuari(String username) throws PersistanceException {
+    public void esborrarUsuari(String username) throws GeneralException {
         gestorUsuaris.esborrarUsuari(username);
-        //TODO: esborrar Usuari de PartidesActuals
+        if (gestorPartidesActualsBreaker.existsPartidaActual(username))
+            gestorPartidesActualsBreaker.esborrarPartidaActual(username);
+        if (gestorPartidesActualsMaker.existsPartidaActual(username))
+            gestorPartidesActualsMaker.esborrarPartidaActual(username);
+        //TODO: esborrar del RanquingGestor
     }
 
-    public void novaPartidaMaker(String username, List<Integer> solucio, Integer algorisme) {
-        System.out.println("Sóc persistència, substituiria la partida guardada però sóc un Mock!");
+    public void novaPartidaMaker(String username, List<Integer> solucio, Integer algorisme) throws GeneralException {
+        gestorPartidesActualsMaker.novaPartidaMaker(username, algorisme, solucio);
     }
-    public void novaPartidaBreaker(String username, Integer nivellDificultat, List<Integer> solucio) {
-        System.out.println("Sóc persistència, substituiria la partida guardada però sóc un Mock!");
+    public void novaPartidaBreaker(String username, Integer nivellDificultat, List<Integer> solucio) throws GeneralException {
+        gestorPartidesActualsBreaker.novaPartidaBreaker(username, 0L, nivellDificultat, solucio);
     }
 }

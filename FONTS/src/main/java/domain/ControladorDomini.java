@@ -22,7 +22,7 @@ public class ControladorDomini {
     /**
      * Constructor del Controlador de Domini
      */
-    public ControladorDomini() throws PersistanceException {
+    public ControladorDomini() throws GeneralException {
         controladorPartida = new ControladorPartida();
         controladorPersistencia = new ControladorPersistencia();
         user = null;
@@ -49,7 +49,7 @@ public class ControladorDomini {
      * @param username username de l'usuari a comprovar
      * @return si l'usuari donat existeix
      */
-    public Boolean existsUser(String username) throws PersistanceException {
+    public Boolean existsUser(String username) throws GeneralException {
         return controladorPersistencia.existsUser(username);
     }
 
@@ -123,7 +123,7 @@ public class ControladorDomini {
      * @param algorisme enter que representa l'algorisme escollit per al breaker
      * @throws NotLoggedInException si no s'ha iniciat sessió
      */
-    public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) throws DomainException {
+    public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
         controladorPartida.novaPartidaMaker(solucio, algorisme);
@@ -135,7 +135,7 @@ public class ControladorDomini {
      * @param nivellDificultat nivell de dificultat escollit pel jugador
      * @throws NotLoggedInException si no s'ha iniciat sessió
      */
-    public void novaPartidaBreaker(Integer nivellDificultat) throws DomainException {
+    public void novaPartidaBreaker(Integer nivellDificultat) throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
         controladorPartida.novaPartidaBreaker(nivellDificultat);
@@ -148,7 +148,7 @@ public class ControladorDomini {
      * @throws NotLoggedInException si no s'ha iniciat sessió
      * @return Booleà indicant si existeix una partida guardada
      */
-    public Boolean existsPartidaGuardada() throws DomainException {
+    public Boolean existsPartidaGuardada() throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
         return controladorPersistencia.existsPartidaGuardada(user.getUsername());
@@ -159,7 +159,7 @@ public class ControladorDomini {
      * @throws NotLoggedInException si no s'ha iniciat sessió
      * @throws NoGameSavedException si no hi ha una partida guardada d'aquest usuari
      */
-    public void carregarPartida() throws DomainException {
+    public void carregarPartida() throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
         if(!existsPartidaGuardada())
@@ -180,7 +180,7 @@ public class ControladorDomini {
      * @throws DomainException si el tamany d'alguna list no és correcte
      */
     private void carregarPartidaBreaker(String username, List<List<Integer>> intents,
-                                        List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
+                                        List<List<Integer>> feedback, List<Integer> solucio) throws GeneralException {
         Integer nivellDificultat = controladorPersistencia.getNivellDificultatPartidaGuardada(username);
         Long temps = controladorPersistencia.getTempsPartidaGuardada(username);
         controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps);
@@ -191,7 +191,7 @@ public class ControladorDomini {
      * @throws DomainException si el tamany d'alguna list no és correcte
      */
     private void carregarPartidaMaker(String username, List<List<Integer>> intents,
-                                      List<List<Integer>> feedback, List<Integer> solucio) throws DomainException {
+                                      List<List<Integer>> feedback, List<Integer> solucio) throws GeneralException {
         Integer algorisme = controladorPersistencia.getAlgorismePartidaGuardada(username);
         controladorPartida.carregarPartidaMaker(algorisme, intents, feedback, solucio);
     }

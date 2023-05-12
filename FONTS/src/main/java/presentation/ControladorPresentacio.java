@@ -39,7 +39,7 @@ public class ControladorPresentacio {
         mainFrame = new MainFrame();
         try {
             controladorDomini = new ControladorDomini();
-        } catch (PersistanceException e) {
+        } catch (GeneralException e) {
             controladorDomini = null;
         }
         this.controladorDomini = controladorDomini;
@@ -68,7 +68,7 @@ public class ControladorPresentacio {
     public Boolean existsUser(String username) {
         try {
             return controladorDomini.existsUser(username);
-        } catch (PersistanceException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut comprovar si existeix l'usuari");
             e.printStackTrace();
         }
@@ -124,7 +124,7 @@ public class ControladorPresentacio {
     public Boolean existsPartidaGuardada() {
         try {
             return controladorDomini.existsPartidaGuardada();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
         }
@@ -137,7 +137,7 @@ public class ControladorPresentacio {
     public void carregarPartida() {
         try {
             controladorDomini.carregarPartida();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut carregar la partida");
             e.printStackTrace();
         }
@@ -151,7 +151,7 @@ public class ControladorPresentacio {
     public void novaPartidaMaker(List<Integer> solucio, Integer algorisme){
         try {
             controladorDomini.novaPartidaMaker(solucio, algorisme);
-        } catch (DomainException e){
+        } catch (GeneralException e){
             showErrorDialog("No s'ha pogut crear la partida");
             e.printStackTrace();
         }
@@ -164,7 +164,7 @@ public class ControladorPresentacio {
     public void novaPartidaBreaker(Integer nivellDificultat){
         try {
             controladorDomini.novaPartidaBreaker(nivellDificultat);
-        } catch (DomainException e){
+        } catch (GeneralException e){
             showErrorDialog("No s'ha pogut crear la partida");
             e.printStackTrace();
         }

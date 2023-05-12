@@ -63,7 +63,7 @@ public class DominiDriver extends ControladorDriver {
         System.out.println("Hint: Com que la persistència està mockejada, ara només hi ha un usuari 'albert' amb contrasenya 'contrasenya' ");
     }
 
-    private static void testConstructor() throws PersistanceException {
+    private static void testConstructor() throws GeneralException {
         System.out.println("Testing constructor...");
 
         cd = new ControladorDomini();
@@ -103,7 +103,7 @@ public class DominiDriver extends ControladorDriver {
             System.out.println("The given user data is invalid");
     }
 
-    private static void testExistsUser() throws PersistanceException {
+    private static void testExistsUser() throws GeneralException {
         System.out.println("Testing existsUser...");
 
         System.out.print("Enter un username: ");
@@ -168,7 +168,7 @@ public class DominiDriver extends ControladorDriver {
         cd.logoutUser();
     }
 
-    private static void testNovaPartidaMaker() throws DomainException {
+    private static void testNovaPartidaMaker() throws GeneralException {
         System.out.println("Testing novaPartidaMaker...");
 
         if(!cd.userLoggedIn()) {
@@ -181,7 +181,7 @@ public class DominiDriver extends ControladorDriver {
         cd.novaPartidaMaker(solution, algorisme);
     }
 
-    private static void testNovaPartidaBreaker() throws DomainException {
+    private static void testNovaPartidaBreaker() throws GeneralException {
         System.out.println("Testing novaPartidaBreaker...");
 
         if(!cd.userLoggedIn()) {
@@ -193,7 +193,7 @@ public class DominiDriver extends ControladorDriver {
         cd.novaPartidaBreaker(dificultat);
     }
 
-    private static void testExistsPartidaGuardada() throws DomainException {
+    private static void testExistsPartidaGuardada() throws GeneralException {
         System.out.println("Testing existsPartidaGuardada...");
 
         if(!cd.userLoggedIn()) {
@@ -207,7 +207,7 @@ public class DominiDriver extends ControladorDriver {
             System.out.println("No hi ha una partida guardada de l'usuari que ha iniciat sessió");
     }
 
-    private static void testCarregarPartida() throws DomainException {
+    private static void testCarregarPartida() throws GeneralException {
         System.out.println("Testing carregarPartida...");
 
         if(!cd.userLoggedIn()) {
