@@ -1,7 +1,6 @@
 package persistance;
 
 import exceptions.GeneralException;
-import exceptions.persistance.PersistanceException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,58 +50,46 @@ public class ControladorPersistencia {
         return ranquing;
     }
 
-    public List<Integer> getUserPersonalRecord(String username) {
-        if(username.equals("albert"))
-            return List.of(2, 4, 7);
-        return List.of(0,0,0);
+    public List<Integer> getUserPersonalRecord(String username) throws GeneralException {
+        return gestorUsuaris.getPersonalRecord(username);
     }
 
-    public List<Long> getUserTimePlayed(String username) {
-        if(username.equals("albert"))
-            return List.of(400000L, 500000L, 600000L);
-        return List.of(0L,0L,0L);
+    public List<Long> getUserTimePlayed(String username) throws GeneralException {
+        return gestorUsuaris.getTimePlayed(username);
     }
 
-    public List<Integer> getUserWonGames(String username) {
-        if(username.equals("albert"))
-            return List.of(20, 15, 10);
-        return List.of(0,0,0);
+    public List<Integer> getUserWonGames(String username) throws GeneralException {
+        return gestorUsuaris.getWonGames(username);
     }
 
-    public List<Integer> getUserLostGames(String username) {
-        if(username.equals("albert"))
-            return List.of(0, 5, 10);
-        return List.of(0,0,0);
+    public List<Integer> getUserLostGames(String username) throws GeneralException {
+        return gestorUsuaris.getLostGames(username);
     }
 
-    public List<Integer> getUserCurrentWinstreak(String username) {
-        if(username.equals("albert"))
-            return List.of(4, 10, 0);
-        return List.of(0,0,0);
+    public List<Integer> getUserCurrentWinstreak(String username) throws GeneralException {
+        return gestorUsuaris.getCurrentWinstreak(username);
     }
 
-    public List<Integer> getUserWinstreak(String username) {
-        if(username.equals("albert"))
-            return List.of(20, 10, 5);
-        return List.of(0,0,0);
+    public List<Integer> getUserWinstreak(String username) throws GeneralException {
+        return gestorUsuaris.getWinstreak(username);
     }
 
-    public List<Double> getUserAvgAsMaker(String username) {
-        if(username.equals("albert"))
-            return List.of(4.0, 0.0);
-        return List.of(0.0,0.0);
+    public List<Double> getUserAvgAsMaker(String username) throws GeneralException {
+        return gestorUsuaris.getAvgAsMaker(username);
     }
 
-    public List<Double> getUserAvgAsBreaker(String username) {
-        if(username.equals("albert"))
-            return List.of(4.0, 6.0, 8.0);
-        return List.of(0.0,0.0,0.0);
+    public List<Double> getUserAvgAsBreaker(String username) throws GeneralException {
+        return gestorUsuaris.getAvgAsBreaker(username);
     }
 
-    public List<Integer> getUserNumGamesAsMaker(String username) {
-        if(username.equals("albert"))
-            return List.of(10, 0);
-        return List.of(0,0);
+    public List<Integer> getUserNumGamesAsMaker(String username) throws GeneralException {
+        return gestorUsuaris.getNumGamesAsMaker(username);
+    }
+
+    public void setUserStats(String username, List<Integer> pr, List<Long> time, List<Integer> won, List<Integer> lost,
+                             List<Integer> currentWs, List<Integer> ws, List<Double> avgMaker, List<Double> avgBreaker,
+                             List<Integer> gamesMaker) throws GeneralException {
+        gestorUsuaris.setStats(username, pr, time, won, lost, currentWs, ws, avgMaker, avgBreaker, gamesMaker);
     }
 
     public Integer getNivellDificultatPartidaGuardada(String username) throws GeneralException {

@@ -187,7 +187,7 @@ public class GestorUsuaris {
         }
     }
 
-    public List<Integer> getUserNumGamesAsMaker(String username) throws PersistanceException {
+    public List<Integer> getNumGamesAsMaker(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), Header.NUMGAMESMAKER.start, Header.NUMGAMESMAKER.end);
         }
