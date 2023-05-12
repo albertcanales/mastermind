@@ -128,7 +128,9 @@ public class ControladorDomini {
         if(!userLoggedIn())
             throw new NotLoggedInException();
         controladorPartida.novaPartidaMaker(solucio, algorisme);
-        controladorPersistencia.novaPartidaMaker(user.getUsername(), solucio, algorisme);
+        List<List<Integer>> intents = controladorPartida.getIntents();
+        List<List<Integer>> feedback = controladorPartida.getFeedbacks();
+        controladorPersistencia.novaPartidaMaker(user.getUsername(), solucio, algorisme, intents, feedback);
     }
 
     /**
@@ -141,7 +143,10 @@ public class ControladorDomini {
             throw new NotLoggedInException();
         controladorPartida.novaPartidaBreaker(nivellDificultat);
         List<Integer> solucio = controladorPartida.getSequenciaSolucio();
-        controladorPersistencia.novaPartidaBreaker(user.getUsername(), nivellDificultat, solucio);
+        List<List<Integer>> intents = controladorPartida.getIntents();
+        List<List<Integer>> feedback = controladorPartida.getFeedbacks();
+        Long temps = controladorPartida.getTempsMillis();
+        controladorPersistencia.novaPartidaBreaker(user.getUsername(), nivellDificultat, temps, solucio, intents, feedback);
     }
 
     /**
