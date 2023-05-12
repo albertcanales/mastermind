@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -14,7 +16,7 @@ public class LoginView {
     private JTextField textFieldNomUsuari;
     private JPasswordField textFieldContrasenya;
     private JButton buttonIniciaSessio;
-    private JLabel JLabelRegistre;
+    private JLabel labelRegistre;
 
     LoginView() {
         controladorPresentacio = ControladorPresentacio.getInstance();
@@ -30,7 +32,11 @@ public class LoginView {
     void initComponents() {
         buttonIniciaSessio.addActionListener(actionEvent -> iniciaSessioButtonClick());
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
-        //JLabelRegistre.addMouseListener(mouseEvent -> controladorPresentacio.showRegisterView());
+        labelRegistre.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                controladorPresentacio.showRegisterView();
+            }
+        });
     }
 
     private void iniciaSessioButtonClick() {
@@ -106,17 +112,6 @@ public class LoginView {
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel2.add(label2, gbc);
-        final JLabel label3 = new JLabel();
-        Font label3Font = this.$$$getFont$$$(null, Font.BOLD, -1, label3.getFont());
-        if (label3Font != null) label3.setFont(label3Font);
-        label3.setForeground(new Color(-15789893));
-        label3.setHorizontalAlignment(0);
-        label3.setText("Registra't");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel2.add(label3, gbc);
         final JPanel spacer2 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -124,11 +119,35 @@ public class LoginView {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel2.add(spacer2, gbc);
         final JPanel panel3 = new JPanel();
-        panel3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel3.setLayout(new GridBagLayout());
         panel.add(panel3, BorderLayout.SOUTH);
+        final JPanel panel4 = new JPanel();
+        panel4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel3.add(panel4, gbc);
         buttonIniciaSessio = new JButton();
         buttonIniciaSessio.setText("Inicia Sessió");
-        panel3.add(buttonIniciaSessio);
+        panel4.add(buttonIniciaSessio);
+        final JPanel panel5 = new JPanel();
+        panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel3.add(panel5, gbc);
+        final JLabel label3 = new JLabel();
+        label3.setText("No tens una compta?");
+        panel5.add(label3);
+        labelRegistre = new JLabel();
+        Font labelRegistreFont = this.$$$getFont$$$(null, Font.BOLD, -1, labelRegistre.getFont());
+        if (labelRegistreFont != null) labelRegistre.setFont(labelRegistreFont);
+        labelRegistre.setForeground(new Color(-15789893));
+        labelRegistre.setHorizontalAlignment(0);
+        labelRegistre.setText("Registra't");
+        panel5.add(labelRegistre);
         label1.setLabelFor(textFieldNomUsuari);
         label2.setLabelFor(textFieldContrasenya);
     }

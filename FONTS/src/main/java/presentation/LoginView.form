@@ -76,18 +76,6 @@
               <text value="Contrasenya"/>
             </properties>
           </component>
-          <component id="cd46c" class="javax.swing.JLabel" binding="JLabelRegistre">
-            <constraints>
-              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <font style="1"/>
-              <foreground color="-15789893"/>
-              <horizontalAlignment value="0"/>
-              <text value="Registra't"/>
-            </properties>
-          </component>
           <vspacer id="b5992">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
@@ -96,17 +84,52 @@
           </vspacer>
         </children>
       </grid>
-      <grid id="d4988" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+      <grid id="d4988" layout-manager="GridBagLayout">
         <constraints border-constraint="South"/>
         <properties/>
         <border type="none"/>
         <children>
-          <component id="a591d" class="javax.swing.JButton" binding="buttonIniciaSessio">
-            <constraints/>
-            <properties>
-              <text value="Inicia Sessió"/>
-            </properties>
-          </component>
+          <grid id="7263e" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="a591d" class="javax.swing.JButton" binding="buttonIniciaSessio">
+                <constraints/>
+                <properties>
+                  <text value="Inicia Sessió"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="beb97" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="745bc" class="javax.swing.JLabel">
+                <constraints/>
+                <properties>
+                  <text value="No tens una compta?"/>
+                </properties>
+              </component>
+              <component id="cd46c" class="javax.swing.JLabel" binding="labelRegistre">
+                <constraints/>
+                <properties>
+                  <font style="1"/>
+                  <foreground color="-15789893"/>
+                  <horizontalAlignment value="0"/>
+                  <text value="Registra't"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
         </children>
       </grid>
     </children>
