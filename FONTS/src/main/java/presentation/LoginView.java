@@ -1,8 +1,11 @@
 package presentation;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class LoginView {
     private final ControladorPresentacio controladorPresentacio;
@@ -11,6 +14,7 @@ public class LoginView {
     private JTextField textFieldNomUsuari;
     private JPasswordField textFieldContrasenya;
     private JButton buttonIniciaSessio;
+    private JLabel JLabelRegistre;
 
     LoginView() {
         controladorPresentacio = ControladorPresentacio.getInstance();
@@ -26,6 +30,7 @@ public class LoginView {
     void initComponents() {
         buttonIniciaSessio.addActionListener(actionEvent -> iniciaSessioButtonClick());
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
+        //JLabelRegistre.addMouseListener(mouseEvent -> controladorPresentacio.showRegisterView());
     }
 
     private void iniciaSessioButtonClick() {
@@ -101,6 +106,23 @@ public class LoginView {
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel2.add(label2, gbc);
+        final JLabel label3 = new JLabel();
+        Font label3Font = this.$$$getFont$$$(null, Font.BOLD, -1, label3.getFont());
+        if (label3Font != null) label3.setFont(label3Font);
+        label3.setForeground(new Color(-15789893));
+        label3.setHorizontalAlignment(0);
+        label3.setText("Registra't");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel2.add(label3, gbc);
+        final JPanel spacer2 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel2.add(spacer2, gbc);
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel.add(panel3, BorderLayout.SOUTH);
@@ -109,6 +131,28 @@ public class LoginView {
         panel3.add(buttonIniciaSessio);
         label1.setLabelFor(textFieldNomUsuari);
         label2.setLabelFor(textFieldContrasenya);
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
+        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
+        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
     }
 
     /**
