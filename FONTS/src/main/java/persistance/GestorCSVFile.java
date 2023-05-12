@@ -33,7 +33,7 @@ public class GestorCSVFile {
     private static final int listListRows = 48;
     private static final int listListSize = listListRows/listSize;
 
-    private void listToStringArray(List<Integer> list, String[] line, Integer start, Integer end) {
+    public void setListIntinString(List<Integer> list, String[] line, Integer start, Integer end) {
         for (int i = start; i <= end; ++i) {
             int listPosition = i - start;
             if (list.get(listPosition) == null) {
@@ -45,7 +45,7 @@ public class GestorCSVFile {
         }
     }
 
-    private List<Integer> stringArrayToList(String[] line, Integer start, Integer end) {
+    public List<Integer> getListIntinString(String[] line, Integer start, Integer end) {
         List<Integer> list = new ArrayList<>();
         for (int i = start; i <= end; ++i) {
             if (line[i].equals("null")) {
@@ -57,6 +57,34 @@ public class GestorCSVFile {
         return list;
     }
 
+    public void setListLonginString(List<Long> list, String[] line, Integer start, Integer end) {
+        for (int i = start; i <= end; ++i) {
+            int listPosition = i - start;
+            line[i] = list.get(listPosition).toString();
+        }
+    }
+
+    public List<Long> getListLonginString(String[] line, Integer start, Integer end) {
+        List<Long> list = new ArrayList<>();
+        for (int i = start; i <= end; ++i)
+            list.add(Long.parseLong(line[i]));
+        return list;
+    }
+
+    public void setListDoubleinString(List<Double> list, String[] line, Integer start, Integer end) {
+        for (int i = start; i <= end; ++i) {
+            int listPosition = i - start;
+            line[i] = list.get(listPosition).toString();
+        }
+    }
+
+    public List<Double> getListDoubleinString(String[] line, Integer start, Integer end) {
+        List<Double> list = new ArrayList<>();
+        for (int i = start; i <= end; ++i)
+            list.add(Double.parseDouble(line[i]));
+        return list;
+    }
+
     private List<Integer> listListToList(List<List<Integer>> list) {
         List<Integer> flattenedlist = new ArrayList<>();
 
@@ -64,7 +92,7 @@ public class GestorCSVFile {
 
         for (int i = 0; i < list.size(); ++i) {
             for (int j = 0; j < list.get(i).size(); ++j) {
-                flattenedlist.set((4) * i + j, list.get(i).get(j));
+                flattenedlist.set(listSize * i + j, list.get(i).get(j));
             }
         }
         return flattenedlist;
@@ -111,21 +139,13 @@ public class GestorCSVFile {
         }
     }
 
-    public void setListinString(List<Integer> list, String[] line, Integer start, Integer end) {
-        listToStringArray(list, line, start, end);
-    }
-
-    public List<Integer> getListinString(String[] line, Integer start, Integer end) {
-        return stringArrayToList(line, start, end);
-    }
-
     public void setListListinString(List<List<Integer>> list, String[] line, Integer start, Integer end) {
         List<Integer> contiguousList = listListToList(fillListListWithNull(list));
-        listToStringArray(contiguousList, line, start, end);
+        setListIntinString(contiguousList, line, start, end);
     }
 
     public List<List<Integer>> getListListinString(String[] line, Integer start, Integer end) {
-        List<Integer> list = stringArrayToList(line, start, end);
+        List<Integer> list = getListIntinString(line, start, end);
         List<List<Integer>> listList = listToListList(list);
         removeNullFromList(listList);
         return listList;

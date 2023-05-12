@@ -22,7 +22,7 @@ public class GestorPartidesActualsBreaker {
 
     private List<List<Integer>> getListListFirstNull() {
         List<List<Integer>> list = new ArrayList<>();
-        List<Integer> sequence = Arrays.asList(null, null, null, null);
+        List<Integer> sequence = Arrays.asList(0, 0, 0, 0);
         list.add(sequence);
         return list;
     }
@@ -57,7 +57,7 @@ public class GestorPartidesActualsBreaker {
             line[HeaderBreaker.TEMPS.start] = temps.toString();
             line[HeaderBreaker.DIFICULTAT.start] = dificultat.toString();
 
-            csvFile.setListinString(solucio, line, HeaderBreaker.SOLUCIO.start, HeaderBreaker.SOLUCIO.end);
+            csvFile.setListIntinString(solucio, line, HeaderBreaker.SOLUCIO.start, HeaderBreaker.SOLUCIO.end);
 
             List<List<Integer>> intents = getListListFirstNull();
 
@@ -111,7 +111,7 @@ public class GestorPartidesActualsBreaker {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
-            return csvFile.getListinString(gotline, HeaderBreaker.SOLUCIO.start, HeaderBreaker.SOLUCIO.end);
+            return csvFile.getListIntinString(gotline, HeaderBreaker.SOLUCIO.start, HeaderBreaker.SOLUCIO.end);
         } else {
             throw new LineNotFoundException(username, relativePathPartidesActualsBreaker);
         }

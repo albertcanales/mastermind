@@ -23,7 +23,7 @@ public class GestorPartidesActualsMaker {
 
     private List<List<Integer>> getListListFirstNull() {
         List<List<Integer>> list = new ArrayList<>();
-        List<Integer> sequence = Arrays.asList(null, null, null, null);
+        List<Integer> sequence = Arrays.asList(0, 0, 0, 0);
         list.add(sequence);
         return list;
     }
@@ -58,7 +58,7 @@ public class GestorPartidesActualsMaker {
             line[HeaderMaker.USERNAME.start] = username;
             line[HeaderMaker.ALGORISME.start] = algorisme.toString();
 
-            csvFile.setListinString(solucio, line, HeaderMaker.SOLUCIO.start, HeaderMaker.SOLUCIO.end);
+            csvFile.setListIntinString(solucio, line, HeaderMaker.SOLUCIO.start, HeaderMaker.SOLUCIO.end);
 
             List<List<Integer>> intents = getListListFirstNull();
 
@@ -102,7 +102,7 @@ public class GestorPartidesActualsMaker {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
-            return csvFile.getListinString(gotline, HeaderMaker.SOLUCIO.start, HeaderMaker.SOLUCIO.end);
+            return csvFile.getListIntinString(gotline, HeaderMaker.SOLUCIO.start, HeaderMaker.SOLUCIO.end);
         } else {
             throw new LineNotFoundException(username, relativePathPartidesActualsMaker);
         }
