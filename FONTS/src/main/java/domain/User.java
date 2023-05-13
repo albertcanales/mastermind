@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ class User {
 
         timePlayedFinishedGames = new ArrayList<>();
         averageAsBreaker = new ArrayList<>();
-        for (int i = 0; i < numDificultats; ++i){
+        for (int i = 0; i < numDificultats+1; ++i){
             tot_zero.add(0);
             timePlayedFinishedGames.add(0L);
             averageAsBreaker.add(0d);
@@ -59,8 +60,9 @@ class User {
     private void initializeMakerStats(){
         int numAlgoritmes = TipusAlgorisme.numAlgorismes();
 
-        averageAsMaker = new ArrayList<>(); numGamesAsMaker = new ArrayList<>();
-        for (int i = 0; i < numAlgoritmes; ++i){
+        averageAsMaker = new ArrayList<>();
+        numGamesAsMaker = new ArrayList<>();
+        for (int i = 0; i < numAlgoritmes+1; ++i){
             averageAsMaker.add(0d);
             numGamesAsMaker.add(0);
         }
@@ -70,18 +72,63 @@ class User {
      * Mètode per comprovar els tamanys de les estadístiques
      */
     private void comprovaSizeStats(List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws InvalidStatSizeException {
-        Integer numDificultats = NivellDificultat.numDificultats();
-        if (!numDificultats.equals(personalRecord.size())) throw new InvalidStatSizeException("PersonalRecord", personalRecord.size());
-        if (!numDificultats.equals(timePlayed.size())) throw new InvalidStatSizeException("timePlayed", timePlayed.size());
-        if (!numDificultats.equals(wonGames.size())) throw new InvalidStatSizeException("wonGames", wonGames.size());
-        if (!numDificultats.equals(lostGames.size())) throw new InvalidStatSizeException("lostGames", lostGames.size());
-        if (!numDificultats.equals(currentWinStreak.size())) throw new InvalidStatSizeException("currentWinStreak", currentWinStreak.size());
-        if (!numDificultats.equals(winStreak.size())) throw new InvalidStatSizeException("winStreak", winStreak.size());
-        if (!numDificultats.equals(avgAsBreaker.size())) throw new InvalidStatSizeException("avgAsBreaker", avgAsBreaker.size());
+        Integer sizeDificultats = NivellDificultat.numDificultats()+1;
+        if (!sizeDificultats.equals(personalRecord.size())) throw new InvalidStatSizeException("PersonalRecord", personalRecord.size());
+        if (!sizeDificultats.equals(timePlayed.size())) throw new InvalidStatSizeException("timePlayed", timePlayed.size());
+        if (!sizeDificultats.equals(wonGames.size())) throw new InvalidStatSizeException("wonGames", wonGames.size());
+        if (!sizeDificultats.equals(lostGames.size())) throw new InvalidStatSizeException("lostGames", lostGames.size());
+        if (!sizeDificultats.equals(currentWinStreak.size())) throw new InvalidStatSizeException("currentWinStreak", currentWinStreak.size());
+        if (!sizeDificultats.equals(winStreak.size())) throw new InvalidStatSizeException("winStreak", winStreak.size());
+        if (!sizeDificultats.equals(avgAsBreaker.size())) throw new InvalidStatSizeException("avgAsBreaker", avgAsBreaker.size());
 
-        Integer numAlgoritmes = TipusAlgorisme.numAlgorismes();
+        Integer numAlgoritmes = TipusAlgorisme.numAlgorismes()+1;
         if (!numAlgoritmes.equals(avgAsMaker.size())) throw new InvalidStatSizeException("avgAsMaker", avgAsMaker.size());
         if (!numAlgoritmes.equals(numGamesAsMaker.size())) throw new InvalidStatSizeException("numGamesAsMaker", numGamesAsMaker.size());
+    }
+
+    private void calculaTotalStatsBreaker() {
+        int indexTotal = NivellDificultat.numDificultats();
+
+        Integer minPR = personalRecord.get(0);
+        for (int i = 0; i < indexTotal; ++i) {
+            Integer iPR = personalRecord.get(i);
+            if (iPR != 0 && iPR < minPR) minPR = iPR;
+        }
+        personalRecord.set(indexTotal, minPR);
+        timePlayedFinishedGames.set(indexTotal, timePlayedFinishedGames.subList(0,indexTotal).stream().reduce(0L, Long::sum));
+        wonGames.set(indexTotal, wonGames.subList(0,indexTotal).stream().reduce(0, Integer::sum));
+        lostGames.set(indexTotal, lostGames.subList(0,indexTotal).stream().reduce(0, Integer::sum));
+        currentWinStreak.set(indexTotal, Collections.max(currentWinStreak.subList(0,indexTotal)));
+        winStreak.set(indexTotal, Collections.max(winStreak.subList(0,indexTotal)));
+
+        Double avgTotal = 0d;
+        Integer playedDifficulties = 0;
+        for (int i = 0; i < indexTotal; ++i) {
+            Double iAvg = averageAsBreaker.get(i);
+            if (iAvg != 0d) {
+                avgTotal += iAvg;
+                ++playedDifficulties;
+            }
+        }
+        if (playedDifficulties != 0) avgTotal = avgTotal/playedDifficulties;
+        averageAsBreaker.set(indexTotal, avgTotal);
+    }
+
+    private void calculaTotalStatsMaker() {
+        int indexTotal = TipusAlgorisme.numAlgorismes();
+
+        Double avgTotal = 0d;
+        Integer playedAlgorismes = 0;
+        for (int i = 0; i < indexTotal; ++i) {
+            Double iAvg = averageAsMaker.get(i);
+            if (iAvg != 0d) {
+                avgTotal += iAvg;
+                ++playedAlgorismes;
+            }
+        }
+        if (playedAlgorismes != 0) avgTotal = avgTotal/ playedAlgorismes;
+        averageAsMaker.set(indexTotal, avgTotal);
+        numGamesAsMaker.set(indexTotal, numGamesAsMaker.subList(0,indexTotal).stream().reduce(0, Integer::sum));
     }
 
     /**
@@ -157,6 +204,8 @@ class User {
             lostGames.set(dificultat, numlost);
             currentWinStreak.set(dificultat, 0);
         }
+
+        calculaTotalStatsBreaker();
     }
 
     /**
@@ -168,7 +217,7 @@ class User {
         if (!NivellDificultat.isValid(algoritme)) throw new InvalidEnumValueException("NivellDificultat", algoritme.toString());
         if (intents < 0) throw new InvalidStatIntentsException(intents.toString());
 
-        algoritme--; //Els valors de TipusAlgoritme no comencen en 0
+        algoritme--; //Els valors de TipusAlgoritme comencen en 1
 
         int totalIntents = (int) (averageAsMaker.get(algoritme)*numGamesAsMaker.get(algoritme));
         totalIntents += intents;
@@ -176,6 +225,8 @@ class User {
         Double newAvg = (double) totalIntents /numGames;
         averageAsMaker.set(algoritme, newAvg);
         numGamesAsMaker.set(algoritme, numGames);
+
+        calculaTotalStatsMaker();
     }    
 
     /**
