@@ -27,12 +27,19 @@ public class GestorCSVFile {
     private final Integer keyPos;
 
     private static final int headerPos = 0; //El header sempre està a la posició 0 d'un CSV
-
+    private final String[] header;
     private static final int listSize = 4;
-
     private static final int listListRows = 48;
     private static final int listListSize = listListRows/listSize;
 
+
+    /**
+     * Posa el contingut d'una llista d'enters en un array d'Strings entre les dues posicions donades
+     * @param list la llista d'enters a col·locar
+     * @param line l'Array d'Strings on es col·locarà la llista
+     * @param start la posició inicial de l'String on es col·locarà la llista
+     * @param end la posició final de l'String on es col·locarà la llista
+     */
     public void setListIntinString(List<Integer> list, String[] line, Integer start, Integer end) {
         for (int i = start; i <= end; ++i) {
             int listPosition = i - start;
@@ -45,6 +52,13 @@ public class GestorCSVFile {
         }
     }
 
+    /**
+     * Retorna una llista d'enters a partir d'un Array d'Strings i dues posicions
+     * @param line l'Array d'Strings d'on es formarà la llista
+     * @param start la posició inicial de l'String d'on es formarà la llista
+     * @param end la posició final de l'String d'on es formarà la llista
+     * @return una llista d'enters
+     */
     public List<Integer> getListIntinString(String[] line, Integer start, Integer end) {
         List<Integer> list = new ArrayList<>();
         for (int i = start; i <= end; ++i) {
@@ -57,6 +71,13 @@ public class GestorCSVFile {
         return list;
     }
 
+    /**
+     * Posa el contingut d'una llista de Long(s) en un array d'Strings entre les dues posicions donades
+     * @param list la llista de Long(s) a col·locar
+     * @param line l'Array d'Strings on es col·locarà la llista
+     * @param start la posició inicial de l'String on es col·locarà la llista
+     * @param end la posició final de l'String on es col·locarà la llista
+     */
     public void setListLonginString(List<Long> list, String[] line, Integer start, Integer end) {
         for (int i = start; i <= end; ++i) {
             int listPosition = i - start;
@@ -64,6 +85,13 @@ public class GestorCSVFile {
         }
     }
 
+    /**
+     * Retorna una llista de Long(s) a partir d'un Array d'Strings i dues posicions
+     * @param line l'Array d'Strings d'on es formarà la llista
+     * @param start la posició inicial de l'String d'on es formarà la llista
+     * @param end la posició final de l'String d'on es formarà la llista
+     * @return una llista de Long(s)
+     */
     public List<Long> getListLonginString(String[] line, Integer start, Integer end) {
         List<Long> list = new ArrayList<>();
         for (int i = start; i <= end; ++i)
@@ -71,6 +99,13 @@ public class GestorCSVFile {
         return list;
     }
 
+    /**
+     * Posa el contingut d'una llista de Double(s) en un array d'Strings entre les dues posicions donades
+     * @param list la llista de Double(s) a col·locar
+     * @param line l'Array d'Strings on es col·locarà la llista
+     * @param start la posició inicial de l'String on es col·locarà la llista
+     * @param end la posició final de l'String on es col·locarà la llista
+     */
     public void setListDoubleinString(List<Double> list, String[] line, Integer start, Integer end) {
         for (int i = start; i <= end; ++i) {
             int listPosition = i - start;
@@ -78,6 +113,13 @@ public class GestorCSVFile {
         }
     }
 
+    /**
+     * Retorna una llista de Double(s) a partir d'un Array d'Strings i dues posicions
+     * @param line l'Array d'Strings d'on es formarà la llista
+     * @param start la posició inicial de l'String d'on es formarà la llista
+     * @param end la posició final de l'String d'on es formarà la llista
+     * @return una llista de Double(s)
+     */
     public List<Double> getListDoubleinString(String[] line, Integer start, Integer end) {
         List<Double> list = new ArrayList<>();
         for (int i = start; i <= end; ++i)
@@ -85,6 +127,37 @@ public class GestorCSVFile {
         return list;
     }
 
+    /**
+     * Posa el contingut d'una llista (d'una llista d'enters) en un array d'Strings entre les dues posicions donades
+     * @param list la llista (d'una llista d'enters) a col·locar
+     * @param line l'Array d'Strings on es col·locarà la llista
+     * @param start la posició inicial de l'String on es col·locarà la llista
+     * @param end la posició final de l'String on es col·locarà la llista
+     */
+    public void setListListinString(List<List<Integer>> list, String[] line, Integer start, Integer end) {
+        List<Integer> contiguousList = listListToList(fillListListWithNull(list));
+        setListIntinString(contiguousList, line, start, end);
+    }
+
+    /**
+     * Retorna una llista (d'una llista d'enters) a partir d'un Array d'Strings i dues posicions
+     * @param line l'Array d'Strings d'on es formarà la llista
+     * @param start la posició inicial de l'String d'on es formarà la llista
+     * @param end la posició final de l'String d'on es formarà la llista
+     * @return una llista (d'una llista d'enters)
+     */
+    public List<List<Integer>> getListListinString(String[] line, Integer start, Integer end) {
+        List<Integer> list = getListIntinString(line, start, end);
+        List<List<Integer>> listList = listToListList(list);
+        removeNullFromList(listList);
+        return listList;
+    }
+
+    /**
+     * Converteix una llista (d'una llista d'enters) en una llista contigua
+     * @param list una llista (d'una llista d'enters)
+     * @return una llista d'enters
+     */
     private List<Integer> listListToList(List<List<Integer>> list) {
         List<Integer> flattenedlist = new ArrayList<>();
 
@@ -99,6 +172,11 @@ public class GestorCSVFile {
 
     }
 
+    /**
+     * Converteix una llista en una (d'una llista d'enters)
+     * @param list una llista (d'una llista d'enters)
+     * @return una llista d'enters
+     */
     private List<List<Integer>> listToListList(List<Integer> list) {
         List<List<Integer>> result = new ArrayList<>();
 
@@ -119,6 +197,11 @@ public class GestorCSVFile {
 
     }
 
+    /**
+     * Omple una llista (d'una llista d'enters) amb null fins a arribar "listListSize" i "listSize"
+     * @param list una llista (d'una llista d'enters)
+     * @return una llista (d'una llista d'enters) plena amb null
+     */
     private List<List<Integer>> fillListListWithNull(List<List<Integer>> list) {
         List<List<Integer>> nullList = new ArrayList<>(list);
         for (int i = nullList.size(); i < listListSize; ++i) {
@@ -131,24 +214,16 @@ public class GestorCSVFile {
         return nullList;
     }
 
+    /**
+     * Treu les files amb "null" d'una llista d'enters
+     * @param list una llista (d'una llista d'enters) sense els null
+     */
     private void removeNullFromList(List<List<Integer>> list) {
         for (int i = list.size() - 1; i >= 0; --i) {
             if (list.get(i).get(0) == null) {
                 list.remove(i);
             }
         }
-    }
-
-    public void setListListinString(List<List<Integer>> list, String[] line, Integer start, Integer end) {
-        List<Integer> contiguousList = listListToList(fillListListWithNull(list));
-        setListIntinString(contiguousList, line, start, end);
-    }
-
-    public List<List<Integer>> getListListinString(String[] line, Integer start, Integer end) {
-        List<Integer> list = getListIntinString(line, start, end);
-        List<List<Integer>> listList = listToListList(list);
-        removeNullFromList(listList);
-        return listList;
     }
 
     /**
@@ -178,17 +253,8 @@ public class GestorCSVFile {
         }
 
         this.keyPos = keyPos;
+        this.header = header;
 
-
-    }
-
-    /**
-     * Esborra el fitxer donat si existeix
-     *
-     * @throws InvalidFileAccess si no es pot accedir al fitxer
-     */
-    public void deleteFile() throws InvalidFileAccess {
-            if (!file.delete()) throw new InvalidFileAccess(file.getName());
     }
 
     /**
@@ -222,19 +288,35 @@ public class GestorCSVFile {
      * @param key      l'identificador de la línia a buscar
      * @return un Enter amb el número de la línia
      */
-    private Integer getLineNumberByKey(List<String[]> allLines, String key) {
+    private Integer getLineNumberByKey(List<String[]> allLines, String key) throws LineNotFoundException {
         int i = 0;
         while (i < allLines.size()) {
             if (allLines.get(i)[keyPos].equals(key)) return i;
             ++i;
         }
-        return -1;
+        throw new LineNotFoundException(key, file.getName());
     }
 
     /**
-     * Retorna totes les línies d'un fitxer
+     * Busca si una línia amb la clau donada existeix
      *
-     * @return una llista d'Strings amb totes les línies d'un fitxer
+     * @param allLines una llista d'String amb totes les línies
+     * @param key      l'identificador de la línia a buscar
+     * @return un Boolean cert o fals depenent de si existeix la línia o no
+     */
+    private Boolean foundLineByKey(List<String[]> allLines, String key) {
+        int i = 0;
+        while (i < allLines.size()) {
+            if (allLines.get(i)[keyPos].equals(key)) return true;
+            ++i;
+        }
+        return false;
+    }
+
+    /**
+     * Retorna totes les línies d'un fitxer (sense el header!!)
+     *
+     * @return una llista d'Strings amb totes les línies d'un fitxer (sense el header!!)
      * @throws InvalidFileAccess   si no es pot accedir al fitxer
      * @throws InvalidCSVException si el CSV no té un format legal
      */
@@ -259,13 +341,14 @@ public class GestorCSVFile {
             throw new InvalidFileAccess(file.getName());
         }
 
+        allLines.remove(headerPos);
         return allLines;
     }
 
     /**
      * Escriu totes les línies d'un fitxer donat una llista d'Strings
      *
-     * @param allLines una llista d'Strings amb totes les línies d'un fitxer
+     * @param allLines una llista d'Strings amb totes les línies d'un fitxer (sense el header!!)
      * @throws InvalidFileAccess si no es pot accedir al fitxer
      */
     private void writeAllLines(List<String[]> allLines) throws InvalidFileAccess {
@@ -275,6 +358,7 @@ public class GestorCSVFile {
         } catch (IOException e) {
             throw new InvalidFileAccess(file.getName());
         }
+        allLines.add(headerPos, header);
         csvWriter.writeAll(allLines);
 
         try {
@@ -282,19 +366,6 @@ public class GestorCSVFile {
         } catch (IOException e) {
             throw new InvalidFileAccess(file.getName());
         }
-    }
-
-    /**
-     * Retorna totes les línies d'un fitxer sense el header
-     *
-     * @return una llista d'Strings amb totes les línies d'un fitxer
-     * @throws PersistanceException si no es pot accedir al fitxer o si el CSV no té un format legal
-     */
-    public List<String[]> getLines() throws PersistanceException {
-        List<String[]> allLines = readAllLines();
-
-        allLines.remove(headerPos); //Treiem el Header
-        return allLines;
     }
 
     /**
@@ -307,9 +378,7 @@ public class GestorCSVFile {
     public String[] getLinebyKey(String key) throws PersistanceException {
         List<String[]> allLines = readAllLines();
 
-        allLines.remove(headerPos); //Treiem el Header per no recorre'l
         int rowNumber = getLineNumberByKey(allLines, key);
-        if (rowNumber == -1) throw new LineNotFoundException(key, file.getName());
         return allLines.get(rowNumber);
     }
 
@@ -323,11 +392,7 @@ public class GestorCSVFile {
     public Boolean existsLinebyKey(String key) throws PersistanceException {
         List<String[]> allLines = readAllLines();
 
-        allLines.remove(headerPos); //Treiem el Header per no recorre'l
-
-        int rowNumber = getLineNumberByKey(allLines, key);
-        return rowNumber != -1;
-
+        return foundLineByKey(allLines, key);
     }
 
     /**
@@ -339,18 +404,10 @@ public class GestorCSVFile {
     public void removeLinebyKey(String key) throws PersistanceException {
         List<String[]> allLines = readAllLines();
 
-        String[] header = allLines.get(headerPos);
-        allLines.remove(headerPos); //Treiem el Header per no recorre'l
-
-
         int rowNumber = getLineNumberByKey(allLines, key);
-        if (rowNumber == -1) throw new LineNotFoundException(key, file.getName());
         allLines.remove(rowNumber);
 
-        allLines.add(headerPos, header); //I el tornem a posar
-
         writeAllLines(allLines);
-
     }
 
     /**
@@ -363,18 +420,10 @@ public class GestorCSVFile {
     public void setLinebyKey(String key, String[] line) throws PersistanceException {
         List<String[]> allLines = readAllLines();
 
-        String[] header = allLines.get(headerPos);
-        allLines.remove(headerPos); //Treiem el Header per no recorre'l
-
-
         int rowNumber = getLineNumberByKey(allLines, key);
-        if (rowNumber == -1) throw new LineNotFoundException(key, file.getName());
         allLines.set(rowNumber, line);
 
-        allLines.add(headerPos, header); //I el tornem a posar
-
         writeAllLines(allLines);
-
     }
 
 }
