@@ -43,7 +43,7 @@ public class NovaPartidaView {
                 List<Integer> solucio = panelMaker.getSolucio();
                 for (int i = 0; i < solucio.size(); ++i) {
                     if (solucio.get(i) == 0) {
-                        controladorPresentacio.showWarningDialog("No s'ha pogut crear la partida", "Hi ha una bola buida a la seqüència solució");
+                        controladorPresentacio.showWarningDialog("No s'ha pogut crear la partida", "Hi ha alguna bola buida a la seqüència solució");
                         return;
                     }
                 }

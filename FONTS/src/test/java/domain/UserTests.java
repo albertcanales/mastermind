@@ -23,23 +23,23 @@ public class UserTests {
     @Before
     public void setStats(){
         //Fem deep copy per evitar la dependencia entre el paràmetre que passem i el valor esperat amb el que comparem
-        personalRecordTest = new ArrayList<>(List.of(2,4,4));
+        personalRecordTest = new ArrayList<>(List.of(2,4,4,2));
         personalRecordExpected = new ArrayList<>(personalRecordTest);
-        timePlayedTest = new ArrayList<>(List.of(0L,1334L,1000000L));
+        timePlayedTest = new ArrayList<>(List.of(0L,1334L,1000000L,1001334L));
         timePlayedExpected = new ArrayList<>(timePlayedTest);
-        wonGamesTest = new ArrayList<>(List.of(1,500,3));
+        wonGamesTest = new ArrayList<>(List.of(1,500,3,504));
         wonGamesExpected = new ArrayList<>(wonGamesTest);
-        lostGamesTest = new ArrayList<>(List.of(0,500,1));
+        lostGamesTest = new ArrayList<>(List.of(0,500,1,501));
         lostGamesExpected = new ArrayList<>(lostGamesTest);
-        currentWinStreakTest = new ArrayList<>(List.of(1,20,0));
+        currentWinStreakTest = new ArrayList<>(List.of(1,20,0,20));
         currentWinStreakExpected = new ArrayList<>(currentWinStreakTest);
-        winStreakTest = new ArrayList<>(List.of(1, 23, 1));
+        winStreakTest = new ArrayList<>(List.of(1, 23, 1,23));
         winStreakExpected = new ArrayList<>(winStreakTest);
-        avgAsBreakerTest = new ArrayList<>(List.of(2d,3.996d,29d));
+        avgAsBreakerTest = new ArrayList<>(List.of(2d,3.996d,29d,11.665333333333333d));
         avgAsBreakerExpected = new ArrayList<>(avgAsBreakerTest);
-        avgAsMakerTest = new ArrayList<>(List.of(23.1234d,15d));
+        avgAsMakerTest = new ArrayList<>(List.of(23.1234d,15d,19.061700000000002d));
         avgAsMakerExpected = new ArrayList<>(avgAsMakerTest);
-        numGamesAsMakerTest = new ArrayList<>(List.of(10,2));
+        numGamesAsMakerTest = new ArrayList<>(List.of(10,2,12));
         numGamesAsMakerExpected = new ArrayList<>(numGamesAsMakerTest);
     }
 
@@ -49,11 +49,11 @@ public class UserTests {
         String name = "Pepe"; String username = "pepe2316";
         User user = new User(name, username);
 
-        List<Integer> tot_zero = new ArrayList<>(List.of(0,0,0));
-        List<Long> tot_zero_L = new ArrayList<>(List.of(0L,0L,0L));
-        List<Double> tot_zero_d = new ArrayList<>(List.of(0d,0d,0d));
-        List<Double> small_tot_zero_d = new ArrayList<>(List.of(0d,0d));
-        List<Integer> small_tot_zero = new ArrayList<>(List.of(0,0));
+        List<Integer> tot_zero = new ArrayList<>(List.of(0,0,0,0));
+        List<Long> tot_zero_L = new ArrayList<>(List.of(0L,0L,0L,0L));
+        List<Double> tot_zero_d = new ArrayList<>(List.of(0d,0d,0d,0d));
+        List<Double> small_tot_zero_d = new ArrayList<>(List.of(0d,0d,0d));
+        List<Integer> small_tot_zero = new ArrayList<>(List.of(0,0,0));
 
         assertEquals("Pepe", user.getName());
         assertEquals("pepe2316", user.getUsername());
@@ -90,7 +90,7 @@ public class UserTests {
     @Test
     public void createExistingUserInvalidStat() {
         String name = "Pepe"; String username = "pepe2316";
-        wonGamesTest = new ArrayList<>(List.of(1,500,3,0));
+        wonGamesTest = new ArrayList<>(List.of(1,500,3,504,0));
         assertThrows(InvalidStatSizeException.class, () -> new User(name, username, personalRecordTest, timePlayedTest, wonGamesTest, lostGamesTest, currentWinStreakTest, winStreakTest, avgAsBreakerTest, avgAsMakerTest, numGamesAsMakerTest));
     }
 
@@ -103,23 +103,23 @@ public class UserTests {
 
         assertEquals("Pepe", user.getName());
         assertEquals("pepe2316", user.getUsername());
-        personalRecordExpected = new ArrayList<>(List.of(5,0,0));
+        personalRecordExpected = new ArrayList<>(List.of(5,0,0,5));
         assertEquals(personalRecordExpected, user.getPersonalRecord());
-        timePlayedExpected = new ArrayList<>(List.of(5L,0L,0L));
+        timePlayedExpected = new ArrayList<>(List.of(5L,0L,0L,5L));
         assertEquals(timePlayedExpected, user.getTimePlayed());
-        wonGamesExpected = new ArrayList<>(List.of(1,0,0));
+        wonGamesExpected = new ArrayList<>(List.of(1,0,0,1));
         assertEquals(wonGamesExpected, user.getWonGames());
-        lostGamesExpected = new ArrayList<>(List.of(0,0,0));
+        lostGamesExpected = new ArrayList<>(List.of(0,0,0,0));
         assertEquals(lostGamesExpected, user.getLostGames());
-        currentWinStreakExpected = new ArrayList<>(List.of(1,0,0));
+        currentWinStreakExpected = new ArrayList<>(List.of(1,0,0,1));
         assertEquals(currentWinStreakExpected, user.getCurrentWinStreak());
-        winStreakExpected = new ArrayList<>(List.of(1,0,0));
+        winStreakExpected = new ArrayList<>(List.of(1,0,0,1));
         assertEquals(winStreakExpected, user.getWinStreak());
-        avgAsBreakerExpected = new ArrayList<>(List.of(5d,0d,0d));
+        avgAsBreakerExpected = new ArrayList<>(List.of(5d,0d,0d,5d));
         assertEquals(avgAsBreakerExpected, user.getAvgAsBreaker());
-        avgAsMakerExpected = new ArrayList<>(List.of(0d,0d));
+        avgAsMakerExpected = new ArrayList<>(List.of(0d,0d,0d));
         assertEquals(avgAsMakerExpected, user.getAvgAsMaker());
-        numGamesAsMakerExpected = new ArrayList<>(List.of(0,0));
+        numGamesAsMakerExpected = new ArrayList<>(List.of(0,0,0));
         assertEquals(numGamesAsMakerExpected, user.getNumGamesAsMaker());
     }
 
@@ -132,18 +132,18 @@ public class UserTests {
 
         assertEquals("Pepe", user.getName());
         assertEquals("pepe2316", user.getUsername());
-        personalRecordExpected.set(0,1);
+        personalRecordExpected = new ArrayList<>(List.of(1,4,4,1));
         assertEquals(personalRecordExpected, user.getPersonalRecord());
-        timePlayedExpected.set(0,5L);
+        timePlayedExpected = new ArrayList<>(List.of(5L,1334L,1000000L,1001339L));
         assertEquals(timePlayedExpected, user.getTimePlayed());
-        wonGamesExpected.set(0,2);
+        wonGamesExpected = new ArrayList<>(List.of(2,500,3,505));
         assertEquals(wonGamesExpected, user.getWonGames());
         assertEquals(lostGamesExpected, user.getLostGames());
-        currentWinStreakExpected.set(0,2);
+        currentWinStreakExpected = new ArrayList<>(List.of(2,20,0,20));
         assertEquals(currentWinStreakExpected, user.getCurrentWinStreak());
-        winStreakExpected.set(0,2);
+        winStreakExpected = new ArrayList<>(List.of(2, 23, 1,23));
         assertEquals(winStreakExpected, user.getWinStreak());
-        avgAsBreakerExpected.set(0,1.5d);
+        avgAsBreakerExpected = new ArrayList<>(List.of(1.5d,3.996d,29d,11.498666666666667d));
         assertEquals(avgAsBreakerExpected, user.getAvgAsBreaker());
         assertEquals(avgAsMakerExpected, user.getAvgAsMaker());
         assertEquals(numGamesAsMakerExpected, user.getNumGamesAsMaker());
@@ -159,16 +159,15 @@ public class UserTests {
         assertEquals("Pepe", user.getName());
         assertEquals("pepe2316", user.getUsername());
         assertEquals(personalRecordExpected, user.getPersonalRecord());
-        timePlayedExpected.set(1,1350L);
+        timePlayedExpected = new ArrayList<>(List.of(0L,1350L,1000000L,1001350L));
         assertEquals(timePlayedExpected, user.getTimePlayed());
         assertEquals(wonGamesExpected, user.getWonGames());
-        lostGamesExpected.set(1,501);
+        lostGamesExpected = new ArrayList<>(List.of(0,501,1,502));
         assertEquals(lostGamesExpected, user.getLostGames());
-        currentWinStreakExpected.set(1,0);
+        currentWinStreakExpected = new ArrayList<>(List.of(1,0,0,1));
         assertEquals(currentWinStreakExpected, user.getCurrentWinStreak());
-        winStreakExpected.set(1,23);
         assertEquals(winStreakExpected, user.getWinStreak());
-        avgAsBreakerExpected.set(1,4d);
+        avgAsBreakerExpected = new ArrayList<>(List.of(2d,4d,29d,11.666666666666666d));
         assertEquals(avgAsBreakerExpected, user.getAvgAsBreaker());
         assertEquals(avgAsMakerExpected, user.getAvgAsMaker());
         assertEquals(numGamesAsMakerExpected, user.getNumGamesAsMaker());
@@ -202,9 +201,9 @@ public class UserTests {
 
         user.acabarPartidaMaker(1,8);
 
-        List<Integer> tot_zero = new ArrayList<>(List.of(0,0,0));
-        List<Long> tot_zero_L = new ArrayList<>(List.of(0L,0L,0L));
-        List<Double> tot_zero_d = new ArrayList<>(List.of(0d,0d,0d));
+        List<Integer> tot_zero = new ArrayList<>(List.of(0,0,0,0));
+        List<Long> tot_zero_L = new ArrayList<>(List.of(0L,0L,0L,0L));
+        List<Double> tot_zero_d = new ArrayList<>(List.of(0d,0d,0d,0d));
 
         assertEquals("Pepe", user.getName());
         assertEquals("pepe2316", user.getUsername());
@@ -215,9 +214,9 @@ public class UserTests {
         assertEquals(tot_zero, user.getCurrentWinStreak());
         assertEquals(tot_zero, user.getWinStreak());
         assertEquals(tot_zero_d, user.getAvgAsBreaker());
-        avgAsMakerExpected = new ArrayList<>(List.of(8d,0d));
+        avgAsMakerExpected = new ArrayList<>(List.of(8d,0d,8d));
         assertEquals(avgAsMakerExpected, user.getAvgAsMaker());
-        numGamesAsMakerExpected = new ArrayList<>(List.of(1,0));
+        numGamesAsMakerExpected = new ArrayList<>(List.of(1,0,1));
         assertEquals(numGamesAsMakerExpected, user.getNumGamesAsMaker());
     }
 
@@ -237,9 +236,8 @@ public class UserTests {
         assertEquals(currentWinStreakExpected, user.getCurrentWinStreak());
         assertEquals(winStreakExpected, user.getWinStreak());
         assertEquals(avgAsBreakerExpected, user.getAvgAsBreaker());
-        avgAsMakerExpected.set(1,15d);
         assertEquals(avgAsMakerExpected, user.getAvgAsMaker());
-        numGamesAsMakerExpected.set(1,3);
+        numGamesAsMakerExpected = new ArrayList<>(List.of(10,3,13));
         assertEquals(numGamesAsMakerExpected, user.getNumGamesAsMaker());
     }
 

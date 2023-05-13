@@ -74,17 +74,15 @@ public class ZonaUsuariView {
         JLabelRecordPersonalFacil.setText(Integer.toString(record.get(0)));
         JLabelRecordPersonalMig.setText(Integer.toString(record.get(1)));
         JLabelRecordPersonalDificil.setText(Integer.toString(record.get(2)));
-        Integer total = min(record.get(0), min(record.get(1), record.get(2)));
-        JLabelRecordPersonalTotal.setText(Integer.toString(total));
+        JLabelRecordPersonalTotal.setText(Integer.toString(record.get(3)));
     }
 
     private void setTemps() {
         List<Long> temps = controladorPresentacio.getTimePlayed();
         JLabelTempsFacil.setText(Long.toString(temps.get(0)));
-        JLabelTempsFacil.setText(Long.toString(temps.get(1)));
-        JLabelTempsFacil.setText(Long.toString(temps.get(2)));
-        Long total = temps.get(0) + temps.get(1) + temps.get(2);
-        JLabelTempsFacil.setText(Long.toString(total));
+        JLabelTempsMig.setText(Long.toString(temps.get(1)));
+        JLabelTempsDificil.setText(Long.toString(temps.get(2)));
+        JLabelTempsTotal.setText(Long.toString(temps.get(3)));
     }
 
     private void setGuanyades() {
@@ -92,8 +90,7 @@ public class ZonaUsuariView {
         JLabelGuanyadesFacil.setText(Integer.toString(guanyades.get(0)));
         JLabelGuanyadesMig.setText(Integer.toString(guanyades.get(1)));
         JLabelGuanyadesDificil.setText(Integer.toString(guanyades.get(2)));
-        Integer total = guanyades.get(0) + guanyades.get(1) + guanyades.get(2);
-        JLabelGuanyadesTotal.setText(Integer.toString(total));
+        JLabelGuanyadesTotal.setText(Integer.toString(guanyades.get(3)));
     }
 
     private void setPerdudes() {
@@ -101,8 +98,7 @@ public class ZonaUsuariView {
         JLabelPerdudesFacil.setText(Integer.toString(perdudes.get(0)));
         JLabelPerdudesMig.setText(Integer.toString(perdudes.get(1)));
         JLabelPerdudesDificil.setText(Integer.toString(perdudes.get(2)));
-        Integer total = perdudes.get(0) + perdudes.get(1) + perdudes.get(2);
-        JLabelPerdudesTotal.setText(Integer.toString(total));
+        JLabelPerdudesTotal.setText(Integer.toString(perdudes.get(3)));
     }
 
     private void setRatxaVictories() {
@@ -110,8 +106,7 @@ public class ZonaUsuariView {
         JLabelRatxaVictoriesFacil.setText(Integer.toString(winStreak.get(0)));
         JLabelRatxaVictoriesMig.setText(Integer.toString(winStreak.get(1)));
         JLabelRatxaVictoriesDificil.setText(Integer.toString(winStreak.get(2)));
-        Integer total = max(winStreak.get(0), max(winStreak.get(1), winStreak.get(2)));
-        JLabelRatxaVictoriesTotal.setText(Integer.toString(total));
+        JLabelRatxaVictoriesTotal.setText(Integer.toString(winStreak.get(3)));
     }
 
     private void setMitjanaIntentsBreaker() {
@@ -119,16 +114,14 @@ public class ZonaUsuariView {
         JLabelMitjanaIntentsFacil.setText(Double.toString(average.get(0)));
         JLabelMitjanaIntentsMig.setText(Double.toString(average.get(1)));
         JLabelMitjanaIntentsDificil.setText(Double.toString(average.get(2)));
-        Double total = (average.get(0) + average.get(1) + average.get(2)) / 3;
-        JLabelMitjanaIntentsBreakerTotal.setText(Double.toString(total));
+        JLabelMitjanaIntentsBreakerTotal.setText(Double.toString(average.get(3)));
     }
 
     private void setMitjanaIntentsMaker() {
         List<Double> average = controladorPresentacio.getAverageAsMaker();
         JLabelMitjanaIntentsFiveGuess.setText(Double.toString(average.get(0)));
         JLabelMitjanaIntentsGenetic.setText(Double.toString(average.get(1)));
-        Double total = (average.get(0) + average.get(1)) / 2;
-        JLabelMitjanaIntentsMakerTotal.setText(Double.toString(total));
+        JLabelMitjanaIntentsMakerTotal.setText(Double.toString(average.get(2)));
     }
 
 
