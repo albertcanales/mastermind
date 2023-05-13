@@ -21,13 +21,6 @@ public class GestorPartidesActualsMaker {
 
     private final GestorCSVFile csvFile;
 
-    private List<List<Integer>> getListListFirstNull() {
-        List<List<Integer>> list = new ArrayList<>();
-        List<Integer> sequence = Arrays.asList(0, 0, 0, 0);
-        list.add(sequence);
-        return list;
-    }
-
     public static void main(String[] args) throws PersistanceException {
         GestorPartidesActualsMaker gestor = new GestorPartidesActualsMaker("./db/");
         //gestor.novaPartidaMaker("arnau", 2, List.of(0, 4, 6, 8));
@@ -53,7 +46,6 @@ public class GestorPartidesActualsMaker {
 
     public void novaPartidaMaker(String username, Integer algorisme, List<Integer> solucio, List<List<Integer>> intents,
                                  List<List<Integer>> feedback) throws PersistanceException {
-        //TODO: solucio size 4 etc
         if (!csvFile.existsLinebyKey(username)) {
             String[] line = new String[HeaderMaker.getLength()];
             line[HeaderMaker.USERNAME.start] = username;
