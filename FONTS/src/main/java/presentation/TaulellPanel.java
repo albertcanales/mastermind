@@ -1,16 +1,18 @@
 package presentation;
 
+import exceptions.presentation.BolaNoExistent;
+import exceptions.presentation.PresentationException;
+import exceptions.presentation.SequenciaNoExistent;
+
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.List;
 
-public class PartidaView {
+public class TaulellPanel {
 
     private final int SEQUENCIA_SIZE = 4;
 
@@ -57,7 +59,7 @@ public class PartidaView {
     private ArrayList<SequenciaPanel> sequenciaFeedbackList;
     private ArrayList<JButton> buttonOKList;
 
-    PartidaView() {
+    TaulellPanel() {
         controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
@@ -119,12 +121,42 @@ public class PartidaView {
         for (JButton button : buttonOKList) {
             button.setMargin(new Insets(0, 0, 0, 0));
             button.setEnabled(false);
-            button.addActionListener(actionEvent -> validarIntentClick());
+            // button.addActionListener(actionEvent -> validarIntentClick());
+            // TODO fer tractament del OK
         }
     }
 
-    private void validarIntentClick() {
+    void setOKButtonVisible(Boolean visible) {
+        for (JButton buttonOK : buttonOKList) {
+            buttonOK.setVisible(visible);
+        }
+    }
 
+    void setFeedbackColors(Integer index, List<Integer> feedback) throws PresentationException {
+        if (index < 0 || index >= sequenciaFeedbackList.size())
+            throw new SequenciaNoExistent();
+        sequenciaIntentList.get(index).setSequenciaColors(feedback);
+    }
+
+    void setSequenciesColors(List<List<Integer>> intents, List<List<Integer>> feedbacks, List<Integer> solucio) throws PresentationException {
+        if (intents.size() > sequenciaIntentList.size() || feedbacks.size() > sequenciaFeedbackList.size())
+            throw new SequenciaNoExistent();
+        for (int i = 0; i < intents.size(); i++)
+            sequenciaIntentList.get(i).setSequenciaColors(intents.get(i));
+        for (int i = 0; i < feedbacks.size(); i++)
+            sequenciaFeedbackList.get(i).setSequenciaColors(feedbacks.get(i));
+        sequenciaSolucio.setSequenciaColors(solucio);
+    }
+
+    void setIntentEnabled(Integer index, Boolean enabled) throws SequenciaNoExistent {
+        if (index < 0 || index >= sequenciaIntentList.size())
+            throw new SequenciaNoExistent();
+        sequenciaIntentList.get(index).setEnabled(enabled);
+    }
+
+    void attachToBoles(Observer o) {
+        for (SequenciaPanel intent : sequenciaIntentList)
+            intent.attachToBoles(o);
     }
 
     /**

@@ -39,6 +39,7 @@ public class SequenciaPanel {
 
     /**
      * Mètode per adjuntar un observador a totes les boles de la seqüència
+     *
      * @param o Observador a adjuntar
      */
     void attachToBoles(Observer o) {
@@ -49,6 +50,7 @@ public class SequenciaPanel {
 
     /**
      * Mètode per desadjuntar un observador a totes les boles de la seqüència
+     *
      * @param o Observador a desadjuntar
      */
     void detachFromBoles(Observer o) {
@@ -59,6 +61,7 @@ public class SequenciaPanel {
 
     /**
      * Mètode per activar o desactivar de la seqüència
+     *
      * @param enabled Si es vol activar o desactivar les boles
      */
     void setEnabled(Boolean enabled) {
@@ -81,6 +84,7 @@ public class SequenciaPanel {
 
     /**
      * Getter del color d'una bola de la seqüència
+     *
      * @param index Posició de la bola [0, ..., 3]
      * @throws BolaNoExistent si l'índex no correspon a cap bola
      */
@@ -101,6 +105,21 @@ public class SequenciaPanel {
         if (index < 0 || index >= bolaButtonList.size())
             throw new BolaNoExistent();
         bolaButtonList.get(index).setBolaColor(color);
+    }
+
+    /**
+     * Setter dels colors de tota la seqüència
+     *
+     * @param sequenciaColors Llista d'enters amb els colors de la seqüència
+     * @throws BolaNoExistent si l'índex no correspon a cap bola
+     */
+    void setSequenciaColors(List<Integer> sequenciaColors) throws BolaNoExistent {
+        if (sequenciaColors.size() != bolaButtonList.size())
+            throw new BolaNoExistent();
+        for (int i = 0; i < bolaButtonList.size(); i++) {
+            BolaColor bolaColor = BolaColor.findByNumber(sequenciaColors.get(i));
+            bolaButtonList.get(i).setBolaColor(bolaColor);
+        }
     }
 
     /**

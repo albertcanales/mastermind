@@ -1,7 +1,5 @@
 package presentation;
 
-import exceptions.domain.DomainException;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -58,8 +56,8 @@ class BolaButton extends Subject {
      */
     void setBolaColor(BolaColor bolaColor) {
         this.bolaColor = bolaColor;
-        if (bolaColor.color != null)
-            button.setIcon(new ColorIcon(16, bolaColor.color));
+        if (bolaColor.getColor() != null)
+            button.setIcon(new ColorIcon(16, bolaColor.getColor()));
         else
             button.setIcon(null);
     }
@@ -139,10 +137,38 @@ class BolaButton extends Subject {
  */
 enum BolaColor {
 
-    NONE(null), RED(Color.RED), GREEN(Color.green), BLUE(Color.blue);
-    public final Color color;
+    NONE(null, 0),
+    RED(Color.RED, 1),
+    GREEN(Color.green, 2),
+    BLUE(Color.blue, 3);
 
-    BolaColor(Color color) {
+    private final Color color;
+    private final Integer number;
+
+    BolaColor(Color color, Integer number) {
         this.color = color;
+        this.number = number;
+    }
+
+    Color getColor() {
+        return color;
+    }
+
+    private Integer getNumber() {
+        return number;
+    }
+
+    /**
+     * Mètode per obtenir el BolaColor a partir del seu nombre
+     * @param number és el valor que representa el color de la bola
+     * @return el BolaColor corresponent al nombre donat
+     */
+    static BolaColor findByNumber(Integer number) {
+        for(BolaColor nd : values()){
+            if(nd.getNumber().equals(number)){
+                return nd;
+            }
+        }
+        return null;
     }
 }
