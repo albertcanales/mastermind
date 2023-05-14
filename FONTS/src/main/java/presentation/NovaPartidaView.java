@@ -37,7 +37,7 @@ public class NovaPartidaView {
         switch (tabbedPane.getSelectedIndex()) {
             case 0:
                 controladorPresentacio.novaPartidaBreaker(panelBreaker.getDificultat());
-                //controladorPresentacio.showPartidaBreaker();
+                controladorPresentacio.showPartidaBreakerView();
                 break;
             case 1:
                 List<Integer> solucio = panelMaker.getSolucio();

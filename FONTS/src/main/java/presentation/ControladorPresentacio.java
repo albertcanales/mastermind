@@ -3,8 +3,7 @@ package presentation;
 import domain.ControladorDomini;
 import exceptions.GeneralException;
 import exceptions.domain.DomainException;
-import exceptions.domain.NotLoggedInException;
-import exceptions.persistance.PersistanceException;
+import exceptions.presentation.PresentationException;
 
 import javax.swing.*;
 import java.util.List;
@@ -296,6 +295,7 @@ public class ControladorPresentacio {
         return null;
     }
 
+    // TODO A ZonaUsuari li falta implementar aquest botó!!!
     /**
      * Mètode per esborrar l'usuari que ha iniciat sessió.
      * Es mostra un error si no estava iniciada.
@@ -308,6 +308,33 @@ public class ControladorPresentacio {
             showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
         }
+    }
+
+    List<List<Integer>> getIntents() {
+        try {
+            return controladorDomini.getIntents();
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut obtenir els intents");
+        }
+        return null;
+    }
+
+    List<List<Integer>> getFeedbacks() {
+        try {
+            return controladorDomini.getFeedbacks();
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut obtenir els feedbacks");
+        }
+        return null;
+    }
+
+    List<Integer> getSolucio() {
+        try {
+            return controladorDomini.getSolucio();
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut obtenir la solució");
+        }
+        return null;
     }
 
     /**
@@ -415,9 +442,13 @@ public class ControladorPresentacio {
      * TESTING
      * Mètode per mostrar la vista PartidaView
      */
-    void showPartidaView() {
-        PartidaView partidaView = new PartidaView();
-        partidaView.show();
+    void showPartidaBreakerView() {
+        try {
+            PartidaBreakerView partidaBreakerView = new PartidaBreakerView();
+            partidaBreakerView.show();
+        } catch (PresentationException e) {
+            showErrorDialog("No s'ha pogut mostrar la partida");
+        }
     }
 
 
