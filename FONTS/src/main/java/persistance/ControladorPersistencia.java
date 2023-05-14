@@ -10,11 +10,13 @@ public class ControladorPersistencia {
     private final GestorUsuaris gestorUsuaris;
     private final GestorPartidesActualsBreaker gestorPartidesActualsBreaker;
     private final GestorPartidesActualsMaker gestorPartidesActualsMaker;
+    private final GestorRanquing gestorRanquing;
     private static final String basePath = "./db/"; //TODO: directoris dinàmics
     public ControladorPersistencia() throws GeneralException {
         gestorUsuaris = new GestorUsuaris(basePath);
         gestorPartidesActualsBreaker = new GestorPartidesActualsBreaker(basePath);
         gestorPartidesActualsMaker = new GestorPartidesActualsMaker(basePath);
+        gestorRanquing = new GestorRanquing(basePath);
     }
     public Boolean existsUser(String username) throws GeneralException {
         return gestorUsuaris.existsUser(username);
@@ -33,21 +35,12 @@ public class ControladorPersistencia {
         return gestorUsuaris.getUserName(username);
     }
 
-    public List<List<Object>> getRanquing(Integer nivellDificultat) {
-        List<List<Object>> ranquing = new ArrayList<>();
-        if(nivellDificultat == 1) {
-            ranquing.add(List.of("albert", 2, 100L));
-            ranquing.add(List.of("mar", 4, 200L));
-        }
-        else if (nivellDificultat == 2) {
-            ranquing.add(List.of("arnau", 5, 400L));
-            ranquing.add(List.of("kamil", 7, 300L));
-            ranquing.add(List.of("mar", 10, 700L));
-        }
-        else if (nivellDificultat == 3) {
-            // No n'hi ha cap
-        }
-        return ranquing;
+    public List<List<Object>> getRanquing(Integer nivellDificultat) throws GeneralException {
+        return gestorRanquing.getRanquing(nivellDificultat - 1);
+    }
+
+    public void setRanquing(Integer nivellDificultat, List<List<Object>> ranquing) throws GeneralException {
+        gestorRanquing.setRanquing(nivellDificultat - 1, ranquing);
     }
 
     public List<Integer> getUserPersonalRecord(String username) throws GeneralException {

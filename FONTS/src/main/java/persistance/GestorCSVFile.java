@@ -321,7 +321,7 @@ public class GestorCSVFile {
      * @throws InvalidFileAccess   si no es pot accedir al fitxer
      * @throws InvalidCSVException si el CSV no té un format legal
      */
-    private List<String[]> readAllLines(Boolean removeHeader) throws InvalidFileAccess, InvalidCSVException {
+    public List<String[]> readAllLines(Boolean removeHeader) throws InvalidFileAccess, InvalidCSVException {
         CSVReader csvReader;
         try {
             csvReader = new CSVReader(new FileReader(file));
@@ -352,7 +352,7 @@ public class GestorCSVFile {
      * @param allLines una llista d'Strings amb totes les línies d'un fitxer (sense el header!!)
      * @throws InvalidFileAccess si no es pot accedir al fitxer
      */
-    private void writeAllLines(List<String[]> allLines) throws InvalidFileAccess {
+    public void writeAllLines(List<String[]> allLines) throws InvalidFileAccess {
         CSVWriter csvWriter;
         try {
             csvWriter = new CSVWriter(new FileWriter(file, false));
