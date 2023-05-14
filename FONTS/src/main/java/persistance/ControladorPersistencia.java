@@ -33,11 +33,22 @@ public class ControladorPersistencia {
         return gestorUsuaris.getUserName(username);
     }
 
-    public List<List<List<String>>> getRanquing(){ //TODO: Recuperar de persistencia
-        return null;
+    public List<List<List<String>>> getRanquing(){ //TODO: Recuperar de persistencia tots els ranquings
+        List<List<List<String>>> ranquing = new ArrayList<>();
+        for (int i = 0; i < 3; ++i){
+            ranquing.add(new ArrayList<>());
+        }
+        ranquing.get(0).add(List.of("albert", "2", "100"));
+        ranquing.get(0).add(List.of("mar", "4", "200"));
+
+        ranquing.get(1).add(List.of("arnau", "5", "400"));
+        ranquing.get(1).add(List.of("kamil", "7", "300"));
+        ranquing.get(1).add(List.of("mar", "10", "700"));
+
+        return ranquing;
     }
 
-    public List<List<Object>> getRanquing(Integer nivellDificultat) { //TODO: Recuperar de persistencia
+    public List<List<Object>> getRanquing(Integer nivellDificultat) { //TODO: Recuperar de persistencia el ranquing de certa dificultat
         List<List<Object>> ranquing = new ArrayList<>();
         if(nivellDificultat == 1) {
             ranquing.add(List.of("albert", 2, 100L));

@@ -301,7 +301,10 @@ public class ControladorPresentacio {
             return controladorDomini.getRanquing();
         }
         catch (GeneralException e){
+            showErrorDialog("No es pot carregar el Rànquing");
+            e.printStackTrace();
         }
+        return null;
     }
 
     /**
@@ -399,8 +402,8 @@ public class ControladorPresentacio {
      * Mètode per mostrar la vista RankingView
      */
     void showRankingView() {
-        // RankingView rankingView = new RankingView();
-        // rankingView.show();
+        RankingView rankingView = new RankingView();
+        rankingView.show();
     }
 
     /**

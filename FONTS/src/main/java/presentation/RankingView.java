@@ -15,9 +15,11 @@ public class RankingView {
     private JButton buttonTorna;
     private JTabbedPane tabbedPane;
 
-    private ArrayList<JPanel> rankingPanelList;
+    private ArrayList<JTable> rankingTableList;
 
     private List<List<List<String>>> ranking;
+
+    private final int NUM_RANKINGS = 3;
 
     RankingView() {
         controladorPresentacio = ControladorPresentacio.getInstance();
@@ -25,26 +27,44 @@ public class RankingView {
         initComponents();
     }
 
-    private void initComponents(){
-        initRankingPanelList();
-        initTabbedPanel();
+    void show() {
+        controladorPresentacio.setContent(panel);
+        controladorPresentacio.setTitle("Rànquing");
+    }
+
+    private void initComponents() {
+        initRankingTableList();
         initRanking();
+        initTabbedPanel();
+
+
+        buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialOrHomeView());
     }
 
-    private void initRanking(){
+    private void initRankingTableList() {
+        rankingTableList = new ArrayList<>();
+        for (int i = 0; i < NUM_RANKINGS; ++i) rankingTableList.add(new JTable());
+    }
+
+    private void initTabbedPanel() {
+        tabbedPane.addTab("Fàcil", new JScrollPane(rankingTableList.get(0)));
+        tabbedPane.addTab("Mig", new JScrollPane(rankingTableList.get(1)));
+        tabbedPane.addTab("Difícil", new JScrollPane(rankingTableList.get(2)));
+    }
+
+    private void initRanking() {
         ranking = controladorPresentacio.getRanquing();
+
+        for (int i = 0; i < NUM_RANKINGS; ++i) fillRanking(i, ranking.get(i));
     }
 
-    private void initRankingPanelList(){
-        rankingPanelList = new ArrayList<>();
-        for (int i = 0; i < 4; ++i) rankingPanelList.add(new JPanel());
-    }
+    private void fillRanking(int index, List<List<String>> ranking) {
+        String[] columnNames = {"User", "Intents", "Temps"};
+        Integer rankingSize = ranking.size();
+        String[][] rankingArray = new String[rankingSize][];
+        for (int i = 0; i < rankingSize; ++i) rankingArray[i] = ranking.get(i).toArray(new String[0]);
 
-    private void initTabbedPanel(){
-        tabbedPane.addTab("Fàcil", rankingPanelList.get(0));
-        tabbedPane.addTab("Mig", rankingPanelList.get(1));
-        tabbedPane.addTab("Difícil", rankingPanelList.get(2));
-        tabbedPane.addTab("Total", rankingPanelList.get(3));
+        rankingTableList.set(index, new JTable(rankingArray, columnNames));
     }
 
     /**
@@ -70,12 +90,6 @@ public class RankingView {
         panel.add(panel2, BorderLayout.CENTER);
         tabbedPane = new JTabbedPane();
         panel2.add(tabbedPane, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(200, 200), null, 0, false));
-        final JPanel panel3 = new JPanel();
-        panel3.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        tabbedPane.addTab("Untitled", panel3);
-        final JPanel panel4 = new JPanel();
-        panel4.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        tabbedPane.addTab("Untitled", panel4);
     }
 
     /**

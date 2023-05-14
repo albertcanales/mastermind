@@ -33,7 +33,7 @@ public class HomeView {
         if (!controladorPresentacio.existsPartidaGuardada()) {
             buttonCarregarPartida.setEnabled(false);
         }
-        //buttonRanquing.addActionListener(actionEvent -> controladorPresentacio.showRanquingView());
+        buttonRanquing.addActionListener(actionEvent -> controladorPresentacio.showRankingView());
         buttonNormes.addActionListener(actionEvent -> controladorPresentacio.showNormesView());
         buttonNovaPartida.addActionListener(actionEvent -> controladorPresentacio.showNovaPartidaView());
         buttonCarregarPartida.addActionListener(actionEvent -> carregarPartidaButtonClick());
