@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Gestor per crear, consultar, modificar i esborrar un CSV
@@ -29,26 +30,21 @@ public class GestorCSVFile {
     private static final int headerPos = 0; //El header sempre està a la posició 0 d'un CSV
     private final String[] header;
     private static final int listSize = 4;
-    private static final int listListRows = 48;
-    private static final int listListSize = listListRows/listSize;
-
 
     /**
-     * Posa el contingut d'una llista d'enters en un array d'Strings entre les dues posicions donades
-     * @param list la llista d'enters a col·locar
+     * Posa el contingut d'una llista en un array d'Strings entre les dues posicions donades
+     * @param list la llista a col·locar
      * @param line l'Array d'Strings on es col·locarà la llista
      * @param start la posició inicial de l'String on es col·locarà la llista
      * @param end la posició final de l'String on es col·locarà la llista
      */
-    public void setListIntinString(List<Integer> list, String[] line, Integer start, Integer end) {
-        for (int i = start; i <= end; ++i) {
-            int listPosition = i - start;
-            if (list.get(listPosition) == null) {
-                line[i] = "null";
-            } else {
-                line[i] = list.get(listPosition).toString();
-            }
-
+    public void setListinString(List<?> list, String[] line, Integer start, Integer end) {
+        int i = start;
+        int listPosition = 0;
+        while (i <= end && listPosition < list.size()) {
+            line[i] = list.get(listPosition).toString();
+            ++i;
+            ++listPosition;
         }
     }
 
@@ -61,28 +57,13 @@ public class GestorCSVFile {
      */
     public List<Integer> getListIntinString(String[] line, Integer start, Integer end) {
         List<Integer> list = new ArrayList<>();
-        for (int i = start; i <= end; ++i) {
-            if (line[i].equals("null")) {
-                list.add(null);
-            } else {
+        int i = start;
+        while (i <= end && i < line.length) {
+            if (!line[i].equals(""))
                 list.add(Integer.parseInt(line[i]));
-            }
+            ++i;
         }
         return list;
-    }
-
-    /**
-     * Posa el contingut d'una llista de Long(s) en un array d'Strings entre les dues posicions donades
-     * @param list la llista de Long(s) a col·locar
-     * @param line l'Array d'Strings on es col·locarà la llista
-     * @param start la posició inicial de l'String on es col·locarà la llista
-     * @param end la posició final de l'String on es col·locarà la llista
-     */
-    public void setListLonginString(List<Long> list, String[] line, Integer start, Integer end) {
-        for (int i = start; i <= end; ++i) {
-            int listPosition = i - start;
-            line[i] = list.get(listPosition).toString();
-        }
     }
 
     /**
@@ -94,23 +75,13 @@ public class GestorCSVFile {
      */
     public List<Long> getListLonginString(String[] line, Integer start, Integer end) {
         List<Long> list = new ArrayList<>();
-        for (int i = start; i <= end; ++i)
-            list.add(Long.parseLong(line[i]));
-        return list;
-    }
-
-    /**
-     * Posa el contingut d'una llista de Double(s) en un array d'Strings entre les dues posicions donades
-     * @param list la llista de Double(s) a col·locar
-     * @param line l'Array d'Strings on es col·locarà la llista
-     * @param start la posició inicial de l'String on es col·locarà la llista
-     * @param end la posició final de l'String on es col·locarà la llista
-     */
-    public void setListDoubleinString(List<Double> list, String[] line, Integer start, Integer end) {
-        for (int i = start; i <= end; ++i) {
-            int listPosition = i - start;
-            line[i] = list.get(listPosition).toString();
+        int i = start;
+        while (i <= end && i < line.length) {
+            if (!line[i].equals(""))
+                list.add(Long.parseLong(line[i]));
+            ++i;
         }
+        return list;
     }
 
     /**
@@ -122,8 +93,12 @@ public class GestorCSVFile {
      */
     public List<Double> getListDoubleinString(String[] line, Integer start, Integer end) {
         List<Double> list = new ArrayList<>();
-        for (int i = start; i <= end; ++i)
-            list.add(Double.parseDouble(line[i]));
+        int i = start;
+        while (i <= end && i < line.length) {
+            if (!line[i].equals(""))
+                list.add(Double.parseDouble(line[i]));
+            ++i;
+        }
         return list;
     }
 
@@ -135,8 +110,8 @@ public class GestorCSVFile {
      * @param end la posició final de l'String on es col·locarà la llista
      */
     public void setListListinString(List<List<Integer>> list, String[] line, Integer start, Integer end) {
-        List<Integer> contiguousList = listListToList(fillListListWithNull(list));
-        setListIntinString(contiguousList, line, start, end);
+        List<Integer> contiguousList = listListToList(list);
+        setListinString(contiguousList, line, start, end);
     }
 
     /**
@@ -148,9 +123,7 @@ public class GestorCSVFile {
      */
     public List<List<Integer>> getListListinString(String[] line, Integer start, Integer end) {
         List<Integer> list = getListIntinString(line, start, end);
-        List<List<Integer>> listList = listToListList(list);
-        removeNullFromList(listList);
-        return listList;
+        return listToListList(list);
     }
 
     /**
@@ -159,71 +132,26 @@ public class GestorCSVFile {
      * @return una llista d'enters
      */
     private List<Integer> listListToList(List<List<Integer>> list) {
-        List<Integer> flattenedlist = new ArrayList<>();
-
-        for (int i = 0; i < listListRows; ++i) flattenedlist.add(0);
-
-        for (int i = 0; i < list.size(); ++i) {
-            for (int j = 0; j < list.get(i).size(); ++j) {
-                flattenedlist.set(listSize * i + j, list.get(i).get(j));
-            }
-        }
-        return flattenedlist;
-
+        return list.stream().flatMap(List::stream).collect(Collectors.toList());
     }
 
     /**
-     * Converteix una llista en una (d'una llista d'enters)
+     * Converteix una llista en una llista (d'una llista d'enters) de listSize columnes
      * @param list una llista (d'una llista d'enters)
      * @return una llista d'enters
      */
     private List<List<Integer>> listToListList(List<Integer> list) {
         List<List<Integer>> result = new ArrayList<>();
 
-        for (int i = 0; i < listListSize; ++i) {
+        for (int i = 0; i < list.size()/listSize; ++i) {
             List<Integer> resultTemp = new ArrayList<>();
             for (int j = 0; j < listSize; ++j) {
-                resultTemp.add(0);
+                resultTemp.add(j, list.get(listSize * i + j));
             }
-            result.add(resultTemp);
-        }
-
-        for (int i = 0; i < listListSize; ++i) {
-            for (int j = 0; j < listSize; ++j) {
-                result.get(i).set(j, list.get(listSize * i + j));
-            }
+            result.add(i, resultTemp);
         }
         return result;
 
-    }
-
-    /**
-     * Omple una llista (d'una llista d'enters) amb null fins a arribar "listListSize" i "listSize"
-     * @param list una llista (d'una llista d'enters)
-     * @return una llista (d'una llista d'enters) plena amb null
-     */
-    private List<List<Integer>> fillListListWithNull(List<List<Integer>> list) {
-        List<List<Integer>> nullList = new ArrayList<>(list);
-        for (int i = nullList.size(); i < listListSize; ++i) {
-            List<Integer> temp = new ArrayList<>();
-            for (int j = 0; j < listSize; ++j) {
-                temp.add(null);
-            }
-            nullList.add(temp);
-        }
-        return nullList;
-    }
-
-    /**
-     * Treu les files amb "null" d'una llista d'enters
-     * @param list una llista (d'una llista d'enters) sense els null
-     */
-    private void removeNullFromList(List<List<Integer>> list) {
-        for (int i = list.size() - 1; i >= 0; --i) {
-            if (list.get(i).get(0) == null) {
-                list.remove(i);
-            }
-        }
     }
 
     /**

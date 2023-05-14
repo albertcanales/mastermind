@@ -4,8 +4,6 @@ import exceptions.persistance.LineAlreadyExistsException;
 import exceptions.persistance.LineNotFoundException;
 import exceptions.persistance.PersistanceException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -50,7 +48,7 @@ public class GestorPartidesActualsBreaker {
             line[HeaderBreaker.TEMPS.start] = temps.toString();
             line[HeaderBreaker.DIFICULTAT.start] = dificultat.toString();
 
-            csvFile.setListIntinString(solucio, line, HeaderBreaker.SOLUCIO.start, HeaderBreaker.SOLUCIO.end);
+            csvFile.setListinString(solucio, line, HeaderBreaker.SOLUCIO.start, HeaderBreaker.SOLUCIO.end);
 
             csvFile.setListListinString(intents, line, HeaderBreaker.INTENTS.start, HeaderBreaker.INTENTS.end);
 

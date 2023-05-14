@@ -4,8 +4,6 @@ import exceptions.persistance.LineAlreadyExistsException;
 import exceptions.persistance.LineNotFoundException;
 import exceptions.persistance.PersistanceException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -51,7 +49,7 @@ public class GestorPartidesActualsMaker {
             line[HeaderMaker.USERNAME.start] = username;
             line[HeaderMaker.ALGORISME.start] = algorisme.toString();
 
-            csvFile.setListIntinString(solucio, line, HeaderMaker.SOLUCIO.start, HeaderMaker.SOLUCIO.end);
+            csvFile.setListinString(solucio, line, HeaderMaker.SOLUCIO.start, HeaderMaker.SOLUCIO.end);
 
             csvFile.setListListinString(intents, line, HeaderMaker.INTENTS.start, HeaderMaker.INTENTS.end);
 

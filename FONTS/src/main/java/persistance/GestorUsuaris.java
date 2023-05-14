@@ -99,15 +99,15 @@ public class GestorUsuaris {
             line[Header.USERNAME.start] = username;
             line[Header.NAME.start] = csvFile.getLinebyKey(username)[Header.NAME.start];
             line[Header.PASSWORD.start] = csvFile.getLinebyKey(username)[Header.PASSWORD.start];
-            csvFile.setListIntinString(pr, line, Header.PERSRECORD.start, Header.PERSRECORD.end);
-            csvFile.setListLonginString(time, line, Header.TIMEPLAYED.start, Header.TIMEPLAYED.end);
-            csvFile.setListIntinString(won, line, Header.WONGAMES.start, Header.WONGAMES.end);
-            csvFile.setListIntinString(lost, line, Header.LOSTGAMES.start, Header.LOSTGAMES.end);
-            csvFile.setListIntinString(currentWs, line, Header.CURRENTWS.start, Header.CURRENTWS.end);
-            csvFile.setListIntinString(ws, line, Header.WINSTREAK.start, Header.WINSTREAK.end);
-            csvFile.setListDoubleinString(avgMaker, line, Header.AVGASMAKER.start, Header.AVGASMAKER.end);
-            csvFile.setListDoubleinString(avgBreaker, line, Header.AVGASBREAKER.start, Header.AVGASBREAKER.end);
-            csvFile.setListIntinString(gamesMaker, line, Header.NUMGAMESMAKER.start, Header.NUMGAMESMAKER.end);
+            csvFile.setListinString(pr, line, Header.PERSRECORD.start, Header.PERSRECORD.end);
+            csvFile.setListinString(time, line, Header.TIMEPLAYED.start, Header.TIMEPLAYED.end);
+            csvFile.setListinString(won, line, Header.WONGAMES.start, Header.WONGAMES.end);
+            csvFile.setListinString(lost, line, Header.LOSTGAMES.start, Header.LOSTGAMES.end);
+            csvFile.setListinString(currentWs, line, Header.CURRENTWS.start, Header.CURRENTWS.end);
+            csvFile.setListinString(ws, line, Header.WINSTREAK.start, Header.WINSTREAK.end);
+            csvFile.setListinString(avgMaker, line, Header.AVGASMAKER.start, Header.AVGASMAKER.end);
+            csvFile.setListinString(avgBreaker, line, Header.AVGASBREAKER.start, Header.AVGASBREAKER.end);
+            csvFile.setListinString(gamesMaker, line, Header.NUMGAMESMAKER.start, Header.NUMGAMESMAKER.end);
 
             csvFile.setLinebyKey(username, line);
         }
@@ -203,15 +203,15 @@ public class GestorUsuaris {
         USERNAME(0, 0),
         NAME(1, 1),
         PASSWORD(2, 2),
-        PERSRECORD(3, 5),
-        TIMEPLAYED(6, 8),
-        WONGAMES(9, 11),
-        LOSTGAMES(12, 14),
-        CURRENTWS(15, 17),
-        WINSTREAK(18, 20),
-        AVGASMAKER(21, 22),
-        AVGASBREAKER(23, 25),
-        NUMGAMESMAKER(26, 27);
+        PERSRECORD(3, 6),
+        TIMEPLAYED(7, 10),
+        WONGAMES(11, 14),
+        LOSTGAMES(15, 18),
+        CURRENTWS(19, 22),
+        WINSTREAK(23, 26),
+        AVGASMAKER(27, 29),
+        AVGASBREAKER(30, 33),
+        NUMGAMESMAKER(34, 36);
 
         private final int start;
         private final int end;
