@@ -4,12 +4,11 @@ import exceptions.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Ranquing {
 
     private List<List<List<String>>> ranquing;
-    private final int ranquingMaxSize = 15;
+    private final int RANQUING_MAX_SIZE = 15;
 
     Ranquing(){
         ranquing = new ArrayList<>();
@@ -53,7 +52,7 @@ public class Ranquing {
         ranquingDificultat.set(indexNovaPartida,novaPartida);
 
         int ranquingSize = ranquingDificultat.size();
-        if (ranquingSize >= ranquingMaxSize) ranquingDificultat.remove(ranquingSize-1);
+        if (ranquingSize >= RANQUING_MAX_SIZE) ranquingDificultat.remove(ranquingSize-1);
     }
 
     List<List<String>> getRanquing(Integer nivellDificultat){

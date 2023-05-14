@@ -19,8 +19,6 @@ public class NovaPartidaMakerPanel extends JPanel {
     private JComboBox<Integer> comboBox3;
     private JComboBox<Integer> comboBox4;
 
-    //TODO: Canviar els parametres de la partida a crear segons la interaccio amb la UI
-    //TODO: Representar adequadament la seleccio de la sequencia solucio
     NovaPartidaMakerPanel() {
         $$$setupUI$$$();
         initComponents();

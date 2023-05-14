@@ -17,6 +17,7 @@ public class ControladorDomini {
     private final ControladorPersistencia controladorPersistencia;
 
     private User user;
+    private Ranquing ranquing;
 
     /**
      * Constructor del Controlador de Domini
@@ -25,6 +26,7 @@ public class ControladorDomini {
         controladorPartida = new ControladorPartida();
         controladorPersistencia = new ControladorPersistencia();
         user = null;
+        ranquing = new Ranquing(controladorPersistencia.getRanquing());
     }
 
     /**
@@ -200,6 +202,10 @@ public class ControladorDomini {
                                       List<List<Integer>> feedback, List<Integer> solucio) throws GeneralException {
         Integer algorisme = controladorPersistencia.getAlgorismePartidaGuardada(username);
         controladorPartida.carregarPartidaMaker(algorisme, intents, feedback, solucio);
+    }
+
+    public List<List<List<String>>> getRanquing() throws DomainException {
+        return ranquing.getRanquing();
     }
 
     /**
@@ -421,6 +427,7 @@ public class ControladorDomini {
      * @throws DomainException si no s'està jugant cap partida
      */
     public void sortirPartida() throws DomainException {
+        //TODO: Exception user not logged in
         if(!isPartidaBeingPlayed())
             throw new NotPlayingPartidaException();
         if(controladorPartida.isPartidaAcabada()) {
@@ -434,6 +441,9 @@ public class ControladorDomini {
                 Boolean guanyada = controladorPartida.isPartidaGuanyada();
                 Long temps = controladorPartida.getTempsMillis();
                 user.acabarPartidaBreaker(nivellDificultat, numIntents, guanyada, temps);
+                if (guanyada){
+                    ranquing.acabarPartidaBreaker(user.getUsername(),nivellDificultat,numIntents,temps);
+                }
             }
             else {
                 Integer algorisme = controladorPartida.getAlgorisme();

@@ -296,6 +296,14 @@ public class ControladorPresentacio {
         return null;
     }
 
+    public List<List<List<String>>> getRanquing(){
+        try {
+            return controladorDomini.getRanquing();
+        }
+        catch (GeneralException e){
+        }
+    }
+
     /**
      * Mètode per esborrar l'usuari que ha iniciat sessió.
      * Es mostra un error si no estava iniciada.
