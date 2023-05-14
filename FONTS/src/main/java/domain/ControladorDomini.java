@@ -207,7 +207,7 @@ public class ControladorDomini {
      * @param nivellDificultat nombre del nivell de dificultat
      * @return Una llista que conté tuples amb (username: String, intents: Integer, temps: Long)
      */
-    public List<List<Object>> getRanquing(Integer nivellDificultat) throws InvalidEnumValueException {
+    public List<List<Object>> getRanquing(Integer nivellDificultat) throws GeneralException {
         if(!NivellDificultat.isValid(nivellDificultat))
             throw new InvalidEnumValueException("NivellDificultat", nivellDificultat.toString());
         return controladorPersistencia.getRanquing(nivellDificultat);

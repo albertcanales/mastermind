@@ -223,7 +223,7 @@ public class DominiDriver extends ControladorDriver {
         cd.carregarPartida();
     }
 
-    private static void testGetRanquing() throws InvalidEnumValueException {
+    private static void testGetRanquing() throws GeneralException {
         System.out.println("Testing getRanquing...");
 
         if(!cd.userLoggedIn()) {
