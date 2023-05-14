@@ -247,7 +247,7 @@ public class GestorCSVFile {
 
         if (hasJustBeenCreated) addLine(header); //Si l'acabem de crear, posem el header
         else {
-            if (!Arrays.equals(readAllLines().get(headerPos), header)) {
+            if (!Arrays.equals(readAllLines(false).get(headerPos), header)) {
                 throw new InvalidCSVException(file.getName()); //Si existeix i el header és erroni tirem excepció
             }
         }
@@ -314,13 +314,14 @@ public class GestorCSVFile {
     }
 
     /**
-     * Retorna totes les línies d'un fitxer (sense el header!!)
+     * Retorna totes les línies d'un fitxer
      *
-     * @return una llista d'Strings amb totes les línies d'un fitxer (sense el header!!)
+     * @param removeHeader si és true es treurà el header de la llista retornada
+     * @return una llista d'Strings amb totes les línies d'un fitxer
      * @throws InvalidFileAccess   si no es pot accedir al fitxer
      * @throws InvalidCSVException si el CSV no té un format legal
      */
-    private List<String[]> readAllLines() throws InvalidFileAccess, InvalidCSVException {
+    private List<String[]> readAllLines(Boolean removeHeader) throws InvalidFileAccess, InvalidCSVException {
         CSVReader csvReader;
         try {
             csvReader = new CSVReader(new FileReader(file));
@@ -341,7 +342,7 @@ public class GestorCSVFile {
             throw new InvalidFileAccess(file.getName());
         }
 
-        allLines.remove(headerPos);
+        if (removeHeader) allLines.remove(headerPos);
         return allLines;
     }
 
@@ -376,7 +377,7 @@ public class GestorCSVFile {
      * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
      */
     public String[] getLinebyKey(String key) throws PersistanceException {
-        List<String[]> allLines = readAllLines();
+        List<String[]> allLines = readAllLines(true);
 
         int rowNumber = getLineNumberByKey(allLines, key);
         return allLines.get(rowNumber);
@@ -390,7 +391,7 @@ public class GestorCSVFile {
      * @throws PersistanceException si no es pot accedir al fitxer o si el CSV no té un format legal
      */
     public Boolean existsLinebyKey(String key) throws PersistanceException {
-        List<String[]> allLines = readAllLines();
+        List<String[]> allLines = readAllLines(true);
 
         return foundLineByKey(allLines, key);
     }
@@ -402,7 +403,7 @@ public class GestorCSVFile {
      * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
      */
     public void removeLinebyKey(String key) throws PersistanceException {
-        List<String[]> allLines = readAllLines();
+        List<String[]> allLines = readAllLines(true);
 
         int rowNumber = getLineNumberByKey(allLines, key);
         allLines.remove(rowNumber);
@@ -418,7 +419,7 @@ public class GestorCSVFile {
      * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
      */
     public void setLinebyKey(String key, String[] line) throws PersistanceException {
-        List<String[]> allLines = readAllLines();
+        List<String[]> allLines = readAllLines(true);
 
         int rowNumber = getLineNumberByKey(allLines, key);
         allLines.set(rowNumber, line);
