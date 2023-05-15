@@ -71,6 +71,7 @@ public class PartidaBreakerView implements Observer {
             taulellPanel.setSolucioColors(solution);
             taulellPanel.setSolucioEnabled(false);
             taulellPanel.setIntentEnabled(numIntentActual, false);
+            controladorPresentacio.veureSolucio();
             // TODO Caldria també perdre la partida
         } catch (PresentationException e) {
             // TODO S'hauria de pensar el tractament d'això

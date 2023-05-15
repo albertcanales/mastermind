@@ -195,7 +195,8 @@ public class ControladorDomini {
                                         List<List<Integer>> feedback, List<Integer> solucio) throws GeneralException {
         Integer nivellDificultat = controladorPersistencia.getNivellDificultatPartidaGuardada(username);
         Long temps = controladorPersistencia.getTempsPartidaGuardada(username);
-        controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps);
+        Boolean solucioVista = controladorPersistencia.getSolucioVistaPartidaGuardada(username);
+        controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps, solucioVista);
     }
 
     /**
@@ -360,6 +361,14 @@ public class ControladorDomini {
      */
     public void addTempsPartidaMillis(Long millis) throws DomainException {
         controladorPartida.addTempsMillis(millis);
+    }
+
+    /**
+     * Mètode per assignar la solució com a vista de la partida actual
+     * @throws DomainException si no s'està jugant cap partida
+     */
+    public void veureSolucio() throws DomainException {
+        controladorPartida.veureSolucio();
     }
 
     /**

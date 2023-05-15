@@ -3,6 +3,7 @@ package presentation;
 import domain.ControladorDomini;
 import exceptions.GeneralException;
 import exceptions.domain.DomainException;
+import exceptions.domain.NotPlayingPartidaException;
 import exceptions.presentation.PresentationException;
 
 import javax.swing.*;
@@ -363,6 +364,14 @@ public class ControladorPresentacio {
             showErrorDialog("No s'ha pogut comprovar l'estat de l'últim intent");
         }
         return null;
+    }
+
+    public void veureSolucio() {
+        try {
+            controladorDomini.veureSolucio();
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut veure la solució");
+        }
     }
 
     /**

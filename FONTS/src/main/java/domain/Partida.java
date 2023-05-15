@@ -9,19 +9,22 @@ import java.time.Duration;
 class Partida {
 
     private Duration temps;
+    private Boolean solucioVista;
 
     /**
      * Constructor per una nova partida
      */
     Partida() {
         this.temps = Duration.ZERO;
+        this.solucioVista = false;
     }
 
     /**
      * Constructor per una partida pendent
      */
-    Partida(Duration temps) {
+    Partida(Duration temps, Boolean solucioVista) {
         this.temps = temps;
+        this.solucioVista = solucioVista;
     }
 
     /**
@@ -40,4 +43,17 @@ class Partida {
             temps = temps.plusMillis(millis);
     }
 
+    /**
+     * Getter de la solució vista
+     */
+    public Boolean isSolucioVista() {
+        return solucioVista;
+    }
+
+    /**
+     * Mètode per assignar la solució com a vista
+     */
+    public void veureSolucio() {
+        solucioVista = true;
+    }
 }

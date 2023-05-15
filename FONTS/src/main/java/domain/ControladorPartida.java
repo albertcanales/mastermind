@@ -85,8 +85,8 @@ class ControladorPartida {
      * @throws DomainException si el nivellDificultat no és vàlid
      */
     void carregarPartidaBreaker(Integer nivellDificultat, List<List<Integer>> intents, List<List<Integer>> feedback,
-                                List<Integer> solucio, Long temps) throws DomainException {
-        partida = new Partida(Duration.ofMillis(temps));
+                                List<Integer> solucio, Long temps, Boolean solucioVista) throws DomainException {
+        partida = new Partida(Duration.ofMillis(temps), solucioVista);
         botMaker = new BotMaker(Taulell.NUMBOLES, Bola.numColors());
         taulell = new Taulell(solucio, intents, feedback);
         dificultat = Dificultat.create(nivellDificultat);
@@ -291,7 +291,7 @@ class ControladorPartida {
     Boolean isPartidaPerduda() throws DomainException {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
-        return taulell.getNumeroIntent() >= Taulell.NUMINTENTS;
+        return taulell.getNumeroIntent() >= Taulell.NUMINTENTS || partida.isSolucioVista();
     }
 
     /**
@@ -330,5 +330,15 @@ class ControladorPartida {
      */
     Boolean isValidIntentsFeedbacks(List<List<Integer>> intents, List<List<Integer>> feedbacks) {
         return Taulell.isValidIntentsFeedbacks(intents, feedbacks);
+    }
+
+    /**
+     * Mètode per assignar la solució com a vista
+     * @throws DomainException si no s'està jugant cap partida
+     */
+    public void veureSolucio() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
+        partida.veureSolucio();
     }
 }

@@ -182,7 +182,10 @@ public class PartidaDriver extends ControladorDriver {
             temps = scanLong();
         }
 
-        cp.carregarPartidaBreaker(nivellDificultat, intents, feedbacks, solution, temps);
+        System.out.print("Enter si la solució ha estat vista (True/False): ");
+        Boolean solucioVista = scanBoolean();
+
+        cp.carregarPartidaBreaker(nivellDificultat, intents, feedbacks, solution, temps, solucioVista);
     }
 
     private static void testValidarSequencia() throws DomainException {

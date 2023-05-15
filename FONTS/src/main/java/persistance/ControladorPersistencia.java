@@ -136,6 +136,10 @@ public class ControladorPersistencia {
         return gestorPartidesActuals.getTemps(username);
     }
 
+    public Boolean getSolucioVistaPartidaGuardada(String username) throws GeneralException {
+        return false;
+    }
+
     public void acabarPartidaGuardada(String username) {
         System.out.println("Sóc persistència, entraria la partida guardada als registres però sóc un Mock!"); //TODO: algo s'ha de fer
     }

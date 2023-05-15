@@ -30,6 +30,15 @@ public class ControladorDriver {
         return scanLong();
     }
 
+    static Boolean scanBoolean() {
+        if(in.hasNextBoolean()) {
+            return in.nextBoolean();
+        }
+        System.out.print("Not a boolean, enter again (True/False): ");
+        in.next();
+        return scanBoolean();
+    }
+
     static List<Integer> scanSequence() {
         List<Integer> sequence = new ArrayList<>();
         System.out.print("Enter the next bola (negative to stop): ");
