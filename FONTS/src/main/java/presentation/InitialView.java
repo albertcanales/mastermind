@@ -60,7 +60,7 @@ public class InitialView {
      * Mètode per inicialitzar els components de la vista
      */
     private void initComponents() {
-        buttonRanquing.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
+        buttonRanquing.addActionListener(actionEvent -> controladorPresentacio.showRankingView());
         buttonNormes.addActionListener(actionEvent -> controladorPresentacio.showNormesView());
         buttonIniciaSessio.addActionListener(actionEvent -> controladorPresentacio.showLoginView());
         buttonRegistra.addActionListener(actionEvent -> controladorPresentacio.showRegisterView());

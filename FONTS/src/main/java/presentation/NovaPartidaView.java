@@ -8,25 +8,42 @@ import java.util.List;
 
 public class NovaPartidaView {
 
+    /**
+     * Controlador de presentació
+     */
     private final ControladorPresentacio controladorPresentacio;
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+    /**
+     * Botó per tornar a la pantalla de home
+     */
     private JButton buttonTorna;
+    private NovaPartidaBreakerPanel panelBreaker;
     private NovaPartidaMakerPanel panelMaker;
     private JButton buttonJuga;
     private JTabbedPane tabbedPane;
-    private NovaPartidaBreakerPanel panelBreaker;
 
+
+    /**
+     * Constructor per defecte de la vista
+     */
     NovaPartidaView() {
         controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }
-
+    /**
+     * Mètode per mostrar la vista
+     */
     void show() {
         controladorPresentacio.setContent(panel);
         controladorPresentacio.setTitle("Registre");
     }
-
+    /**
+     * Mètode per inicialitzar els components de la vista
+     */
     void initComponents() {
 
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showHomeView());

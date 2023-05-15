@@ -35,6 +35,14 @@ public class ControladorPersistencia {
         return gestorUsuaris.getUserName(username);
     }
 
+    public List<List<List<String>>> getRanquing(){
+        List<List<List<String>>> ranquing = new ArrayList<>();
+        for (int i = 0; i < 3; ++i){
+            ranquing.add(new ArrayList<>());
+        }
+
+        return ranquing;
+    }
     public List<List<Object>> getRanquing(Integer nivellDificultat) throws GeneralException {
         return gestorRanquing.getRanquing(nivellDificultat - 1);
     }

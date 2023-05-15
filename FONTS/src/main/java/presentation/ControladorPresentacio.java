@@ -295,7 +295,16 @@ public class ControladorPresentacio {
         return null;
     }
 
-    // TODO A ZonaUsuari li falta implementar aquest botó!!!
+    public List<List<List<String>>> getRanquing(){
+        try {
+            return controladorDomini.getRanquing();
+        }
+        catch (GeneralException e){
+            showErrorDialog("No es pot carregar el Rànquing");
+            e.printStackTrace();
+        }
+        return null;
+    }
     /**
      * Mètode per esborrar l'usuari que ha iniciat sessió.
      * Es mostra un error si no estava iniciada.
@@ -450,8 +459,8 @@ public class ControladorPresentacio {
      * Mètode per mostrar la vista RankingView
      */
     void showRankingView() {
-        // RankingView rankingView = new RankingView();
-        // rankingView.show();
+        RankingView rankingView = new RankingView();
+        rankingView.show();
     }
 
     /**
