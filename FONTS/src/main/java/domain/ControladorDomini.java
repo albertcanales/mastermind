@@ -129,10 +129,8 @@ public class ControladorDomini {
     public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
-        if (controladorPersistencia.existsPartidaGuardadaBreaker(user.getUsername()))
-            controladorPersistencia.esborrarPartidaBreaker(user.getUsername());
-        if (controladorPersistencia.existsPartidaGuardadaMaker(user.getUsername()))
-            controladorPersistencia.esborrarPartidaMaker(user.getUsername());
+        if (controladorPersistencia.existsPartidaGuardada(user.getUsername()))
+            controladorPersistencia.esborrarPartida(user.getUsername());
         controladorPartida.novaPartidaMaker(solucio, algorisme);
         List<List<Integer>> intents = controladorPartida.getIntents();
         List<List<Integer>> feedback = controladorPartida.getFeedbacks();
@@ -147,10 +145,8 @@ public class ControladorDomini {
     public void novaPartidaBreaker(Integer nivellDificultat) throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
-        if (controladorPersistencia.existsPartidaGuardadaBreaker(user.getUsername()))
-            controladorPersistencia.esborrarPartidaBreaker(user.getUsername());
-        if (controladorPersistencia.existsPartidaGuardadaMaker(user.getUsername()))
-            controladorPersistencia.esborrarPartidaMaker(user.getUsername());
+        if (controladorPersistencia.existsPartidaGuardada(user.getUsername()))
+            controladorPersistencia.esborrarPartida(user.getUsername());
         controladorPartida.novaPartidaBreaker(nivellDificultat);
         List<Integer> solucio = controladorPartida.getSequenciaSolucio();
         List<List<Integer>> intents = controladorPartida.getIntents();
@@ -167,7 +163,7 @@ public class ControladorDomini {
     public Boolean existsPartidaGuardada() throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
-        return controladorPersistencia.existsPartidaGuardadaBreaker(user.getUsername()) || controladorPersistencia.existsPartidaGuardadaMaker(user.getUsername());
+        return controladorPersistencia.existsPartidaGuardada(user.getUsername());
     }
 
     /**
@@ -184,10 +180,10 @@ public class ControladorDomini {
         List<List<Integer>> intents = controladorPersistencia.getIntentsPartidaGuardada(username);
         List<List<Integer>> feedback = controladorPersistencia.getFeedbackPartidaGuardada(username);
         List<Integer> solucio = controladorPersistencia.getSolucioPartidaGuardada(username);
-        if(controladorPersistencia.existsPartidaGuardadaBreaker(username)) {
+        if(controladorPersistencia.partidaGuardadaisBreaker(username)) {
             this.carregarPartidaBreaker(username, intents, feedback, solucio);
         }
-        else if(controladorPersistencia.existsPartidaGuardadaMaker(username))
+        else
             this.carregarPartidaMaker(username, intents, feedback, solucio);
     }
 
@@ -472,10 +468,7 @@ public class ControladorDomini {
         String username = user.getUsername();
         logoutUser();
         controladorPersistencia.esborrarUsuari(username);
-        if (controladorPersistencia.existsPartidaGuardadaBreaker(user.getUsername()))
-            controladorPersistencia.esborrarPartidaBreaker(user.getUsername());
-        if (controladorPersistencia.existsPartidaGuardadaMaker(user.getUsername()))
-            controladorPersistencia.esborrarPartidaMaker(user.getUsername());
-
+        if (controladorPersistencia.existsPartidaGuardada(user.getUsername()))
+            controladorPersistencia.esborrarPartida(user.getUsername());
     }
 }
