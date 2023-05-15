@@ -385,8 +385,9 @@ public class ControladorDomini {
      * @throws DomainException si bola no és una Bola vàlida
      * @throws NotPlayingPartidaException si no s'està jugant cap partida
      */
-    public void setBola(Integer index, Integer bola) throws DomainException {
+    public void setBola(Integer index, Integer bola) throws GeneralException {
         controladorPartida.setBola(index, bola);
+        controladorPersistencia.setIntentsPartidaGuardada(user.getUsername(), controladorPartida.getIntents());
     }
 
     /**
