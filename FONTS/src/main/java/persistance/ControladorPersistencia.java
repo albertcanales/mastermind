@@ -146,11 +146,6 @@ public class ControladorPersistencia {
 
     public void esborrarUsuari(String username) throws GeneralException {
         gestorUsuaris.esborrarUsuari(username);
-        if (gestorPartidesActualsBreaker.existsPartidaActual(username)) //TODO: treure logica cap a domini
-            gestorPartidesActualsBreaker.esborrarPartidaActual(username);
-        if (gestorPartidesActualsMaker.existsPartidaActual(username))
-            gestorPartidesActualsMaker.esborrarPartidaActual(username);
-
     }
 
     public void esborrarPartidaMaker(String username) throws GeneralException {
@@ -160,8 +155,6 @@ public class ControladorPersistencia {
     public void esborrarPartidaBreaker(String username) throws GeneralException {
         gestorPartidesActualsBreaker.esborrarPartidaActual(username);
     }
-
-    //TODO: esborrar del RanquingGestor
 
     public void novaPartidaMaker(String username, List<Integer> solucio, Integer algorisme, List<List<Integer>> intents,
                                  List<List<Integer>> feedback) throws GeneralException {
