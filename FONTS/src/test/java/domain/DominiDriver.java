@@ -466,7 +466,7 @@ public class DominiDriver extends ControladorDriver {
         cd.setBola(index, bola);
     }
 
-    private static void testValidarSequencia() throws DomainException {
+    private static void testValidarSequencia() throws GeneralException {
         System.out.println("Testing validarSequencia...");
 
         if(!cd.isPartidaBeingPlayed()) {

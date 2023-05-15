@@ -397,7 +397,7 @@ public class ControladorDomini {
      * @throws DomainException si el tamany d'alguna list no és correcte
      * @throws NotPlayingPartidaException si no s'està jugant cap partida
      */
-    public List<Integer> validarSequencia() throws DomainException {
+    public List<Integer> validarSequencia() throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
         List<Integer> feedback = controladorPartida.validarSequencia();
@@ -408,12 +408,15 @@ public class ControladorDomini {
             Boolean guanyada = controladorPartida.isPartidaGuanyada();
             Long temps = controladorPartida.getTempsMillis();
             user.acabarPartidaBreaker(nivellDificultat, numIntents, guanyada, temps);
+            controladorPersistencia.setUserStats(user.getUsername(), user.getPersonalRecord(), user.getTimePlayed(), user.getWonGames(), user.getLostGames(),
+                    user.getCurrentWinStreak(), user.getWinStreak(), user.getAvgAsMaker(), user.getAvgAsBreaker(), user.getNumGamesAsMaker());
             if (guanyada){
                 ranquing.acabarPartidaBreaker(user.getUsername(), nivellDificultat, numIntents, temps);
+                controladorPersistencia.setRanquing(ranquing.getRanquing());
             }
-        }
-        // TODO Actualitzar persistència de user i de rànquings
 
+        }
+        controladorPersistencia.setFeedbackPartidaGuardada(user.getUsername(), controladorPartida.getFeedbacks());
         return feedback;
     }
 
