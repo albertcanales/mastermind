@@ -429,7 +429,7 @@ public class DominiDriver extends ControladorDriver {
         cd.addTempsPartidaMillis(afegit);
     }
 
-    private static void testSetBola() throws DomainException {
+    private static void testSetBola() throws GeneralException {
         System.out.println("Testing setBola...");
 
         if(!cd.isPartidaBeingPlayed()) {
