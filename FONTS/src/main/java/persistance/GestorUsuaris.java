@@ -4,6 +4,7 @@ import exceptions.persistance.LineAlreadyExistsException;
 import exceptions.persistance.LineNotFoundException;
 import exceptions.persistance.PersistanceException;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -39,7 +40,7 @@ public class GestorUsuaris {
 
     }
     GestorUsuaris(String basePath) throws PersistanceException {
-        csvFile = new GestorCSVFile(basePath + relativeUsersPath, Header.getHeader(), Header.USERNAME.start);
+        csvFile = new GestorCSVFile(basePath + relativeUsersPath, HeaderUsuaris.getHeader(), HeaderUsuaris.USERNAME.start);
 
     }
 
@@ -50,10 +51,11 @@ public class GestorUsuaris {
     public void registerUser(String username, String name, String password) throws PersistanceException {
         if (!csvFile.existsLinebyKey(username))
         {
-            String[] line = new String[Header.getLength()];
-            line[Header.USERNAME.start] = username;
-            line[Header.NAME.start] = name;
-            line[Header.PASSWORD.start] = password;
+            String[] line = new String[HeaderUsuaris.getLength()];
+            Arrays.fill(line, "");
+            line[HeaderUsuaris.USERNAME.start] = username;
+            line[HeaderUsuaris.NAME.start] = name;
+            line[HeaderUsuaris.PASSWORD.start] = password;
 
             csvFile.addLine(line);
         }
@@ -65,7 +67,7 @@ public class GestorUsuaris {
 
     public String getPasswordHash(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
-            return csvFile.getLinebyKey(username)[Header.PASSWORD.start];
+            return csvFile.getLinebyKey(username)[HeaderUsuaris.PASSWORD.start];
         }
         else {
             throw new LineNotFoundException(username, relativeUsersPath);
@@ -74,7 +76,7 @@ public class GestorUsuaris {
 
     public String getUserName(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
-            return csvFile.getLinebyKey(username)[Header.NAME.start];
+            return csvFile.getLinebyKey(username)[HeaderUsuaris.NAME.start];
         }
         else {
             throw new LineNotFoundException(username, relativeUsersPath);
@@ -95,19 +97,19 @@ public class GestorUsuaris {
                          List<Integer> gamesMaker) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
 
-            String[] line = new String[Header.getLength()];
-            line[Header.USERNAME.start] = username;
-            line[Header.NAME.start] = csvFile.getLinebyKey(username)[Header.NAME.start];
-            line[Header.PASSWORD.start] = csvFile.getLinebyKey(username)[Header.PASSWORD.start];
-            csvFile.setListinString(pr, line, Header.PERSRECORD.start, Header.PERSRECORD.end);
-            csvFile.setListinString(time, line, Header.TIMEPLAYED.start, Header.TIMEPLAYED.end);
-            csvFile.setListinString(won, line, Header.WONGAMES.start, Header.WONGAMES.end);
-            csvFile.setListinString(lost, line, Header.LOSTGAMES.start, Header.LOSTGAMES.end);
-            csvFile.setListinString(currentWs, line, Header.CURRENTWS.start, Header.CURRENTWS.end);
-            csvFile.setListinString(ws, line, Header.WINSTREAK.start, Header.WINSTREAK.end);
-            csvFile.setListinString(avgMaker, line, Header.AVGASMAKER.start, Header.AVGASMAKER.end);
-            csvFile.setListinString(avgBreaker, line, Header.AVGASBREAKER.start, Header.AVGASBREAKER.end);
-            csvFile.setListinString(gamesMaker, line, Header.NUMGAMESMAKER.start, Header.NUMGAMESMAKER.end);
+            String[] line = new String[HeaderUsuaris.getLength()];
+            line[HeaderUsuaris.USERNAME.start] = username;
+            line[HeaderUsuaris.NAME.start] = csvFile.getLinebyKey(username)[HeaderUsuaris.NAME.start];
+            line[HeaderUsuaris.PASSWORD.start] = csvFile.getLinebyKey(username)[HeaderUsuaris.PASSWORD.start];
+            csvFile.setListinString(pr, line, HeaderUsuaris.PERSRECORD.start, HeaderUsuaris.PERSRECORD.end);
+            csvFile.setListinString(time, line, HeaderUsuaris.TIMEPLAYED.start, HeaderUsuaris.TIMEPLAYED.end);
+            csvFile.setListinString(won, line, HeaderUsuaris.WONGAMES.start, HeaderUsuaris.WONGAMES.end);
+            csvFile.setListinString(lost, line, HeaderUsuaris.LOSTGAMES.start, HeaderUsuaris.LOSTGAMES.end);
+            csvFile.setListinString(currentWs, line, HeaderUsuaris.CURRENTWS.start, HeaderUsuaris.CURRENTWS.end);
+            csvFile.setListinString(ws, line, HeaderUsuaris.WINSTREAK.start, HeaderUsuaris.WINSTREAK.end);
+            csvFile.setListinString(avgMaker, line, HeaderUsuaris.AVGASMAKER.start, HeaderUsuaris.AVGASMAKER.end);
+            csvFile.setListinString(avgBreaker, line, HeaderUsuaris.AVGASBREAKER.start, HeaderUsuaris.AVGASBREAKER.end);
+            csvFile.setListinString(gamesMaker, line, HeaderUsuaris.NUMGAMESMAKER.start, HeaderUsuaris.NUMGAMESMAKER.end);
 
             csvFile.setLinebyKey(username, line);
         }
@@ -118,7 +120,7 @@ public class GestorUsuaris {
 
     public List<Integer> getPersonalRecord(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
-            return csvFile.getListIntinString(csvFile.getLinebyKey(username), Header.PERSRECORD.start, Header.PERSRECORD.end);
+            return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.PERSRECORD.start, HeaderUsuaris.PERSRECORD.end);
         }
         else {
             throw new LineNotFoundException(username, relativeUsersPath);
@@ -127,7 +129,7 @@ public class GestorUsuaris {
 
     public List<Long> getTimePlayed(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
-            return csvFile.getListLonginString(csvFile.getLinebyKey(username), Header.TIMEPLAYED.start, Header.TIMEPLAYED.end);
+            return csvFile.getListLonginString(csvFile.getLinebyKey(username), HeaderUsuaris.TIMEPLAYED.start, HeaderUsuaris.TIMEPLAYED.end);
         }
         else {
             throw new LineNotFoundException(username, relativeUsersPath);
@@ -136,7 +138,7 @@ public class GestorUsuaris {
 
     public List<Integer> getWonGames(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
-            return csvFile.getListIntinString(csvFile.getLinebyKey(username), Header.WONGAMES.start, Header.WONGAMES.end);
+            return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.WONGAMES.start, HeaderUsuaris.WONGAMES.end);
         }
         else {
             throw new LineNotFoundException(username, relativeUsersPath);
@@ -145,7 +147,7 @@ public class GestorUsuaris {
 
     public List<Integer> getLostGames(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
-            return csvFile.getListIntinString(csvFile.getLinebyKey(username), Header.LOSTGAMES.start, Header.LOSTGAMES.end);
+            return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.LOSTGAMES.start, HeaderUsuaris.LOSTGAMES.end);
         }
         else {
             throw new LineNotFoundException(username, relativeUsersPath);
@@ -153,7 +155,7 @@ public class GestorUsuaris {
     }
     public List<Integer> getCurrentWinstreak(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
-            return csvFile.getListIntinString(csvFile.getLinebyKey(username), Header.CURRENTWS.start, Header.CURRENTWS.end);
+            return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.CURRENTWS.start, HeaderUsuaris.CURRENTWS.end);
         }
         else {
             throw new LineNotFoundException(username, relativeUsersPath);
@@ -162,7 +164,7 @@ public class GestorUsuaris {
 
     public List<Integer> getWinstreak(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
-            return csvFile.getListIntinString(csvFile.getLinebyKey(username), Header.WINSTREAK.start, Header.WINSTREAK.end);
+            return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.WINSTREAK.start, HeaderUsuaris.WINSTREAK.end);
         }
         else {
             throw new LineNotFoundException(username, relativeUsersPath);
@@ -171,7 +173,7 @@ public class GestorUsuaris {
 
     public List<Double> getAvgAsMaker(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
-            return csvFile.getListDoubleinString(csvFile.getLinebyKey(username), Header.AVGASMAKER.start, Header.AVGASMAKER.end);
+            return csvFile.getListDoubleinString(csvFile.getLinebyKey(username), HeaderUsuaris.AVGASMAKER.start, HeaderUsuaris.AVGASMAKER.end);
         }
         else {
             throw new LineNotFoundException(username, relativeUsersPath);
@@ -180,7 +182,7 @@ public class GestorUsuaris {
 
     public List<Double> getAvgAsBreaker(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
-            return csvFile.getListDoubleinString(csvFile.getLinebyKey(username), Header.AVGASBREAKER.start, Header.AVGASBREAKER.end);
+            return csvFile.getListDoubleinString(csvFile.getLinebyKey(username), HeaderUsuaris.AVGASBREAKER.start, HeaderUsuaris.AVGASBREAKER.end);
         }
         else {
             throw new LineNotFoundException(username, relativeUsersPath);
@@ -189,7 +191,7 @@ public class GestorUsuaris {
 
     public List<Integer> getNumGamesAsMaker(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
-            return csvFile.getListIntinString(csvFile.getLinebyKey(username), Header.NUMGAMESMAKER.start, Header.NUMGAMESMAKER.end);
+            return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.NUMGAMESMAKER.start, HeaderUsuaris.NUMGAMESMAKER.end);
         }
         else {
             throw new LineNotFoundException(username, relativeUsersPath);
@@ -199,7 +201,7 @@ public class GestorUsuaris {
     /**
      * Enum que serveix per definir el Header (les columnes) del CSV corresponent
      */
-    private enum Header {
+    private enum HeaderUsuaris {
         USERNAME(0, 0),
         NAME(1, 1),
         PASSWORD(2, 2),
@@ -221,7 +223,7 @@ public class GestorUsuaris {
          *
          * @param start és el valor que representa la columna
          */
-        Header(int start, int end) {
+        HeaderUsuaris(int start, int end) {
             this.start = start;
             this.end = end;
         }

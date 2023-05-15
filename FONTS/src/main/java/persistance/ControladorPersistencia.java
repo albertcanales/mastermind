@@ -8,19 +8,16 @@ import java.util.List;
 public class ControladorPersistencia {
 
     private final GestorUsuaris gestorUsuaris;
-    private final GestorPartidesActualsBreaker gestorPartidesActualsBreaker;
-    private final GestorPartidesActualsMaker gestorPartidesActualsMaker;
+    private final GestorPartidesActuals gestorPartidesActuals;
     private final GestorRanquing gestorRanquing;
     private static final String basePath = "./db/"; //TODO: directoris dinàmics
     public ControladorPersistencia() throws GeneralException {
         gestorUsuaris = new GestorUsuaris(basePath);
-        gestorPartidesActualsBreaker = new GestorPartidesActualsBreaker(basePath);
-        gestorPartidesActualsMaker = new GestorPartidesActualsMaker(basePath);
+        gestorPartidesActuals = new GestorPartidesActuals(basePath);
         gestorRanquing = new GestorRanquing(basePath);
     }
     public Boolean existsUser(String username) throws GeneralException {
         return gestorUsuaris.existsUser(username);
-
     }
 
     public void registerUser(String username, String name, String password) throws GeneralException {
@@ -94,18 +91,15 @@ public class ControladorPersistencia {
     }
 
     public Integer getNivellDificultatPartidaGuardada(String username) throws GeneralException {
-        return gestorPartidesActualsBreaker.getDificultat(username);
+        return gestorPartidesActuals.getDificultat(username);
     }
 
     public Integer getAlgorismePartidaGuardada(String username) throws GeneralException {
-        return gestorPartidesActualsMaker.getAlgorisme(username);
+        return gestorPartidesActuals.getAlgorisme(username);
     }
 
     public List<List<Integer>> getIntentsPartidaGuardada(String username) throws GeneralException {
-        if (gestorPartidesActualsBreaker.existsPartidaActual(username)) {
-            return gestorPartidesActualsBreaker.getIntents(username);
-        }
-        return gestorPartidesActualsMaker.getIntents(username);
+        return gestorPartidesActuals.getIntents(username);
     }
 
     public List<List<Integer>> setIntentsPartidaGuardada(String username) {
@@ -116,10 +110,7 @@ public class ControladorPersistencia {
     }
 
     public List<List<Integer>> getFeedbackPartidaGuardada(String username) throws GeneralException {
-        if (gestorPartidesActualsBreaker.existsPartidaActual(username)) {
-            return gestorPartidesActualsBreaker.getFeedbacks(username);
-        }
-        return gestorPartidesActualsMaker.getFeedbacks(username);
+        return gestorPartidesActuals.getFeedbacks(username);
     }
 
     public List<List<Integer>> setFeedbackPartidaGuardada(String username) {
@@ -129,23 +120,20 @@ public class ControladorPersistencia {
     }
 
     public List<Integer> getSolucioPartidaGuardada(String username) throws GeneralException {
-        if (gestorPartidesActualsBreaker.existsPartidaActual(username)) {
-            return gestorPartidesActualsBreaker.getSolucio(username);
-        }
-        return gestorPartidesActualsMaker.getSolucio(username); //TODO: treure logica cap a domini
+        return gestorPartidesActuals.getSolucio(username);
     }
 
-    public Boolean existsPartidaGuardadaBreaker(String username) throws GeneralException {
-        return gestorPartidesActualsBreaker.existsPartidaActual(username);
+    public Boolean existsPartidaGuardada(String username) throws GeneralException {
+        return gestorPartidesActuals.existsPartidaActual(username);
     }
 
-    public Boolean existsPartidaGuardadaMaker(String username) throws GeneralException {
-        return gestorPartidesActualsMaker.existsPartidaActual(username);
+    public Boolean partidaGuardadaisBreaker(String username) throws GeneralException {
+        return gestorPartidesActuals.isBreaker(username);
     }
 
 
     public Long getTempsPartidaGuardada(String username) throws GeneralException {
-        return gestorPartidesActualsBreaker.getTemps(username);
+        return gestorPartidesActuals.getTemps(username);
     }
 
     public void acabarPartidaGuardada(String username) {
@@ -156,20 +144,16 @@ public class ControladorPersistencia {
         gestorUsuaris.esborrarUsuari(username);
     }
 
-    public void esborrarPartidaMaker(String username) throws GeneralException {
-        gestorPartidesActualsMaker.esborrarPartidaActual(username);
-    }
-
-    public void esborrarPartidaBreaker(String username) throws GeneralException {
-        gestorPartidesActualsBreaker.esborrarPartidaActual(username);
+    public void esborrarPartida(String username) throws GeneralException {
+        gestorPartidesActuals.esborrarPartidaActual(username);
     }
 
     public void novaPartidaMaker(String username, List<Integer> solucio, Integer algorisme, List<List<Integer>> intents,
                                  List<List<Integer>> feedback) throws GeneralException {
-        gestorPartidesActualsMaker.novaPartidaMaker(username, algorisme, solucio, intents, feedback);
+        gestorPartidesActuals.novaPartida(username, false, null, null, algorisme, solucio, intents, feedback);
     }
     public void novaPartidaBreaker(String username, Integer nivellDificultat, Long temps, List<Integer> solucio, List<List<Integer>> intents,
                                    List<List<Integer>> feedback) throws GeneralException {
-        gestorPartidesActualsBreaker.novaPartidaBreaker(username, temps, nivellDificultat, solucio, intents, feedback);
+        gestorPartidesActuals.novaPartida(username, true, temps, nivellDificultat, null, solucio, intents, feedback);
     }
 }
