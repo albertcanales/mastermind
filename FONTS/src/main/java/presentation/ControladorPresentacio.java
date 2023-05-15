@@ -3,7 +3,6 @@ package presentation;
 import domain.ControladorDomini;
 import exceptions.GeneralException;
 import exceptions.domain.DomainException;
-import exceptions.domain.NotPlayingPartidaException;
 import exceptions.presentation.PresentationException;
 
 import javax.swing.*;
@@ -357,6 +356,30 @@ public class ControladorPresentacio {
         return null;
     }
 
+    /**
+     * Mètode per saber si la partida actual està guanyada
+     */
+    public Boolean isPartidaGuanyada() {
+        try {
+            return controladorDomini.isPartidaGuanyada();
+        } catch (DomainException e) {
+            showErrorDialog("No s'està jugant una partida com a breaker");
+        }
+        return null;
+    }
+
+    /**
+     * Mètode per saber si la partida actual està acabada
+     */
+    public Boolean isPartidaAcabada() {
+        try {
+            return controladorDomini.isPartidaAcabada();
+        } catch (DomainException e) {
+            showErrorDialog("No s'està jugant una partida com a breaker");
+        }
+        return null;
+    }
+
     public Boolean isUltimIntentPle() {
         try {
             return controladorDomini.isUltimIntentPle();
@@ -515,6 +538,25 @@ public class ControladorPresentacio {
         }
     }
 
+
+    /**
+     * Mètode per mostrar un diàleg amb si o no com a opcions
+     * @param title Títol del diàleg
+     * @param message Missatge del diàleg
+     * @returns La resposta de l'usuari
+     */
+    Boolean showYesNoDialog(String title, String message) {
+        return mainFrame.showYesNoDialog(title, message);
+    }
+
+    /**
+     * Mètode per mostrar un diàleg d'informació
+     * @param title Títol del diàleg
+     * @param message Missatge del diàleg
+     */
+    void showInformationDialog(String title, String message) {
+        mainFrame.showInformationDialog(title, message);
+    }
 
     /**
      * Mètode per mostrar un diàleg de warning

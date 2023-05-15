@@ -1,8 +1,7 @@
 package presentation;
 
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
 import exceptions.presentation.PresentationException;
+import exceptions.presentation.SequenciaNoExistent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,20 +69,29 @@ public class PartidaBreakerView implements Observer {
         timerLabel.start();
 
         buttonTorna.addActionListener(actionEvent -> buttonTornaClick());
+
+        for (Integer bola : controladorPresentacio.getSolucio()) {
+            System.out.print(bola + " ");
+        }
+        System.out.println();
     }
 
     private void showSolution() {
-        List<Integer> solution = controladorPresentacio.getSolucio();
-        try {
-            taulellPanel.setSolucioColors(solution);
-            taulellPanel.setSolucioEnabled(false);
-            taulellPanel.setIntentEnabled(numIntentActual, false);
-            timerLabel.stop();
-            controladorPresentacio.veureSolucio();
+        Boolean dialogResponse = controladorPresentacio.showYesNoDialog("Veure solució",
+                "Segur que voleu veure la solució? Perdreu immediatament la partida");
+        if (dialogResponse) {
+            List<Integer> solution = controladorPresentacio.getSolucio();
+            try {
+                taulellPanel.setSolucioColors(solution);
+                taulellPanel.setSolucioEnabled(false);
+                taulellPanel.setIntentEnabled(numIntentActual, false);
+                timerLabel.stop();
+                controladorPresentacio.veureSolucio();
 
-        } catch (PresentationException e) {
-            // TODO S'hauria de pensar el tractament d'això
-            throw new RuntimeException(e);
+            } catch (PresentationException e) {
+                // TODO S'hauria de pensar el tractament d'això
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -98,10 +106,28 @@ public class PartidaBreakerView implements Observer {
         }
     }
 
+    private void partidaAcabada() {
+        List<Integer> solucio = controladorPresentacio.getSolucio();
+        try {
+            taulellPanel.setSolucioColors(solucio);
+            taulellPanel.setSolucioEnabled(false);
+            timerLabel.stop();
+            if (controladorPresentacio.isPartidaGuanyada())
+                controladorPresentacio.showInformationDialog("Has guanyat!",
+                        "Has guanyat la partida amb " + numIntentActual + " intents :)");
+            else
+                controladorPresentacio.showInformationDialog("Has perdut!",
+                        "Has perdut la partida :(, pots veure la solució a sobre");
+        } catch (PresentationException e) {
+            // TODO Això també s'hauria de fer millor
+            throw new RuntimeException(e);
+        }
+    }
+
     private void bolaIntentClicked(Integer number) {
         if (bolaPalettePanel.isColorSelected()) {
             setBolaColor(number, bolaPalettePanel.getSelectedColor());
-            bolaPalettePanel.unselectAllColors();
+            // bolaPalettePanel.unselectAllColors();
         }
     }
 
@@ -111,9 +137,12 @@ public class PartidaBreakerView implements Observer {
             taulellPanel.setFeedbackColors(numIntentActual, feedback);
             taulellPanel.setIntentEnabled(numIntentActual, false);
             numIntentActual++;
-            taulellPanel.setIntentEnabled(numIntentActual, true);
             buttonValidar.setEnabled(false);
-            // TODO Comprovar si s'ha guanyat i tal
+
+            if (controladorPresentacio.isPartidaAcabada())
+                partidaAcabada();
+            else
+                taulellPanel.setIntentEnabled(numIntentActual, true);
 
         } catch (PresentationException e) {
             throw new RuntimeException(e);

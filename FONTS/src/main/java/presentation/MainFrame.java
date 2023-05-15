@@ -42,6 +42,28 @@ public class MainFrame{
     }
 
     /**
+     * Mètode per mostrar un diàleg amb si o no com a opcions
+     * @param title Títol del diàleg
+     * @param message Missatge del diàleg
+     * @returns La resposta de l'usuari
+     */
+    Boolean showYesNoDialog(String title, String message) {
+        int result = JOptionPane.showConfirmDialog(frame,
+                message, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        return result == JOptionPane.YES_OPTION;
+    }
+
+    /**
+     * Mètode per mostrar un diàleg d'informació
+     * @param title Títol del diàleg
+     * @param message Missatge del diàleg
+     */
+    void showInformationDialog(String title, String message) {
+        JOptionPane.showMessageDialog(frame,
+                message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
      * Mètode per mostrar un diàleg de warning
      * @param title Títol del diàleg
      * @param message Missatge del diàleg
