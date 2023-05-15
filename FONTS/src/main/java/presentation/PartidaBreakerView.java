@@ -1,13 +1,10 @@
 package presentation;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
 import exceptions.presentation.BolaNoExistent;
 import exceptions.presentation.PresentationException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +25,9 @@ public class PartidaBreakerView implements Observer {
     private JPanel panel;
     private TaulellPanel taulellPanel;
     private BolaPalettePanel bolaPalettePanel;
+    private JButton buttonValidar;
 
-    private List<BolaButton> buttonColorList;
+    Integer numIntent;
 
     /**
      * Constructor per defecte de la vista
@@ -52,16 +50,19 @@ public class PartidaBreakerView implements Observer {
      * Mètode per inicialitzar els components de la vista
      */
     private void initComponents() throws PresentationException {
-        // Taulell
         List<List<Integer>> intents = controladorPresentacio.getIntents();
         List<List<Integer>> feedbacks = controladorPresentacio.getFeedbacks();
 
+        numIntent = intents.size() - 1;
+
         taulellPanel.setIntentsColors(intents);
         taulellPanel.setFeedbacksColors(feedbacks);
-        taulellPanel.setIntentEnabled(intents.size() - 1, true);
+        taulellPanel.setIntentEnabled(numIntent, true);
         taulellPanel.setSolucioEnabled(true);
-        taulellPanel.setOKButtonVisible(true);
         taulellPanel.attachToBoles(this);
+
+        buttonValidar.setEnabled(false);
+        buttonValidar.addActionListener(actionEvent -> buttonValidarClicked());
     }
 
     private void showSolution() {
@@ -69,8 +70,19 @@ public class PartidaBreakerView implements Observer {
         try {
             taulellPanel.setSolucioColors(solution);
             taulellPanel.setSolucioEnabled(false);
-            // TODO Desactivar l'intent actual
+            taulellPanel.setIntentEnabled(numIntent, false);
             // TODO Caldria també perdre la partida
+        } catch (PresentationException e) {
+            // TODO S'hauria de pensar el tractament d'això
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setBolaColor(Integer number, BolaColor color) {
+        try {
+            taulellPanel.setBolaIntentColor(number, color);
+            controladorPresentacio.setBola(number % TaulellPanel.SEQUENCIA_SIZE, color.getNumber());
+            buttonValidar.setEnabled(controladorPresentacio.isUltimIntentPle());
         } catch (BolaNoExistent e) {
             // TODO S'hauria de pensar el tractament d'això
             throw new RuntimeException(e);
@@ -79,13 +91,22 @@ public class PartidaBreakerView implements Observer {
 
     private void bolaIntentClicked(Integer number) {
         if (bolaPalettePanel.isColorSelected()) {
-            try {
-                taulellPanel.setBolaIntentColor(number, bolaPalettePanel.getSelectedColor());
-            } catch (BolaNoExistent e) {
-                // TODO S'hauria de pensar el tractament d'això
-                throw new RuntimeException(e);
-            }
+            setBolaColor(number, bolaPalettePanel.getSelectedColor());
             bolaPalettePanel.unselectAllColors();
+        }
+    }
+
+    private void buttonValidarClicked() {
+        try {
+            List<Integer> feedback = controladorPresentacio.validarSequencia();
+            taulellPanel.setFeedbackColors(numIntent, feedback);
+            taulellPanel.setIntentEnabled(numIntent, false);
+            numIntent++;
+            taulellPanel.setIntentEnabled(numIntent, true);
+            buttonValidar.setEnabled(false);
+            // TODO Comprovar si s'ha guanyat, perdut, etc
+        } catch (PresentationException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -115,10 +136,19 @@ public class PartidaBreakerView implements Observer {
     private void $$$setupUI$$$() {
         panel = new JPanel();
         panel.setLayout(new BorderLayout(0, 0));
-        taulellPanel = new TaulellPanel();
-        panel.add(taulellPanel.$$$getRootComponent$$$(), BorderLayout.CENTER);
         bolaPalettePanel = new BolaPalettePanel();
         panel.add(bolaPalettePanel.$$$getRootComponent$$$(), BorderLayout.EAST);
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new BorderLayout(0, 0));
+        panel.add(panel1, BorderLayout.CENTER);
+        taulellPanel = new TaulellPanel();
+        panel1.add(taulellPanel.$$$getRootComponent$$$(), BorderLayout.CENTER);
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel1.add(panel2, BorderLayout.SOUTH);
+        buttonValidar = new JButton();
+        buttonValidar.setText("Validar");
+        panel2.add(buttonValidar);
     }
 
     /**

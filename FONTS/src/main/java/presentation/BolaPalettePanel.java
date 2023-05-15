@@ -61,7 +61,6 @@ public class BolaPalettePanel implements Observer {
         unselectAllColors();
         buttonBolaList.get(id).setSelected(true);
         selectedColor = buttonBolaList.get(id).getBolaColor();
-
     }
 
     /**

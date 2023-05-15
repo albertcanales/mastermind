@@ -2,17 +2,37 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="presentation.PartidaBreakerView">
   <grid id="27dc6" binding="panel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="890" height="550"/>
+      <xy x="20" y="20" width="890" height="590"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <nested-form id="10006" form-file="presentation/TaulellPanel.form" binding="taulellPanel">
-        <constraints border-constraint="Center"/>
-      </nested-form>
       <nested-form id="b6e34" form-file="presentation/BolaPalettePanel.form" binding="bolaPalettePanel">
         <constraints border-constraint="East"/>
       </nested-form>
+      <grid id="c8957" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <nested-form id="10006" form-file="presentation/TaulellPanel.form" binding="taulellPanel">
+            <constraints border-constraint="Center"/>
+          </nested-form>
+          <grid id="d723c" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="South"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="78915" class="javax.swing.JButton" binding="buttonValidar">
+                <constraints/>
+                <properties>
+                  <text value="Validar"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>

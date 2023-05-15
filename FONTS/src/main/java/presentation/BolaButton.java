@@ -179,7 +179,7 @@ enum BolaColor {
         return color;
     }
 
-    private Integer getNumber() {
+    Integer getNumber() {
         return number;
     }
 

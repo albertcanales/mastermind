@@ -337,14 +337,46 @@ public class ControladorPresentacio {
         return null;
     }
 
+    public void setBola(Integer index, Integer bola) {
+        try {
+            controladorDomini.setBola(index, bola);
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut assignar la bola");
+        }
+    }
+
+    public List<Integer> validarSequencia() {
+        try {
+            return controladorDomini.validarSequencia();
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut validar l'intent");
+        }
+        return null;
+    }
+
+    public Boolean isUltimIntentPle() {
+        try {
+            return controladorDomini.isUltimIntentPle();
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut comprovar l'estat de l'últim intent");
+        }
+        return null;
+    }
+
     /**
      * Punt d'entrada per mostrar l'aplicació
      */
     void run() {
         if(controladorDomini == null)
             showErrorDialog("No s'ha pogut iniciar la base de dades");
-        else
+        else {
+            /*
+            loginUser("albert", "albert");
+            novaPartidaBreaker(2);
+            showPartidaBreakerView();
+            */
             showInitialView();
+        }
     }
 
     /**

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class TaulellPanel {
 
-    private final int SEQUENCIA_SIZE = 4;
+    final static int SEQUENCIA_SIZE = 4;
 
     private final ControladorPresentacio controladorPresentacio;
     private JPanel panel;
@@ -57,7 +57,6 @@ public class TaulellPanel {
     private SequenciaPanel sequenciaSolucio;
     private ArrayList<SequenciaPanel> sequenciaIntentList;
     private ArrayList<SequenciaPanel> sequenciaFeedbackList;
-    private ArrayList<JButton> buttonOKList;
 
     TaulellPanel() {
         controladorPresentacio = ControladorPresentacio.getInstance();
@@ -69,7 +68,6 @@ public class TaulellPanel {
         initSolucio();
         initFeedbacks();
         initIntents();
-        initOKButtons();
     }
 
     private void initSolucio() {
@@ -104,34 +102,16 @@ public class TaulellPanel {
         }
     }
 
-    private void initOKButtons() {
-        buttonOKList = new ArrayList<>(List.of(buttonOK0, buttonOK1, buttonOK2, buttonOK3, buttonOK4, buttonOK5,
-                buttonOK6, buttonOK7, buttonOK8, buttonOK9, buttonOK10, buttonOK11));
-
-        for (JButton button : buttonOKList) {
-            button.setMargin(new Insets(0, 0, 0, 0));
-            button.setEnabled(false);
-            // button.addActionListener(actionEvent -> validarIntentClick());
-            // TODO fer tractament del OK
-        }
-    }
-
     void setBolaIntentColor(Integer index, BolaColor bolaColor) throws BolaNoExistent {
         if (index < 0 || index >= sequenciaIntentList.size() * SEQUENCIA_SIZE)
             throw new BolaNoExistent();
         sequenciaIntentList.get(index / SEQUENCIA_SIZE).setBolaColor(index % SEQUENCIA_SIZE, bolaColor);
     }
 
-    void setOKButtonVisible(Boolean visible) {
-        for (JButton buttonOK : buttonOKList) {
-            buttonOK.setVisible(visible);
-        }
-    }
-
     void setFeedbackColors(Integer index, List<Integer> feedback) throws PresentationException {
         if (index < 0 || index >= sequenciaFeedbackList.size())
             throw new SequenciaNoExistent();
-        sequenciaIntentList.get(index).setSequenciaColors(feedback);
+        sequenciaFeedbackList.get(index).setSequenciaColors(feedback);
     }
 
     void setIntentsColors(List<List<Integer>> intents) throws PresentationException {
@@ -308,198 +288,8 @@ public class TaulellPanel {
         gbc.gridx = 2;
         gbc.gridy = 11;
         panel1.add(sequenciaIntent0.$$$getRootComponent$$$(), gbc);
-        buttonOK1 = new JButton();
-        buttonOK1.setBorderPainted(true);
-        Font buttonOK1Font = this.$$$getFont$$$(null, -1, 20, buttonOK1.getFont());
-        if (buttonOK1Font != null) buttonOK1.setFont(buttonOK1Font);
-        buttonOK1.setHorizontalAlignment(0);
-        buttonOK1.setHorizontalTextPosition(0);
-        buttonOK1.setIconTextGap(0);
-        buttonOK1.setPreferredSize(new Dimension(30, 30));
-        buttonOK1.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 10;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK1, gbc);
-        buttonOK0 = new JButton();
-        buttonOK0.setBorderPainted(true);
-        Font buttonOK0Font = this.$$$getFont$$$(null, -1, 20, buttonOK0.getFont());
-        if (buttonOK0Font != null) buttonOK0.setFont(buttonOK0Font);
-        buttonOK0.setHorizontalAlignment(0);
-        buttonOK0.setHorizontalTextPosition(0);
-        buttonOK0.setIconTextGap(0);
-        buttonOK0.setPreferredSize(new Dimension(30, 30));
-        buttonOK0.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 11;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK0, gbc);
-        buttonOK2 = new JButton();
-        buttonOK2.setBorderPainted(true);
-        Font buttonOK2Font = this.$$$getFont$$$(null, -1, 20, buttonOK2.getFont());
-        if (buttonOK2Font != null) buttonOK2.setFont(buttonOK2Font);
-        buttonOK2.setHorizontalAlignment(0);
-        buttonOK2.setHorizontalTextPosition(0);
-        buttonOK2.setIconTextGap(0);
-        buttonOK2.setPreferredSize(new Dimension(30, 30));
-        buttonOK2.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 9;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK2, gbc);
-        buttonOK3 = new JButton();
-        buttonOK3.setBorderPainted(true);
-        Font buttonOK3Font = this.$$$getFont$$$(null, -1, 20, buttonOK3.getFont());
-        if (buttonOK3Font != null) buttonOK3.setFont(buttonOK3Font);
-        buttonOK3.setHorizontalAlignment(0);
-        buttonOK3.setHorizontalTextPosition(0);
-        buttonOK3.setIconTextGap(0);
-        buttonOK3.setPreferredSize(new Dimension(30, 30));
-        buttonOK3.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 8;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK3, gbc);
-        buttonOK4 = new JButton();
-        buttonOK4.setBorderPainted(true);
-        Font buttonOK4Font = this.$$$getFont$$$(null, -1, 20, buttonOK4.getFont());
-        if (buttonOK4Font != null) buttonOK4.setFont(buttonOK4Font);
-        buttonOK4.setHorizontalAlignment(0);
-        buttonOK4.setHorizontalTextPosition(0);
-        buttonOK4.setIconTextGap(0);
-        buttonOK4.setPreferredSize(new Dimension(30, 30));
-        buttonOK4.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 7;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK4, gbc);
-        buttonOK5 = new JButton();
-        buttonOK5.setBorderPainted(true);
-        Font buttonOK5Font = this.$$$getFont$$$(null, -1, 20, buttonOK5.getFont());
-        if (buttonOK5Font != null) buttonOK5.setFont(buttonOK5Font);
-        buttonOK5.setHorizontalAlignment(0);
-        buttonOK5.setHorizontalTextPosition(0);
-        buttonOK5.setIconTextGap(0);
-        buttonOK5.setPreferredSize(new Dimension(30, 30));
-        buttonOK5.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 6;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK5, gbc);
-        buttonOK6 = new JButton();
-        buttonOK6.setBorderPainted(true);
-        Font buttonOK6Font = this.$$$getFont$$$(null, -1, 20, buttonOK6.getFont());
-        if (buttonOK6Font != null) buttonOK6.setFont(buttonOK6Font);
-        buttonOK6.setHorizontalAlignment(0);
-        buttonOK6.setHorizontalTextPosition(0);
-        buttonOK6.setIconTextGap(0);
-        buttonOK6.setPreferredSize(new Dimension(30, 30));
-        buttonOK6.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 5;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK6, gbc);
-        buttonOK7 = new JButton();
-        buttonOK7.setBorderPainted(true);
-        Font buttonOK7Font = this.$$$getFont$$$(null, -1, 20, buttonOK7.getFont());
-        if (buttonOK7Font != null) buttonOK7.setFont(buttonOK7Font);
-        buttonOK7.setHorizontalAlignment(0);
-        buttonOK7.setHorizontalTextPosition(0);
-        buttonOK7.setIconTextGap(0);
-        buttonOK7.setPreferredSize(new Dimension(30, 30));
-        buttonOK7.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK7, gbc);
-        buttonOK8 = new JButton();
-        buttonOK8.setBorderPainted(true);
-        Font buttonOK8Font = this.$$$getFont$$$(null, -1, 20, buttonOK8.getFont());
-        if (buttonOK8Font != null) buttonOK8.setFont(buttonOK8Font);
-        buttonOK8.setHorizontalAlignment(0);
-        buttonOK8.setHorizontalTextPosition(0);
-        buttonOK8.setIconTextGap(0);
-        buttonOK8.setPreferredSize(new Dimension(30, 30));
-        buttonOK8.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK8, gbc);
-        buttonOK9 = new JButton();
-        buttonOK9.setBorderPainted(true);
-        Font buttonOK9Font = this.$$$getFont$$$(null, -1, 20, buttonOK9.getFont());
-        if (buttonOK9Font != null) buttonOK9.setFont(buttonOK9Font);
-        buttonOK9.setHorizontalAlignment(0);
-        buttonOK9.setHorizontalTextPosition(0);
-        buttonOK9.setIconTextGap(0);
-        buttonOK9.setPreferredSize(new Dimension(30, 30));
-        buttonOK9.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK9, gbc);
-        buttonOK10 = new JButton();
-        buttonOK10.setBorderPainted(true);
-        Font buttonOK10Font = this.$$$getFont$$$(null, -1, 20, buttonOK10.getFont());
-        if (buttonOK10Font != null) buttonOK10.setFont(buttonOK10Font);
-        buttonOK10.setHorizontalAlignment(0);
-        buttonOK10.setHorizontalTextPosition(0);
-        buttonOK10.setIconTextGap(0);
-        buttonOK10.setPreferredSize(new Dimension(30, 30));
-        buttonOK10.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK10, gbc);
-        buttonOK11 = new JButton();
-        buttonOK11.setBorderPainted(true);
-        Font buttonOK11Font = this.$$$getFont$$$(null, -1, 20, buttonOK11.getFont());
-        if (buttonOK11Font != null) buttonOK11.setFont(buttonOK11Font);
-        buttonOK11.setHorizontalAlignment(0);
-        buttonOK11.setHorizontalTextPosition(0);
-        buttonOK11.setIconTextGap(0);
-        buttonOK11.setPreferredSize(new Dimension(30, 30));
-        buttonOK11.setText("✓");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(buttonOK11, gbc);
         sequenciaSolucio = new SequenciaPanel();
         panel.add(sequenciaSolucio.$$$getRootComponent$$$(), BorderLayout.NORTH);
-    }
-
-    /**
-     * @noinspection ALL
-     */
-    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
-        if (currentFont == null) return null;
-        String resultName;
-        if (fontName == null) {
-            resultName = currentFont.getName();
-        } else {
-            Font testFont = new Font(fontName, Font.PLAIN, 10);
-            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
-                resultName = fontName;
-            } else {
-                resultName = currentFont.getName();
-            }
-        }
-        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
-        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
-        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
-        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
     }
 
     /**
