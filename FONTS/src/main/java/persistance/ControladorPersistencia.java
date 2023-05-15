@@ -105,21 +105,16 @@ public class ControladorPersistencia {
         return gestorPartidesActuals.getIntents(username);
     }
 
-    public List<List<Integer>> setIntentsPartidaGuardada(String username) {
-        List<List<Integer>> intents =  new ArrayList<>();
-        intents.add(List.of(3, 2, 3, 6));
-        intents.add(List.of(0, 1, 0, 0));
-        return intents;
+    public void setIntentsPartidaGuardada(String username, List<List<Integer>> intents) throws PersistanceException {
+        gestorPartidesActuals.setIntents(username, intents);
     }
 
     public List<List<Integer>> getFeedbackPartidaGuardada(String username) throws PersistanceException {
         return gestorPartidesActuals.getFeedbacks(username);
     }
 
-    public List<List<Integer>> setFeedbackPartidaGuardada(String username) {
-        List<List<Integer>> feedbacks =  new ArrayList<>();
-        feedbacks.add(List.of(2, 2, 1, 0));
-        return feedbacks;
+    public void setFeedbackPartidaGuardada(String username, List<List<Integer>> feedbacks) throws PersistanceException {
+        gestorPartidesActuals.setFeedbacks(username, feedbacks);
     }
 
     public List<Integer> getSolucioPartidaGuardada(String username) throws PersistanceException {

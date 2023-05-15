@@ -121,11 +121,33 @@ public class GestorPartidesActuals {
         }
     }
 
+    public void setIntents(String username, List<List<Integer>> intents) throws PersistanceException {
+        if (csvFile.existsLinebyKey(username)) {
+            String[] gotline = csvFile.getLinebyKey(username);
+
+            csvFile.setListListinString(intents, gotline, HeaderPartides.INTENTS.start, HeaderPartides.INTENTS.end);
+            csvFile.setLinebyKey(username, gotline);
+        } else {
+            throw new LineNotFoundException(username, relativePathPartidesActuals);
+        }
+    }
+
     public List<List<Integer>> getFeedbacks(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
             return csvFile.getListListinString(gotline, HeaderPartides.FEEDBACKS.start, HeaderPartides.FEEDBACKS.end);
+        } else {
+            throw new LineNotFoundException(username, relativePathPartidesActuals);
+        }
+    }
+
+    public void setFeedbacks(String username, List<List<Integer>> feedbacks) throws PersistanceException {
+        if (csvFile.existsLinebyKey(username)) {
+            String[] gotline = csvFile.getLinebyKey(username);
+
+            csvFile.setListListinString(feedbacks, gotline, HeaderPartides.FEEDBACKS.start, HeaderPartides.FEEDBACKS.end);
+            csvFile.setLinebyKey(username, gotline);
         } else {
             throw new LineNotFoundException(username, relativePathPartidesActuals);
         }
