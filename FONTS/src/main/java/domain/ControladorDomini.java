@@ -365,10 +365,17 @@ public class ControladorDomini {
 
     /**
      * Mètode per assignar la solució com a vista de la partida actual
+     * També dona la partida com a perduda
      * @throws DomainException si no s'està jugant cap partida
      */
     public void veureSolucio() throws DomainException {
         controladorPartida.veureSolucio();
+
+        Integer numIntents = controladorPartida.getNumIntents();
+        Integer nivellDificultat = controladorPartida.getNivellDificultat();
+        Long temps = controladorPartida.getTempsMillis();
+        user.acabarPartidaBreaker(nivellDificultat, numIntents, false, temps);
+        // TODO actualitzar persistència del user
     }
 
     /**
@@ -384,6 +391,7 @@ public class ControladorDomini {
 
     /**
      * Mètode per a validar l'intent actual en la partida actual
+     * Si acaba la partida, també s'actualitzen les estadístiques i rànquings
      * @return El feedback corresponent a l'intent donat
      * @throws DomainException si el tamany d'alguna list no és correcte
      * @throws NotPlayingPartidaException si no s'està jugant cap partida
@@ -391,15 +399,34 @@ public class ControladorDomini {
     public List<Integer> validarSequencia() throws DomainException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
-        return controladorPartida.validarSequencia();
+        List<Integer> feedback = controladorPartida.validarSequencia();
+
+        if(controladorPartida.isPartidaAcabada()) {
+            Integer numIntents = controladorPartida.getNumIntents();
+            Integer nivellDificultat = controladorPartida.getNivellDificultat();
+            Boolean guanyada = controladorPartida.isPartidaGuanyada();
+            Long temps = controladorPartida.getTempsMillis();
+            user.acabarPartidaBreaker(nivellDificultat, numIntents, guanyada, temps);
+            if (guanyada){
+                ranquing.acabarPartidaBreaker(user.getUsername(), nivellDificultat, numIntents, temps);
+            }
+        }
+        // TODO Actualitzar persistència de user i de rànquings
+
+        return feedback;
     }
 
     /**
-     * Mètode perquè el bot jugui la partida
+     * Mètode perquè el bot jugui la partida.
+     * També actualitza les estadístiques de l'usuari corresponents
      * @throws NotPlayingPartidaException si no s'està jugant cap partida
      */
     public void botSolve() throws DomainException {
         controladorPartida.botSolve();
+        Integer algorisme = controladorPartida.getAlgorisme();
+        Integer numIntents = controladorPartida.getNumIntents();
+        user.acabarPartidaMaker(algorisme, numIntents);
+        // TODO Actualitzar persistència de user
     }
 
     /**
@@ -440,29 +467,8 @@ public class ControladorDomini {
      * @throws DomainException si no s'està jugant cap partida
      */
     public void sortirPartida() throws DomainException {
-        //TODO: Exception user not logged in
         if(!isPartidaBeingPlayed())
             throw new NotPlayingPartidaException();
-        if(controladorPartida.isPartidaAcabada()) {
-            // Guarda la partida com a finalitzada
-            controladorPersistencia.acabarPartidaGuardada(user.getUsername());
-
-            // Actualitza directament els valors de user per ser més eficient
-            Integer numIntents = controladorPartida.getNumIntents();
-            if(controladorPartida.isJugadorBreaker()) {
-                Integer nivellDificultat = controladorPartida.getNivellDificultat();
-                Boolean guanyada = controladorPartida.isPartidaGuanyada();
-                Long temps = controladorPartida.getTempsMillis();
-                user.acabarPartidaBreaker(nivellDificultat, numIntents, guanyada, temps);
-                if (guanyada){
-                    ranquing.acabarPartidaBreaker(user.getUsername(),nivellDificultat,numIntents,temps);
-                }
-            }
-            else {
-                Integer algorisme = controladorPartida.getAlgorisme();
-                user.acabarPartidaMaker(algorisme, numIntents);
-            }
-        }
         controladorPartida.sortirPartida();
     }
 

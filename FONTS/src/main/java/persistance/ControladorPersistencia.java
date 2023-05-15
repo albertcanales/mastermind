@@ -1,5 +1,6 @@
 package persistance;
 
+import exceptions.GeneralException;
 import exceptions.persistance.PersistanceException;
 
 import java.util.ArrayList;
@@ -142,11 +143,7 @@ public class ControladorPersistencia {
         return false;
     }
 
-    public void acabarPartidaGuardada(String username) {
-        System.out.println("Sóc persistència, entraria la partida guardada als registres però sóc un Mock!"); //TODO: algo s'ha de fer
-    }
-
-    public void esborrarUsuari(String username) throws PersistanceException {
+    public void esborrarUsuari(String username) throws GeneralException {
         gestorUsuaris.esborrarUsuari(username);
     }
 
