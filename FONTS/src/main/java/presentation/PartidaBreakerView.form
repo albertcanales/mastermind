@@ -67,6 +67,16 @@
               </component>
             </children>
           </grid>
+          <grid id="97992" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="East"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <nested-form id="2044b" form-file="presentation/TimerLabel.form" binding="timerLabel">
+                <constraints/>
+              </nested-form>
+            </children>
+          </grid>
         </children>
       </grid>
     </children>

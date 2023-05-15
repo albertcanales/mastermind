@@ -375,18 +375,39 @@ public class ControladorPresentacio {
     }
 
     /**
+     * Mètode per afegir temps transcorregut a la partida actual
+     * @param millis mi·lisegons a afegir
+     */
+    public void addTempsPartidaMillis(Long millis) {
+        try {
+            controladorDomini.addTempsPartidaMillis(millis);
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut incrementar el temps de la partida");
+        }
+    }
+
+    /**
+     * Mètode per sortir de la partida
+     * Si està acabada, l'esborrarà de la partida carregada i actualitzarà les estadístiques
+     */
+    public void sortirPartida() {
+        try {
+            controladorDomini.sortirPartida();
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut sortir de la partida");
+        }
+    }
+
+    /**
      * Punt d'entrada per mostrar l'aplicació
      */
     void run() {
         if(controladorDomini == null)
             showErrorDialog("No s'ha pogut iniciar la base de dades");
         else {
-            /*
             loginUser("albert", "albert");
             novaPartidaBreaker(2);
             showPartidaBreakerView();
-            */
-            showInitialView();
         }
     }
 

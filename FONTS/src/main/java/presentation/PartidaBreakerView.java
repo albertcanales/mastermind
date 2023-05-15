@@ -28,6 +28,7 @@ public class PartidaBreakerView implements Observer {
     private BolaPalettePanel bolaPalettePanel;
     private JButton buttonValidar;
     private JButton buttonTorna;
+    private TimerLabel timerLabel;
 
     Integer numIntentActual;
 
@@ -66,6 +67,8 @@ public class PartidaBreakerView implements Observer {
         buttonValidar.setEnabled(false);
         buttonValidar.addActionListener(actionEvent -> buttonValidarClicked());
 
+        timerLabel.start();
+
         buttonTorna.addActionListener(actionEvent -> buttonTornaClick());
     }
 
@@ -75,6 +78,7 @@ public class PartidaBreakerView implements Observer {
             taulellPanel.setSolucioColors(solution);
             taulellPanel.setSolucioEnabled(false);
             taulellPanel.setIntentEnabled(numIntentActual, false);
+            timerLabel.stop();
             controladorPresentacio.veureSolucio();
 
         } catch (PresentationException e) {
@@ -109,6 +113,7 @@ public class PartidaBreakerView implements Observer {
             numIntentActual++;
             taulellPanel.setIntentEnabled(numIntentActual, true);
             buttonValidar.setEnabled(false);
+            // TODO Comprovar si s'ha guanyat i tal
 
         } catch (PresentationException e) {
             throw new RuntimeException(e);
@@ -133,6 +138,8 @@ public class PartidaBreakerView implements Observer {
                     bolaIntentClicked(indexBola);
                     break;
             }
+        } else if (s instanceof TimerLabel) {
+            controladorPresentacio.addTempsPartidaMillis(TimerLabel.PERIOD_MILLIS);
         }
     }
 
@@ -181,6 +188,11 @@ public class PartidaBreakerView implements Observer {
         buttonTorna = new JButton();
         buttonTorna.setText("Torna");
         panel5.add(buttonTorna);
+        final JPanel panel6 = new JPanel();
+        panel6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel4.add(panel6, BorderLayout.EAST);
+        timerLabel = new TimerLabel();
+        panel6.add(timerLabel.$$$getRootComponent$$$());
     }
 
     /**
