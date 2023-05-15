@@ -209,7 +209,7 @@ public class GestorPartidesActuals {
             return header;
         }
 
-        public static Integer getLength() {
+        private static Integer getLength() {
             return values()[(values().length - 1)].end + 1;
         }
     }
