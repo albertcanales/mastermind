@@ -10,8 +10,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class RankingView {
+    /**
+     * Controlador de presentació
+     */
     private final ControladorPresentacio controladorPresentacio;
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+    /**
+     * Botó per tornar a la pantalla d'inici o home, segons si un usuari ha iniciat sessió
+     */
     private JButton buttonTorna;
     private JTabbedPane tabbedPane;
 
@@ -21,17 +30,24 @@ public class RankingView {
 
     private final int NUM_RANKINGS = 3;
 
+    /**
+     * Constructor per defecte de la vista
+     */
     RankingView() {
         controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }
-
+    /**
+     * Mètode per mostrar la vista
+     */
     void show() {
         controladorPresentacio.setContent(panel);
         controladorPresentacio.setTitle("Rànquing");
     }
-
+    /**
+     * Mètode per inicialitzar els components de la vista
+     */
     private void initComponents() {
         initRankingTableList();
         initRanking();
@@ -59,12 +75,19 @@ public class RankingView {
     }
 
     private void fillRanking(int index, List<List<String>> ranking) {
-        String[] columnNames = {"User", "Intents", "Temps"};
+        String[] columnNames = {"#", "Username", "Intents", "Temps"};
         Integer rankingSize = ranking.size();
         String[][] rankingArray = new String[rankingSize][];
-        for (int i = 0; i < rankingSize; ++i) rankingArray[i] = ranking.get(i).toArray(new String[0]);
+        for (Integer i = 0; i < rankingSize; ++i) {
+            List<String> rankingWithPositon = new ArrayList<>(ranking.get(i));
+            Integer position = i + 1;
+            rankingWithPositon.add(0, position.toString());
+            rankingArray[i] = rankingWithPositon.toArray(new String[0]);
+        }
+        JTable rankingTable = new JTable(rankingArray, columnNames);
+        rankingTable.setDefaultEditor(Object.class, null);
 
-        rankingTableList.set(index, new JTable(rankingArray, columnNames));
+        rankingTableList.set(index, rankingTable);
     }
 
     /**

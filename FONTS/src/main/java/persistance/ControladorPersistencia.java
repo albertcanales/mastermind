@@ -38,13 +38,6 @@ public class ControladorPersistencia {
         for (int i = 0; i < 3; ++i){
             ranquing.add(new ArrayList<>());
         }
-        ranquing.get(0).add(List.of("albert", "2", "100"));
-        ranquing.get(0).add(List.of("mar", "4", "200"));
-
-        ranquing.get(1).add(List.of("arnau", "5", "400"));
-        ranquing.get(1).add(List.of("kamil", "7", "300"));
-        ranquing.get(1).add(List.of("mar", "10", "700"));
-
         return ranquing;
     }
 

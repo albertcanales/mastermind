@@ -4,23 +4,39 @@ import javax.swing.*;
 import java.awt.*;
 
 public class NormesView {
+    /**
+     * Controlador de presentació
+     */
     private final ControladorPresentacio controladorPresentacio;
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+    /**
+     * Botó per tornar a la pantalla d'inici o home, segons si un usuari ha iniciat sessió
+     */
     private JButton buttonTorna;
     private JEditorPane editorPaneNormes;
     private JScrollBar scrollBar1;
 
+    /**
+     * Constructor per defecte de la vista
+     */
     NormesView() {
         controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }
-
+    /**
+     * Mètode per mostrar la vista
+     */
     void show() {
         controladorPresentacio.setContent(panel);
         controladorPresentacio.setTitle("Normes del Joc");
     }
-
+    /**
+     * Mètode per inicialitzar els components de la vista
+     */
     void initComponents() {
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialOrHomeView());
     }

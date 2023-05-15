@@ -8,7 +8,7 @@ import java.util.List;
 public class Ranquing {
 
     private List<List<List<String>>> ranquing;
-    private final int RANQUING_MAX_SIZE = 15;
+    private final int RANQUING_MAX_SIZE = 20;
 
     Ranquing(){
         ranquing = new ArrayList<>();
@@ -60,6 +60,17 @@ public class Ranquing {
     };
 
     List<List<List<String>>> getRanquing(){
+        /*List<List<List<String>>> ranquing = new ArrayList<>();
+        for (int i = 0; i < 3; ++i){
+            ranquing.add(new ArrayList<>());
+        }
+        ranquing.get(0).add(List.of("albert", "2", "100"));
+        ranquing.get(0).add(List.of("mar", "4", "200"));
+
+        ranquing.get(1).add(List.of("arnau", "5", "400"));
+        ranquing.get(1).add(List.of("kamil", "7", "300"));
+        ranquing.get(1).add(List.of("mar", "10", "700"));*/
+
         return ranquing;
     }
 }
