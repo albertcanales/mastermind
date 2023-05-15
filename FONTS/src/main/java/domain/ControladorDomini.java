@@ -127,6 +127,10 @@ public class ControladorDomini {
     public void novaPartidaMaker(List<Integer> solucio, Integer algorisme) throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
+        if (controladorPersistencia.existsPartidaGuardadaBreaker(user.getUsername()))
+            controladorPersistencia.esborrarPartidaBreaker(user.getUsername());
+        if (controladorPersistencia.existsPartidaGuardadaMaker(user.getUsername()))
+            controladorPersistencia.esborrarPartidaMaker(user.getUsername());
         controladorPartida.novaPartidaMaker(solucio, algorisme);
         List<List<Integer>> intents = controladorPartida.getIntents();
         List<List<Integer>> feedback = controladorPartida.getFeedbacks();
@@ -141,6 +145,10 @@ public class ControladorDomini {
     public void novaPartidaBreaker(Integer nivellDificultat) throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
+        if (controladorPersistencia.existsPartidaGuardadaBreaker(user.getUsername()))
+            controladorPersistencia.esborrarPartidaBreaker(user.getUsername());
+        if (controladorPersistencia.existsPartidaGuardadaMaker(user.getUsername()))
+            controladorPersistencia.esborrarPartidaMaker(user.getUsername());
         controladorPartida.novaPartidaBreaker(nivellDificultat);
         List<Integer> solucio = controladorPartida.getSequenciaSolucio();
         List<List<Integer>> intents = controladorPartida.getIntents();
@@ -157,7 +165,7 @@ public class ControladorDomini {
     public Boolean existsPartidaGuardada() throws GeneralException {
         if(!userLoggedIn())
             throw new NotLoggedInException();
-        return controladorPersistencia.existsPartidaGuardada(user.getUsername());
+        return controladorPersistencia.existsPartidaGuardadaBreaker(user.getUsername()) || controladorPersistencia.existsPartidaGuardadaMaker(user.getUsername());
     }
 
     /**
@@ -174,10 +182,10 @@ public class ControladorDomini {
         List<List<Integer>> intents = controladorPersistencia.getIntentsPartidaGuardada(username);
         List<List<Integer>> feedback = controladorPersistencia.getFeedbackPartidaGuardada(username);
         List<Integer> solucio = controladorPersistencia.getSolucioPartidaGuardada(username);
-        if(controladorPersistencia.isBreakerPartidaGuardada(username)) {
+        if(controladorPersistencia.existsPartidaGuardadaBreaker(username)) {
             this.carregarPartidaBreaker(username, intents, feedback, solucio);
         }
-        else
+        else if(controladorPersistencia.existsPartidaGuardadaMaker(username))
             this.carregarPartidaMaker(username, intents, feedback, solucio);
     }
 
