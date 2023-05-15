@@ -343,7 +343,7 @@ public class ControladorPresentacio {
     public void setBola(Integer index, Integer bola) {
         try {
             controladorDomini.setBola(index, bola);
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut assignar la bola");
         }
     }
