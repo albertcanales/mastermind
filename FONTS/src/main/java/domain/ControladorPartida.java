@@ -304,9 +304,8 @@ class ControladorPartida {
 
     /**
      * Mètode per saber si l'últim intent està ple
-     * @throws DomainException si no s'està jugant cap partida
      */
-    Boolean isUltimIntentPle() throws DomainException {
+    Boolean isUltimIntentPle() {
         return taulell.isUltimIntentPle();
     }
 

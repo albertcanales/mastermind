@@ -15,6 +15,11 @@ import java.util.List;
 public class SequenciaPanel {
 
     /**
+     * Nombre de boles d'una seqüència
+     */
+    final static int SEQUENCIA_SIZE = 4;
+
+    /**
      * Panell contenidor
      */
     private JPanel panel;
@@ -49,17 +54,6 @@ public class SequenciaPanel {
     }
 
     /**
-     * Mètode per desadjuntar un observador a totes les boles de la seqüència
-     *
-     * @param o Observador a desadjuntar
-     */
-    void detachFromBoles(Observer o) {
-        for (BolaButton bola : bolaButtonList) {
-            bola.Detach(o);
-        }
-    }
-
-    /**
      * Mètode per activar o desactivar de la seqüència
      *
      * @param enabled Si es vol activar o desactivar les boles
@@ -75,23 +69,10 @@ public class SequenciaPanel {
      *
      * @param index Posició de la bola [0, ..., 3]
      * @param id Identificador per la bola
-     * @throws BolaNoExistent si l'índex no correspon a cap bola
      */
     void setBolaID(Integer index, String id) {
         if (index >= 0 && index < bolaButtonList.size())
             bolaButtonList.get(index).setID(id);
-    }
-
-    /**
-     * Getter del color d'una bola de la seqüència
-     *
-     * @param index Posició de la bola [0, ..., 3]
-     * @throws BolaNoExistent si l'índex no correspon a cap bola
-     */
-    BolaColor getBolaColor(Integer index) throws BolaNoExistent {
-        if (index >= 0 && index < bolaButtonList.size())
-            return bolaButtonList.get(index).getBolaColor();
-        return null;
     }
 
     /**

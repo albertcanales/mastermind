@@ -39,6 +39,9 @@ class BolaButton extends Subject {
         initComponents();
     }
 
+    /**
+     * Mètode per inicialitzar els components de la interfície
+     */
     private void initComponents() {
         setBolaColor(BolaColor.NUL);
         button.addActionListener(actionEvent -> Notify());
@@ -175,10 +178,16 @@ enum BolaColor {
         this.number = number;
     }
 
+    /**
+     * Getter del color associat a la BolaColor
+     */
     Color getColor() {
         return color;
     }
 
+    /**
+     * Getter del nombre associat a la BolaColor
+     */
     Integer getNumber() {
         return number;
     }

@@ -53,7 +53,6 @@ public class RankingView {
         initRanking();
         initTabbedPanel();
 
-
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialOrHomeView());
     }
 
@@ -76,12 +75,12 @@ public class RankingView {
 
     private void fillRanking(int index, List<List<String>> ranking) {
         String[] columnNames = {"#", "Username", "Intents", "Temps"};
-        Integer rankingSize = ranking.size();
+        int rankingSize = ranking.size();
         String[][] rankingArray = new String[rankingSize][];
-        for (Integer i = 0; i < rankingSize; ++i) {
+        for (int i = 0; i < rankingSize; ++i) {
             List<String> rankingWithPositon = new ArrayList<>(ranking.get(i));
-            Integer position = i + 1;
-            rankingWithPositon.add(0, position.toString());
+            int position = i + 1;
+            rankingWithPositon.add(0, Integer.toString(position));
             rankingArray[i] = rankingWithPositon.toArray(new String[0]);
         }
         JTable rankingTable = new JTable(rankingArray, columnNames);

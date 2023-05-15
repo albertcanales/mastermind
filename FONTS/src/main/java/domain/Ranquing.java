@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Ranquing {
 
-    private List<List<List<String>>> ranquing;
+    private final List<List<List<String>>> ranquing;
     private final int RANQUING_MAX_SIZE = 20;
 
     Ranquing(){
@@ -57,7 +57,7 @@ public class Ranquing {
 
     List<List<String>> getRanquing(Integer nivellDificultat){
         return ranquing.get(nivellDificultat-1);
-    };
+    }
 
     List<List<List<String>>> getRanquing(){
         /*List<List<List<String>>> ranquing = new ArrayList<>();

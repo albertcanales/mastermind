@@ -172,7 +172,7 @@ public class ControladorPresentacio {
     /**
      * Getter del nom de l'usuari que ha iniciat sessió. Es mostra un error si no s'ha iniciat sessió
      */
-    public String getUserName() throws DomainException {
+    public String getUserName() {
         try {
             return controladorDomini.getUserName();
         }
@@ -296,14 +296,7 @@ public class ControladorPresentacio {
     }
 
     public List<List<List<String>>> getRanquing(){
-        try {
-            return controladorDomini.getRanquing();
-        }
-        catch (GeneralException e){
-            showErrorDialog("No es pot carregar el Rànquing");
-            e.printStackTrace();
-        }
-        return null;
+        return controladorDomini.getRanquing();
     }
     /**
      * Mètode per esborrar l'usuari que ha iniciat sessió.

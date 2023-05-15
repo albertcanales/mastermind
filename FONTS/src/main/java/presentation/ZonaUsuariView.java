@@ -2,14 +2,10 @@ package presentation;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-
-import static java.lang.Integer.max;
-import static java.lang.Integer.min;
 
 /**
  * Vista de la Zona de l'usuari

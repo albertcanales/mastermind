@@ -6,25 +6,70 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BolaPalettePanel implements Observer {
+
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+
+    /**
+     * Botó amb el color NUL
+     */
     private BolaButton buttonNul;
+
+    /**
+     * Botó amb el color BLANC
+     */
     private BolaButton buttonBlanc;
+
+    /**
+     * Botó amb el color NEGRE
+     */
     private BolaButton buttonNegre;
+
+    /**
+     * Botó amb el color VERMELL
+     */
     private BolaButton buttonVermell;
+
+    /**
+     * Botó amb el color BLAU
+     */
     private BolaButton buttonBlau;
+
+    /**
+     * Botó amb el color TARONJA
+     */
     private BolaButton buttonTaronja;
+
+    /**
+     * Botó amb el color ROSA
+     */
     private BolaButton buttonRosa;
 
-    private BolaColor selectedColor;
-
+    /**
+     * Llista amb els botons dels colors
+     */
     private final List<BolaButton> buttonBolaList;
 
+    /**
+     * Color del botó seleccionat
+     */
+    private BolaColor selectedColor;
+
+
+    /**
+     * Constructor per defecte del panell
+     */
     BolaPalettePanel() {
         $$$setupUI$$$();
         buttonBolaList = new ArrayList<>(List.of(buttonNul, buttonBlanc, buttonNegre, buttonVermell, buttonBlau, buttonTaronja, buttonRosa));
         initComponents();
     }
 
+    /**
+     * Mètode per inicialitzar els components interns del panell
+     */
     private void initComponents() {
         buttonNul.setBolaColor(BolaColor.NUL);
         buttonBlanc.setBolaColor(BolaColor.BLANC);
@@ -41,20 +86,32 @@ public class BolaPalettePanel implements Observer {
         }
     }
 
+    /**
+     * Mètode per saber si hi ha cap color seleccionat
+     */
     Boolean isColorSelected() {
         return selectedColor != null;
     }
 
+    /**
+     * Getter del color seleccionat
+     */
     BolaColor getSelectedColor() {
         return selectedColor;
     }
 
+    /**
+     * Mètode per desseleccionar tots els colors
+     */
     void unselectAllColors() {
         for (BolaButton button : buttonBolaList)
             button.setSelected(false);
         selectedColor = null;
     }
 
+    /**
+     * Mètode de l'observador, s'executa quan es clica un dels botons del panell
+     */
     @Override
     public void Update(Subject s) {
         int id = Integer.parseInt(((BolaButton) s).getID().substring(1));

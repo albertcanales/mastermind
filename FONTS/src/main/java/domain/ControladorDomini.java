@@ -17,7 +17,7 @@ public class ControladorDomini {
     private final ControladorPersistencia controladorPersistencia;
 
     private User user;
-    private Ranquing ranquing;
+    private final Ranquing ranquing;
 
     /**
      * Constructor del Controlador de Domini
@@ -212,7 +212,7 @@ public class ControladorDomini {
         controladorPartida.carregarPartidaMaker(algorisme, intents, feedback, solucio);
     }
 
-    public List<List<List<String>>> getRanquing() throws DomainException {
+    public List<List<List<String>>> getRanquing() {
         return ranquing.getRanquing();
     }
 

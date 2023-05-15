@@ -2,7 +2,6 @@ package presentation;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 /**
  * Vista del Registre d'un usuari

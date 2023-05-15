@@ -69,5 +69,6 @@ jar {
 
 javadoc {
     options.memberLevel = JavadocMemberLevel.PRIVATE
+    //noinspection GrUnresolvedAccess
     options.author = true
 }

@@ -2,8 +2,6 @@ package domain;
 
 import exceptions.GeneralException;
 import exceptions.domain.DomainException;
-import exceptions.domain.InvalidEnumValueException;
-import exceptions.persistance.PersistanceException;
 
 import java.util.List;
 import java.util.Scanner;

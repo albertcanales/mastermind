@@ -5,31 +5,21 @@ import exceptions.presentation.PresentationException;
 import exceptions.presentation.SequenciaNoExistent;
 
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.List;
 
 public class TaulellPanel {
 
-    final static int SEQUENCIA_SIZE = 4;
+    /**
+     * Nombre de boles d'una seqüència
+     */
+    final static int SEQUENCIA_SIZE = SequenciaPanel.SEQUENCIA_SIZE;
 
-    private final ControladorPresentacio controladorPresentacio;
+    /**
+     * Panell contenidor del taulell
+     */
     private JPanel panel;
-    private JButton buttonOK1;
-    private JButton buttonOK0;
-    private JButton buttonOK2;
-    private JButton buttonOK3;
-    private JButton buttonOK4;
-    private JButton buttonOK5;
-    private JButton buttonOK6;
-    private JButton buttonOK7;
-    private JButton buttonOK8;
-    private JButton buttonOK9;
-    private JButton buttonOK10;
-    private JButton buttonOK11;
     private SequenciaPanel sequenciaIntent0;
     private SequenciaPanel sequenciaIntent1;
     private SequenciaPanel sequenciaIntent2;
@@ -54,29 +44,52 @@ public class TaulellPanel {
     private SequenciaPanel sequenciaFeedback9;
     private SequenciaPanel sequenciaFeedback10;
     private SequenciaPanel sequenciaFeedback11;
+
+    /**
+     * Solució del taulell
+     */
     private SequenciaPanel sequenciaSolucio;
+
+    /**
+     * Llista dels intents del taullel
+     */
     private ArrayList<SequenciaPanel> sequenciaIntentList;
+
+    /**
+     * Llista dels feedbacks del taullel
+     */
     private ArrayList<SequenciaPanel> sequenciaFeedbackList;
 
+    /**
+     * Constructor per defecte del taulell
+     */
     TaulellPanel() {
-        controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }
 
+    /**
+     * Mètode per inicialitzar tots els components del taulell
+     */
     private void initComponents() {
         initSolucio();
         initFeedbacks();
         initIntents();
     }
 
+    /**
+     * Mètode per inicialitzar la solució del taulell
+     */
     private void initSolucio() {
         sequenciaSolucio.setEnabled(false);
-        for (int bola = 0; bola < SEQUENCIA_SIZE; bola++) {
+        for (int bola = 0; bola < SequenciaPanel.SEQUENCIA_SIZE; bola++) {
             sequenciaSolucio.setBolaID(bola, "S" + bola);
         }
     }
 
+    /**
+     * Mètode per inicialitzar els feedbacks del taulell
+     */
     private void initFeedbacks() {
         sequenciaFeedbackList = new ArrayList<>(List.of(sequenciaFeedback0, sequenciaFeedback1, sequenciaFeedback2,
                 sequenciaFeedback3, sequenciaFeedback4, sequenciaFeedback5, sequenciaFeedback6, sequenciaFeedback7,
@@ -87,33 +100,54 @@ public class TaulellPanel {
         }
     }
 
+    /**
+     * Mètode per inicialitzar els intents del taulell
+     */
     private void initIntents() {
         sequenciaIntentList = new ArrayList<>(List.of(sequenciaIntent0, sequenciaIntent1, sequenciaIntent2,
                 sequenciaIntent3, sequenciaIntent4, sequenciaIntent5, sequenciaIntent6, sequenciaIntent7,
                 sequenciaIntent8, sequenciaIntent9, sequenciaIntent10, sequenciaIntent11));
 
-        int id = 0;
         for (SequenciaPanel sequenciaPanel : sequenciaIntentList) {
             sequenciaPanel.setEnabled(false);
             for (int bola = 0; bola < SEQUENCIA_SIZE; bola++) {
-                sequenciaPanel.setBolaID(bola, "I" + id);
-                id++;
+                sequenciaPanel.setBolaID(bola, "I" + bola);
             }
         }
     }
 
-    void setBolaIntentColor(Integer index, BolaColor bolaColor) throws BolaNoExistent {
-        if (index < 0 || index >= sequenciaIntentList.size() * SEQUENCIA_SIZE)
-            throw new BolaNoExistent();
-        sequenciaIntentList.get(index / SEQUENCIA_SIZE).setBolaColor(index % SEQUENCIA_SIZE, bolaColor);
+    /**
+     * Mètode per assignar el color d'una bola d`un intent del taulell
+     *
+     * @param indexIntent Índex de l'intent a modificar
+     * @param indexBola   Índex de la bola a modificar
+     * @throws PresentationException si cap dels dos índexs no són correctes
+     */
+    void setBolaIntentColor(Integer indexIntent, Integer indexBola, BolaColor bolaColor) throws PresentationException {
+        if (indexIntent < 0 || indexIntent >= sequenciaIntentList.size())
+            throw new SequenciaNoExistent();
+        sequenciaIntentList.get(indexIntent).setBolaColor(indexBola, bolaColor);
     }
 
+    /**
+     * Mètode per assignar els valors de de la seqüencia d'un dels feedbacks
+     *
+     * @param index    Índex del feedback a modificar
+     * @param feedback Llista amb els valors dels colors per al feedback
+     * @throws PresentationException si l'índex o la mida del feedback no són correctes
+     */
     void setFeedbackColors(Integer index, List<Integer> feedback) throws PresentationException {
         if (index < 0 || index >= sequenciaFeedbackList.size())
             throw new SequenciaNoExistent();
         sequenciaFeedbackList.get(index).setSequenciaColors(feedback);
     }
 
+    /**
+     * Mètode per assignar els valors de les seqüències d'intents
+     *
+     * @param intents Llista amb els valors dels colors per als intents
+     * @throws PresentationException si les mides dels intents no són correctes
+     */
     void setIntentsColors(List<List<Integer>> intents) throws PresentationException {
         if (intents.size() > sequenciaIntentList.size())
             throw new SequenciaNoExistent();
@@ -121,6 +155,12 @@ public class TaulellPanel {
             sequenciaIntentList.get(i).setSequenciaColors(intents.get(i));
     }
 
+    /**
+     * Mètode per assignar els valors de les seqüències de feedbacks
+     *
+     * @param feedbacks Llista amb els valors dels colors per als feedbacks
+     * @throws PresentationException si les mides dels feedbacks no són correctes
+     */
     void setFeedbacksColors(List<List<Integer>> feedbacks) throws PresentationException {
         if (feedbacks.size() > sequenciaFeedbackList.size())
             throw new SequenciaNoExistent();
@@ -128,20 +168,43 @@ public class TaulellPanel {
             sequenciaIntentList.get(i).setSequenciaColors(feedbacks.get(i));
     }
 
+    /**
+     * Mètode per assignar els valors de la seqüència solució
+     *
+     * @param solucio Llista amb els valors dels colors per la solució
+     * @throws PresentationException si la mida de la solució no és correcta
+     */
     void setSolucioColors(List<Integer> solucio) throws BolaNoExistent {
         sequenciaSolucio.setSequenciaColors(solucio);
     }
 
+    /**
+     * Mètode per activar o desactivar la solució del taulell
+     *
+     * @param enabled Si es vol activar o desactivar
+     */
     void setSolucioEnabled(Boolean enabled) {
         sequenciaSolucio.setEnabled(enabled);
     }
 
+    /**
+     * Mètode per activar o desactivar un intent del taulell
+     *
+     * @param index   Índex de l'intent a activar
+     * @param enabled Si es vol activar o desactivar
+     * @throws SequenciaNoExistent si l'índex no correspon a cap intent
+     */
     void setIntentEnabled(Integer index, Boolean enabled) throws SequenciaNoExistent {
         if (index < 0 || index >= sequenciaIntentList.size())
             throw new SequenciaNoExistent();
         sequenciaIntentList.get(index).setEnabled(enabled);
     }
 
+    /**
+     * Mètode per adjuntar un observador a les boles dels intents i de la solució del taulell
+     *
+     * @param o Observador a adjuntar
+     */
     void attachToBoles(Observer o) {
         for (SequenciaPanel intent : sequenciaIntentList)
             intent.attachToBoles(o);

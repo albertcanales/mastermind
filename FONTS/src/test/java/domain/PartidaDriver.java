@@ -412,7 +412,7 @@ public class PartidaDriver extends ControladorDriver {
         cp.isUltimIntentPle();
     }
 
-    private static void testIsValidIntentsFeedback() throws DomainException {
+    private static void testIsValidIntentsFeedback() {
         System.out.println("Testing isValidIntentsFeedback...");
 
         if(!cp.isPartidaPresent()) {

@@ -27,7 +27,7 @@ public class PartidaBreakerView implements Observer {
     private BolaPalettePanel bolaPalettePanel;
     private JButton buttonValidar;
 
-    Integer numIntent;
+    Integer numIntentActual;
 
     /**
      * Constructor per defecte de la vista
@@ -53,11 +53,11 @@ public class PartidaBreakerView implements Observer {
         List<List<Integer>> intents = controladorPresentacio.getIntents();
         List<List<Integer>> feedbacks = controladorPresentacio.getFeedbacks();
 
-        numIntent = intents.size() - 1;
+        numIntentActual = intents.size() - 1;
 
         taulellPanel.setIntentsColors(intents);
         taulellPanel.setFeedbacksColors(feedbacks);
-        taulellPanel.setIntentEnabled(numIntent, true);
+        taulellPanel.setIntentEnabled(numIntentActual, true);
         taulellPanel.setSolucioEnabled(true);
         taulellPanel.attachToBoles(this);
 
@@ -70,7 +70,7 @@ public class PartidaBreakerView implements Observer {
         try {
             taulellPanel.setSolucioColors(solution);
             taulellPanel.setSolucioEnabled(false);
-            taulellPanel.setIntentEnabled(numIntent, false);
+            taulellPanel.setIntentEnabled(numIntentActual, false);
             // TODO Caldria també perdre la partida
         } catch (PresentationException e) {
             // TODO S'hauria de pensar el tractament d'això
@@ -78,12 +78,12 @@ public class PartidaBreakerView implements Observer {
         }
     }
 
-    private void setBolaColor(Integer number, BolaColor color) {
+    private void setBolaColor(Integer indexBola, BolaColor color) {
         try {
-            taulellPanel.setBolaIntentColor(number, color);
-            controladorPresentacio.setBola(number % TaulellPanel.SEQUENCIA_SIZE, color.getNumber());
+            taulellPanel.setBolaIntentColor(numIntentActual, indexBola, color);
+            controladorPresentacio.setBola(indexBola, color.getNumber());
             buttonValidar.setEnabled(controladorPresentacio.isUltimIntentPle());
-        } catch (BolaNoExistent e) {
+        } catch (PresentationException e) {
             // TODO S'hauria de pensar el tractament d'això
             throw new RuntimeException(e);
         }
@@ -99,10 +99,10 @@ public class PartidaBreakerView implements Observer {
     private void buttonValidarClicked() {
         try {
             List<Integer> feedback = controladorPresentacio.validarSequencia();
-            taulellPanel.setFeedbackColors(numIntent, feedback);
-            taulellPanel.setIntentEnabled(numIntent, false);
-            numIntent++;
-            taulellPanel.setIntentEnabled(numIntent, true);
+            taulellPanel.setFeedbackColors(numIntentActual, feedback);
+            taulellPanel.setIntentEnabled(numIntentActual, false);
+            numIntentActual++;
+            taulellPanel.setIntentEnabled(numIntentActual, true);
             buttonValidar.setEnabled(false);
             // TODO Comprovar si s'ha guanyat, perdut, etc
         } catch (PresentationException e) {
@@ -114,13 +114,13 @@ public class PartidaBreakerView implements Observer {
     public void Update(Subject s) {
         if (s instanceof BolaButton) {
             String id = ((BolaButton) s).getID();
-            Integer number = Integer.parseInt(id.substring(1));
             switch (id.charAt(0)) {
                 case 'S':
                     showSolution();
                     break;
                 case 'I':
-                    bolaIntentClicked(number);
+                    Integer indexBola = Integer.parseInt(id.substring(1));
+                    bolaIntentClicked(indexBola);
                     break;
             }
         }

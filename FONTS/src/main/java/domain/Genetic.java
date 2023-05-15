@@ -116,17 +116,15 @@ class Genetic extends BotBreaker {
      */
     private void getInitialPopulation() {
         population = new HashSet<>();
-        for (Integer seq : possibleSolutions) {
-            population.add(seq);
-        }
+        population.addAll(possibleSolutions);
     }
 
 
     /**
      * Combina dues seqüències per obtenir-ne una tercera que és combinació de les dues anteriors.
      *
-     * @param seq1
-     * @param seq2
+     * @param seq1 Primera combinació a combinar
+     * @param seq2 Segona combinació a combinar
      * @return seqüència combinació
      */
     private Integer combineTwoSequences(Integer seq1, Integer seq2) {
@@ -152,9 +150,7 @@ class Genetic extends BotBreaker {
             }
         }
         population.clear();
-        for (Integer seq : aux) {
-            population.add(seq);
-        }
+        population.addAll(aux);
     }
 
     /**
@@ -169,14 +165,13 @@ class Genetic extends BotBreaker {
         }
         Integer chosen = population.iterator().next();
         tried.add(chosen);
-        ArrayList<Integer> candidate = getSequence(chosen);
-        return candidate;
+        return getSequence(chosen);
     }
 
     /**
      * Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem un algorisme genetic.
      *
-     * @param sol
+     * @param sol Solució per la generació
      * @return Llista d'intents.
      */
     public List<List<Integer>> solve(List<Integer> sol) throws DomainException {
