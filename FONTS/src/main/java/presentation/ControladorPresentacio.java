@@ -351,7 +351,7 @@ public class ControladorPresentacio {
     public List<Integer> validarSequencia() {
         try {
             return controladorDomini.validarSequencia();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut validar l'intent");
         }
         return null;
