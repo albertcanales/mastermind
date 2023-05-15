@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Albert Canales
  */
-public class PartidaBreakerView implements Observer{
+public class PartidaBreakerView implements Observer {
 
     /**
      * Controlador de presentació
@@ -27,10 +27,7 @@ public class PartidaBreakerView implements Observer{
      */
     private JPanel panel;
     private TaulellPanel taulellPanel;
-    private BolaButton buttonColorNone;
-    private BolaButton buttonColorRed;
-    private BolaButton buttonColorGreen;
-    private BolaButton buttonColorBlue;
+    private BolaPalettePanel bolaPalettePanel;
 
     private List<BolaButton> buttonColorList;
 
@@ -58,17 +55,54 @@ public class PartidaBreakerView implements Observer{
         // Taulell
         List<List<Integer>> intents = controladorPresentacio.getIntents();
         List<List<Integer>> feedbacks = controladorPresentacio.getFeedbacks();
-        List<Integer> solucio = controladorPresentacio.getSolucio();
 
-        taulellPanel.setSequenciesColors(intents, feedbacks, solucio);
+        taulellPanel.setIntentsColors(intents);
+        taulellPanel.setFeedbacksColors(feedbacks);
         taulellPanel.setIntentEnabled(intents.size() - 1, true);
+        taulellPanel.setSolucioEnabled(true);
         taulellPanel.setOKButtonVisible(true);
         taulellPanel.attachToBoles(this);
     }
 
+    private void showSolution() {
+        List<Integer> solution = controladorPresentacio.getSolucio();
+        try {
+            taulellPanel.setSolucioColors(solution);
+            taulellPanel.setSolucioEnabled(false);
+            // TODO Desactivar l'intent actual
+            // TODO Caldria també perdre la partida
+        } catch (BolaNoExistent e) {
+            // TODO S'hauria de pensar el tractament d'això
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void bolaIntentClicked(Integer number) {
+        if (bolaPalettePanel.isColorSelected()) {
+            try {
+                taulellPanel.setBolaIntentColor(number, bolaPalettePanel.getSelectedColor());
+            } catch (BolaNoExistent e) {
+                // TODO S'hauria de pensar el tractament d'això
+                throw new RuntimeException(e);
+            }
+            bolaPalettePanel.unselectAllColors();
+        }
+    }
+
     @Override
     public void Update(Subject s) {
-
+        if (s instanceof BolaButton) {
+            String id = ((BolaButton) s).getID();
+            Integer number = Integer.parseInt(id.substring(1));
+            switch (id.charAt(0)) {
+                case 'S':
+                    showSolution();
+                    break;
+                case 'I':
+                    bolaIntentClicked(number);
+                    break;
+            }
+        }
     }
 
     /**
@@ -80,9 +114,11 @@ public class PartidaBreakerView implements Observer{
      */
     private void $$$setupUI$$$() {
         panel = new JPanel();
-        panel.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel.setLayout(new BorderLayout(0, 0));
         taulellPanel = new TaulellPanel();
-        panel.add(taulellPanel.$$$getRootComponent$$$(), new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel.add(taulellPanel.$$$getRootComponent$$$(), BorderLayout.CENTER);
+        bolaPalettePanel = new BolaPalettePanel();
+        panel.add(bolaPalettePanel.$$$getRootComponent$$$(), BorderLayout.EAST);
     }
 
     /**
@@ -91,4 +127,5 @@ public class PartidaBreakerView implements Observer{
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
+
 }

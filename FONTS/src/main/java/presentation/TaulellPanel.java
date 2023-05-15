@@ -65,11 +65,6 @@ public class TaulellPanel {
         initComponents();
     }
 
-    void show() {
-        controladorPresentacio.setContent(panel);
-        controladorPresentacio.setTitle("Partida");
-    }
-
     private void initComponents() {
         initSolucio();
         initFeedbacks();
@@ -89,13 +84,8 @@ public class TaulellPanel {
                 sequenciaFeedback3, sequenciaFeedback4, sequenciaFeedback5, sequenciaFeedback6, sequenciaFeedback7,
                 sequenciaFeedback8, sequenciaFeedback9, sequenciaFeedback10, sequenciaFeedback11));
 
-        int id = 0;
         for (SequenciaPanel feedback : sequenciaFeedbackList) {
             feedback.setEnabled(false);
-            for (int bola = 0; bola < SEQUENCIA_SIZE; bola++) {
-                feedback.setBolaID(bola, "F" + id);
-                id++;
-            }
         }
     }
 
@@ -105,10 +95,10 @@ public class TaulellPanel {
                 sequenciaIntent8, sequenciaIntent9, sequenciaIntent10, sequenciaIntent11));
 
         int id = 0;
-        for (int seq = 1; seq < sequenciaIntentList.size(); seq++) {
-            sequenciaIntentList.get(seq).setEnabled(false);
+        for (SequenciaPanel sequenciaPanel : sequenciaIntentList) {
+            sequenciaPanel.setEnabled(false);
             for (int bola = 0; bola < SEQUENCIA_SIZE; bola++) {
-                sequenciaIntentList.get(seq).setBolaID(bola, "I" + id);
+                sequenciaPanel.setBolaID(bola, "I" + id);
                 id++;
             }
         }
@@ -126,6 +116,12 @@ public class TaulellPanel {
         }
     }
 
+    void setBolaIntentColor(Integer index, BolaColor bolaColor) throws BolaNoExistent {
+        if (index < 0 || index >= sequenciaIntentList.size() * SEQUENCIA_SIZE)
+            throw new BolaNoExistent();
+        sequenciaIntentList.get(index / SEQUENCIA_SIZE).setBolaColor(index % SEQUENCIA_SIZE, bolaColor);
+    }
+
     void setOKButtonVisible(Boolean visible) {
         for (JButton buttonOK : buttonOKList) {
             buttonOK.setVisible(visible);
@@ -138,14 +134,26 @@ public class TaulellPanel {
         sequenciaIntentList.get(index).setSequenciaColors(feedback);
     }
 
-    void setSequenciesColors(List<List<Integer>> intents, List<List<Integer>> feedbacks, List<Integer> solucio) throws PresentationException {
-        if (intents.size() > sequenciaIntentList.size() || feedbacks.size() > sequenciaFeedbackList.size())
+    void setIntentsColors(List<List<Integer>> intents) throws PresentationException {
+        if (intents.size() > sequenciaIntentList.size())
             throw new SequenciaNoExistent();
         for (int i = 0; i < intents.size(); i++)
             sequenciaIntentList.get(i).setSequenciaColors(intents.get(i));
+    }
+
+    void setFeedbacksColors(List<List<Integer>> feedbacks) throws PresentationException {
+        if (feedbacks.size() > sequenciaFeedbackList.size())
+            throw new SequenciaNoExistent();
         for (int i = 0; i < feedbacks.size(); i++)
-            sequenciaFeedbackList.get(i).setSequenciaColors(feedbacks.get(i));
+            sequenciaIntentList.get(i).setSequenciaColors(feedbacks.get(i));
+    }
+
+    void setSolucioColors(List<Integer> solucio) throws BolaNoExistent {
         sequenciaSolucio.setSequenciaColors(solucio);
+    }
+
+    void setSolucioEnabled(Boolean enabled) {
+        sequenciaSolucio.setEnabled(enabled);
     }
 
     void setIntentEnabled(Integer index, Boolean enabled) throws SequenciaNoExistent {
@@ -157,6 +165,7 @@ public class TaulellPanel {
     void attachToBoles(Observer o) {
         for (SequenciaPanel intent : sequenciaIntentList)
             intent.attachToBoles(o);
+        sequenciaSolucio.attachToBoles(o);
     }
 
     /**
