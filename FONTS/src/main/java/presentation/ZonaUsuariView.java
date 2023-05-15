@@ -11,53 +11,192 @@ import java.util.List;
 import static java.lang.Integer.max;
 import static java.lang.Integer.min;
 
+/**
+ * Vista de la Zona de l'usuari
+ * @author Mar Gonzàlez Català
+ */
 public class ZonaUsuariView {
 
+    /**
+     * Controlador de presentació
+     */
     private final ControladorPresentacio controladorPresentacio;
+
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+
+    /**
+     * Botó per tornar a la vista anterior
+     */
     private JButton buttonTorna;
+
+    /**
+     * Panell contenidor de les estadístiques en rol Breaker
+     */
     private JTabbedPane tabbedPaneBreaker;
+
+    /**
+     * Panell contenidor de les estadístiques en rol Maker
+     */
     private JTabbedPane tabbedPaneMaker;
+
+    /**
+     * Etiqueta que mostra el rècord personal en mode de joc Fàcil
+     */
     private JLabel JLabelRecordPersonalFacil;
+
+    /**
+     * Etiqueta que mostra el temps jugat en mode de joc Fàcil
+     */
     private JLabel JLabelTempsFacil;
+
+    /**
+     * Etiqueta que mostra el nombre de partides guanyades en mode de joc Fàcil
+     */
     private JLabel JLabelGuanyadesFacil;
+
+    /**
+     * Etiqueta que mostra el nombre de partides perdudes en mode de joc Fàcil
+     */
     private JLabel JLabelPerdudesFacil;
+
+    /**
+     * Etiqueta que mostra la ratxa de victòries en mode de joc Fàcil
+     */
     private JLabel JLabelRatxaVictoriesFacil;
+
+    /**
+     * Etiqueta que mostra la mitjana d'intents en rol Breaker i mode de joc Fàcil
+     */
     private JLabel JLabelMitjanaIntentsFacil;
+
+    /**
+     * Etiqueta que mostra el rècord personal en mode de joc Mig
+     */
     private JLabel JLabelRecordPersonalMig;
+
+    /**
+     * Etiqueta que mostra el temps jugat en mode de joc Mig
+     */
     private JLabel JLabelTempsMig;
+
+    /**
+     * Etiqueta que mostra el nombre de partides guanyades en mode de joc Mig
+     */
     private JLabel JLabelGuanyadesMig;
+
+    /**
+     * Etiqueta que mostra el nombre de partides perdudes en mode de joc Mig
+     */
     private JLabel JLabelPerdudesMig;
+
+    /**
+     * Etiqueta que mostra la ratxa de victòries en mode de joc Mig
+     */
     private JLabel JLabelRatxaVictoriesMig;
+
+    /**
+     * Etiqueta que mostra la mitjana d'intents en rol Breaker i mode de joc Mig
+     */
     private JLabel JLabelMitjanaIntentsMig;
+
+    /**
+     * Etiqueta que mostra el rècord personal en mode de joc Difícil
+     */
     private JLabel JLabelRecordPersonalDificil;
+
+    /**
+     * Etiqueta que mostra el temps jugat en mode de joc Difícil
+     */
     private JLabel JLabelTempsDificil;
+
+    /**
+     * Etiqueta que mostra el nombre de partides guanyades en mode de joc Difícil
+     */
     private JLabel JLabelGuanyadesDificil;
+
+    /**
+     * Etiqueta que mostra el nombre de partides perdudes en mode de joc Difícil
+     */
     private JLabel JLabelPerdudesDificil;
+
+    /**
+     * Etiqueta que mostra la ratxa de victòries en mode de joc Difícil
+     */
     private JLabel JLabelRatxaVictoriesDificil;
+
+    /**
+     * Etiqueta que mostra la mitjana d'intents en rol Breaker i mode de joc Difícil
+     */
     private JLabel JLabelMitjanaIntentsDificil;
+
+    /**
+     * Etiqueta que mostra el rècord personal
+     */
     private JLabel JLabelRecordPersonalTotal;
+
+    /**
+     * Etiqueta que mostra el temps jugat
+     */
     private JLabel JLabelTempsTotal;
+
+    /**
+     * Etiqueta que mostra el nombre de partides perdudes
+     */
     private JLabel JLabelGuanyadesTotal;
+
+    /**
+     * Etiqueta que mostra el nombre de partides perdudes
+     */
     private JLabel JLabelPerdudesTotal;
+
+    /**
+     * Etiqueta que mostra la ratxa de victòries
+     */
     private JLabel JLabelRatxaVictoriesTotal;
+
+    /**
+     * Etiqueta que mostra la mitjana d'intents en rol Breaker
+     */
     private JLabel JLabelMitjanaIntentsBreakerTotal;
+
+    /**
+     * Etiqueta que mostra la mitjana d'intents en rol Maker i amb l'algorisme FiveGuess
+     */
     private JLabel JLabelMitjanaIntentsFiveGuess;
+
+    /**
+     * Etiqueta que mostra la mitjana d'intents en rol Maker i amb l'algorisme Genetic
+     */
     private JLabel JLabelMitjanaIntentsGenetic;
+
+    /**
+     * Etiqueta que mostra la mitjana d'intents en rol Maker
+     */
     private JLabel JLabelMitjanaIntentsMakerTotal;
 
-
+    /**
+     * Constructor per defecte de la vista
+     */
     ZonaUsuariView() {
         controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }
 
+    /**
+     * Mètode per mostrar la vista
+     */
     void show() {
         controladorPresentacio.setContent(panel);
         controladorPresentacio.setTitle("Zona Usuari");
     }
 
+    /**
+     * Mètode per inicialitzar els components de la vista
+     */
     private void initComponents() {
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showHomeView());
         setRecordPersonal();
@@ -69,6 +208,9 @@ public class ZonaUsuariView {
         setMitjanaIntentsMaker();
     }
 
+    /**
+     * Mètode que escriu el rècord personal de l'usuari
+     */
     private void setRecordPersonal() {
         List<Integer> record = controladorPresentacio.getPersonalRecord();
         JLabelRecordPersonalFacil.setText(Integer.toString(record.get(0)));
@@ -77,6 +219,9 @@ public class ZonaUsuariView {
         JLabelRecordPersonalTotal.setText(Integer.toString(record.get(3)));
     }
 
+    /**
+     * Mètode que escriu el temps jugat de l'usuari
+     */
     private void setTemps() {
         List<Long> temps = controladorPresentacio.getTimePlayed();
         JLabelTempsFacil.setText(Long.toString(temps.get(0)));
@@ -85,6 +230,9 @@ public class ZonaUsuariView {
         JLabelTempsTotal.setText(Long.toString(temps.get(3)));
     }
 
+    /**
+     * Mètode que escriu el nombre de partides guanyades de l'usuari
+     */
     private void setGuanyades() {
         List<Integer> guanyades = controladorPresentacio.getWonGames();
         JLabelGuanyadesFacil.setText(Integer.toString(guanyades.get(0)));
@@ -93,6 +241,9 @@ public class ZonaUsuariView {
         JLabelGuanyadesTotal.setText(Integer.toString(guanyades.get(3)));
     }
 
+    /**
+     * Mètode que escriu el nombre de partides perdudes de l'usuari
+     */
     private void setPerdudes() {
         List<Integer> perdudes = controladorPresentacio.getLostGames();
         JLabelPerdudesFacil.setText(Integer.toString(perdudes.get(0)));
@@ -101,6 +252,9 @@ public class ZonaUsuariView {
         JLabelPerdudesTotal.setText(Integer.toString(perdudes.get(3)));
     }
 
+    /**
+     * Mètode que escriu la ratxa de victòries de l'usuari
+     */
     private void setRatxaVictories() {
         List<Integer> winStreak = controladorPresentacio.getWinstreak();
         JLabelRatxaVictoriesFacil.setText(Integer.toString(winStreak.get(0)));
@@ -109,6 +263,9 @@ public class ZonaUsuariView {
         JLabelRatxaVictoriesTotal.setText(Integer.toString(winStreak.get(3)));
     }
 
+    /**
+     * Mètode que escriu la mitjana d'intents en rol Breaker de l'usuari
+     */
     private void setMitjanaIntentsBreaker() {
         List<Double> average = controladorPresentacio.getAverageAsBreaker();
         JLabelMitjanaIntentsFacil.setText(Double.toString(average.get(0)));
@@ -117,6 +274,9 @@ public class ZonaUsuariView {
         JLabelMitjanaIntentsBreakerTotal.setText(Double.toString(average.get(3)));
     }
 
+    /**
+     * Mètode que escriu la mitjana d'intents en rol Maker de l'usuari
+     */
     private void setMitjanaIntentsMaker() {
         List<Double> average = controladorPresentacio.getAverageAsMaker();
         JLabelMitjanaIntentsFiveGuess.setText(Double.toString(average.get(0)));

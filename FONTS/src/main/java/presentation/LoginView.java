@@ -9,26 +9,67 @@ import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.Locale;
 
+/**
+ * Vista de l'inici de sessió d'un usuari
+ * @author Mar Gonzàlez Català
+ */
 public class LoginView {
+
+    /**
+     * Controlador de presentació
+     */
     private final ControladorPresentacio controladorPresentacio;
+
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+
+    /**
+     * Botó per tornar a la vista anterior
+     */
     private JButton buttonTorna;
+
+    /**
+     * Camp de text pel nom d'usuari
+     */
     private JTextField textFieldNomUsuari;
+
+    /**
+     * Camp de text per la contrasenya
+     */
     private JPasswordField textFieldContrasenya;
+
+    /**
+     * Botó per iniciar sessió de l'usuari
+     */
     private JButton buttonIniciaSessio;
+
+    /**
+     * Enllaç per registrar l'usuari
+     */
     private JLabel labelRegistre;
 
+    /**
+     * Constructor per defecte de la vista
+     */
     LoginView() {
         controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }
 
+    /**
+     * Mètode per mostrar la vista
+     */
     void show() {
         controladorPresentacio.setContent(panel);
         controladorPresentacio.setTitle("Registre");
     }
 
+    /**
+     * Mètode per inicialitzar els components de la vista
+     */
     void initComponents() {
         buttonIniciaSessio.addActionListener(actionEvent -> iniciaSessioButtonClick());
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
@@ -39,6 +80,9 @@ public class LoginView {
         });
     }
 
+    /**
+     * Mètode que efectua les accions pertinents en clicar el botó per iniciar sessió
+     */
     private void iniciaSessioButtonClick() {
         String username = textFieldNomUsuari.getText();
         String password = Arrays.toString(textFieldContrasenya.getPassword());

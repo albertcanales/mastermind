@@ -5,30 +5,70 @@ import java.awt.*;
 
 /**
  * Vista inicial per a un usuari registrat
- *
  * @author Mar Gonzàlez Català
  */
 public class HomeView {
+
+    /**
+     * Controlador de presentació
+     */
     private final ControladorPresentacio controladorPresentacio;
+
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+
+    /**
+     * Botó per crear una nova partida
+     */
     private JButton buttonNovaPartida;
+
+    /**
+     * Botó per carregar una partida a mitges
+     */
     private JButton buttonCarregarPartida;
+
+    /**
+     * Botó per accedir a la zona d'usuari
+     */
     private JButton buttonZonaUsuari;
+
+    /**
+     * Botó per veure el rànquing
+     */
     private JButton buttonRanquing;
+
+    /**
+     * Botó per tancar sessió i tornar a la pantalla d'inici
+     */
     private JButton buttonSortir;
+
+    /**
+     * Botó per veure les normes
+     */
     private JButton buttonNormes;
 
+    /**
+     * Constructor per defecte de la vista
+     */
     HomeView() {
         controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
     }
 
+    /**
+     * Mètode per mostrar la vista
+     */
     void show() {
         controladorPresentacio.setContent(panel);
         controladorPresentacio.setTitle("Mastermind");
     }
 
+    /**
+     * Mètode per inicialitzar els components de la vista
+     */
     private void initComponents() {
         if (!controladorPresentacio.existsPartidaGuardada()) {
             buttonCarregarPartida.setEnabled(false);
@@ -41,10 +81,17 @@ public class HomeView {
         buttonZonaUsuari.addActionListener(actionEvent -> controladorPresentacio.showZonaUsuariView());
     }
 
+    /**
+     * Mètode que efectua les accions pertinents en clicar el botó per sortir
+     */
     private void sortirButtonClick() {
         controladorPresentacio.logoutUser();
         controladorPresentacio.showInitialView();
     }
+
+    /**
+     * Mètode que efectua les accions pertinents en clicar el botó per carregar una partida
+     */
     private void carregarPartidaButtonClick() {
         controladorPresentacio.carregarPartida();
         //controladorPresentacio.showCarregarPartidaView();
