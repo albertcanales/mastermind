@@ -1,5 +1,7 @@
 package presentation;
 
+import exceptions.presentation.BolaNoExistent;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -34,7 +36,20 @@ class BolaButton extends Subject {
      */
     BolaButton() {
         $$$setupUI$$$();
-        setBolaColor(BolaColor.NONE);
+        initComponents();
+    }
+
+    private void initComponents() {
+        setBolaColor(BolaColor.NUL);
+        button.addActionListener(actionEvent -> Notify());
+    }
+
+
+    /**
+     * Getter de l'identificador de la bola
+     */
+    String getID() {
+        return id;
     }
 
     /**
@@ -67,6 +82,13 @@ class BolaButton extends Subject {
      */
     void setEnabled(Boolean enabled) {
         button.setEnabled(enabled);
+    }
+
+    /**
+     * Setter de la selecció de la bola
+     */
+    void setSelected(Boolean selected) {
+        button.setBorderPainted(selected);
     }
 
     /**
@@ -137,10 +159,13 @@ class BolaButton extends Subject {
  */
 enum BolaColor {
 
-    NONE(null, 0),
-    RED(Color.RED, 1),
-    GREEN(Color.green, 2),
-    BLUE(Color.blue, 3);
+    NUL(null, 0),
+    BLANC(Color.WHITE, 1),
+    NEGRE(Color.BLACK, 2),
+    VERMELL(Color.RED, 3),
+    BLAU(Color.BLUE, 4),
+    TARONJA(Color.ORANGE, 5),
+    ROSA(Color.PINK, 6);
 
     private final Color color;
     private final Integer number;
@@ -163,12 +188,12 @@ enum BolaColor {
      * @param number és el valor que representa el color de la bola
      * @return el BolaColor corresponent al nombre donat
      */
-    static BolaColor findByNumber(Integer number) {
+    static BolaColor findByNumber(Integer number) throws BolaNoExistent {
         for(BolaColor nd : values()){
             if(nd.getNumber().equals(number)){
                 return nd;
             }
         }
-        return null;
+        throw new BolaNoExistent();
     }
 }

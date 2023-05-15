@@ -85,7 +85,7 @@ public class LoginView {
      */
     private void iniciaSessioButtonClick() {
         String username = textFieldNomUsuari.getText();
-        String password = Arrays.toString(textFieldContrasenya.getPassword());
+        String password = String.valueOf(textFieldContrasenya.getPassword());
         if (controladorPresentacio.existsUser(username) && controladorPresentacio.loginUser(username, password)) {
             controladorPresentacio.showHomeView();
         } else {

@@ -79,7 +79,7 @@ public class RegisterView {
     private void registraButtonClick() {
         String username = textFieldNomUsuari.getText();
         String name = textFieldNomComplet.getText();
-        String password = Arrays.toString(textFieldContrasenya.getPassword());
+        String password = String.valueOf(textFieldContrasenya.getPassword());
 
         if (!controladorPresentacio.isValidUser(username, name, password))
             controladorPresentacio.showWarningDialog("Could not register", "Invalid input data");
