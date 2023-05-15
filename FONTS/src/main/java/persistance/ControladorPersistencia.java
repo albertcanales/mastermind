@@ -127,13 +127,14 @@ public class ControladorPersistencia {
         return gestorPartidesActualsMaker.getSolucio(username); //TODO: treure logica cap a domini
     }
 
-    public Boolean isBreakerPartidaGuardada(String username) throws GeneralException {
+    public Boolean existsPartidaGuardadaBreaker(String username) throws GeneralException {
         return gestorPartidesActualsBreaker.existsPartidaActual(username);
     }
 
-    public Boolean existsPartidaGuardada(String username) throws GeneralException {
-        return gestorPartidesActualsBreaker.existsPartidaActual(username) || gestorPartidesActualsMaker.existsPartidaActual(username);
+    public Boolean existsPartidaGuardadaMaker(String username) throws GeneralException {
+        return gestorPartidesActualsMaker.existsPartidaActual(username);
     }
+
 
     public Long getTempsPartidaGuardada(String username) throws GeneralException {
         return gestorPartidesActualsBreaker.getTemps(username);
