@@ -9,22 +9,9 @@ import java.util.List;
  * Gestor del Rànquing guardat a ranquing/facil.csv, ranquing/normal.csv i ranquing/dificil.csv
  */
 public class GestorRanquing {
-    private static final Integer numFitxers = 3;
+    public static final Integer numFitxers = 3;
     private final GestorCSVFile[] csvFiles = new GestorCSVFile[numFitxers];
     private static final String[] relativePaths = new String[]{"ranquing/facil.csv", "ranquing/normal.csv", "ranquing/dificil.csv"};
-
-    public static void main(String[] args) throws PersistanceException {
-        List<List<Object>> ranquing = new ArrayList<>();
-        ranquing.add(List.of("arnau", 5, 400L));
-        ranquing.add(List.of("kamil", 7, 300L));
-        ranquing.add(List.of("mar", 10, 700L));
-
-        GestorRanquing gestorRanquing = new GestorRanquing("./db/");
-        gestorRanquing.setRanquing(2, ranquing);
-        Boolean equals = ranquing.equals(gestorRanquing.getRanquing(2));
-        System.out.println(equals);
-
-    }
 
     /**
      * Constructor del Rànquing
@@ -43,14 +30,14 @@ public class GestorRanquing {
      * @return una llista d'objectes composta amb el rànquing
      * @throws PersistanceException si no es pot llegir algun fitxer
      */
-    public List<List<Object>> getRanquing(Integer file) throws PersistanceException {
+    public List<List<String>> getRanquing(Integer file) throws PersistanceException {
 
         List<String[]> allLines = csvFiles[file].readAllLines(true);
 
-        List<List<Object>> ranquing = new ArrayList<>();
+        List<List<String>> ranquing = new ArrayList<>();
         for (String[] line : allLines) {
-            ranquing.add(List.of(line[HeaderRanquing.USERNAME.number], Integer.parseInt(line[HeaderRanquing.NUMINTENTS.number]),
-                    Long.parseLong(line[HeaderRanquing.TEMPS.number])));
+            ranquing.add(List.of(line[HeaderRanquing.USERNAME.number], (line[HeaderRanquing.NUMINTENTS.number]),
+                    (line[HeaderRanquing.TEMPS.number])));
         }
 
         return ranquing;
@@ -63,13 +50,13 @@ public class GestorRanquing {
      * @param ranquing una llista d'objectes composta amb el rànquing
      * @throws PersistanceException si no es pot escriure algun fitxer
      */
-    public void setRanquing(Integer file, List<List<Object>> ranquing) throws PersistanceException {
+    public void setRanquing(Integer file, List<List<String>> ranquing) throws PersistanceException {
         List<String[]> allLines = new ArrayList<>();
 
-        for (List<Object> user : ranquing) {
+        for (List<String> user : ranquing) {
             String[] line = new String[HeaderRanquing.getHeader().length];
             for (int i = 0; i < line.length; ++i) {
-                line[i] = user.get(i).toString();
+                line[i] = user.get(i);
             }
             allLines.add(line);
         }

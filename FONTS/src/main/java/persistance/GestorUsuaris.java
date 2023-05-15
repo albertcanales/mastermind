@@ -19,26 +19,6 @@ public class GestorUsuaris {
 
     private final GestorCSVFile csvFile;
 
-    public static void main(String[] args) throws PersistanceException {
-        GestorUsuaris gestor = new GestorUsuaris("./db/");
-
-        gestor.registerUser("arnau", "Arnau", "securepass");
-        gestor.registerUser("sussy", "Amongus", "securepass2");
-        gestor.registerUser("morethansus", "AmogOS", "securepass3");
-
-        System.out.println(String.format("Name for \"arnau:\" %s", gestor.getUserName("arnau")));
-        System.out.println(String.format("Name for \"sussy:\" %s", gestor.getUserName("sussy")));
-        System.out.println(String.format("Name for \"morethansus:\" %s", gestor.getUserName("morethansus")));
-
-        System.out.println(String.format("Password for \"arnau:\" %s", gestor.getPasswordHash("arnau")));
-        System.out.println(String.format("Password for \"sussy:\" %s", gestor.getPasswordHash("sussy")));
-        System.out.println(String.format("Password for \"morethansus:\" %s", gestor.getPasswordHash("morethansus")));
-
-        gestor.esborrarUsuari("sussy");
-        System.out.println(String.format("Exists user \"sussy:\" %s", gestor.existsUser("sussy")));
-
-
-    }
     GestorUsuaris(String basePath) throws PersistanceException {
         csvFile = new GestorCSVFile(basePath + relativeUsersPath, HeaderUsuaris.getHeader(), HeaderUsuaris.USERNAME.start);
 
