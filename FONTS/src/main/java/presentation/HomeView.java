@@ -94,7 +94,10 @@ public class HomeView {
      */
     private void carregarPartidaButtonClick() {
         controladorPresentacio.carregarPartida();
-        //controladorPresentacio.showCarregarPartidaView();
+        if(controladorPresentacio.isJugadorBreaker())
+            controladorPresentacio.showPartidaBreakerView();
+        else
+            ; // controladorPresentacio.showPartidaMakerView();
     }
 
     /**

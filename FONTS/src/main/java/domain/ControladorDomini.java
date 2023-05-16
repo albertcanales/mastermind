@@ -178,13 +178,13 @@ public class ControladorDomini {
             throw new NoGameSavedException();
         String username = user.getUsername();
         List<List<Integer>> intents = controladorPersistencia.getIntentsPartidaGuardada(username);
-        List<List<Integer>> feedback = controladorPersistencia.getFeedbackPartidaGuardada(username);
+        List<List<Integer>> feedbacks = controladorPersistencia.getFeedbackPartidaGuardada(username);
         List<Integer> solucio = controladorPersistencia.getSolucioPartidaGuardada(username);
         if(controladorPersistencia.partidaGuardadaisBreaker(username)) {
-            this.carregarPartidaBreaker(username, intents, feedback, solucio);
+            this.carregarPartidaBreaker(username, intents, feedbacks, solucio);
         }
         else
-            this.carregarPartidaMaker(username, intents, feedback, solucio);
+            this.carregarPartidaMaker(username, intents, feedbacks, solucio);
     }
 
     /**
@@ -192,11 +192,11 @@ public class ControladorDomini {
      * @throws DomainException si el tamany d'alguna list no és correcte
      */
     private void carregarPartidaBreaker(String username, List<List<Integer>> intents,
-                                        List<List<Integer>> feedback, List<Integer> solucio) throws GeneralException {
+                                        List<List<Integer>> feedbacks, List<Integer> solucio) throws GeneralException {
         Integer nivellDificultat = controladorPersistencia.getNivellDificultatPartidaGuardada(username);
         Long temps = controladorPersistencia.getTempsPartidaGuardada(username);
         Boolean solucioVista = controladorPersistencia.getSolucioVistaPartidaGuardada(username);
-        controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedback, solucio, temps, solucioVista);
+        controladorPartida.carregarPartidaBreaker(nivellDificultat, intents, feedbacks, solucio, temps, solucioVista);
     }
 
     /**
@@ -204,9 +204,9 @@ public class ControladorDomini {
      * @throws DomainException si el tamany d'alguna list no és correcte
      */
     private void carregarPartidaMaker(String username, List<List<Integer>> intents,
-                                      List<List<Integer>> feedback, List<Integer> solucio) throws GeneralException {
+                                      List<List<Integer>> feedbacks, List<Integer> solucio) throws GeneralException {
         Integer algorisme = controladorPersistencia.getAlgorismePartidaGuardada(username);
-        controladorPartida.carregarPartidaMaker(algorisme, intents, feedback, solucio);
+        controladorPartida.carregarPartidaMaker(algorisme, intents, feedbacks, solucio);
     }
 
     public List<List<List<String>>> getRanquing() {
@@ -416,7 +416,8 @@ public class ControladorDomini {
             }
 
         }
-        controladorPersistencia.setFeedbackPartidaGuardada(user.getUsername(), controladorPartida.getFeedbacks());
+        controladorPersistencia.setFeedbacksPartidaGuardada(user.getUsername(), controladorPartida.getFeedbacks());
+        controladorPersistencia.setIntentsPartidaGuardada(user.getUsername(), controladorPartida.getIntents());
         return feedback;
     }
 

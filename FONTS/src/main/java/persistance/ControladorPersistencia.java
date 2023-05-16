@@ -113,7 +113,7 @@ public class ControladorPersistencia {
         return gestorPartidesActuals.getFeedbacks(username);
     }
 
-    public void setFeedbackPartidaGuardada(String username, List<List<Integer>> feedbacks) throws PersistanceException {
+    public void setFeedbacksPartidaGuardada(String username, List<List<Integer>> feedbacks) throws PersistanceException {
         gestorPartidesActuals.setFeedbacks(username, feedbacks);
     }
 

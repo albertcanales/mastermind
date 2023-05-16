@@ -60,16 +60,16 @@ class ControladorPartida {
     /**
      * Mètode que carrega una partida pendent on el jugador feia de maker
      * @param intents  intents de la partida existent
-     * @param feedback feedbacks de la partida existent
+     * @param feedbacks feedbacks de la partida existent
      * @param solucio  solucio de la partida existent
      * @throws DomainException si el tamany d'alguna list no és correcte
      * @throws DomainException si el nivellDificultat no és vàlid
      */
-    void carregarPartidaMaker(Integer algorisme, List<List<Integer>> intents, List<List<Integer>> feedback,
+    void carregarPartidaMaker(Integer algorisme, List<List<Integer>> intents, List<List<Integer>> feedbacks,
                               List<Integer> solucio) throws DomainException {
         partida = new Partida();
         botMaker = null;
-        taulell = new Taulell(solucio, intents, feedback);
+        taulell = new Taulell(solucio, intents, feedbacks);
         dificultat = null;
         botBreaker = BotBreaker.create(algorisme);
     }

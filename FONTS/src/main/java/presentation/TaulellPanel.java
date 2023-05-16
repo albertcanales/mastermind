@@ -165,14 +165,14 @@ public class TaulellPanel {
         if (feedbacks.size() > sequenciaFeedbackList.size())
             throw new SequenciaNoExistent();
         for (int i = 0; i < feedbacks.size(); i++)
-            sequenciaIntentList.get(i).setSequenciaColors(feedbacks.get(i));
+            sequenciaFeedbackList.get(i).setSequenciaColors(feedbacks.get(i));
     }
 
     /**
      * Mètode per assignar els valors de la seqüència solució
      *
      * @param solucio Llista amb els valors dels colors per la solució
-     * @throws PresentationException si la mida de la solució no és correcta
+     * @throws BolaNoExistent si la mida de la solució no és correcta
      */
     void setSolucioColors(List<Integer> solucio) throws BolaNoExistent {
         sequenciaSolucio.setSequenciaColors(solucio);

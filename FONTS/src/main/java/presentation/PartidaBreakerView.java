@@ -60,20 +60,16 @@ public class PartidaBreakerView implements Observer {
         taulellPanel.setIntentsColors(intents);
         taulellPanel.setFeedbacksColors(feedbacks);
         taulellPanel.setIntentEnabled(numIntentActual, true);
-        taulellPanel.setSolucioEnabled(true);
+        taulellPanel.setSolucioEnabled(!controladorPresentacio.isPartidaAcabada());
         taulellPanel.attachToBoles(this);
 
-        buttonValidar.setEnabled(false);
+        buttonValidar.setEnabled(controladorPresentacio.isUltimIntentPle());
         buttonValidar.addActionListener(actionEvent -> buttonValidarClicked());
 
+        // TODO Carregar Partida Timer
         timerLabel.start();
 
         buttonTorna.addActionListener(actionEvent -> buttonTornaClick());
-
-        for (Integer bola : controladorPresentacio.getSolucio()) {
-            System.out.print(bola + " ");
-        }
-        System.out.println();
     }
 
     private void showSolution() {
@@ -194,34 +190,34 @@ public class PartidaBreakerView implements Observer {
         buttonValidar.setText("Validar");
         panel2.add(buttonValidar);
         final JPanel panel3 = new JPanel();
-        panel3.setLayout(new GridBagLayout());
-        panel1.add(panel3, BorderLayout.EAST);
+        panel3.setLayout(new BorderLayout(0, 0));
+        panel.add(panel3, BorderLayout.NORTH);
+        final JPanel panel4 = new JPanel();
+        panel4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel3.add(panel4, BorderLayout.WEST);
+        buttonTorna = new JButton();
+        buttonTorna.setText("Torna");
+        panel4.add(buttonTorna);
+        final JPanel panel5 = new JPanel();
+        panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel3.add(panel5, BorderLayout.EAST);
+        timerLabel = new TimerLabel();
+        panel5.add(timerLabel.$$$getRootComponent$$$());
+        final JPanel panel6 = new JPanel();
+        panel6.setLayout(new GridBagLayout());
+        panel.add(panel6, BorderLayout.EAST);
         bolaPalettePanel = new BolaPalettePanel();
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel3.add(bolaPalettePanel.$$$getRootComponent$$$(), gbc);
+        panel6.add(bolaPalettePanel.$$$getRootComponent$$$(), gbc);
         final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel3.add(spacer1, gbc);
-        final JPanel panel4 = new JPanel();
-        panel4.setLayout(new BorderLayout(0, 0));
-        panel.add(panel4, BorderLayout.NORTH);
-        final JPanel panel5 = new JPanel();
-        panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        panel4.add(panel5, BorderLayout.WEST);
-        buttonTorna = new JButton();
-        buttonTorna.setText("Torna");
-        panel5.add(buttonTorna);
-        final JPanel panel6 = new JPanel();
-        panel6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        panel4.add(panel6, BorderLayout.EAST);
-        timerLabel = new TimerLabel();
-        panel6.add(timerLabel.$$$getRootComponent$$$());
+        panel6.add(spacer1, gbc);
     }
 
     /**

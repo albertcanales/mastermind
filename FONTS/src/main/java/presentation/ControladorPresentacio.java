@@ -357,6 +357,18 @@ public class ControladorPresentacio {
     }
 
     /**
+     * Mètode per saber si el jugador fa de breaker en la partida actual
+     */
+    public Boolean isJugadorBreaker() {
+        try {
+            return controladorDomini.isJugadorBreaker();
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut determinar el tipus (Breaker/Maker) de la partida guardada");
+        }
+        return null;
+    }
+
+    /**
      * Mètode per saber si la partida actual està guanyada
      */
     public Boolean isPartidaGuanyada() {
