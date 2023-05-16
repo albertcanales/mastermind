@@ -63,7 +63,7 @@ public class HomeView {
      */
     void show() {
         controladorPresentacio.setContent(panel);
-        controladorPresentacio.setTitle("Mastermind");
+        controladorPresentacio.setTitle("Benvinguda");
     }
 
     /**

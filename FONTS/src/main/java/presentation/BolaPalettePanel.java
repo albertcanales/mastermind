@@ -82,7 +82,7 @@ public class BolaPalettePanel implements Observer {
         for (int i = 0; i < buttonBolaList.size(); i++) {
             buttonBolaList.get(i).setID("P" + i);
             buttonBolaList.get(i).Attach(this);
-            buttonBolaList.get(i).setSelected(false);
+            buttonBolaList.get(i).setBorder(false);
         }
     }
 
@@ -105,7 +105,7 @@ public class BolaPalettePanel implements Observer {
      */
     void unselectAllColors() {
         for (BolaButton button : buttonBolaList)
-            button.setSelected(false);
+            button.setBorder(false);
         selectedColor = null;
     }
 
@@ -116,7 +116,7 @@ public class BolaPalettePanel implements Observer {
     public void Update(Subject s) {
         int id = Integer.parseInt(((BolaButton) s).getID().substring(1));
         unselectAllColors();
-        buttonBolaList.get(id).setSelected(true);
+        buttonBolaList.get(id).setBorder(true);
         selectedColor = buttonBolaList.get(id).getBolaColor();
     }
 

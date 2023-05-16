@@ -17,7 +17,6 @@ import java.util.List;
 class User {
     private final String name;
     private final String username;
-
     private List<Integer> personalRecord;
     private List<Long> timePlayedFinishedGames;
     private List<Integer> wonGames;

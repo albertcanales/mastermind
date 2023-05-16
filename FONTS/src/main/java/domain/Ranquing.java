@@ -63,6 +63,7 @@ public class Ranquing {
         /*List<List<List<String>>> ranquing = new ArrayList<>();
         for (int i = 0; i < 3; ++i){
             ranquing.add(new ArrayList<>());
+    private final int RANQUING_MAX_SIZE = 20;
         }
         ranquing.get(0).add(List.of("albert", "2", "100"));
         ranquing.get(0).add(List.of("mar", "4", "200"));

@@ -58,7 +58,7 @@ public class RegisterView {
      */
     void show() {
         controladorPresentacio.setContent(panel);
-        controladorPresentacio.setTitle("Registre");
+        controladorPresentacio.setTitle("Registrar un usuari");
     }
 
     /**

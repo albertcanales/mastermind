@@ -37,7 +37,7 @@ public class NovaPartidaView {
      */
     void show() {
         controladorPresentacio.setContent(panel);
-        controladorPresentacio.setTitle("Registre");
+        controladorPresentacio.setTitle("Crear Partida");
     }
     /**
      * Mètode per inicialitzar els components de la vista

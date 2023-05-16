@@ -55,7 +55,6 @@ public class SequenciaPanel {
 
     /**
      * Mètode per activar o desactivar de la seqüència
-     *
      * @param enabled Si es vol activar o desactivar les boles
      */
     void setEnabled(Boolean enabled) {
@@ -66,7 +65,6 @@ public class SequenciaPanel {
 
     /**
      * Setter de l'identificador d'una bola
-     *
      * @param index Posició de la bola [0, ..., 3]
      * @param id Identificador per la bola
      */

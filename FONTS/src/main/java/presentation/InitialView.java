@@ -53,7 +53,7 @@ public class InitialView {
      */
     void show() {
         controladorPresentacio.setContent(panel);
-        controladorPresentacio.setTitle("Mastermind");
+        controladorPresentacio.setTitle("Inici");
     }
 
     /**

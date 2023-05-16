@@ -88,9 +88,9 @@ class BolaButton extends Subject {
     }
 
     /**
-     * Setter de la selecció de la bola
+     * Setter de la vora de la bola
      */
-    void setSelected(Boolean selected) {
+    void setBorder(Boolean selected) {
         button.setBorderPainted(selected);
     }
 

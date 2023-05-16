@@ -533,8 +533,8 @@ public class ControladorPresentacio {
      * Mètode per mostrar la vista ZonaUsuariView
      */
     void showZonaUsuariView() {
-        ZonaUsuariView zonaUsuariView = new ZonaUsuariView();
-        zonaUsuariView.show();
+        EstadistiquesView estadistiquesView = new EstadistiquesView();
+        estadistiquesView.show();
     }
 
     /**

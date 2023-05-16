@@ -63,7 +63,7 @@ public class LoginView {
      */
     void show() {
         controladorPresentacio.setContent(panel);
-        controladorPresentacio.setTitle("Registre");
+        controladorPresentacio.setTitle("Iniciar Sessió");
     }
 
     /**

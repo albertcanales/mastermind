@@ -11,7 +11,7 @@ import java.util.List;
  * Vista de la Zona de l'usuari
  * @author Mar Gonzàlez Català
  */
-public class ZonaUsuariView {
+public class EstadistiquesView {
 
     /**
      * Controlador de presentació
@@ -176,7 +176,7 @@ public class ZonaUsuariView {
     /**
      * Constructor per defecte de la vista
      */
-    ZonaUsuariView() {
+    EstadistiquesView() {
         controladorPresentacio = ControladorPresentacio.getInstance();
         $$$setupUI$$$();
         initComponents();
@@ -187,7 +187,7 @@ public class ZonaUsuariView {
      */
     void show() {
         controladorPresentacio.setContent(panel);
-        controladorPresentacio.setTitle("Zona Usuari");
+        controladorPresentacio.setTitle("Estadístiques");
     }
 
     /**

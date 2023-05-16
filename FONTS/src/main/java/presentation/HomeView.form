@@ -60,7 +60,7 @@
                       <gridbag weightx="0.0" weighty="0.0"/>
                     </constraints>
                     <properties>
-                      <text value="Zona Usuari"/>
+                      <text value="Estadístiques"/>
                     </properties>
                   </component>
                   <component id="d311d" class="javax.swing.JButton" binding="buttonRanquing">
