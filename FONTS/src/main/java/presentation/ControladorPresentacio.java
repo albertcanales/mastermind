@@ -404,7 +404,7 @@ public class ControladorPresentacio {
     public void veureSolucio() {
         try {
             controladorDomini.veureSolucio();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut veure la solució");
         }
     }

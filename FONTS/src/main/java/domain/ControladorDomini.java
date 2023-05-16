@@ -368,14 +368,16 @@ public class ControladorDomini {
      * També dona la partida com a perduda
      * @throws DomainException si no s'està jugant cap partida
      */
-    public void veureSolucio() throws DomainException {
+    public void veureSolucio() throws GeneralException {
         controladorPartida.veureSolucio();
+        controladorPersistencia.setSolucioVistaPartidaGuardada(user.getUsername(), true);
 
         Integer numIntents = controladorPartida.getNumIntents();
         Integer nivellDificultat = controladorPartida.getNivellDificultat();
         Long temps = controladorPartida.getTempsMillis();
         user.acabarPartidaBreaker(nivellDificultat, numIntents, false, temps);
-        // TODO actualitzar persistència del user
+        controladorPersistencia.setUserStats(user.getUsername(), user.getPersonalRecord(), user.getTimePlayed(), user.getWonGames(), user.getLostGames(),
+                user.getCurrentWinStreak(), user.getWinStreak(), user.getAvgAsMaker(), user.getAvgAsBreaker(), user.getNumGamesAsMaker());
     }
 
     /**
@@ -426,12 +428,13 @@ public class ControladorDomini {
      * També actualitza les estadístiques de l'usuari corresponents
      * @throws NotPlayingPartidaException si no s'està jugant cap partida
      */
-    public void botSolve() throws DomainException {
+    public void botSolve() throws GeneralException {
         controladorPartida.botSolve();
         Integer algorisme = controladorPartida.getAlgorisme();
         Integer numIntents = controladorPartida.getNumIntents();
         user.acabarPartidaMaker(algorisme, numIntents);
-        // TODO Actualitzar persistència de user
+        controladorPersistencia.setUserStats(user.getUsername(), user.getPersonalRecord(), user.getTimePlayed(), user.getWonGames(), user.getLostGames(),
+                user.getCurrentWinStreak(), user.getWinStreak(), user.getAvgAsMaker(), user.getAvgAsBreaker(), user.getNumGamesAsMaker());
     }
 
     /**

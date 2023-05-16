@@ -491,7 +491,7 @@ public class DominiDriver extends ControladorDriver {
         printSequence(feedback);
     }
 
-    private static void testBotSolve() throws DomainException {
+    private static void testBotSolve() throws GeneralException {
         System.out.println("Testing botSolve...");
 
         if(!cd.isPartidaBeingPlayed()) {

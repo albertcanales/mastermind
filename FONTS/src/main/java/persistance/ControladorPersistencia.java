@@ -138,6 +138,10 @@ public class ControladorPersistencia {
         return false;
     }
 
+    public void setSolucioVistaPartidaGuardada(String username, Boolean solucioVista) throws PersistanceException {
+
+    }
+
     public void esborrarUsuari(String username) throws GeneralException {
         gestorUsuaris.esborrarUsuari(username);
     }
