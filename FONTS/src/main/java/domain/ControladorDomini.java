@@ -153,6 +153,7 @@ public class ControladorDomini {
         List<List<Integer>> feedback = controladorPartida.getFeedbacks();
         Long temps = controladorPartida.getTempsMillis();
         controladorPersistencia.novaPartidaBreaker(user.getUsername(), nivellDificultat, temps, solucio, intents, feedback);
+        controladorPersistencia.setSolucioVistaPartidaGuardada(user.getUsername(), false);
     }
 
     /**

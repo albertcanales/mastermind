@@ -153,18 +153,40 @@ public class GestorPartidesActuals {
         }
     }
 
+    public Boolean getSolucioVista(String username) throws PersistanceException {
+        if (csvFile.existsLinebyKey(username)) {
+            String[] gotline = csvFile.getLinebyKey(username);
+
+            return Boolean.parseBoolean(gotline[HeaderPartides.SOLUCIOVISTA.start]);
+        } else {
+            throw new LineNotFoundException(username, relativePathPartidesActuals);
+        }
+    }
+
+    public void setSolucioVista(String username, Boolean SolucioVista) throws PersistanceException {
+        if (csvFile.existsLinebyKey(username)) {
+            String[] gotline = csvFile.getLinebyKey(username);
+
+            gotline[HeaderPartides.SOLUCIOVISTA.start] = SolucioVista.toString();
+            csvFile.setLinebyKey(username, gotline);
+        } else {
+            throw new LineNotFoundException(username, relativePathPartidesActuals);
+        }
+    }
+
     /**
      * Enum que serveix per definir el Header (les columnes) del CSV corresponent
      */
     private enum HeaderPartides {
         USERNAME(0, 0),
         ISBREAKER(1, 1),
-        TEMPS(2, 2),
-        DIFICULTAT(3, 3),
-        ALGORISME(4, 4),
-        SOLUCIO(5, 8),
-        INTENTS(9, 60),
-        FEEDBACKS(61, 108);
+        SOLUCIOVISTA(2, 2),
+        TEMPS(3, 3),
+        DIFICULTAT(4, 4),
+        ALGORISME(5, 5),
+        SOLUCIO(6, 9),
+        INTENTS(10, 61),
+        FEEDBACKS(62, 109);
 
 
         private final int start;
