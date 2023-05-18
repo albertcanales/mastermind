@@ -41,17 +41,15 @@ public class Ranquing {
         novaPartida.add(username);
         novaPartida.add(intents.toString());
         novaPartida.add(temps.toString());
-        ranquingDificultat.add(novaPartida);
 
-        int indexNovaPartida = ranquingDificultat.size()-1;
-        while (indexNovaPartida != 0) {
+        int indexNovaPartida = ranquingDificultat.size();
+        Boolean positionFound = false;
+        while (indexNovaPartida != 0 && !positionFound) {
             List<String> compPartida = ranquingDificultat.get(indexNovaPartida-1);
-            if (compare(compPartida,novaPartida) >= 0) ranquingDificultat.set(indexNovaPartida,compPartida);
-            --indexNovaPartida;
+            if (compare(compPartida,novaPartida) < 0) positionFound = true;
+            else --indexNovaPartida;
         }
-        ranquingDificultat.set(indexNovaPartida,novaPartida);
-
-        int ranquingSize = ranquingDificultat.size();
+        ranquingDificultat.add(indexNovaPartida,novaPartida);
     }
 
     List<List<String>> getRanquing(Integer nivellDificultat){
@@ -62,7 +60,6 @@ public class Ranquing {
         /*List<List<List<String>>> ranquing = new ArrayList<>();
         for (int i = 0; i < 3; ++i){
             ranquing.add(new ArrayList<>());
-    private final int RANQUING_MAX_SIZE = 20;
         }
         ranquing.get(0).add(List.of("albert", "2", "100"));
         ranquing.get(0).add(List.of("mar", "4", "200"));
@@ -77,7 +74,8 @@ public class Ranquing {
     List<List<List<String>>> getRanquingMaxSize(Integer maxSize){
         List<List<List<String>>> ranquingMaxSize = new ArrayList<>();
         for (int i = 0; i < NivellDificultat.numDificultats(); ++i){
-            ranquingMaxSize.add(ranquing.get(i).subList(0,maxSize));
+            if (maxSize < ranquing.get(i).size()) ranquingMaxSize.add(ranquing.get(i).subList(0,maxSize));
+            else ranquingMaxSize.add(ranquing.get(i));
         }
 
         return ranquingMaxSize;

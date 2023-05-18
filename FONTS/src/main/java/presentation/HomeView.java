@@ -5,6 +5,7 @@ import java.awt.*;
 
 /**
  * Vista inicial per a un usuari registrat
+ *
  * @author Mar Gonzàlez Català
  */
 public class HomeView {
@@ -94,7 +95,7 @@ public class HomeView {
      */
     private void carregarPartidaButtonClick() {
         controladorPresentacio.carregarPartida();
-        if(controladorPresentacio.isJugadorBreaker())
+        if (controladorPresentacio.isJugadorBreaker())
             controladorPresentacio.showPartidaBreakerView();
         else
             ; // controladorPresentacio.showPartidaMakerView();
@@ -141,7 +142,7 @@ public class HomeView {
         panel5.setLayout(new GridBagLayout());
         panel4.add(panel5);
         buttonZonaUsuari = new JButton();
-        buttonZonaUsuari.setText("Zona Usuari");
+        buttonZonaUsuari.setText("Estadístiques");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
