@@ -52,7 +52,6 @@ public class Ranquing {
         ranquingDificultat.set(indexNovaPartida,novaPartida);
 
         int ranquingSize = ranquingDificultat.size();
-        if (ranquingSize >= RANQUING_MAX_SIZE) ranquingDificultat.remove(ranquingSize-1);
     }
 
     List<List<String>> getRanquing(Integer nivellDificultat){
@@ -73,5 +72,27 @@ public class Ranquing {
         ranquing.get(1).add(List.of("mar", "10", "700"));*/
 
         return ranquing;
+    }
+
+    List<List<List<String>>> getRanquingMaxSize(Integer maxSize){
+        List<List<List<String>>> ranquingMaxSize = new ArrayList<>();
+        for (int i = 0; i < NivellDificultat.numDificultats(); ++i){
+            ranquingMaxSize.add(ranquing.get(i).subList(0,maxSize));
+        }
+
+        return ranquingMaxSize;
+    }
+
+
+    void esborrarUserFromRanquing(String username){
+        for (int i = 0; i < NivellDificultat.numDificultats(); ++i){
+            List<List<String>> ranquingDificultat = ranquing.get(i);
+            for (int j = 0; j < ranquingDificultat.size(); ++j){
+                if (ranquingDificultat.get(j).get(0) == username){
+                    ranquingDificultat.remove(i);
+                }
+            }
+
+        }
     }
 }
