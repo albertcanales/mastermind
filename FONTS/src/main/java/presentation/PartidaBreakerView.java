@@ -98,8 +98,7 @@ public class PartidaBreakerView implements Observer {
                 labelEstatPartida.setText(PERDUDA_TEXT);
 
             } catch (PresentationException e) {
-                // TODO S'hauria de pensar el tractament d'això
-                throw new RuntimeException(e);
+                controladorPresentacio.showErrorDialog("No s'ha pogut mostrar la solució");
             }
         }
     }
@@ -110,8 +109,7 @@ public class PartidaBreakerView implements Observer {
             controladorPresentacio.setBola(indexBola, color.getNumber());
             buttonValidar.setEnabled(controladorPresentacio.isUltimIntentPle());
         } catch (PresentationException e) {
-            // TODO S'hauria de pensar el tractament d'això
-            throw new RuntimeException(e);
+            controladorPresentacio.showErrorDialog("No s'ha pogut assignar la bola");
         }
     }
 
@@ -131,8 +129,7 @@ public class PartidaBreakerView implements Observer {
                 labelEstatPartida.setText(PERDUDA_TEXT);
             }
         } catch (PresentationException e) {
-            // TODO Això també s'hauria de fer millor
-            throw new RuntimeException(e);
+            controladorPresentacio.showErrorDialog("No s'ha pogut acabar la partida");
         }
     }
 

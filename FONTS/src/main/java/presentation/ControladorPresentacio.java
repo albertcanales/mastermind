@@ -2,8 +2,6 @@ package presentation;
 
 import domain.ControladorDomini;
 import exceptions.GeneralException;
-import exceptions.domain.DomainException;
-import exceptions.domain.NotPlayingPartidaException;
 import exceptions.presentation.PresentationException;
 
 import javax.swing.*;
@@ -69,8 +67,8 @@ public class ControladorPresentacio {
         try {
             return controladorDomini.existsUser(username);
         } catch (GeneralException e) {
-            showErrorDialog("No s'ha pogut comprovar si existeix l'usuari");
             e.printStackTrace();
+            showErrorDialog("No s'ha pogut comprovar si existeix l'usuari");
         }
         return false;
     }
@@ -85,8 +83,8 @@ public class ControladorPresentacio {
         try {
             controladorDomini.registerUser(username, name, password);
         } catch (GeneralException e) {
-            showErrorDialog("No s'ha pogut registrar l'usuari");
             e.printStackTrace();
+            showErrorDialog("No s'ha pogut registrar l'usuari");
         }
     }
 
@@ -99,8 +97,8 @@ public class ControladorPresentacio {
         try {
             return controladorDomini.loginUser(username, password);
         } catch (GeneralException e) {
-            showErrorDialog("L'usuari no existeix");
             e.printStackTrace();
+            showErrorDialog("L'usuari no existeix");
         }
         return false;
     }
@@ -111,9 +109,9 @@ public class ControladorPresentacio {
     public void logoutUser() {
         try {
             controladorDomini.logoutUser();
-        } catch (DomainException e) {
-            showErrorDialog("No s'havia iniciat sessió");
+        } catch (GeneralException e) {
             e.printStackTrace();
+            showErrorDialog("No s'havia iniciat sessió");
         }
     }
 
@@ -125,8 +123,8 @@ public class ControladorPresentacio {
         try {
             return controladorDomini.existsPartidaGuardada();
         } catch (GeneralException e) {
-            showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
+            showErrorDialog("No s'ha iniciat sessió");
         }
         return false;
     }
@@ -138,8 +136,8 @@ public class ControladorPresentacio {
         try {
             controladorDomini.carregarPartida();
         } catch (GeneralException e) {
-            showErrorDialog("No s'ha pogut carregar la partida");
             e.printStackTrace();
+            showErrorDialog("No s'ha pogut carregar la partida");
         }
     }
 
@@ -152,8 +150,8 @@ public class ControladorPresentacio {
         try {
             controladorDomini.novaPartidaMaker(solucio, algorisme);
         } catch (GeneralException e){
-            showErrorDialog("No s'ha pogut crear la partida");
             e.printStackTrace();
+            showErrorDialog("No s'ha pogut crear la partida");
         }
     }
 
@@ -165,8 +163,8 @@ public class ControladorPresentacio {
         try {
             controladorDomini.novaPartidaBreaker(nivellDificultat);
         } catch (GeneralException e){
-            showErrorDialog("No s'ha pogut crear la partida");
             e.printStackTrace();
+            showErrorDialog("No s'ha pogut crear la partida");
         }
     }
 
@@ -178,8 +176,8 @@ public class ControladorPresentacio {
             return controladorDomini.getUserName();
         }
         catch (GeneralException e) {
-            showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
+            showErrorDialog("No s'ha iniciat sessió");
         }
         return null;
     }
@@ -194,8 +192,8 @@ public class ControladorPresentacio {
             return controladorDomini.getPersonalRecord();
         }
         catch (GeneralException e) {
-            showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
+            showErrorDialog("No s'ha iniciat sessió");
         }
         return null;
     }
@@ -210,8 +208,8 @@ public class ControladorPresentacio {
             return controladorDomini.getTimePlayed();
         }
         catch (GeneralException e) {
-            showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
+            showErrorDialog("No s'ha iniciat sessió");
         }
         return null;
     }
@@ -226,8 +224,8 @@ public class ControladorPresentacio {
             return controladorDomini.getWonGames();
         }
         catch (GeneralException e) {
-            showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
+            showErrorDialog("No s'ha iniciat sessió");
         }
         return null;
     }
@@ -242,8 +240,8 @@ public class ControladorPresentacio {
             return controladorDomini.getLostGames();
         }
         catch (GeneralException e) {
-            showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
+            showErrorDialog("No s'ha iniciat sessió");
         }
         return null;
     }
@@ -258,8 +256,8 @@ public class ControladorPresentacio {
             return controladorDomini.getWinstreak();
         }
         catch (GeneralException e) {
-            showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
+            showErrorDialog("No s'ha iniciat sessió");
         }
         return null;
     }
@@ -274,8 +272,8 @@ public class ControladorPresentacio {
             return controladorDomini.getAverageAsBreaker();
         }
         catch (GeneralException e) {
-            showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
+            showErrorDialog("No s'ha iniciat sessió");
         }
         return null;
     }
@@ -290,8 +288,8 @@ public class ControladorPresentacio {
             return controladorDomini.getAverageAsMaker();
         }
         catch (GeneralException e) {
-            showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
+            showErrorDialog("No s'ha iniciat sessió");
         }
         return null;
     }
@@ -308,15 +306,15 @@ public class ControladorPresentacio {
             controladorDomini.esborrarUsuari();
         }
         catch (GeneralException e) {
-            showErrorDialog("No s'ha iniciat sessió");
             e.printStackTrace();
+            showErrorDialog("No s'ha iniciat sessió");
         }
     }
 
     List<List<Integer>> getIntents() {
         try {
             return controladorDomini.getIntents();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut obtenir els intents");
         }
         return null;
@@ -325,7 +323,7 @@ public class ControladorPresentacio {
     List<List<Integer>> getFeedbacks() {
         try {
             return controladorDomini.getFeedbacks();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut obtenir els feedbacks");
         }
         return null;
@@ -334,7 +332,7 @@ public class ControladorPresentacio {
     List<Integer> getSolucio() {
         try {
             return controladorDomini.getSolucio();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut obtenir la solució");
         }
         return null;
@@ -363,7 +361,7 @@ public class ControladorPresentacio {
     public Boolean isJugadorBreaker() {
         try {
             return controladorDomini.isJugadorBreaker();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut determinar el tipus (Breaker/Maker) de la partida guardada");
         }
         return null;
@@ -375,7 +373,7 @@ public class ControladorPresentacio {
     public Boolean isPartidaGuanyada() {
         try {
             return controladorDomini.isPartidaGuanyada();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'està jugant una partida com a breaker");
         }
         return null;
@@ -387,7 +385,7 @@ public class ControladorPresentacio {
     public Boolean isPartidaAcabada() {
         try {
             return controladorDomini.isPartidaAcabada();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'està jugant una partida com a breaker");
         }
         return null;
@@ -396,7 +394,7 @@ public class ControladorPresentacio {
     public Boolean isUltimIntentPle() {
         try {
             return controladorDomini.isUltimIntentPle();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut comprovar l'estat de l'últim intent");
         }
         return null;
@@ -416,7 +414,7 @@ public class ControladorPresentacio {
     public Long getTempsPartidaMillis() {
         try {
             return controladorDomini.getTempsPartidaMillis();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut obtenir el temps de la partida");
         }
         return null;
@@ -429,7 +427,7 @@ public class ControladorPresentacio {
     public void addTempsPartidaMillis(Long millis) {
         try {
             controladorDomini.addTempsPartidaMillis(millis);
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut incrementar el temps de la partida");
         }
     }
@@ -441,7 +439,7 @@ public class ControladorPresentacio {
     public void sortirPartida() {
         try {
             controladorDomini.sortirPartida();
-        } catch (DomainException e) {
+        } catch (GeneralException e) {
             showErrorDialog("No s'ha pogut sortir de la partida");
         }
     }
@@ -452,9 +450,8 @@ public class ControladorPresentacio {
     void run() {
         if(controladorDomini == null)
             showErrorDialog("No s'ha pogut iniciar la base de dades");
-        else {
+        else
             showInitialView();
-        }
     }
 
     /**
@@ -557,6 +554,7 @@ public class ControladorPresentacio {
             PartidaBreakerView partidaBreakerView = new PartidaBreakerView();
             partidaBreakerView.show();
         } catch (PresentationException e) {
+            e.printStackTrace();
             showErrorDialog("No s'ha pogut mostrar la partida");
         }
     }

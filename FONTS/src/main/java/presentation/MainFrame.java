@@ -80,5 +80,6 @@ public class MainFrame{
     void showErrorDialog(String message) {
         JOptionPane.showMessageDialog(frame,
                 message, "Error Intern", JOptionPane.ERROR_MESSAGE);
+        frame.dispose();
     }
 }
