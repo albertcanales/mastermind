@@ -441,8 +441,7 @@ public class ControladorPresentacio {
             showErrorDialog("No s'ha pogut iniciar la base de dades");
         else {
             loginUser("albert", "albert");
-            novaPartidaBreaker(2);
-            showPartidaBreakerView();
+            showEstadistiquesView();
         }
     }
 
@@ -532,7 +531,7 @@ public class ControladorPresentacio {
     /**
      * Mètode per mostrar la vista ZonaUsuariView
      */
-    void showZonaUsuariView() {
+    void showEstadistiquesView() {
         EstadistiquesView estadistiquesView = new EstadistiquesView();
         estadistiquesView.show();
     }

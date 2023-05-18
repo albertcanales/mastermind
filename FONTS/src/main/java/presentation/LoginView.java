@@ -10,6 +10,7 @@ import java.util.Locale;
 
 /**
  * Vista de l'inici de sessió d'un usuari
+ *
  * @author Mar Gonzàlez Català
  */
 public class LoginView {
@@ -75,6 +76,16 @@ public class LoginView {
         labelRegistre.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 controladorPresentacio.showRegisterView();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+                labelRegistre.setForeground(new Color(120, 120, 255));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                labelRegistre.setForeground(new Color(15, 16, 187));
             }
         });
     }

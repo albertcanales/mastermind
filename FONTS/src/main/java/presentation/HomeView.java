@@ -79,7 +79,7 @@ public class HomeView {
         buttonNovaPartida.addActionListener(actionEvent -> controladorPresentacio.showNovaPartidaView());
         buttonCarregarPartida.addActionListener(actionEvent -> carregarPartidaButtonClick());
         buttonSortir.addActionListener(actionEvent -> sortirButtonClick());
-        buttonZonaUsuari.addActionListener(actionEvent -> controladorPresentacio.showZonaUsuariView());
+        buttonZonaUsuari.addActionListener(actionEvent -> controladorPresentacio.showEstadistiquesView());
     }
 
     /**

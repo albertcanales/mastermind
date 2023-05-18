@@ -492,7 +492,7 @@ public class ControladorDomini {
         String username = user.getUsername();
         logoutUser();
         controladorPersistencia.esborrarUsuari(username);
-        if (controladorPersistencia.existsPartidaGuardada(user.getUsername()))
-            controladorPersistencia.esborrarPartida(user.getUsername());
+        if (controladorPersistencia.existsPartidaGuardada(username))
+            controladorPersistencia.esborrarPartida(username);
     }
 }
