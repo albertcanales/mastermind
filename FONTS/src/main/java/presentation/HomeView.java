@@ -98,7 +98,7 @@ public class HomeView {
         if (controladorPresentacio.isJugadorBreaker())
             controladorPresentacio.showPartidaBreakerView();
         else
-            ; // controladorPresentacio.showPartidaMakerView();
+            controladorPresentacio.showPartidaMakerView();
     }
 
     /**

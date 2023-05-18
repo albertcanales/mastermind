@@ -78,7 +78,9 @@ public class PartidaBreakerView implements Observer {
             taulellPanel.setIntentEnabled(numIntentActual, true);
             timerLabel.start();
         }
+
         taulellPanel.attachToBoles(this);
+        timerLabel.Attach(this);
 
         buttonValidar.addActionListener(actionEvent -> buttonValidarClicked());
         buttonTorna.addActionListener(actionEvent -> buttonTornaClick());
@@ -154,11 +156,12 @@ public class PartidaBreakerView implements Observer {
                 taulellPanel.setIntentEnabled(numIntentActual, true);
 
         } catch (PresentationException e) {
-            throw new RuntimeException(e);
+            controladorPresentacio.showErrorDialog("No s'ha pogut validar la seqüència");
         }
     }
 
     private void buttonTornaClick() {
+        timerLabel.stop();
         controladorPresentacio.sortirPartida();
         controladorPresentacio.showHomeView();
     }

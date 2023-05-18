@@ -63,7 +63,7 @@ public class NovaPartidaView {
                     }
                 }
                 controladorPresentacio.novaPartidaMaker(solucio, panelMaker.getAlgorisme());
-                //controladorPresentacio.showPartidaMaker();
+                controladorPresentacio.showPartidaMakerView();
                 break;
         }
     }

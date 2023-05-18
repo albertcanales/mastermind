@@ -471,8 +471,7 @@ public class ControladorDomini {
     }
 
     /**
-     * Mètode per sortir de la partida
-     * Si està acabada, l'esborrarà de la partida carregada i actualitzarà les estadístiques
+     * Mètode per esborrar la partida carregada
      * @throws DomainException si no s'està jugant cap partida
      */
     public void sortirPartida() throws DomainException {

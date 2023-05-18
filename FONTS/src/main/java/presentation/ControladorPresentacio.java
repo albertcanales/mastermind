@@ -2,6 +2,8 @@ package presentation;
 
 import domain.ControladorDomini;
 import exceptions.GeneralException;
+import exceptions.domain.DomainException;
+import exceptions.domain.NotPlayingPartidaException;
 import exceptions.presentation.PresentationException;
 
 import javax.swing.*;
@@ -433,8 +435,18 @@ public class ControladorPresentacio {
     }
 
     /**
-     * Mètode per sortir de la partida
-     * Si està acabada, l'esborrarà de la partida carregada i actualitzarà les estadístiques
+     * Mètode perquè el bot jugui la partida.
+     */
+    public void botSolve() {
+        try {
+            controladorDomini.botSolve();
+        } catch (GeneralException e) {
+            showErrorDialog("El bot no ha pogut jugar la partida");
+        }
+    }
+
+    /**
+     * Mètode per esborrar la partida carregada
      */
     public void sortirPartida() {
         try {
@@ -450,8 +462,11 @@ public class ControladorPresentacio {
     void run() {
         if(controladorDomini == null)
             showErrorDialog("No s'ha pogut iniciar la base de dades");
-        else
-            showInitialView();
+        else {
+            loginUser("albert", "albert");
+            novaPartidaMaker(List.of(1, 2, 3, 4), 1);
+            showPartidaMakerView();
+        }
     }
 
     /**
@@ -546,13 +561,25 @@ public class ControladorPresentacio {
     }
 
     /**
-     * TESTING
-     * Mètode per mostrar la vista PartidaView
+     * Mètode per mostrar la vista PartidaBreakerView
      */
     void showPartidaBreakerView() {
         try {
             PartidaBreakerView partidaBreakerView = new PartidaBreakerView();
             partidaBreakerView.show();
+        } catch (PresentationException e) {
+            e.printStackTrace();
+            showErrorDialog("No s'ha pogut mostrar la partida");
+        }
+    }
+
+    /**
+     * Mètode per mostrar la vista PartidaMakerView
+     */
+    void showPartidaMakerView() {
+        try {
+            PartidaMakerView partidaMakerView = new PartidaMakerView();
+            partidaMakerView.show();
         } catch (PresentationException e) {
             e.printStackTrace();
             showErrorDialog("No s'ha pogut mostrar la partida");
