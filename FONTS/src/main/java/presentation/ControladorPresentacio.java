@@ -3,6 +3,7 @@ package presentation;
 import domain.ControladorDomini;
 import exceptions.GeneralException;
 import exceptions.domain.DomainException;
+import exceptions.domain.NotPlayingPartidaException;
 import exceptions.presentation.PresentationException;
 
 import javax.swing.*;
@@ -410,6 +411,18 @@ public class ControladorPresentacio {
     }
 
     /**
+     * Getter dels mil·lisegons transcorreguts en la partida actual
+     */
+    public Long getTempsPartidaMillis() {
+        try {
+            return controladorDomini.getTempsPartidaMillis();
+        } catch (DomainException e) {
+            showErrorDialog("No s'ha pogut obtenir el temps de la partida");
+        }
+        return null;
+    }
+
+    /**
      * Mètode per afegir temps transcorregut a la partida actual
      * @param millis mi·lisegons a afegir
      */
@@ -440,8 +453,7 @@ public class ControladorPresentacio {
         if(controladorDomini == null)
             showErrorDialog("No s'ha pogut iniciar la base de dades");
         else {
-            loginUser("albert", "albert");
-            showEstadistiquesView();
+            showInitialView();
         }
     }
 

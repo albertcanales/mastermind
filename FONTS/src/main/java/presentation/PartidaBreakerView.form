@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="presentation.PartidaBreakerView">
   <grid id="27dc6" binding="panel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="890" height="626"/>
+      <xy x="20" y="20" width="890" height="644"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -23,6 +23,7 @@
               <component id="78915" class="javax.swing.JButton" binding="buttonValidar">
                 <constraints/>
                 <properties>
+                  <enabled value="false"/>
                   <text value="Validar"/>
                 </properties>
               </component>
@@ -56,6 +57,21 @@
               <nested-form id="2044b" form-file="presentation/TimerLabel.form" binding="timerLabel">
                 <constraints/>
               </nested-form>
+            </children>
+          </grid>
+          <grid id="64fe5" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints border-constraint="Center"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="46fc8" class="javax.swing.JLabel" binding="labelEstatPartida">
+                <constraints/>
+                <properties>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value=""/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>

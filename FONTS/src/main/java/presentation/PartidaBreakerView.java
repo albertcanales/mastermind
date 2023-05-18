@@ -14,6 +14,9 @@ import java.util.List;
  */
 public class PartidaBreakerView implements Observer {
 
+    private static final String GUANYADA_TEXT = "Guanyada :)";
+    private static final String PERDUDA_TEXT = "Perduda :(";
+
     /**
      * Controlador de presentació
      */
@@ -28,6 +31,7 @@ public class PartidaBreakerView implements Observer {
     private JButton buttonValidar;
     private JButton buttonTorna;
     private TimerLabel timerLabel;
+    private JLabel labelEstatPartida;
 
     Integer numIntentActual;
 
@@ -57,18 +61,26 @@ public class PartidaBreakerView implements Observer {
 
         numIntentActual = intents.size() - 1;
 
+        // TODO S'ha de comprovar quan estigui implementat a persistència
+        timerLabel.setTime(controladorPresentacio.getTempsPartidaMillis());
+
         taulellPanel.setIntentsColors(intents);
         taulellPanel.setFeedbacksColors(feedbacks);
-        taulellPanel.setIntentEnabled(numIntentActual, true);
         taulellPanel.setSolucioEnabled(!controladorPresentacio.isPartidaAcabada());
+        if (controladorPresentacio.isPartidaAcabada()) {
+            taulellPanel.setSolucioColors(controladorPresentacio.getSolucio());
+            if (controladorPresentacio.isPartidaGuanyada())
+                labelEstatPartida.setText(GUANYADA_TEXT);
+            else
+                labelEstatPartida.setText(PERDUDA_TEXT);
+        } else {
+            buttonValidar.setEnabled(controladorPresentacio.isUltimIntentPle());
+            taulellPanel.setIntentEnabled(numIntentActual, true);
+            timerLabel.start();
+        }
         taulellPanel.attachToBoles(this);
 
-        buttonValidar.setEnabled(controladorPresentacio.isUltimIntentPle());
         buttonValidar.addActionListener(actionEvent -> buttonValidarClicked());
-
-        // TODO Carregar Partida Timer
-        timerLabel.start();
-
         buttonTorna.addActionListener(actionEvent -> buttonTornaClick());
     }
 
@@ -83,6 +95,7 @@ public class PartidaBreakerView implements Observer {
                 taulellPanel.setIntentEnabled(numIntentActual, false);
                 timerLabel.stop();
                 controladorPresentacio.veureSolucio();
+                labelEstatPartida.setText(PERDUDA_TEXT);
 
             } catch (PresentationException e) {
                 // TODO S'hauria de pensar el tractament d'això
@@ -108,12 +121,15 @@ public class PartidaBreakerView implements Observer {
             taulellPanel.setSolucioColors(solucio);
             taulellPanel.setSolucioEnabled(false);
             timerLabel.stop();
-            if (controladorPresentacio.isPartidaGuanyada())
+            if (controladorPresentacio.isPartidaGuanyada()) {
                 controladorPresentacio.showInformationDialog("Has guanyat!",
                         "Has guanyat la partida amb " + numIntentActual + " intents :)");
-            else
+                labelEstatPartida.setText(GUANYADA_TEXT);
+            } else {
                 controladorPresentacio.showInformationDialog("Has perdut!",
                         "Has perdut la partida :(, pots veure la solució a sobre");
+                labelEstatPartida.setText(PERDUDA_TEXT);
+            }
         } catch (PresentationException e) {
             // TODO Això també s'hauria de fer millor
             throw new RuntimeException(e);
@@ -187,6 +203,7 @@ public class PartidaBreakerView implements Observer {
         panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel1.add(panel2, BorderLayout.SOUTH);
         buttonValidar = new JButton();
+        buttonValidar.setEnabled(false);
         buttonValidar.setText("Validar");
         panel2.add(buttonValidar);
         final JPanel panel3 = new JPanel();
@@ -204,20 +221,28 @@ public class PartidaBreakerView implements Observer {
         timerLabel = new TimerLabel();
         panel5.add(timerLabel.$$$getRootComponent$$$());
         final JPanel panel6 = new JPanel();
-        panel6.setLayout(new GridBagLayout());
-        panel.add(panel6, BorderLayout.EAST);
+        panel6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel3.add(panel6, BorderLayout.CENTER);
+        labelEstatPartida = new JLabel();
+        labelEstatPartida.setHorizontalAlignment(0);
+        labelEstatPartida.setHorizontalTextPosition(0);
+        labelEstatPartida.setText("");
+        panel6.add(labelEstatPartida);
+        final JPanel panel7 = new JPanel();
+        panel7.setLayout(new GridBagLayout());
+        panel.add(panel7, BorderLayout.EAST);
         bolaPalettePanel = new BolaPalettePanel();
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel6.add(bolaPalettePanel.$$$getRootComponent$$$(), gbc);
+        panel7.add(bolaPalettePanel.$$$getRootComponent$$$(), gbc);
         final JPanel spacer1 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel6.add(spacer1, gbc);
+        panel7.add(spacer1, gbc);
     }
 
     /**
