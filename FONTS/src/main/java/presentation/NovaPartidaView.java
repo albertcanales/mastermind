@@ -3,6 +3,7 @@ package presentation;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Objects;
 
 public class NovaPartidaView {
 
@@ -32,6 +33,7 @@ public class NovaPartidaView {
         $$$setupUI$$$();
         initComponents();
     }
+
     /**
      * Mètode per mostrar la vista
      */
@@ -39,6 +41,7 @@ public class NovaPartidaView {
         controladorPresentacio.setContent(panel);
         controladorPresentacio.setTitle("Crear Partida");
     }
+
     /**
      * Mètode per inicialitzar els components de la vista
      */
@@ -56,8 +59,8 @@ public class NovaPartidaView {
                 break;
             case 1:
                 List<Integer> solucio = panelMaker.getSolucio();
-                for (int i = 0; i < solucio.size(); ++i) {
-                    if (solucio.get(i) == 0) {
+                for (Integer bolaNumber : solucio) {
+                    if (Objects.equals(bolaNumber, BolaColor.NUL.getNumber())) {
                         controladorPresentacio.showWarningDialog("No s'ha pogut crear la partida", "Hi ha alguna bola buida a la seqüència solució");
                         return;
                     }
@@ -87,10 +90,10 @@ public class NovaPartidaView {
         panelBreaker = new NovaPartidaBreakerPanel();
         panel1.add(panelBreaker.$$$getRootComponent$$$(), BorderLayout.CENTER);
         final JPanel panel2 = new JPanel();
-        panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel2.setLayout(new BorderLayout(0, 0));
         tabbedPane.addTab("Maker", panel2);
         panelMaker = new NovaPartidaMakerPanel();
-        panel2.add(panelMaker.$$$getRootComponent$$$());
+        panel2.add(panelMaker.$$$getRootComponent$$$(), BorderLayout.CENTER);
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
         panel.add(panel3, BorderLayout.NORTH);

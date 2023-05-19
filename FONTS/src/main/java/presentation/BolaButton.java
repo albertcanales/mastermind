@@ -205,4 +205,8 @@ enum BolaColor {
         }
         throw new BolaNoExistent();
     }
+
+    static int getNumColors() {
+        return 7;
+    }
 }

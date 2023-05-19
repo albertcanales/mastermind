@@ -463,9 +463,7 @@ public class ControladorPresentacio {
         if(controladorDomini == null)
             showErrorDialog("No s'ha pogut iniciar la base de dades");
         else {
-            loginUser("albert", "albert");
-            novaPartidaMaker(List.of(1, 2, 3, 4), 1);
-            showPartidaMakerView();
+            showInitialView();
         }
     }
 

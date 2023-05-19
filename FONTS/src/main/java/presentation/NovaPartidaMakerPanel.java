@@ -2,22 +2,25 @@ package presentation;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import exceptions.presentation.BolaNoExistent;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class NovaPartidaMakerPanel extends JPanel {
+public class NovaPartidaMakerPanel extends JPanel implements Observer {
 
     private JPanel panel;
     private JRadioButton radioButtonFiveGuess;
     private JRadioButton radioButtonGenetic;
-    private JComboBox<Integer> comboBox1;
-    private JComboBox<Integer> comboBox2;
-    private JComboBox<Integer> comboBox3;
-    private JComboBox<Integer> comboBox4;
+    private SequenciaPanel solucioPanel;
+
+    List<Integer> solucioList;
 
     NovaPartidaMakerPanel() {
         $$$setupUI$$$();
@@ -25,56 +28,12 @@ public class NovaPartidaMakerPanel extends JPanel {
     }
 
     void initComponents() {
-        initComboBox();
-
-        comboBox1.addActionListener(this::colorComboBox);
-        comboBox2.addActionListener(this::colorComboBox);
-        comboBox3.addActionListener(this::colorComboBox);
-        comboBox4.addActionListener(this::colorComboBox);
-    }
-
-    private void colorComboBox(ActionEvent actionEvent) {
-        JComboBox<Integer> comboBox = (JComboBox<Integer>) actionEvent.getSource();
-        Object value = comboBox.getSelectedItem();
-
-        if (value.equals(1)) comboBox.setForeground(Color.WHITE);
-        else if (value.equals(2)) comboBox.setForeground(Color.BLACK);
-        else if (value.equals(3)) comboBox.setForeground(Color.RED);
-        else if (value.equals(4)) comboBox.setForeground(Color.BLUE);
-        else if (value.equals(5)) comboBox.setForeground(Color.ORANGE);
-        else if (value.equals(6)) comboBox.setForeground(Color.PINK);
-    }
-
-    static class MyRenderer extends DefaultListCellRenderer {
-        public Component getListCellRendererComponent(JList list, Object value,
-                                                      int index, boolean isSelected, boolean cellHasFocus) {
-            JLabel lbl = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            if (value.equals(0)) lbl.setText("");
-            else lbl.setText("O");
-
-            if (value.equals(1)) lbl.setForeground(Color.WHITE);
-            else if (value.equals(2)) lbl.setForeground(Color.BLACK);
-            else if (value.equals(3)) lbl.setForeground(Color.RED);
-            else if (value.equals(4)) lbl.setForeground(Color.BLUE);
-            else if (value.equals(5)) lbl.setForeground(Color.ORANGE);
-            else if (value.equals(6)) lbl.setForeground(Color.PINK);
-
-            return lbl;
+        solucioList = new ArrayList<>();
+        for (int i = 0; i < SequenciaPanel.SEQUENCIA_SIZE; i++) {
+            solucioPanel.setBolaID(i, "S" + i);
+            solucioList.add(BolaColor.NUL.getNumber());
         }
-    }
-
-    public void initComboBox() {
-        Integer[] color_options = {0, 1, 2, 3, 4, 5, 6};
-        DefaultComboBoxModel<Integer> model = new DefaultComboBoxModel<>(color_options);
-
-        comboBox1.setModel(new DefaultComboBoxModel<>(color_options));
-        comboBox2.setModel(new DefaultComboBoxModel<>(color_options));
-        comboBox3.setModel(new DefaultComboBoxModel<>(color_options));
-        comboBox4.setModel(new DefaultComboBoxModel<>(color_options));
-        comboBox1.setRenderer(new MyRenderer());
-        comboBox2.setRenderer(new MyRenderer());
-        comboBox3.setRenderer(new MyRenderer());
-        comboBox4.setRenderer(new MyRenderer());
+        solucioPanel.attachToBoles(this);
     }
 
     Integer getAlgorisme() {
@@ -83,12 +42,20 @@ public class NovaPartidaMakerPanel extends JPanel {
     }
 
     List<Integer> getSolucio() {
-        List<Integer> solucio = new ArrayList<>();
-        solucio.add((Integer) comboBox1.getSelectedItem());
-        solucio.add((Integer) comboBox2.getSelectedItem());
-        solucio.add((Integer) comboBox3.getSelectedItem());
-        solucio.add((Integer) comboBox4.getSelectedItem());
-        return solucio;
+        return solucioPanel.getSequenciaColors();
+    }
+
+    @Override
+    public void Update(Subject s) {
+        int index = Integer.parseInt(((BolaButton) s).getID().substring(1));
+        try {
+            int newNumberColor = (solucioList.get(index) + 1) % BolaColor.getNumColors();
+            if (newNumberColor == 0) newNumberColor = 1;
+            solucioList.set(index, newNumberColor);
+            solucioPanel.setBolaColor(index, BolaColor.findByNumber(newNumberColor));
+        } catch (BolaNoExistent e) {
+            // TODO wtf puc fer aquí
+        }
     }
 
     /**
@@ -100,43 +67,90 @@ public class NovaPartidaMakerPanel extends JPanel {
      */
     private void $$$setupUI$$$() {
         panel = new JPanel();
-        panel.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel.setLayout(new GridBagLayout());
         final JLabel label1 = new JLabel();
-        label1.setText("Algoritme:");
-        panel.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        label1.setHorizontalAlignment(0);
+        label1.setText("Seqüència Solució");
+        GridBagConstraints gbc;
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(label1, gbc);
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel.add(panel1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+        panel.add(panel1, gbc);
         radioButtonFiveGuess = new JRadioButton();
         radioButtonFiveGuess.setSelected(true);
         radioButtonFiveGuess.setText("FiveGuess");
-        panel1.add(radioButtonFiveGuess, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(radioButtonFiveGuess);
         radioButtonGenetic = new JRadioButton();
         radioButtonGenetic.setSelected(false);
         radioButtonGenetic.setText("Genetic");
-        panel1.add(radioButtonGenetic, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(radioButtonGenetic);
         final JLabel label2 = new JLabel();
-        label2.setText("Seqüència Solució:");
-        panel.add(label2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        panel.add(panel2, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        comboBox1 = new JComboBox();
-        comboBox1.setEditable(false);
-        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
-        comboBox1.setModel(defaultComboBoxModel1);
-        panel2.add(comboBox1);
-        comboBox2 = new JComboBox();
-        comboBox2.setEditable(false);
-        panel2.add(comboBox2);
-        comboBox3 = new JComboBox();
-        panel2.add(comboBox3);
-        comboBox4 = new JComboBox();
-        panel2.add(comboBox4);
+        label2.setHorizontalAlignment(0);
+        label2.setHorizontalTextPosition(0);
+        label2.setText("Algorisme");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(label2, gbc);
+        final JPanel spacer1 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel.add(spacer1, gbc);
+        solucioPanel = new SequenciaPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        panel.add(solucioPanel.$$$getRootComponent$$$(), gbc);
+        final JLabel label3 = new JLabel();
+        label3.setEnabled(false);
+        Font label3Font = this.$$$getFont$$$(null, -1, 12, label3.getFont());
+        if (label3Font != null) label3.setFont(label3Font);
+        label3.setHorizontalAlignment(0);
+        label3.setText("Clica els botons per canviar el color");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(label3, gbc);
         ButtonGroup buttonGroup;
         buttonGroup = new ButtonGroup();
         buttonGroup.add(radioButtonFiveGuess);
         buttonGroup.add(radioButtonGenetic);
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
+        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
+        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
     }
 
     /**

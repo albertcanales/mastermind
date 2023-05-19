@@ -55,6 +55,7 @@ public class SequenciaPanel {
 
     /**
      * Mètode per activar o desactivar de la seqüència
+     *
      * @param enabled Si es vol activar o desactivar les boles
      */
     void setEnabled(Boolean enabled) {
@@ -65,8 +66,9 @@ public class SequenciaPanel {
 
     /**
      * Setter de l'identificador d'una bola
+     *
      * @param index Posició de la bola [0, ..., 3]
-     * @param id Identificador per la bola
+     * @param id    Identificador per la bola
      */
     void setBolaID(Integer index, String id) {
         if (index >= 0 && index < bolaButtonList.size())
@@ -99,6 +101,16 @@ public class SequenciaPanel {
             BolaColor bolaColor = BolaColor.findByNumber(sequenciaColors.get(i));
             bolaButtonList.get(i).setBolaColor(bolaColor);
         }
+    }
+
+    /**
+     * Getter dels colors de tota la seqüència
+     */
+    List<Integer> getSequenciaColors() {
+        List<Integer> sequencia = new ArrayList<>();
+        for (BolaButton bolaButton : bolaButtonList)
+            sequencia.add(bolaButton.getBolaColor().getNumber());
+        return sequencia;
     }
 
     /**

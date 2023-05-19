@@ -145,7 +145,7 @@ public class TaulellPanel {
     /**
      * Mètode per assignar els valors de la seqüencia d'un dels intents
      *
-     * @param index    Índex de l'intent a modificar
+     * @param index  Índex de l'intent a modificar
      * @param intent Llista amb els valors dels colors per a l'intent
      * @throws PresentationException si l'índex o la mida del feedback no són correctes
      */
@@ -162,10 +162,10 @@ public class TaulellPanel {
      * @throws PresentationException si les mides dels intents no són correctes
      */
     void setIntentsColors(List<List<Integer>> intents) throws PresentationException {
-        if (intents.size() > sequenciaIntentList.size()+1)
+        if (intents.size() > sequenciaIntentList.size() + 1)
             throw new SequenciaNoExistent();
         for (int i = 0; i < intents.size(); i++)
-            if(i < sequenciaIntentList.size())
+            if (i < sequenciaIntentList.size())
                 sequenciaIntentList.get(i).setSequenciaColors(intents.get(i));
     }
 

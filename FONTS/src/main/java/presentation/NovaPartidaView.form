@@ -26,7 +26,7 @@
               </nested-form>
             </children>
           </grid>
-          <grid id="fc306" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+          <grid id="fc306" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
               <tabbedpane title="Maker"/>
             </constraints>
@@ -34,7 +34,7 @@
             <border type="none"/>
             <children>
               <nested-form id="59087" form-file="presentation/NovaPartidaMakerPanel.form" binding="panelMaker">
-                <constraints/>
+                <constraints border-constraint="Center"/>
               </nested-form>
             </children>
           </grid>
