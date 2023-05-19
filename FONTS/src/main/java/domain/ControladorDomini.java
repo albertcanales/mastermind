@@ -360,8 +360,9 @@ public class ControladorDomini {
      * @throws NotPlayingPartidaException si no s'està jugant cap partida
      * @param millis mi·lisegons a afegir
      */
-    public void addTempsPartidaMillis(Long millis) throws DomainException {
+    public void addTempsPartidaMillis(Long millis) throws GeneralException {
         controladorPartida.addTempsMillis(millis);
+        controladorPersistencia.setTempsPartidaGuardada(user.getUsername(), controladorPartida.getTempsMillis());
     }
 
     /**

@@ -134,6 +134,10 @@ public class ControladorPersistencia {
         return gestorPartidesActuals.getTemps(username);
     }
 
+    public void setTempsPartidaGuardada(String username, Long temps) throws PersistanceException {
+        gestorPartidesActuals.setTemps(username, temps);
+    }
+
     public Boolean getSolucioVistaPartidaGuardada(String username) throws PersistanceException {
         return gestorPartidesActuals.getSolucioVista(username);
     }

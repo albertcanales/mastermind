@@ -81,6 +81,17 @@ public class GestorPartidesActuals {
         }
     }
 
+    public void setTemps(String username, Long temps) throws PersistanceException {
+        if (csvFile.existsLinebyKey(username)) {
+            String[] gotline = csvFile.getLinebyKey(username);
+
+            gotline[HeaderPartides.TEMPS.start] = temps.toString();
+            csvFile.setLinebyKey(username, gotline);
+        } else {
+            throw new LineNotFoundException(username, relativePathPartidesActuals);
+        }
+    }
+
     public Integer getDificultat(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);

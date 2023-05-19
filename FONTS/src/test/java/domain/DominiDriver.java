@@ -412,7 +412,7 @@ public class DominiDriver extends ControladorDriver {
         System.out.printf("El temps transcorregut és de %d ms.%n", cd.getTempsPartidaMillis());
     }
 
-    private static void testAddTempsPartidaMillis() throws DomainException {
+    private static void testAddTempsPartidaMillis() throws GeneralException {
         System.out.println("Testing addTempsPartdaMillis...");
 
         if(!cd.isPartidaBeingPlayed()) {
