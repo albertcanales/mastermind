@@ -70,7 +70,7 @@ class ControladorPartida {
         partida = new Partida();
         botMaker = null;
         taulell = new Taulell(solucio, intents, feedbacks);
-        dificultat = null;
+        dificultat = new DificultatMitja();
         botBreaker = BotBreaker.create(algorisme);
     }
 

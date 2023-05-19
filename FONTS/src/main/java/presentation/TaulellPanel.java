@@ -130,7 +130,7 @@ public class TaulellPanel {
     }
 
     /**
-     * Mètode per assignar els valors de de la seqüencia d'un dels feedbacks
+     * Mètode per assignar els valors de la seqüencia d'un dels feedbacks
      *
      * @param index    Índex del feedback a modificar
      * @param feedback Llista amb els valors dels colors per al feedback
@@ -143,16 +143,30 @@ public class TaulellPanel {
     }
 
     /**
+     * Mètode per assignar els valors de la seqüencia d'un dels intents
+     *
+     * @param index    Índex de l'intent a modificar
+     * @param intent Llista amb els valors dels colors per a l'intent
+     * @throws PresentationException si l'índex o la mida del feedback no són correctes
+     */
+    void setIntentColors(Integer index, List<Integer> intent) throws PresentationException {
+        if (index < 0 || index >= sequenciaIntentList.size())
+            throw new SequenciaNoExistent();
+        sequenciaIntentList.get(index).setSequenciaColors(intent);
+    }
+
+    /**
      * Mètode per assignar els valors de les seqüències d'intents
      *
      * @param intents Llista amb els valors dels colors per als intents
      * @throws PresentationException si les mides dels intents no són correctes
      */
     void setIntentsColors(List<List<Integer>> intents) throws PresentationException {
-        if (intents.size() > sequenciaIntentList.size())
+        if (intents.size() > sequenciaIntentList.size()+1)
             throw new SequenciaNoExistent();
         for (int i = 0; i < intents.size(); i++)
-            sequenciaIntentList.get(i).setSequenciaColors(intents.get(i));
+            if(i < sequenciaIntentList.size())
+                sequenciaIntentList.get(i).setSequenciaColors(intents.get(i));
     }
 
     /**

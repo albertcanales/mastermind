@@ -61,7 +61,6 @@ public class PartidaBreakerView implements Observer {
 
         numIntentActual = intents.size() - 1;
 
-        // TODO S'ha de comprovar quan estigui implementat a persistència
         timerLabel.setTime(controladorPresentacio.getTempsPartidaMillis());
 
         taulellPanel.setIntentsColors(intents);
@@ -100,6 +99,7 @@ public class PartidaBreakerView implements Observer {
                 labelEstatPartida.setText(PERDUDA_TEXT);
 
             } catch (PresentationException e) {
+                e.printStackTrace();
                 controladorPresentacio.showErrorDialog("No s'ha pogut mostrar la solució");
             }
         }
@@ -111,6 +111,7 @@ public class PartidaBreakerView implements Observer {
             controladorPresentacio.setBola(indexBola, color.getNumber());
             buttonValidar.setEnabled(controladorPresentacio.isUltimIntentPle());
         } catch (PresentationException e) {
+            e.printStackTrace();
             controladorPresentacio.showErrorDialog("No s'ha pogut assignar la bola");
         }
     }
@@ -131,6 +132,7 @@ public class PartidaBreakerView implements Observer {
                 labelEstatPartida.setText(PERDUDA_TEXT);
             }
         } catch (PresentationException e) {
+            e.printStackTrace();
             controladorPresentacio.showErrorDialog("No s'ha pogut acabar la partida");
         }
     }
@@ -156,6 +158,7 @@ public class PartidaBreakerView implements Observer {
                 taulellPanel.setIntentEnabled(numIntentActual, true);
 
         } catch (PresentationException e) {
+            e.printStackTrace();
             controladorPresentacio.showErrorDialog("No s'ha pogut validar la seqüència");
         }
     }
@@ -180,7 +183,7 @@ public class PartidaBreakerView implements Observer {
                     break;
             }
         } else if (s instanceof TimerLabel) {
-            controladorPresentacio.addTempsPartidaMillis(TimerLabel.PERIOD_MILLIS);
+            controladorPresentacio.addTempsPartidaMillis(Long.valueOf(TimerLabel.PERIOD_MILLIS));
         }
     }
 

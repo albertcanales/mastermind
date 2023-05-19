@@ -5,12 +5,10 @@ import javax.swing.plaf.FontUIResource;
 import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class TimerLabel extends Subject {
 
-    static Long PERIOD_MILLIS = 1000L;
+    static Integer PERIOD_MILLIS = 1000;
     private JPanel panel;
     private JLabel label;
 
@@ -24,35 +22,32 @@ public class TimerLabel extends Subject {
     }
 
     private void initComponents() {
-        timer = new Timer();
         time = 0L;
+        timer = new Timer(PERIOD_MILLIS, actionEvent -> {
+            setTime(time + PERIOD_MILLIS);
+            Notify();
+        });
     }
 
     void start() {
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                time += PERIOD_MILLIS;
-                label.setText(getTimeString());
-                Notify();
-            }
-        }, 0, PERIOD_MILLIS);
+        timer.start();
     }
 
     void stop() {
-        timer.cancel();
+        timer.stop();
     }
 
-    String getTimeString() {
+    void updateTimeString() {
         String seconds = String.valueOf((int) (time / 1000 % 60));
         if (seconds.length() == 1)
             seconds = "0" + seconds;
         String minutes = String.valueOf((int) (time / 1000 / 60));
-        return minutes + ":" + seconds;
+        label.setText(minutes + ":" + seconds);
     }
 
     void setTime(Long time) {
         this.time = time;
+        updateTimeString();
     }
 
     /**

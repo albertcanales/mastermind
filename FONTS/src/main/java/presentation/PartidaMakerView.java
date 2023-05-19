@@ -4,9 +4,13 @@ import exceptions.presentation.PresentationException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class PartidaMakerView {
+
+    private static final Integer PERIOD_TIMER_MILLIS = 1000;
 
     /**
      * Controlador de presentació
@@ -21,6 +25,9 @@ public class PartidaMakerView {
 
     private List<List<Integer>> intentList;
     private List<List<Integer>> feedbackList;
+
+    private Integer numIntentActual;
+    private Timer timer;
 
     /**
      * Constructor per defecte de la vista
@@ -45,16 +52,15 @@ public class PartidaMakerView {
     private void initComponents() throws PresentationException {
         taulellPanel.setSolucioColors(controladorPresentacio.getSolucio());
 
-        buttonAcabar.setEnabled(false);
+        numIntentActual = 0;
+        timer = new Timer(PERIOD_TIMER_MILLIS, actionEvent -> showNextIntent());
         buttonParar.setEnabled(false);
 
-        if(!controladorPresentacio.isPartidaAcabada())
+        if (!controladorPresentacio.isPartidaAcabada())
             controladorPresentacio.botSolve();
 
         intentList = controladorPresentacio.getIntents();
         feedbackList = controladorPresentacio.getFeedbacks();
-        taulellPanel.setIntentsColors(intentList);
-        taulellPanel.setFeedbacksColors(feedbackList);
 
         buttonParar.addActionListener(actionEvent -> buttonPararClick());
         buttonAcabar.addActionListener(actionEvent -> buttonAcabarClick());
@@ -63,15 +69,45 @@ public class PartidaMakerView {
     }
 
     void buttonPararClick() {
-
+        timer.stop();
+        buttonReproduir.setEnabled(true);
+        buttonAcabar.setEnabled(true);
+        buttonParar.setEnabled(false);
     }
 
     void buttonAcabarClick() {
-
+        timer.stop();
+        buttonParar.setEnabled(false);
+        buttonReproduir.setEnabled(false);
+        buttonAcabar.setEnabled(false);
+        try {
+            taulellPanel.setIntentsColors(intentList);
+            taulellPanel.setFeedbacksColors(feedbackList);
+        } catch (PresentationException e) {
+            e.printStackTrace();
+            controladorPresentacio.showErrorDialog("No s'ha pogut mostrat tota la partida del bot");
+        }
     }
 
     void buttonReproduirClick() {
+        buttonReproduir.setEnabled(false);
+        buttonParar.setEnabled(true);
+        timer.start();
+    }
 
+    void showNextIntent() {
+        try {
+            taulellPanel.setIntentColors(numIntentActual, intentList.get(numIntentActual));
+            taulellPanel.setFeedbackColors(numIntentActual, feedbackList.get(numIntentActual));
+            numIntentActual++;
+            if (numIntentActual == feedbackList.size()) {
+                timer.stop();
+                buttonAcabar.setEnabled(false);
+                buttonParar.setEnabled(false);
+            }
+        } catch (PresentationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
