@@ -111,8 +111,8 @@ class Taulell {
      * @throws InvalidIntentActualException si el size dels feedbacks no és el size dels intents - 1
      */
     Taulell(List <Integer> sol, List<List<Integer>> inten, List<List<Integer>> feed) throws DomainException{
-        if (inten.size() > NUMINTENTS) {
-            throw new InvalidNumIntentsException(inten.size(),NUMINTENTS);
+        if (inten.size() > NUMINTENTS + 1) {
+            throw new InvalidNumIntentsException(inten.size(),NUMINTENTS + 1);
         }
         if (feed.size() > NUMINTENTS) {
             throw new InvalidNumIntentsException(feed.size(),NUMINTENTS);
@@ -284,7 +284,7 @@ class Taulell {
      * @param feed una llista d'una llista d'enters representant els feedbacks realitzats
      */
     static boolean isValidIntentsFeedbacks(List<List<Integer>> inten, List<List<Integer>> feed) {
-        if (inten.size() > NUMINTENTS ||feed.size() > NUMINTENTS || !isValidStateIntents(inten) || inten.size() - 1 != feed.size()) {
+        if (inten.size() > NUMINTENTS + 1 || feed.size() > NUMINTENTS || !isValidStateIntents(inten) || inten.size() - 1 != feed.size()) {
             return false;
         }
 

@@ -88,7 +88,7 @@ public class TaulellTest {
     public void newTaulellInitWrongSizeIntents() {
         List<Integer> solucio = getList(50,false, false, false);
 
-        List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS + 1);
+        List<List<Integer>> expectedint = getListList(424, false, false, false, Taulell.NUMINTENTS + 2);
         //13 intents
 
         List<List<Integer>> expectedfeed = getListList(421324, false, true, false, Taulell.NUMINTENTS);
