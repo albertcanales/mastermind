@@ -4,11 +4,14 @@ build:
 test:
 	./gradlew test
 
+release:
+	./gradlew jarRelease
+
 jar:
 	./gradlew jar
 
 exe: jar
-	cp -r ./build/tests ../EXE/
+	cp -r ./build/tests ./build/release ../EXE/
 
 runDominiDriver: exe
 	java -jar ../EXE/tests/DominiDriver/DominiDriver.jar
@@ -36,6 +39,9 @@ jocProvesDomini3: exe
 jocProvesDomini: jocProvesDomini1 jocProvesDomini2 jocProvesDomini3
 
 jocProves: jocProvesPartida jocProvesDomini
+
+run: exe
+	java -jar ../EXE/release/Mastermind.jar
 
 javadoc:
 	./gradlew javadoc

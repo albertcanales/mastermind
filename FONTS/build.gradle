@@ -31,6 +31,21 @@ test {
     }
 }
 
+tasks.register('jarRelease', Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    destinationDirectory = layout.buildDirectory.dir('release')
+    manifest {
+        attributes 'Main-Class': 'presentation.Main'
+    }
+    archiveClassifier = "all"
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    archiveFileName = "Mastermind.jar"
+    with jar
+}
+
+
 tasks.register('jarLib', Jar) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     archiveFileName = "testlibs.jar"
@@ -52,6 +67,7 @@ testClasses.each { name ->
             attributes 'Main-Class': "domain.${name}",
                     'Class-Path': '../lib/testlibs.jar'
         }
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
         from sourceSets.test.output
         with jar
     }
@@ -64,7 +80,7 @@ tasks.register('jarTests') {
 }
 
 jar {
-    dependsOn jarTests
+    dependsOn jarTests, jarRelease
 }
 
 javadoc {
