@@ -2,6 +2,7 @@ package exceptions.domain;
 
 /**
  * Excepció per si s'intenta crear un usuari que ja existeix
+ * @author Albert Canales Ros
  */
 public class UserAlreadyExistsException extends DomainException {
 

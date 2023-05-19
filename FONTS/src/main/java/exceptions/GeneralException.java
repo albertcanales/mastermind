@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Excepció que engloba a totes les excepcions de l'aplicació
+ * Excepció de la qual hereten tota la resta d'excepcions pròpies de l'aplicació
  * @author Albert Canales Ros
  */
 public class GeneralException extends Exception {
