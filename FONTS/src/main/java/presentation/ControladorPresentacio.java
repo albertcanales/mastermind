@@ -296,8 +296,13 @@ public class ControladorPresentacio {
         return null;
     }
 
-    public List<List<List<String>>> getRanquing(){
-        return controladorDomini.getRanquing();
+    public List<List<List<String>>> getRanquings(){
+        try {
+            return controladorDomini.getRanquings();
+        } catch (GeneralException e) {
+            showErrorDialog("No s'han pogut obtenir els rànquings");
+        }
+        return null;
     }
     /**
      * Mètode per esborrar l'usuari que ha iniciat sessió.
@@ -589,7 +594,7 @@ public class ControladorPresentacio {
      * Mètode per mostrar un diàleg amb si o no com a opcions
      * @param title Títol del diàleg
      * @param message Missatge del diàleg
-     * @returns La resposta de l'usuari
+     * @return La resposta de l'usuari
      */
     Boolean showYesNoDialog(String title, String message) {
         return mainFrame.showYesNoDialog(title, message);

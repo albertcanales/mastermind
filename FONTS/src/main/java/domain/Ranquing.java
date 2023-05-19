@@ -4,22 +4,14 @@ import exceptions.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Ranquing {
 
-    private final List<List<List<String>>> ranquing;
-    private final int RANQUING_MAX_SIZE = 20;
+    private final List<List<List<String>>> ranquings;
 
-    Ranquing(){
-        ranquing = new ArrayList<>();
-        for (int i = 0; i < NivellDificultat.numDificultats(); ++i){
-            ranquing.add(new ArrayList<>());
-        }
-    }
-
-    Ranquing(List<List<List<String>>> ranquing){
-        // check InvalidRanquingSizeException
-        this.ranquing = ranquing;
+    Ranquing(List<List<List<String>>> ranquings){
+        this.ranquings = ranquings;
     }
 
     private int compare(List<String> a, List<String> b){
@@ -35,7 +27,7 @@ public class Ranquing {
 
         dificultat--;
 
-        List<List<String>> ranquingDificultat = ranquing.get(dificultat);
+        List<List<String>> ranquingDificultat = ranquings.get(dificultat);
 
         List<String> novaPartida = new ArrayList<>();
         novaPartida.add(username);
@@ -43,7 +35,7 @@ public class Ranquing {
         novaPartida.add(temps.toString());
 
         int indexNovaPartida = ranquingDificultat.size();
-        Boolean positionFound = false;
+        boolean positionFound = false;
         while (indexNovaPartida != 0 && !positionFound) {
             List<String> compPartida = ranquingDificultat.get(indexNovaPartida-1);
             if (compare(compPartida,novaPartida) < 0) positionFound = true;
@@ -52,45 +44,19 @@ public class Ranquing {
         ranquingDificultat.add(indexNovaPartida,novaPartida);
     }
 
-    List<List<String>> getRanquing(Integer nivellDificultat){
-        return ranquing.get(nivellDificultat-1);
-    }
-
-    List<List<List<String>>> getRanquing(){
-        /*List<List<List<String>>> ranquing = new ArrayList<>();
-        for (int i = 0; i < 3; ++i){
-            ranquing.add(new ArrayList<>());
-        }
-        ranquing.get(0).add(List.of("albert", "2", "100"));
-        ranquing.get(0).add(List.of("mar", "4", "200"));
-
-        ranquing.get(1).add(List.of("arnau", "5", "400"));
-        ranquing.get(1).add(List.of("kamil", "7", "300"));
-        ranquing.get(1).add(List.of("mar", "10", "700"));*/
-
-        return ranquing;
-    }
-
-    List<List<List<String>>> getRanquingMaxSize(Integer maxSize){
-        List<List<List<String>>> ranquingMaxSize = new ArrayList<>();
-        for (int i = 0; i < NivellDificultat.numDificultats(); ++i){
-            if (maxSize < ranquing.get(i).size()) ranquingMaxSize.add(ranquing.get(i).subList(0,maxSize));
-            else ranquingMaxSize.add(ranquing.get(i));
-        }
-
-        return ranquingMaxSize;
+    List<List<List<String>>> getRanquings(){
+        return ranquings;
     }
 
 
     void esborrarUserFromRanquing(String username){
         for (int i = 0; i < NivellDificultat.numDificultats(); ++i){
-            List<List<String>> ranquingDificultat = ranquing.get(i);
+            List<List<String>> ranquingDificultat = ranquings.get(i);
             for (int j = 0; j < ranquingDificultat.size(); ++j){
-                if (ranquingDificultat.get(j).get(0) == username){
+                if (Objects.equals(ranquingDificultat.get(j).get(0), username)){
                     ranquingDificultat.remove(i);
                 }
             }
-
         }
     }
 }

@@ -32,7 +32,7 @@ public class DominiDriver extends ControladorDriver {
         System.out.println("    11 | novaPartidaBreaker");
         System.out.println("    12 | existsPartidaGuardada");
         System.out.println("    13 | carregarPartida");
-        System.out.println("    14 | getRanquing");
+        System.out.println("    14 | getRanquings");
         System.out.println("    15 | getPersonalRecord");
         System.out.println("    16 | getTimePlayed");
         System.out.println("    17 | getWonGames");
@@ -221,26 +221,20 @@ public class DominiDriver extends ControladorDriver {
         cd.carregarPartida();
     }
 
-    private static void testGetRanquing() throws GeneralException {
-        System.out.println("Testing getRanquing...");
+    private static void testGetRanquings() throws GeneralException {
+        System.out.println("Testing getRanquings...");
 
         if(!cd.userLoggedIn()) {
             System.out.println("Error: No s'ha iniciat sessió");
             return;
         }
 
-        Integer nivellDificultat = scanNivellDificultat();
+        List<List<List<String>>> ranquings = cd.getRanquings();
 
-        List<List<Object>> ranquing = cd.getRanquing(nivellDificultat);
-
-        if(ranquing.size() == 0) {
-            System.out.println("No hi ha cap partida en aquesta dificultat");
-        }
-        else {
             System.out.println("USUARI | INTENTS | TEMPS");
-            for (List<Object> partida : ranquing) {
-                System.out.printf("%s | %d | %d%n", partida.get(0), (Integer)partida.get(1), (Long)partida.get(2));
-            }
+            for(List<List<String>> ranquing : ranquings)
+                for (List<String> partida : ranquing) {
+                    System.out.printf("%s | %s | %s%n", partida.get(0), partida.get(1), partida.get(2));
         }
     }
 
@@ -663,8 +657,8 @@ public class DominiDriver extends ControladorDriver {
                     testCarregarPartida();
                     break;
                 case "14":
-                case "getRanquing":
-                    testGetRanquing();
+                case "getRanquings":
+                    testGetRanquings();
                     break;
                 case "15":
                 case "getPersonalRecord":

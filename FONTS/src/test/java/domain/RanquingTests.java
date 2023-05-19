@@ -32,8 +32,11 @@ public class RanquingTests {
     @Test
     public void createNewRanquing() {
 
-        Ranquing ranquing = new Ranquing();
-        List<List<List<String>>> ranquingList = ranquing.getRanquing();
+        List<List<List<String>>> emptyRanquing = new ArrayList<>();
+        for(int i = 0; i < 3; i++)
+            emptyRanquing.add(new ArrayList<>());
+        Ranquing ranquing = new Ranquing(emptyRanquing);
+        List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         assertEquals(NUM_RANQUINGS, (Integer) ranquingList.size());
         assertEquals(0, ranquingList.get(0).size());
@@ -45,7 +48,7 @@ public class RanquingTests {
     public void createExistingRanquing() {
 
         Ranquing ranquing = new Ranquing(ranquingTest);
-        List<List<List<String>>> ranquingList = ranquing.getRanquing();
+        List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         assertNotSame(ranquingExpected, ranquingList);
         assertEquals(ranquingExpected, ranquingList);
@@ -54,9 +57,12 @@ public class RanquingTests {
     @Test
     public void updateForFinishedGameOnNewRanquing() throws DomainException {
 
-        Ranquing ranquing = new Ranquing();
+        List<List<List<String>>> emptyRanquing = new ArrayList<>();
+        for(int i = 0; i < 3; i++)
+            emptyRanquing.add(new ArrayList<>());
+        Ranquing ranquing = new Ranquing(emptyRanquing);
         ranquing.acabarPartidaBreaker("Doraemon", 1, 6, 100L);
-        List<List<List<String>>> ranquingList = ranquing.getRanquing();
+        List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         ranquingExpected = new ArrayList<>();
         for (int i = 0; i < NUM_RANQUINGS; ++i){
@@ -72,7 +78,7 @@ public class RanquingTests {
 
         Ranquing ranquing = new Ranquing(ranquingTest);
         ranquing.acabarPartidaBreaker("Doraemon", 1, 6, 100L);
-        List<List<List<String>>> ranquingList = ranquing.getRanquing();
+        List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         ranquingExpected = new ArrayList<>();
         for (int i = 0; i < NUM_RANQUINGS; ++i){
@@ -93,7 +99,7 @@ public class RanquingTests {
 
         Ranquing ranquing = new Ranquing(ranquingTest);
         ranquing.acabarPartidaBreaker("Doraemon", 1, 3, 300L);
-        List<List<List<String>>> ranquingList = ranquing.getRanquing();
+        List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         ranquingExpected = new ArrayList<>();
         for (int i = 0; i < NUM_RANQUINGS; ++i){
@@ -115,7 +121,7 @@ public class RanquingTests {
 
         Ranquing ranquing = new Ranquing(ranquingTest);
         ranquing.acabarPartidaBreaker("Doraemon", 1, 1, 150L);
-        List<List<List<String>>> ranquingList = ranquing.getRanquing();
+        List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         ranquingExpected = new ArrayList<>();
         for (int i = 0; i < NUM_RANQUINGS; ++i){
@@ -136,7 +142,7 @@ public class RanquingTests {
 
         Ranquing ranquing = new Ranquing(ranquingTest);
         ranquing.acabarPartidaBreaker("Doraemon", 1, 2, 100L);
-        List<List<List<String>>> ranquingList = ranquing.getRanquing();
+        List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         ranquingExpected = new ArrayList<>();
         for (int i = 0; i < NUM_RANQUINGS; ++i){
@@ -157,7 +163,7 @@ public class RanquingTests {
 
         Ranquing ranquing = new Ranquing(ranquingTest);
         ranquing.acabarPartidaBreaker("Doraemon", 1, 2, 300L);
-        List<List<List<String>>> ranquingList = ranquing.getRanquing();
+        List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         ranquingExpected = new ArrayList<>();
         for (int i = 0; i < NUM_RANQUINGS; ++i){
@@ -175,43 +181,11 @@ public class RanquingTests {
         assertEquals(ranquingExpected, ranquingList);
     }
     @Test
-    public void ranquingMaxSize() throws DomainException {
-
-        Ranquing ranquing = new Ranquing(ranquingTest);
-        List<List<List<String>>> ranquingList = ranquing.getRanquingMaxSize(2);
-
-        ranquingExpected = new ArrayList<>();
-        for (int i = 0; i < NUM_RANQUINGS; ++i){
-            ranquingExpected.add(new ArrayList<>());
-        }
-
-        ranquingExpected.get(0).add(List.of("albert", "2", "100"));
-        ranquingExpected.get(0).add(List.of("mar", "4", "200"));
-
-        ranquingExpected.get(1).add(List.of("arnau", "5", "400"));
-        ranquingExpected.get(1).add(List.of("kamil", "7", "300"));
-
-        assertEquals(ranquingExpected, ranquingList);
-    }
-    @Test
-    public void ranquingMaxSize0() throws DomainException {
-
-        Ranquing ranquing = new Ranquing(ranquingTest);
-        List<List<List<String>>> ranquingList = ranquing.getRanquingMaxSize(0);
-
-        ranquingExpected = new ArrayList<>();
-        for (int i = 0; i < NUM_RANQUINGS; ++i){
-            ranquingExpected.add(new ArrayList<>());
-        }
-
-        assertEquals(ranquingExpected, ranquingList);
-    }
-    @Test
     public void esborraUserFromRanquing() throws DomainException {
 
         Ranquing ranquing = new Ranquing(ranquingTest);
         ranquing.esborrarUserFromRanquing("mar");
-        List<List<List<String>>> ranquingList = ranquing.getRanquing();
+        List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         ranquingTest = new ArrayList<>();
         for (int i = 0; i < NUM_RANQUINGS; ++i){
@@ -229,7 +203,7 @@ public class RanquingTests {
 
         Ranquing ranquing = new Ranquing(ranquingTest);
         ranquing.esborrarUserFromRanquing("arnau");
-        List<List<List<String>>> ranquingList = ranquing.getRanquing();
+        List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         ranquingTest = new ArrayList<>();
         for (int i = 0; i < NUM_RANQUINGS; ++i){

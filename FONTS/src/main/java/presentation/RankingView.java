@@ -68,7 +68,7 @@ public class RankingView {
     }
 
     private void initRanking() {
-        ranking = controladorPresentacio.getRanquing();
+        ranking = controladorPresentacio.getRanquings();
 
         for (int i = 0; i < NUM_RANKINGS; ++i) fillRanking(i, ranking.get(i));
     }

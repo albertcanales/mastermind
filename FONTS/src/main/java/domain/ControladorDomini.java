@@ -2,6 +2,7 @@ package domain;
 
 import exceptions.GeneralException;
 import exceptions.domain.*;
+import exceptions.persistance.PersistanceException;
 import persistance.ControladorPersistencia;
 
 import java.util.List;
@@ -17,20 +18,22 @@ public class ControladorDomini {
     private final ControladorPersistencia controladorPersistencia;
 
     private User user;
-    private final Ranquing ranquing;
+    private Ranquing ranquing;
 
     /**
      * Constructor del Controlador de Domini
+     * @throws GeneralException si no es pot obtenir el rànquing
      */
     public ControladorDomini() throws GeneralException {
         controladorPartida = new ControladorPartida();
         controladorPersistencia = new ControladorPersistencia();
         user = null;
-        ranquing = new Ranquing(controladorPersistencia.getRanquing());
+        ranquing = null;
     }
 
     /**
      * Mètode per saber si s'ha iniciat sessió
+     * @return Si l'usuari ha iniciat sessió
      */
     public Boolean userLoggedIn() {
         return user != null;
@@ -38,6 +41,7 @@ public class ControladorDomini {
 
     /**
      * Mètode per saber s'està jugant una partida
+     * @return Si s'està jugant una partida
      */
     public Boolean isPartidaBeingPlayed() {
         return controladorPartida.isPartidaPresent();
@@ -47,8 +51,9 @@ public class ControladorDomini {
 
     /**
      * Mètode per comprovar si existeix un usuari
-     * @param username username de l'usuari a comprovar
-     * @return si l'usuari donat existeix
+     * @param username Username de l'usuari a comprovar
+     * @return Si l'usuari donat existeix
+     * @throws GeneralException Si hi ha cap problema per accedir a persistència
      */
     public Boolean existsUser(String username) throws GeneralException {
         return controladorPersistencia.existsUser(username);
@@ -56,9 +61,10 @@ public class ControladorDomini {
 
     /**
      * Mètode per saber si els paràmetres d'un usuari són vàlids
-     * @param username username a comprovar
-     * @param name nom a comprovar
-     * @param password contrasenya a comprovar
+     * @param username Username a comprovar
+     * @param name Nom a comprovar
+     * @param password Contrasenya a comprovar
+     * @return si l'usuari donat és vàlid
      */
     public Boolean isValidUser(String username, String name, String password) {
         return User.isValidUser(username, name, password);
@@ -111,6 +117,7 @@ public class ControladorDomini {
 
     /**
      * Mètode per tancar la sessió de l'usuari
+     * @throws DomainException Si no hi havia cap usuari que havia iniciat sessió
      */
     public void logoutUser() throws DomainException {
         if(!userLoggedIn())
@@ -210,23 +217,21 @@ public class ControladorDomini {
         controladorPartida.carregarPartidaMaker(algorisme, intents, feedbacks, solucio);
     }
 
-    public List<List<List<String>>> getRanquing() {
-        return ranquing.getRanquing();
-    }
-
     /**
-     * Getter del rànquing de les millors partides d'una dificultat concreta
-     * @param nivellDificultat nombre del nivell de dificultat
-     * @return Una llista que conté tuples amb (username: String, intents: Integer, temps: Long)
+     * Mètode per obtenir els rànquings. Hi ha un rànquing per dificultat, cada un amb entrades de tres valors
+     * que són {username, intents, time}
+     * @return Tots els rànquings
+     * @throws GeneralException Si persistència no pot proporcionar els rànquings
      */
-    public List<List<Object>> getRanquing(Integer nivellDificultat) throws GeneralException {
-        if(!NivellDificultat.isValid(nivellDificultat))
-            throw new InvalidEnumValueException("NivellDificultat", nivellDificultat.toString());
-        return controladorPersistencia.getRanquing(nivellDificultat);
+    public List<List<List<String>>> getRanquings() throws GeneralException {
+        if(ranquing == null)
+            ranquing = new Ranquing(controladorPersistencia.getRanquing());
+        return ranquing.getRanquings();
     }
 
     /**
      * Getter del nom de l'usuari que ha iniciat sessió
+     * @return El nom de l'usuari que ha iniciat sessió
      * @throws DomainException no s'ha iniciat sessió
      */
     public String getUserName() throws DomainException {
@@ -416,7 +421,7 @@ public class ControladorDomini {
                     user.getCurrentWinStreak(), user.getWinStreak(), user.getAvgAsMaker(), user.getAvgAsBreaker(), user.getNumGamesAsMaker());
             if (guanyada){
                 ranquing.acabarPartidaBreaker(user.getUsername(), nivellDificultat, numIntents, temps);
-                controladorPersistencia.setRanquing(ranquing.getRanquing());
+                controladorPersistencia.setRanquing(ranquing.getRanquings());
             }
 
         }
