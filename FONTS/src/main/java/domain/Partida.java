@@ -8,7 +8,14 @@ import java.time.Duration;
  */
 class Partida {
 
+    /**
+     * Temps transcorregut en la partida
+     */
     private Duration temps;
+
+    /**
+     * Si s'ha vist la solució de la partida
+     */
     private Boolean solucioVista;
 
     /**

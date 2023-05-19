@@ -4,10 +4,12 @@ import exceptions.presentation.PresentationException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * Vista per jugar una partida on el jugador és el maker
+ * @author Albert Canales Ros
+ */
 public class PartidaMakerView {
 
     private static final Integer PERIOD_TIMER_MILLIS = 1000;

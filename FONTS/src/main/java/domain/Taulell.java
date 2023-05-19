@@ -11,15 +11,37 @@ import java.util.List;
  *
  * @author Arnau Valls Fusté
  */
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 class Taulell {
 
-    static final int NUMINTENTS = 12, NUMBOLES = 4;
+    /**
+     * Nombre d'intents del taulell
+     */
+    static final int NUMINTENTS = 12;
+
+    /**
+     * Nombre de boles de cada seqüència
+     */
+    static final int NUMBOLES = 4;
+
+    /**
+     * Índex de l'últim intent que s'està jugant
+     */
     private int intentActual;
 
+    /**
+     * Llista de tots els intents del taulell
+     */
     private final List<List<Integer>> intents;
 
+    /**
+     * Llista de tots els feedbacks del taulell
+     */
     private final List<List<Integer>> feedbacks;
 
+    /**
+     * Seqüència solució del taulell
+     */
     private final List<Integer> solucio;
 
     /**
@@ -161,7 +183,6 @@ class Taulell {
 
     /**
      * Mètode que retorna si l'intent actual està ple (no hi ha boles nul·les)
-     *
      * @return booleà
      */
     Boolean isUltimIntentPle() {
@@ -169,9 +190,7 @@ class Taulell {
     }
 
     /**
-     * Mètode que retorna una llista que conté totes les "Boles" de l'intent actual
-     * (últim)
-     * 
+     * Mètode que retorna una llista que conté totes les "Boles" de l'intent actual (últim)
      * @return una llista d'enters (Boles)
      */
     List<Integer> getUltimIntent() {
@@ -179,9 +198,7 @@ class Taulell {
     }
 
     /**
-     * Mètode que retorna una llista que conté totes les "Boles" del feedback actual
-     * (últim)
-     *
+     * Mètode que retorna una llista que conté totes les "Boles" del feedback actual (últim)
      * @return una llista d'enters (Boles) o null si l'intentActual és 0
      */
     List<Integer> getUltimFeedback() {
@@ -191,7 +208,6 @@ class Taulell {
 
     /**
      * Mètode que retorna una llista que conté tots els intents del taulell
-     *
      * @return una llista d'una llista d'enters
      */
     List<List<Integer>> getIntents() {
@@ -200,7 +216,6 @@ class Taulell {
 
     /**
      * Mètode que retorna una llista que conté tots els feedbacks del taulell
-     *
      * @return una llista d'una llista d'enters
      */
     List<List<Integer>> getFeedbacks() {
@@ -209,7 +224,6 @@ class Taulell {
 
     /**
      * Mètode que retorna l'intent actual del taulell
-     *
      * @return un enter amb l'intent actual
      */
     int getNumeroIntent() {
@@ -218,7 +232,6 @@ class Taulell {
 
     /**
      * Mètode que permet afegir el feedback corresponent per l'intent actual
-     * 
      * @param feedback llista d'enters que conté boles de color blanc, negre o NUL
      * @throws InvalidNumBolesException si el tamany de feedback no és correcte
      * @throws InvalidFeedbackException si el feeback és invàlid

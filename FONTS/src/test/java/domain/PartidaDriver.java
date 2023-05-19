@@ -477,6 +477,11 @@ public class PartidaDriver extends ControladorDriver {
         cp.sortirPartida();
     }
 
+    /**
+     * Punt d'entrada del Driver del Controlador de la Partida
+     * @param args Arguments del punt d'entrada (no seran considerats)
+     * @throws DomainException Si hi ha cap error no controlat
+     */
     public static void main(String[] args) throws DomainException {
         cp = new ControladorPartida();
         in = new Scanner(System.in);

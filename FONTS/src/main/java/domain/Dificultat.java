@@ -85,6 +85,9 @@ enum NivellDificultat {
     MITJA(2),
     DIFICIL(3);
 
+    /**
+     * Nombre que representa el nivell de dificultat
+     */
     private final int number;
 
     /**
@@ -128,6 +131,7 @@ enum NivellDificultat {
      * @param num enter que representa una dificultat
      * @return un booleà cert si el número correspon a una dificultat
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean isValid(int num) {
         return (num > 0) && (num <= numDificultats());
     }

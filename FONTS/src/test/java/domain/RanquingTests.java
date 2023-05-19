@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class RanquingTests {
 
-    private Integer NUM_RANQUINGS = 3;
+    private final Integer NUM_RANQUINGS = 3;
     private static List<List<List<String>>> ranquingTest, ranquingExpected;
     @Before
     public void setStats(){
@@ -181,7 +181,7 @@ public class RanquingTests {
         assertEquals(ranquingExpected, ranquingList);
     }
     @Test
-    public void esborraUserFromRanquing() throws DomainException {
+    public void esborraUserFromRanquing() {
 
         Ranquing ranquing = new Ranquing(ranquingTest);
         ranquing.esborrarUserFromRanquing("mar");
@@ -199,7 +199,7 @@ public class RanquingTests {
         assertEquals(ranquingExpected, ranquingList);
     }
     @Test
-    public void esborraTopUserFromRanquing() throws DomainException {
+    public void esborraTopUserFromRanquing() {
 
         Ranquing ranquing = new Ranquing(ranquingTest);
         ranquing.esborrarUserFromRanquing("arnau");

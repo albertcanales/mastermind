@@ -209,9 +209,7 @@ public class EstadistiquesView {
         setRatxaVictories();
         setMitjanaIntentsBreaker();
         setMitjanaIntentsMaker();
-        buttonEsborraUsuari.addActionListener(actionEvent -> {
-            buttonEsborraUsuariClick();
-        });
+        buttonEsborraUsuari.addActionListener(actionEvent -> buttonEsborraUsuariClick());
     }
 
     /**

@@ -45,7 +45,7 @@ public class MainFrame{
      * Mètode per mostrar un diàleg amb si o no com a opcions
      * @param title Títol del diàleg
      * @param message Missatge del diàleg
-     * @returns La resposta de l'usuari
+     * @return La resposta de l'usuari
      */
     Boolean showYesNoDialog(String title, String message) {
         int result = JOptionPane.showConfirmDialog(frame,

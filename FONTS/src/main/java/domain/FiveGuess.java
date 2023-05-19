@@ -11,9 +11,15 @@ import java.util.*;
  * @author Mar Gonzàlez Català
  */
 class FiveGuess extends BotBreaker {
+
+    /**
+     * Nombre de boles de la seqüència solució
+     */
     private Integer numboles;
 
-    //conjunt de codis possibles (S a la viquipèdia)
+    /**
+     * Conjunt de codis possibles (S a la viquipèdia)
+     */
     private HashSet<Integer> possibleSolutions;
 
     /**

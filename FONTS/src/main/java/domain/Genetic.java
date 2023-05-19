@@ -13,7 +13,11 @@ import java.util.*;
  */
 class Genetic extends BotBreaker {
 
+    /**
+     * Nombre de boles de la seqüència solució
+     */
     private Integer numboles;
+
     private HashSet<Integer> possibleSolutions;
     private HashSet<Integer> population;
     private HashSet<Integer> tried;

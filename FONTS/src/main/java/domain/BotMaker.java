@@ -3,13 +3,19 @@ package domain;
 import java.util.*;
 
 /**
- * Contenidor de les funcionalitats d'un BotMaker.
- *
+ * Classe que representa un BotMaker, és a dir, la màquina creadora de codis
  * @author Mar Gonzàlez Català
  */
 class BotMaker {
 
+    /**
+     * Nombre de boles de la seqüència solució
+     */
     private final Integer numboles;
+
+    /**
+     * Nombre de colors de la seqüència solució
+     */
     private final Integer numcolors;
 
     /**

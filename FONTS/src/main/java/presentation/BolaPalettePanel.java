@@ -5,6 +5,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Panell que representa un conjunt de boles de les quals se'n pot seleccionar una, com si fos una paleta de colors.
+ * @author Albert Canales Ros
+ */
 public class BolaPalettePanel implements Observer {
 
     /**

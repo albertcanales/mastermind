@@ -1,7 +1,6 @@
 package presentation;
 
 import exceptions.presentation.PresentationException;
-import exceptions.presentation.SequenciaNoExistent;
 
 import javax.swing.*;
 import java.awt.*;

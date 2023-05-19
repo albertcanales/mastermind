@@ -514,18 +514,9 @@ public class DominiDriver extends ControladorDriver {
             System.out.println("La partida actual no està guanyada");
     }
 
-    private static void testIsPartidaPerduda() throws DomainException {
+    private static void testIsPartidaPerduda() {
         System.out.println("Testing isPartidaPerduda...");
-
-        if(!cd.isPartidaBeingPlayed()) {
-            System.out.println("Error: No s'està jugant cap partida");
-            return;
-        }
-
-        if(cd.isPartidaPerduda())
-            System.out.println("La partida actual està perduda");
-        else
-            System.out.println("La partida actual no està perduda");
+        System.out.println("Aquest mètode s'ha eliminat!!");
     }
 
     private static void testIsPartidaAcabada() throws DomainException {

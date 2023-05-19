@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 class DificultatMitja extends Dificultat {
+
     /**
      * Getter del nivell de dificultat de dificultat Mitja
      * */

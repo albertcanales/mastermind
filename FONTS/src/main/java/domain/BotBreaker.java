@@ -6,8 +6,7 @@ import exceptions.domain.InvalidEnumValueException;
 import java.util.*;
 
 /**
- * Contenidor de les funcionalitats d'un BotBreaker.
- *
+ * Classe que representa un BotBreaker, és a dir, la màquina que desxifra codis
  * @author Mar Gonzàlez Català
  */
 abstract class BotBreaker implements Maquina {
@@ -47,6 +46,9 @@ enum TipusAlgorisme {
     FIVEGUESS(1),
     GENETIC(2);
 
+    /**
+     * Nombre que representa el tipus d'algorisme
+     */
     private final int number;
 
     /**

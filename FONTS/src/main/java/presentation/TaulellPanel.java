@@ -9,6 +9,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Panell que representa el taulell de joc d'una partida de Mastermind, tant per la modalitat breaker com maker
+ * @author Albert Canales Ros
+ */
 public class TaulellPanel {
 
     /**

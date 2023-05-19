@@ -65,9 +65,7 @@ public class RegisterView {
      * Mètode per inicialitzar els components de la vista
      */
     void initComponents() {
-        buttonRegistra.addActionListener(actionEvent -> {
-            registraButtonClick();
-        });
+        buttonRegistra.addActionListener(actionEvent -> registraButtonClick());
 
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
     }

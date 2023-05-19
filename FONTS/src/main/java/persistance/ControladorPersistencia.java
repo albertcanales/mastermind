@@ -33,7 +33,7 @@ public class ControladorPersistencia {
         return gestorUsuaris.getUserName(username);
     }
 
-    public List<List<List<String>>> getRanquing() throws PersistanceException {
+    public List<List<List<String>>> getRanquings() throws PersistanceException {
         List<List<List<String>>> ranquing = new ArrayList<>();
         for (int i = 0; i < GestorRanquing.numFitxers; ++i){
             ranquing.add(gestorRanquing.getRanquing(i));
@@ -41,11 +41,8 @@ public class ControladorPersistencia {
 
         return ranquing;
     }
-    public List<List<Object>> getRanquing(Integer nivellDificultat) throws PersistanceException {
-        return new ArrayList<>();
-    }
 
-    public void setRanquing(List<List<List<String>>> ranquing) throws PersistanceException {
+    public void setRanquings(List<List<List<String>>> ranquing) throws PersistanceException {
         for (int i = 0; i < GestorRanquing.numFitxers; ++i){
             gestorRanquing.setRanquing(i, ranquing.get(i));
         }

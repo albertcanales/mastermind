@@ -6,9 +6,13 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.Locale;
 
+/**
+ * Label que representa un rellotge digital i segueix el patró Observer per alertar de quan es canvia
+ * @author Albert Canales Ros
+ */
 public class TimerLabel extends Subject {
 
-    static Integer PERIOD_MILLIS = 1000;
+    static final Integer PERIOD_MILLIS = 1000;
     private JPanel panel;
     private JLabel label;
 

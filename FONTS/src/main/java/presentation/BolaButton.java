@@ -206,6 +206,7 @@ enum BolaColor {
         throw new BolaNoExistent();
     }
 
+    @SuppressWarnings("SameReturnValue")
     static int getNumColors() {
         return 7;
     }

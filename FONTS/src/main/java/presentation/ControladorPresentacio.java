@@ -2,8 +2,6 @@ package presentation;
 
 import domain.ControladorDomini;
 import exceptions.GeneralException;
-import exceptions.domain.DomainException;
-import exceptions.domain.NotPlayingPartidaException;
 import exceptions.presentation.PresentationException;
 
 import javax.swing.*;
@@ -47,6 +45,7 @@ public class ControladorPresentacio {
 
     /**
      * Mètode per obtenir l'única instància del controlador de presentació
+     * @return L'única instància de ControladorPresentació
      */
     public static ControladorPresentacio getInstance() {
         return instance;
@@ -56,6 +55,8 @@ public class ControladorPresentacio {
      * Mètode per saber si un usuari donat és vàlid (bon format)
      * @param username Username a comprovar
      * @param name Nom a comprovar
+     * @param password La contrasenya a comprovar
+     * @return Si l'usuari és vàlid
      */
     public Boolean isValidUser(String username, String name, String password) {
         return controladorDomini.isValidUser(username, name, password);
@@ -64,6 +65,7 @@ public class ControladorPresentacio {
     /**
      * Mètode per saber si un usuari existeix. Es mostra un error si hi ha problemes d'accés a la DB.
      * @param username Username a comprovar
+     * @return Si l'usuari existeix
      */
     public Boolean existsUser(String username) {
         try {
@@ -94,6 +96,7 @@ public class ControladorPresentacio {
      * Mètode per iniciar sessió d'un usuari. Es mostra un error si no existeix.
      * @param username Username per l'inici de sessió
      * @param password Contrasenya per l'inici de sessió
+     * @return Si s'ha pogut iniciar sessió correctament (o pel contrari, les dades no eren correctes)
      */
     public Boolean loginUser(String username, String password) {
         try {
@@ -172,6 +175,7 @@ public class ControladorPresentacio {
 
     /**
      * Getter del nom de l'usuari que ha iniciat sessió. Es mostra un error si no s'ha iniciat sessió
+     * @return El nom de l'usuari que ha inciat sessió
      */
     public String getUserName() {
         try {
@@ -296,6 +300,11 @@ public class ControladorPresentacio {
         return null;
     }
 
+    /**
+     * Mètode per obtenir els rànquings de les millors partides per cada dificultat. Per a cada dificultat, hi ha
+     * una llista amb entrades del tipus {username, intents, temps}
+     * @return Rànquings per a cada dificultat
+     */
     public List<List<List<String>>> getRanquings(){
         try {
             return controladorDomini.getRanquings();
@@ -345,6 +354,11 @@ public class ControladorPresentacio {
         return null;
     }
 
+    /**
+     * Mètode per assignar una bola en la partida actual, de la seqüència actual
+     * @param index Índex de la bola dins de la seqüència
+     * @param bola Enter que representa el color de la bola desitjat
+     */
     public void setBola(Integer index, Integer bola) {
         try {
             controladorDomini.setBola(index, bola);
@@ -353,6 +367,10 @@ public class ControladorPresentacio {
         }
     }
 
+    /**
+     * Mètode per validar l'últim intent de la partida que s'està jugant
+     * @return La seqüència amb els feedbacks corresponents a l'intent aportat
+     */
     public List<Integer> validarSequencia() {
         try {
             return controladorDomini.validarSequencia();
@@ -364,6 +382,7 @@ public class ControladorPresentacio {
 
     /**
      * Mètode per saber si el jugador fa de breaker en la partida actual
+     * @return Si el jugador és breaker en la partida actual
      */
     public Boolean isJugadorBreaker() {
         try {
@@ -376,6 +395,7 @@ public class ControladorPresentacio {
 
     /**
      * Mètode per saber si la partida actual està guanyada
+     * @return Si la partida actual està guanyada
      */
     public Boolean isPartidaGuanyada() {
         try {
@@ -388,6 +408,7 @@ public class ControladorPresentacio {
 
     /**
      * Mètode per saber si la partida actual està acabada
+     * @return Si la partida actual està acabada (guanyada o perduda)
      */
     public Boolean isPartidaAcabada() {
         try {
@@ -398,6 +419,10 @@ public class ControladorPresentacio {
         return null;
     }
 
+    /**
+     * Mètode per saber si l'últim intent de la partida actual està ple, és a dir, no té cap bola nul·la
+     * @return Si l'últim intent està ple
+     */
     public Boolean isUltimIntentPle() {
         try {
             return controladorDomini.isUltimIntentPle();
@@ -407,6 +432,9 @@ public class ControladorPresentacio {
         return null;
     }
 
+    /**
+     * Mètode per indicar que l'usuari breaker vol veure la solució de la partida actual, perdent així la partida
+     */
     public void veureSolucio() {
         try {
             controladorDomini.veureSolucio();
@@ -417,6 +445,7 @@ public class ControladorPresentacio {
 
     /**
      * Getter dels mil·lisegons transcorreguts en la partida actual
+     * @return Mil·lisegons transcorreguts en la partida actual
      */
     public Long getTempsPartidaMillis() {
         try {

@@ -1,9 +1,5 @@
 package presentation;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Hashtable;
@@ -23,7 +19,7 @@ public class NovaPartidaBreakerPanel extends JPanel {
     }
 
     private void initSlider() {
-        Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
+        Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
         labelTable.put(1, new JLabel("Facil"));
         labelTable.put(2, new JLabel("Mitja"));
         labelTable.put(3, new JLabel("Dificil"));

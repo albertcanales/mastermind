@@ -2,7 +2,6 @@ package domain;
 
 import exceptions.GeneralException;
 import exceptions.domain.*;
-import exceptions.persistance.PersistanceException;
 import persistance.ControladorPersistencia;
 
 import java.util.List;
@@ -14,15 +13,30 @@ import java.util.Objects;
  */
 public class ControladorDomini {
 
+
+    /**
+     * Instància del controlador de partida
+     */
     private final ControladorPartida controladorPartida;
+
+    /**
+     * Instància del controlador de persistència
+     */
     private final ControladorPersistencia controladorPersistencia;
 
+    /**
+     * Usuari que ha iniciat sessió
+     */
     private User user;
+
+    /**
+     * Rànquing de les partides acabades
+     */
     private Ranquing ranquing;
 
     /**
      * Constructor del Controlador de Domini
-     * @throws GeneralException si no es pot obtenir el rànquing
+     * @throws GeneralException si no es pot iniciar la base de dades
      */
     public ControladorDomini() throws GeneralException {
         controladorPartida = new ControladorPartida();
@@ -74,8 +88,8 @@ public class ControladorDomini {
      * Mètode per iniciar sessió d'un usuari existent
      * @param username username del l'usuari
      * @param password contrasenya de l'usuari
-     * @throws UserNotExistsExeption si l'usuari no existeix
      * @return si la contrasenya donada és correcta
+     * @throws UserNotExistsExeption si l'usuari no existeix
      */
     public Boolean loginUser(String username, String password) throws GeneralException {
         if(!existsUser(username))
@@ -225,7 +239,7 @@ public class ControladorDomini {
      */
     public List<List<List<String>>> getRanquings() throws GeneralException {
         if(ranquing == null)
-            ranquing = new Ranquing(controladorPersistencia.getRanquing());
+            ranquing = new Ranquing(controladorPersistencia.getRanquings());
         return ranquing.getRanquings();
     }
 
@@ -264,8 +278,8 @@ public class ControladorDomini {
 
     /**
      * Getter de victòries
-     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @return Una llista amb el nombre de victòries per a cada nivell de dificultat
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      */
     public List<Integer> getWonGames() throws DomainException {
         if(!userLoggedIn())
@@ -275,8 +289,8 @@ public class ControladorDomini {
 
     /**
      * Getter de victòries
-     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @return Una llista amb el nombre de victòries per a cada nivell de dificultat
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      */
     public List<Integer> getLostGames() throws DomainException {
         if(!userLoggedIn())
@@ -286,8 +300,8 @@ public class ControladorDomini {
 
     /**
      * Getter de ratxa de victòries
-     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @return Una llista amb la màxima ratxa de victòries per a cada nivell de dificultat
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      */
     public List<Integer> getWinstreak() throws DomainException {
         if(!userLoggedIn())
@@ -297,8 +311,8 @@ public class ControladorDomini {
 
     /**
      * Getter de mitjana d'intents com a breaker
-     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @return Una llista amb la mitjana d'intents per a cada dificultat
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      */
     public List<Double> getAverageAsBreaker() throws DomainException {
         if(!userLoggedIn())
@@ -308,8 +322,8 @@ public class ControladorDomini {
 
     /**
      * Getter de mitjana d'intents com a maker
-     * @throws NotLoggedInException si no s'ha iniciat sessió
      * @return Una llista amb la mitjana d'intents que ha necessitat la màquina per a cada algorisme
+     * @throws NotLoggedInException si no s'ha iniciat sessió
      */
     public List<Double> getAverageAsMaker() throws DomainException {
         if(!userLoggedIn())
@@ -319,6 +333,7 @@ public class ControladorDomini {
 
     /**
      * Mètode per saber si el jugador fa de breaker en la partida actual
+     * @return Si el jugador de la partida actual és el breaker
      * @throws DomainException si no s'està jugant cap partida
      */
     public Boolean isJugadorBreaker() throws DomainException {
@@ -327,7 +342,7 @@ public class ControladorDomini {
 
     /**
      * Getter de la solució de la partida actual
-     * @throws NotPlayingPartidaException si no s'està jugant cap partida
+     * @throws DomainException si no s'està jugant cap partida
      * @return La seqüència solució de la partida actual
      */
     public List<Integer> getSolucio() throws DomainException {
@@ -336,7 +351,7 @@ public class ControladorDomini {
 
     /**
      * Getter de tots els intents de la partida actual
-     * @throws NotPlayingPartidaException si no s'està jugant cap partida
+     * @throws DomainException si no s'està jugant cap partida
      * @return Una llista amb tots els intents de la partida actual
      */
     public List<List<Integer>> getIntents() throws DomainException {
@@ -345,7 +360,7 @@ public class ControladorDomini {
 
     /**
      * Getter de tots els feedbacks de la partida actual
-     * @throws NotPlayingPartidaException si no s'està jugant cap partida
+     * @throws DomainException si no s'està jugant cap partida
      * @return Una llista amb tots els feedbacks de la partida actual
      */
     public List<List<Integer>> getFeedbacks() throws DomainException {
@@ -354,7 +369,8 @@ public class ControladorDomini {
 
     /**
      * Getter dels mil·lisegons transcorreguts en la partida actual
-     * @throws NotPlayingPartidaException si no s'està jugant cap partida
+     * @return Els mil·lisegons que han transcorregut en la partida actual
+     * @throws DomainException si no s'està jugant cap partida
      */
     public Long getTempsPartidaMillis() throws DomainException {
         return controladorPartida.getTempsMillis();
@@ -362,8 +378,8 @@ public class ControladorDomini {
 
     /**
      * Mètode per afegir temps transcorregut a la partida actual
-     * @throws NotPlayingPartidaException si no s'està jugant cap partida
      * @param millis mi·lisegons a afegir
+     * @throws GeneralException si no s'està jugant cap partida o no es pot assignar a persistència
      */
     public void addTempsPartidaMillis(Long millis) throws GeneralException {
         controladorPartida.addTempsMillis(millis);
@@ -373,7 +389,7 @@ public class ControladorDomini {
     /**
      * Mètode per assignar la solució com a vista de la partida actual
      * També dona la partida com a perduda
-     * @throws DomainException si no s'està jugant cap partida
+     * @throws GeneralException Si no s'està jugant cap partida o no es poden actualitzar les estadístiques
      */
     public void veureSolucio() throws GeneralException {
         controladorPartida.veureSolucio();
@@ -391,8 +407,7 @@ public class ControladorDomini {
      * Mètode per a col·locar una bola en l'intent actual de la partida actual
      * @param index La posició on es vol col·locar la bola
      * @param bola La bola que es vol col·locar
-     * @throws DomainException si bola no és una Bola vàlida
-     * @throws NotPlayingPartidaException si no s'està jugant cap partida
+     * @throws GeneralException si bola no és vàlida o no es pot assignar a persistència
      */
     public void setBola(Integer index, Integer bola) throws GeneralException {
         controladorPartida.setBola(index, bola);
@@ -403,8 +418,7 @@ public class ControladorDomini {
      * Mètode per a validar l'intent actual en la partida actual
      * Si acaba la partida, també s'actualitzen les estadístiques i rànquings
      * @return El feedback corresponent a l'intent donat
-     * @throws DomainException si el tamany d'alguna list no és correcte
-     * @throws NotPlayingPartidaException si no s'està jugant cap partida
+     * @throws GeneralException si el tamany d'alguna list no és correcte o no es pot fer la modificació a persistència
      */
     public List<Integer> validarSequencia() throws GeneralException {
         if(!userLoggedIn())
@@ -421,9 +435,8 @@ public class ControladorDomini {
                     user.getCurrentWinStreak(), user.getWinStreak(), user.getAvgAsMaker(), user.getAvgAsBreaker(), user.getNumGamesAsMaker());
             if (guanyada){
                 ranquing.acabarPartidaBreaker(user.getUsername(), nivellDificultat, numIntents, temps);
-                controladorPersistencia.setRanquing(ranquing.getRanquings());
+                controladorPersistencia.setRanquings(ranquing.getRanquings());
             }
-
         }
         controladorPersistencia.setFeedbacksPartidaGuardada(user.getUsername(), controladorPartida.getFeedbacks());
         controladorPersistencia.setIntentsPartidaGuardada(user.getUsername(), controladorPartida.getIntents());
@@ -447,21 +460,15 @@ public class ControladorDomini {
     /**
      * Mètode per saber si una partida està guanyada
      * @throws DomainException si no s'està jugant cap partida
+     * @return Si la partida actual està guanyada
      */
     public Boolean isPartidaGuanyada() throws DomainException {
         return controladorPartida.isPartidaGuanyada();
     }
 
     /**
-     * Mètode per saber si una partida està perduda
-     * @throws DomainException si no s'està jugant cap partida
-     */
-    public Boolean isPartidaPerduda() throws DomainException {
-        return controladorPartida.isPartidaPerduda();
-    }
-
-    /**
      * Mètode per saber si una partida està acabada
+     * @return Si la partida que s'està jugant està acabada
      * @throws DomainException si no s'està jugant cap partida
      */
     public Boolean isPartidaAcabada() throws DomainException {
@@ -470,6 +477,7 @@ public class ControladorDomini {
 
     /**
      * Mètode per saber si l'últim intent està ple
+     * @return Si l'últim intent de la partida actual està ple
      * @throws DomainException si no s'està jugant cap partida
      */
     public Boolean isUltimIntentPle() throws DomainException {

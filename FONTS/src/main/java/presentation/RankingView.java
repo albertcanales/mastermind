@@ -26,8 +26,6 @@ public class RankingView {
 
     private ArrayList<JTable> rankingTableList;
 
-    private List<List<List<String>>> ranking;
-
     private final int NUM_RANKINGS = 3;
 
     /**
@@ -68,7 +66,7 @@ public class RankingView {
     }
 
     private void initRanking() {
-        ranking = controladorPresentacio.getRanquings();
+        List<List<List<String>>> ranking = controladorPresentacio.getRanquings();
 
         for (int i = 0; i < NUM_RANKINGS; ++i) fillRanking(i, ranking.get(i));
     }

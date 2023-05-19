@@ -15,19 +15,95 @@ import java.util.List;
  * @author Kamil Przybyszewski
  */
 class User {
+
+    /**
+     * Nom complet de l'usuari
+     */
     private final String name;
+
+    /**
+     * Nom identificador de l'usuari
+     */
     private final String username;
+
+    /**
+     * Mínim nombre d'intents per guanyar una partida en cada dificultat
+     */
     private List<Integer> personalRecord;
+
+    /**
+     * Temps total jugat com a breaker en cada dificultat
+     */
     private List<Long> timePlayedFinishedGames;
+
+    /**
+     * Nombre de partides guanyades per cada dificultat
+     */
     private List<Integer> wonGames;
+
+    /**
+     * Nombre de partides perdudes per cada dificultat
+     */
     private List<Integer> lostGames;
+
+    /**
+     * Ratxa actual de victòries en cada dificultat
+     */
     private List<Integer> currentWinStreak;
+
+    /**
+     * Millor ratxa de victòries en cada dificultat
+     */
     private List<Integer> winStreak;
+
+    /**
+     * Mitjana del nombre d'intents de les partides guanyades com a breaker en cada dificultat
+     */
     private List<Double> averageAsBreaker;
 
-
+    /**
+     * Mitjana d'intents de les partides com a maker en cada tipus d'algorisme
+     */
     private List<Double> averageAsMaker;
+
+    /**
+     * Nombre de partides acabades com a maker
+     */
     private List<Integer> numGamesAsMaker;
+
+    /**
+     * Constructor d'un usuari nou, amb les estadístiques a 0
+     * @param name nom de l'usuari
+     * @param username username de l'usuari
+     */
+    User(String name, String username) {
+        this.name = name;
+        this.username = username;
+
+        initializeBreakerStats();
+        initializeMakerStats();
+    }
+
+    /**
+     * Constructor d'un usuari ja existent
+     */
+    User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws DomainException {
+        comprovaSizeStats(personalRecord, timePlayed, wonGames, lostGames, currentWinStreak, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
+
+        this.name = name;
+        this.username = username;
+
+        this.personalRecord = new ArrayList<>(personalRecord);
+        this.timePlayedFinishedGames = new ArrayList<>(timePlayed);
+        this.wonGames = new ArrayList<>(wonGames);
+        this.lostGames = new ArrayList<>(lostGames);
+        this.currentWinStreak = new ArrayList<>(currentWinStreak);
+        this.winStreak = new ArrayList<>(winStreak);
+        this.averageAsBreaker = new ArrayList<>(avgAsBreaker);
+
+        this.averageAsMaker = new ArrayList<>(avgAsMaker);
+        this.numGamesAsMaker = new ArrayList<>(numGamesAsMaker);
+    }
 
     /**
      * Mètode per assignar el valor inicial a les estadístiques com a CodeBreaker de l'usuari
@@ -100,8 +176,8 @@ class User {
         currentWinStreak.set(indexTotal, Collections.max(currentWinStreak.subList(0,indexTotal)));
         winStreak.set(indexTotal, Collections.max(winStreak.subList(0,indexTotal)));
 
-        Double avgTotal = 0d;
-        Integer playedDifficulties = 0;
+        double avgTotal = 0d;
+        int playedDifficulties = 0;
         for (int i = 0; i < indexTotal; ++i) {
             Double iAvg = averageAsBreaker.get(i);
             if (iAvg != 0d) {
@@ -116,8 +192,8 @@ class User {
     private void calculaTotalStatsMaker() {
         int indexTotal = TipusAlgorisme.numAlgorismes();
 
-        Double avgTotal = 0d;
-        Integer playedAlgorismes = 0;
+        double avgTotal = 0d;
+        int playedAlgorismes = 0;
         for (int i = 0; i < indexTotal; ++i) {
             Double iAvg = averageAsMaker.get(i);
             if (iAvg != 0d) {
@@ -128,40 +204,6 @@ class User {
         if (playedAlgorismes != 0) avgTotal = avgTotal/ playedAlgorismes;
         averageAsMaker.set(indexTotal, avgTotal);
         numGamesAsMaker.set(indexTotal, numGamesAsMaker.subList(0,indexTotal).stream().reduce(0, Integer::sum));
-    }
-
-    /**
-     * Constructor d'un usuari nou, amb les estadístiques a 0
-     * @param name nom de l'usuari
-     * @param username username de l'usuari
-     */
-    User(String name, String username) {
-        this.name = name;
-        this.username = username;
-
-        initializeBreakerStats();
-        initializeMakerStats();
-    }
-
-    /**
-     * Constructor d'un usuari ja existent
-     */
-    User(String name, String username, List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws DomainException {
-        comprovaSizeStats(personalRecord, timePlayed, wonGames, lostGames, currentWinStreak, winStreak, avgAsBreaker, avgAsMaker, numGamesAsMaker);
-
-        this.name = name;
-        this.username = username;
-
-        this.personalRecord = new ArrayList<>(personalRecord);
-        this.timePlayedFinishedGames = new ArrayList<>(timePlayed);
-        this.wonGames = new ArrayList<>(wonGames);
-        this.lostGames = new ArrayList<>(lostGames);
-        this.currentWinStreak = new ArrayList<>(currentWinStreak);
-        this.winStreak = new ArrayList<>(winStreak);
-        this.averageAsBreaker = new ArrayList<>(avgAsBreaker);
-
-        this.averageAsMaker = new ArrayList<>(avgAsMaker);
-        this.numGamesAsMaker = new ArrayList<>(numGamesAsMaker);
     }
 
     /**

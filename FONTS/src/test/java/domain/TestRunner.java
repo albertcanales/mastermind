@@ -4,7 +4,16 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
+/**
+ * Classe per poder executar els tests en forma de JAR
+ * @author Albert Canales Ros
+ */
 public class TestRunner {
+
+    /**
+     * Punt d'entrada per executar els tests
+     * @param myclass La classe de test que es vol provar
+     */
     public static void runTestClass(Class<?> myclass) {
         System.out.printf("Testing %s ", myclass.getName());
         Result result = JUnitCore.runClasses(myclass);

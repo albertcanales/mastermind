@@ -15,10 +15,29 @@ import java.util.List;
  */
 class ControladorPartida {
 
+    /**
+     * Estat de la partida actual
+     */
     private Partida partida;
+
+    /**
+     * Dificultat de la partida actual
+     */
     private Dificultat dificultat;
+
+    /**
+     * Taulell de la partida actual
+     */
     private Taulell taulell;
+
+    /**
+     * BotBreaker de la partida actual (null si ho és el jugador)
+     */
     private BotBreaker botBreaker;
+
+    /**
+     * BotMaker de la partida actual (null si ho és el jugador)
+     */
     private BotMaker botMaker;
 
     /**
@@ -186,6 +205,7 @@ class ControladorPartida {
     /**
      * Getter del nombre de boles d'una seqüència
      */
+    @SuppressWarnings("SameReturnValue")
     static Integer getNumBoles() {
         return Taulell.NUMBOLES;
     }
@@ -305,7 +325,9 @@ class ControladorPartida {
     /**
      * Mètode per saber si l'últim intent està ple
      */
-    Boolean isUltimIntentPle() {
+    Boolean isUltimIntentPle() throws DomainException {
+        if(!isPartidaPresent())
+            throw new NotPlayingPartidaException();
         return taulell.isUltimIntentPle();
     }
 

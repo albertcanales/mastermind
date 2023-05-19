@@ -16,13 +16,14 @@ enum Bola {
     TARONJA(5),
     ROSA(6);
 
-
+    /**
+     * Nombre que representa la bola
+     */
     private final int number;
 
     /**
      * Constructor a partir de l'enter que representa el color
-     *
-     * @param number és el valor que representa el nivell de dificultat
+     * @param number és el valor que representa la bola
      */
     Bola(int number) {
         this.number = number;
@@ -56,10 +57,10 @@ enum Bola {
 
     /**
      * Mètode per saber si un número representa una Bola vàlida (inclou NUL!)
-     *
      * @param num un enter representa una bola
      * @return un booleà cert si la bola és vàlida
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isValid(int num) {
         return (num >= NUL.number()) && (num <= numColors());
     }
