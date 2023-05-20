@@ -1,6 +1,6 @@
 package domain;
 
-import exceptions.domain.DomainException;
+import exceptions.domain.*;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -31,7 +31,7 @@ public class RanquingTests {
     }
 
     @Test
-    public void createNewRanquing() {
+    public void createNewRanquing() throws DomainException{
 
         List<List<List<String>>> emptyRanquing = new ArrayList<>();
         for(int i = 0; i < 3; i++)
@@ -46,13 +46,19 @@ public class RanquingTests {
     }
 
     @Test
-    public void createExistingRanquing() {
+    public void createExistingRanquing() throws DomainException{
 
         Ranquing ranquing = new Ranquing(ranquingTest);
         List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         assertNotSame(ranquingExpected, ranquingList);
         assertEquals(ranquingExpected, ranquingList);
+    }
+    @Test
+    public void createExistingRanquingWithInvalidNumRanquings() throws DomainException{
+        ranquingTest.remove(2);
+
+        assertThrows(InvalidNumRanquingsException.class, () -> new Ranquing(ranquingTest));
     }
 
     @Test
@@ -78,7 +84,7 @@ public class RanquingTests {
     public void updateForFinishedWorstGame() throws DomainException {
 
         Ranquing ranquing = new Ranquing(ranquingTest);
-        ranquing.acabarPartidaBreaker("Doraemon", 1, 6, 100L);
+        ranquing.acabarPartidaBreaker("Doraemon", 1, 10, 100L);
         List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         ranquingExpected = new ArrayList<>();
@@ -87,7 +93,7 @@ public class RanquingTests {
         }
         ranquingExpected.get(0).add(List.of("albert", "2", "100"));
         ranquingExpected.get(0).add(List.of("mar", "4", "200"));
-        ranquingExpected.get(0).add(List.of("Doraemon","6","100"));
+        ranquingExpected.get(0).add(List.of("Doraemon","10","100"));
 
         ranquingExpected.get(1).add(List.of("arnau", "5", "400"));
         ranquingExpected.get(1).add(List.of("kamil", "7", "300"));
@@ -182,10 +188,28 @@ public class RanquingTests {
         assertEquals(ranquingExpected, ranquingList);
     }
     @Test
-    public void esborraUserFromRanquing() {
+    public void updateForFinishedBreakerGameInvalidDificultat() throws DomainException {
+        Ranquing ranquing = new Ranquing(ranquingTest);
+        assertThrows(InvalidEnumValueException.class, () -> ranquing.acabarPartidaBreaker("Doraemon",5,5,5L));
+    }
+
+    @Test
+    public void updateForFinishedBreakerGameInvalidIntentsStat() throws DomainException {
+        Ranquing ranquing = new Ranquing(ranquingTest);
+        assertThrows(InvalidStatIntentsException.class, () -> ranquing.acabarPartidaBreaker("Doraemon",3,0,5L));
+    }
+
+    @Test
+    public void updateForFinishedBreakerGameInvalidTempsStat() throws DomainException {
+        Ranquing ranquing = new Ranquing(ranquingTest);
+        assertThrows(InvalidStatTempsException.class, () -> ranquing.acabarPartidaBreaker("Doraemon",3,5,-1L));
+    }
+
+    @Test
+    public void esborraUserFromRanquing() throws DomainException{
 
         Ranquing ranquing = new Ranquing(ranquingTest);
-        ranquing.esborrarUserFromRanquing("mar");
+        ranquing.esborrarUserFromRanquings("mar");
         List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         ranquingTest = new ArrayList<>();
@@ -200,10 +224,10 @@ public class RanquingTests {
         assertEquals(ranquingExpected, ranquingList);
     }
     @Test
-    public void esborraTopUserFromRanquing() {
+    public void esborraTopUserFromRanquing() throws DomainException{
 
         Ranquing ranquing = new Ranquing(ranquingTest);
-        ranquing.esborrarUserFromRanquing("arnau");
+        ranquing.esborrarUserFromRanquings("arnau");
         List<List<List<String>>> ranquingList = ranquing.getRanquings();
 
         ranquingTest = new ArrayList<>();

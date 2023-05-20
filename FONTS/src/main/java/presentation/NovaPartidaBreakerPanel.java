@@ -4,20 +4,39 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Hashtable;
 
+/**
+ * Panell amb les opcions per crear una nova partida com a breaker
+ * @author Kamil Przybyszewski
+ */
 class NovaPartidaBreakerPanel extends JPanel {
 
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+    /**
+     * Slider per determinar la dificultat de la nova partida
+     */
     private JSlider sliderDificultat;
 
+    /**
+     * Constructor per defecte del panell
+     */
     NovaPartidaBreakerPanel() {
         $$$setupUI$$$();
         initComponents();
     }
 
+    /**
+     * Mètode per inicialitzar els components del panell
+     */
     private void initComponents() {
         initSlider();
     }
 
+    /**
+     * Mètode per inicialitzar el slider amb el que es determina la dificultat
+     */
     private void initSlider() {
         Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
         labelTable.put(1, new JLabel("Facil"));
@@ -26,6 +45,10 @@ class NovaPartidaBreakerPanel extends JPanel {
         sliderDificultat.setLabelTable(labelTable);
     }
 
+    /**
+     * Mètode per retornar la dificultat seleccionada per la nova partida
+     * @return dificultat seleccionada al slider
+     */
     Integer getDificultat() {
         return sliderDificultat.getValue();
     }

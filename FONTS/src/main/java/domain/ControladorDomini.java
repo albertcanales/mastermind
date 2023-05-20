@@ -227,7 +227,7 @@ public class ControladorDomini {
 
     /**
      * Mètode per carregar la partida guardada on el jugador és breaker
-     * @throws DomainException si el tamany d'alguna list no és correcte
+     * @throws DomainException si la mida d'alguna list no és correcte
      */
     private void carregarPartidaBreaker(String username, List<List<Integer>> intents,
                                         List<List<Integer>> feedbacks, List<Integer> solucio) throws GeneralException {
@@ -239,7 +239,7 @@ public class ControladorDomini {
 
     /**
      * Mètode per carregar la partida guardada on el jugador és maker
-     * @throws DomainException si el tamany d'alguna list no és correcte
+     * @throws DomainException si la mida d'alguna list no és correcte
      */
     private void carregarPartidaMaker(String username, List<List<Integer>> intents,
                                       List<List<Integer>> feedbacks, List<Integer> solucio) throws GeneralException {
@@ -359,8 +359,8 @@ public class ControladorDomini {
 
     /**
      * Getter de la solució de la partida actual
-     * @throws DomainException si no s'està jugant cap partida
      * @return La seqüència solució de la partida actual
+     * @throws DomainException si no s'està jugant cap partida
      */
     public List<Integer> getSolucio() throws DomainException {
         return controladorPartida.getSequenciaSolucio();
@@ -368,8 +368,8 @@ public class ControladorDomini {
 
     /**
      * Getter de tots els intents de la partida actual
-     * @throws DomainException si no s'està jugant cap partida
      * @return Una llista amb tots els intents de la partida actual
+     * @throws DomainException si no s'està jugant cap partida
      */
     public List<List<Integer>> getIntents() throws DomainException {
         return controladorPartida.getIntents();
@@ -435,7 +435,7 @@ public class ControladorDomini {
      * Mètode per a validar l'intent actual en la partida actual
      * Si acaba la partida, també s'actualitzen les estadístiques i rànquings
      * @return El feedback corresponent a l'intent donat
-     * @throws GeneralException si el tamany d'alguna list no és correcte o no es pot fer la modificació a persistència
+     * @throws GeneralException si la mida d'alguna list no és correcte o no es pot fer la modificació a persistència
      */
     public List<Integer> validarSequencia() throws GeneralException {
         if(!userLoggedIn())
@@ -514,7 +514,7 @@ public class ControladorDomini {
     /**
      * Mètode per esborrar l'usuari que ha iniciat sessió
      * També tanca la sessió automàticament
-     * @throws DomainException si no s'està jugant cap partida
+     * @throws DomainException si no s'ha iniciat sessió
      */
     public void esborrarUsuari() throws GeneralException {
         if(!userLoggedIn())
@@ -524,5 +524,7 @@ public class ControladorDomini {
         controladorPersistencia.esborrarUsuari(username);
         if (controladorPersistencia.existsPartidaGuardada(username))
             controladorPersistencia.esborrarPartida(username);
+        ranquing.esborrarUserFromRanquings(username);
+        controladorPersistencia.setRanquings(ranquing.getRanquings());
     }
 }

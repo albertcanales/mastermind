@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Classe que representa a un usuari del Joc i les seves estadístiques
+ * Classe que representa a un usuari del Mastermind i les seves estadístiques
  * @author Kamil Przybyszewski
  */
 class User {
@@ -144,7 +144,7 @@ class User {
     }
 
     /**
-     * Mètode per comprovar els tamanys de les estadístiques
+     * Mètode per comprovar les mides de les llistes d'estadístiques
      */
     private void comprovaSizeStats(List<Integer> personalRecord, List<Long> timePlayed, List<Integer> wonGames, List<Integer> lostGames, List<Integer> currentWinStreak, List<Integer> winStreak, List<Double> avgAsBreaker, List<Double> avgAsMaker, List<Integer> numGamesAsMaker) throws InvalidStatSizeException {
         Integer sizeDificultats = NivellDificultat.numDificultats()+1;
@@ -161,13 +161,16 @@ class User {
         if (!numAlgoritmes.equals(numGamesAsMaker.size())) throw new InvalidStatSizeException("numGamesAsMaker", numGamesAsMaker.size());
     }
 
+    /**
+     * Mètode per calcular el valor de les estadístiques totals com a CodeBreaker de l'usuari
+     */
     private void calculaTotalStatsBreaker() {
         int indexTotal = NivellDificultat.numDificultats();
 
-        Integer minPR = personalRecord.get(0);
+        Integer minPR = 0;
         for (int i = 0; i < indexTotal; ++i) {
             Integer iPR = personalRecord.get(i);
-            if (iPR != 0 && iPR < minPR) minPR = iPR;
+            if (minPR == 0 || (iPR != 0 && iPR < minPR)) minPR = iPR;
         }
         personalRecord.set(indexTotal, minPR);
         timePlayedFinishedGames.set(indexTotal, timePlayedFinishedGames.subList(0,indexTotal).stream().reduce(0L, Long::sum));
@@ -189,6 +192,9 @@ class User {
         averageAsBreaker.set(indexTotal, avgTotal);
     }
 
+    /**
+     * Mètode per calcular el valor de les estadístiques totals com a CodeMaker de l'usuari
+     */
     private void calculaTotalStatsMaker() {
         int indexTotal = TipusAlgorisme.numAlgorismes();
 
@@ -215,7 +221,7 @@ class User {
      */
     void acabarPartidaBreaker(Integer dificultat, Integer intents, Boolean guanyada, Long temps) throws DomainException {
         if (!NivellDificultat.isValid(dificultat)) throw new InvalidEnumValueException("NivellDificultat", dificultat.toString());
-        if (intents < 0) throw new InvalidStatIntentsException(intents.toString());
+        if (intents < 0 || (guanyada && intents==0)) throw new InvalidStatIntentsException(intents.toString());
         if (temps < 0L) throw new InvalidStatTempsException(temps.toString());
 
         dificultat--; //Els valors de NivellDificultat comencen a 1
@@ -227,15 +233,14 @@ class User {
         Long newTimePlayed = timePlayedFinishedGames.get(dificultat) + temps;
         timePlayedFinishedGames.set(dificultat,newTimePlayed);
 
-        Integer numGamesAsBreaker = wonGames.get(dificultat)+lostGames.get(dificultat);
-        int totalIntents = (int) (averageAsBreaker.get(dificultat)*numGamesAsBreaker);
-        totalIntents += intents;
-        numGamesAsBreaker++;
-        Double newAvg = (double) totalIntents /numGamesAsBreaker;
-        averageAsBreaker.set(dificultat, newAvg);
-
         if (guanyada) {
-            Integer numwon = wonGames.get(dificultat) + 1;
+            Integer numwon = wonGames.get(dificultat);
+            int totalIntents = (int) (averageAsBreaker.get(dificultat)*numwon);
+            totalIntents += intents;
+            numwon++;
+            Double newAvg = (double) totalIntents /numwon;
+            averageAsBreaker.set(dificultat, newAvg);
+
             wonGames.set(dificultat, numwon);
             Integer streak = currentWinStreak.get(dificultat) + 1;
             currentWinStreak.set(dificultat, streak);
@@ -348,7 +353,7 @@ class User {
     }
 
     /**
-     * Mètode determinar si els paràmetres d'usuari són adequats (bon format)
+     * Mètode per determinar si els paràmetres d'usuari són adequats (bon format)
      * @param username contrasenya a comprovar
      * @param name nom a comprovar
      * @param password contrasenya a comprovar
