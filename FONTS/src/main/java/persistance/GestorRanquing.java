@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Gestor del Rànquing guardat a ranquing/facil.csv, ranquing/normal.csv i ranquing/dificil.csv
+ * @author Arnau Valls Fusté
  */
 class GestorRanquing {
     /**

@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * Gestor dels Usuaris guardats a users/users.csv
- *
  * @author Arnau Valls Fusté
  */
 class GestorUsuaris {
@@ -73,7 +72,7 @@ class GestorUsuaris {
      * Retorna a la columna PASSWORD del CSV
      * @param username nom d'usuari (clau)
      * @return l'String del PASSWORD
-     * @throws PersistanceException
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
      */
     String getPasswordHash(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
@@ -88,7 +87,7 @@ class GestorUsuaris {
      * Retorna a la columna USERNAME del CSV
      * @param username nom d'usuari (clau)
      * @return l'String del USERNAME
-     * @throws PersistanceException
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
      */
     String getUserName(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {

@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * Gestor de les PartidesActuals
- *
  * @author Arnau Valls Fusté
  */
 class GestorPartidesActuals {
