@@ -10,20 +10,45 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Panell amb les opcions per crear una nova partida com a maker
+ * @author Kamil Przybyszewski
+ */
 class NovaPartidaMakerPanel extends JPanel implements Observer {
 
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+    /**
+     * Botó d'opció per seleccionar FiveGuess com l'algorisme del bot per a la nova partida
+     */
     private JRadioButton radioButtonFiveGuess;
+    /**
+     * Botó d'opció per seleccionar Genetic com l'algorisme del bot per a la nova partida
+     */
     private JRadioButton radioButtonGenetic;
+    /**
+     * Component amb els botons de selecció de la seqüència solució per a la nova partida
+     */
     private SequenciaPanel solucioPanel;
 
+    /**
+     * Llista amb la seqüència solució per a la nova partida
+     */
     private List<Integer> solucioList;
 
+    /**
+     * Constructor per defecte del panell
+     */
     NovaPartidaMakerPanel() {
         $$$setupUI$$$();
         initComponents();
     }
 
+    /**
+     * Mètode per inicialitzar els components del panell
+     */
     private void initComponents() {
         solucioList = new ArrayList<>();
         for (int i = 0; i < SequenciaPanel.SEQUENCIA_SIZE; i++) {
@@ -33,15 +58,27 @@ class NovaPartidaMakerPanel extends JPanel implements Observer {
         solucioPanel.attachToBoles(this);
     }
 
+    /**
+     * Mètode per retornar l'algorisme del bot seleccionat per a la nova partida
+     * @return algorisme tal que el seu botó d'opció està seleccionat
+     */
     Integer getAlgorisme() {
         if (radioButtonFiveGuess.isSelected()) return 1;
         else return 2; //radioButtonGenetic.isSelected()
     }
 
+    /**
+     * Mètode per retornar la seqüència solució seleccionada per a la nova partida
+     * @return seqüència configurada mitjançant la component amb els botons de selecció de la solució
+     */
     List<Integer> getSolucio() {
         return solucioPanel.getSequenciaColors();
     }
 
+    /**
+     * Mètode perquè per cada actualització dels botons de selecció de la solució, adoptin el color seleccionat
+     * @param s Botó de selecció del qual prové la notificació
+     */
     @Override
     public void Update(Subject s) {
         int index = Integer.parseInt(((BolaButton) s).getID().substring(1));

@@ -22,11 +22,23 @@ class RankingView {
      * Botó per tornar a la pantalla d'inici o home, segons si un usuari ha iniciat sessió
      */
     private JButton buttonTorna;
+    /**
+     * Panell per tabular entre els diferents ranquings
+     */
     private JTabbedPane tabbedPane;
 
+    /**
+     * Llista de les taules on es guarden els ranquings i que es presentaran a la View
+     */
     private ArrayList<JTable> rankingTableList;
 
+    /**
+     * Numero de ranquings
+     */
     private final int NUM_RANKINGS = 3;
+    /**
+     * Numero de files màximes que es presenten del ranquing
+     */
     private final int MAX_ROWS = 20;
 
     /**
@@ -55,23 +67,37 @@ class RankingView {
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialOrHomeView());
     }
 
+    /**
+     * Mètode per inicialitzar la llista de les taules on es guarden els ranquings
+     */
     private void initRankingTableList() {
         rankingTableList = new ArrayList<>();
         for (int i = 0; i < NUM_RANKINGS; ++i) rankingTableList.add(new JTable());
     }
 
-    private void initTabbedPanel() {
-        tabbedPane.addTab("Fàcil", new JScrollPane(rankingTableList.get(0)));
-        tabbedPane.addTab("Mig", new JScrollPane(rankingTableList.get(1)));
-        tabbedPane.addTab("Difícil", new JScrollPane(rankingTableList.get(2)));
-    }
-
+    /**
+     * Mètode per inicialitzar cada taula amb el corresponent ranquing
+     */
     private void initRanking() {
         List<List<List<String>>> ranking = controladorPresentacio.getRanquings(MAX_ROWS);
 
         for (int i = 0; i < NUM_RANKINGS; ++i) fillRanking(i, ranking.get(i));
     }
 
+    /**
+     * Mètode per inicialitzar els panells tabulats amb les taules que contenen els ranquings
+     */
+    private void initTabbedPanel() {
+        tabbedPane.addTab("Fàcil", new JScrollPane(rankingTableList.get(0)));
+        tabbedPane.addTab("Mig", new JScrollPane(rankingTableList.get(1)));
+        tabbedPane.addTab("Difícil", new JScrollPane(rankingTableList.get(2)));
+    }
+
+    /**
+     * Mètode que inicialitza una taula de la llista de taules amb un ranquing, afegint-li la columna de posició dins el ranquing
+     * @param index índex de la taula a inicialitzar dins la llista de taules
+     * @param ranking Llista amb les partides ordenades que representa el ranquing
+     */
     private void fillRanking(int index, List<List<String>> ranking) {
         String[] columnNames = {"#", "Username", "Intents", "Temps"};
         int rankingSize = ranking.size();

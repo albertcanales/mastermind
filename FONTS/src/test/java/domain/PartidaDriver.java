@@ -483,7 +483,7 @@ class PartidaDriver extends ControladorDriver {
      * @throws DomainException Si hi ha cap error no controlat
      */
     public static void main(String[] args) throws DomainException {
-        cp = new ControladorPartida();
+        cp = ControladorPartida.getInstance();
         in = new Scanner(System.in);
         System.out.println("A continuació es mostren les comandes possibles:");
         showUsage();

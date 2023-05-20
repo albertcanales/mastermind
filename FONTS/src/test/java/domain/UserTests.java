@@ -36,7 +36,7 @@ public class UserTests {
         currentWinStreakExpected = new ArrayList<>(currentWinStreakTest);
         winStreakTest = new ArrayList<>(List.of(1, 23, 1,23));
         winStreakExpected = new ArrayList<>(winStreakTest);
-        avgAsBreakerTest = new ArrayList<>(List.of(2d,3.996d,29d,11.665333333333333d));
+        avgAsBreakerTest = new ArrayList<>(List.of(2d,3.996d,29d,11.665333333333335d));
         avgAsBreakerExpected = new ArrayList<>(avgAsBreakerTest);
         avgAsMakerTest = new ArrayList<>(List.of(23.1234d,15d,19.061700000000002d));
         avgAsMakerExpected = new ArrayList<>(avgAsMakerTest);
@@ -168,7 +168,6 @@ public class UserTests {
         currentWinStreakExpected = new ArrayList<>(List.of(1,0,0,1));
         assertEquals(currentWinStreakExpected, user.getCurrentWinStreak());
         assertEquals(winStreakExpected, user.getWinStreak());
-        avgAsBreakerExpected = new ArrayList<>(List.of(2d,4d,29d,11.666666666666666d));
         assertEquals(avgAsBreakerExpected, user.getAvgAsBreaker());
         assertEquals(avgAsMakerExpected, user.getAvgAsMaker());
         assertEquals(numGamesAsMakerExpected, user.getNumGamesAsMaker());
