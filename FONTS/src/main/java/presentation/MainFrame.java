@@ -4,11 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Frame de l'aplicació
+ * Classe per encapsular el frame de l'aplicació
  * @author Albert Canales
  */
 public class MainFrame{
 
+    /**
+     * Frame de l'aplicació
+     */
     private final JFrame frame;
 
     /**

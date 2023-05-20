@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Classe que representa la dificultat fàcil d'una partida
+ * @author Kamil Przybyszewski
+ */
 class DificultatFacil extends Dificultat {
 
     /**

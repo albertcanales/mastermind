@@ -10,7 +10,6 @@ import java.util.Locale;
 
 /**
  * Vista de l'inici de sessió d'un usuari
- *
  * @author Mar Gonzàlez Català
  */
 public class LoginView {

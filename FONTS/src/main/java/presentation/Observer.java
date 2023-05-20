@@ -2,7 +2,7 @@ package presentation;
 
 /**
  * Observer del patró de disseny Subjecte-Observer
- * @author Albert Canales (Teoria)
+ * @author Teoria
  */
 interface Observer {
 

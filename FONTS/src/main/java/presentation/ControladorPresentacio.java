@@ -303,6 +303,7 @@ public class ControladorPresentacio {
     /**
      * Mètode per obtenir els rànquings de les millors partides per cada dificultat. Per a cada dificultat, hi ha
      * una llista amb entrades del tipus {username, intents, temps}
+     * @param max_rows Nombre màxim d'entrades a rebre per cada rànquing
      * @return Rànquings per a cada dificultat
      */
     public List<List<List<String>>> getRanquings(Integer max_rows){
@@ -327,6 +328,10 @@ public class ControladorPresentacio {
         }
     }
 
+    /**
+     * Mètode per obtenir tots els intents de la partida actual
+     * @return Llista amb tots els intents de la partida actual
+     */
     List<List<Integer>> getIntents() {
         try {
             return controladorDomini.getIntents();
@@ -336,6 +341,10 @@ public class ControladorPresentacio {
         return null;
     }
 
+    /**
+     * Mètode per obtenir tots els feedbacks de la partida actual
+     * @return Llista amb tots els feedbacks de la partida actual
+     */
     List<List<Integer>> getFeedbacks() {
         try {
             return controladorDomini.getFeedbacks();
@@ -345,6 +354,10 @@ public class ControladorPresentacio {
         return null;
     }
 
+    /**
+     * Mètode per obtenir la solució de la partida actual
+     * @return Seqüència solució de la partida actual
+     */
     List<Integer> getSolucio() {
         try {
             return controladorDomini.getSolucio();

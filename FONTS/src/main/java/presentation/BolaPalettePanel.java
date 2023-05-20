@@ -92,6 +92,7 @@ public class BolaPalettePanel implements Observer {
 
     /**
      * Mètode per saber si hi ha cap color seleccionat
+     * @return Si hi ha cap botó seleccionat
      */
     Boolean isColorSelected() {
         return selectedColor != null;
@@ -99,6 +100,7 @@ public class BolaPalettePanel implements Observer {
 
     /**
      * Getter del color seleccionat
+     * @return BolaColor del botó seleccionat (o null si no n'hi ha cap)
      */
     BolaColor getSelectedColor() {
         return selectedColor;

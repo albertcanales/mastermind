@@ -12,23 +12,64 @@ import java.util.List;
  */
 public class PartidaMakerView {
 
+    /**
+     * Període al que mostrar les iteracions de la partida en la simulació
+     */
     private static final Integer PERIOD_TIMER_MILLIS = 1000;
 
     /**
      * Controlador de presentació
      */
     private final ControladorPresentacio controladorPresentacio;
+
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+
+    /**
+     * Botó per tornar a la vista anterior (HomeView)
+     */
     private JButton tornaButton;
+
+    /**
+     * Panell del taulell de la partida
+     */
     private TaulellPanel taulellPanel;
+
+    /**
+     * Botó per parar la simulació
+     */
     private JButton buttonParar;
+
+    /**
+     * Botó per acabar la simulació
+     */
     private JButton buttonAcabar;
+
+    /**
+     * Botó per començar/seguir la simulació
+     */
     private JButton buttonReproduir;
 
+    /**
+     * Llista dels intents de la partida
+     */
     private List<List<Integer>> intentList;
+
+    /**
+     * Llista dels feedbacks de la partida
+     */
     private List<List<Integer>> feedbackList;
 
+    /**
+     * Índex de l'últim intent que es mostra en la simulació
+     */
     private Integer numIntentActual;
+
+    /**
+     * Timer per la simulació
+     */
     private Timer timer;
 
     /**
@@ -70,6 +111,9 @@ public class PartidaMakerView {
         tornaButton.addActionListener(actionEvent -> controladorPresentacio.showHomeView());
     }
 
+    /**
+     * Mètode que para la simulació
+     */
     void buttonPararClick() {
         timer.stop();
         buttonReproduir.setEnabled(true);
@@ -77,6 +121,9 @@ public class PartidaMakerView {
         buttonParar.setEnabled(false);
     }
 
+    /**
+     * Mètode que acaba la simulació
+     */
     void buttonAcabarClick() {
         timer.stop();
         buttonParar.setEnabled(false);
@@ -91,12 +138,18 @@ public class PartidaMakerView {
         }
     }
 
+    /**
+     * Mètode per començar/continuar la simulació
+     */
     void buttonReproduirClick() {
         buttonReproduir.setEnabled(false);
         buttonParar.setEnabled(true);
         timer.start();
     }
 
+    /**
+     * Mètode per mostrar el següent intent de la simulació
+     */
     void showNextIntent() {
         try {
             taulellPanel.setIntentColors(numIntentActual, intentList.get(numIntentActual));

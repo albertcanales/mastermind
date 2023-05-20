@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Subjecte del patró de disseny Subjecte-Observer
- * @author Albert Canales (Teoria)
+ * @author Teoria
  */
 abstract class Subject {
 

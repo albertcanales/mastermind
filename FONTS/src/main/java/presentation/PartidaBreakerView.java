@@ -7,13 +7,19 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * Vista inicial per a un usuari no registrat
- *
+ * Vista d'una partida en joc amb el jugador com a breaker
  * @author Albert Canales
  */
 public class PartidaBreakerView implements Observer {
 
+    /**
+     * Text de l'estat per una partida guanyada
+     */
     private static final String GUANYADA_TEXT = "Guanyada :)";
+
+    /**
+     * Text de l'estat per una partida perduda
+     */
     private static final String PERDUDA_TEXT = "Perduda :(";
 
     /**
@@ -25,14 +31,41 @@ public class PartidaBreakerView implements Observer {
      * Panell contenidor
      */
     private JPanel panel;
+
+    /**
+     * Panell del taulell de la partida
+     */
     private TaulellPanel taulellPanel;
+
+    /**
+     * Panell amb la paleta de boles a seleccionar
+     */
     private BolaPalettePanel bolaPalettePanel;
+
+    /**
+     * Botó per validar l'última seqüència
+     */
     private JButton buttonValidar;
+
+    /**
+     * Button per tornar a la pantalla de benvinguda
+     */
     private JButton buttonTorna;
+
+    /**
+     * Label que mostra el temps transcorregut
+     */
     private TimerLabel timerLabel;
+
+    /**
+     * Label amb l'estat de la partida (guanyada, perduda o en joc)
+     */
     private JLabel labelEstatPartida;
 
-    Integer numIntentActual;
+    /**
+     * Nombre de l'intent en joc
+     */
+    private Integer numIntentActual;
 
     /**
      * Constructor per defecte de la vista
@@ -84,6 +117,9 @@ public class PartidaBreakerView implements Observer {
         buttonTorna.addActionListener(actionEvent -> buttonTornaClick());
     }
 
+    /**
+     * Mètode per si l'usuari vol veure la solució
+     */
     private void showSolution() {
         Boolean dialogResponse = controladorPresentacio.showYesNoDialog("Veure solució",
                 "Segur que voleu veure la solució? Perdreu immediatament la partida");
@@ -104,6 +140,11 @@ public class PartidaBreakerView implements Observer {
         }
     }
 
+    /**
+     * Mẁetode per si l'usuari vol assignar una bola
+     * @param indexBola Índex de la bola dins de la seqüència
+     * @param color Color de la bola seleccionada en la paleta
+     */
     private void setBolaColor(Integer indexBola, BolaColor color) {
         try {
             taulellPanel.setBolaIntentColor(numIntentActual, indexBola, color);
@@ -115,6 +156,9 @@ public class PartidaBreakerView implements Observer {
         }
     }
 
+    /**
+     * Mètode per acabar una partida (ja sigui per haver fet massa intents o haver encertat la solució)
+     */
     private void partidaAcabada() {
         List<Integer> solucio = controladorPresentacio.getSolucio();
         try {
@@ -136,6 +180,9 @@ public class PartidaBreakerView implements Observer {
         }
     }
 
+    /**
+     * Mètode a cridar quan una bola de l'últim intent ha estat clicada
+     */
     private void bolaIntentClicked(Integer number) {
         if (bolaPalettePanel.isColorSelected()) {
             setBolaColor(number, bolaPalettePanel.getSelectedColor());
@@ -143,6 +190,9 @@ public class PartidaBreakerView implements Observer {
         }
     }
 
+    /**
+     * Mètode a cridar quan el botó de validar ha estat cridat
+     */
     private void buttonValidarClicked() {
         try {
             List<Integer> feedback = controladorPresentacio.validarSequencia();
@@ -162,12 +212,18 @@ public class PartidaBreakerView implements Observer {
         }
     }
 
+    /**
+     * Mètode per tornar a la vista anterior (HomeView)
+     */
     private void buttonTornaClick() {
         timerLabel.stop();
         controladorPresentacio.sortirPartida();
         controladorPresentacio.showHomeView();
     }
 
+    /**
+     * Mètode que es crida quan alguns dels Subjectes adjunts envia una notificació
+     */
     @Override
     public void Update(Subject s) {
         if (s instanceof BolaButton) {

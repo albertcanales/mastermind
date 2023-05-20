@@ -5,7 +5,6 @@ import java.awt.*;
 
 /**
  * Vista inicial per a un usuari registrat
- *
  * @author Mar Gonzàlez Català
  */
 public class HomeView {

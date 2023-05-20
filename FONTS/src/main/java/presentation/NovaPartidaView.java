@@ -5,23 +5,45 @@ import java.awt.*;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Vista per crear una nova partida
+ * @author Kamil Przybyszewski
+ */
 public class NovaPartidaView {
 
     /**
      * Controlador de presentació
      */
     private final ControladorPresentacio controladorPresentacio;
+
     /**
      * Panell contenidor
      */
     private JPanel panel;
+
     /**
-     * Botó per tornar a la pantalla de home
+     * Botó per tornar a la vista de benvinguda
      */
     private JButton buttonTorna;
+
+    /**
+     * Panell per crear una nova partida amb el jugador com a breaker
+     */
     private NovaPartidaBreakerPanel panelBreaker;
+
+    /**
+     * Panell per crear una nova partida amb el jugador com a maker
+     */
     private NovaPartidaMakerPanel panelMaker;
+
+    /**
+     * Botó per crear la partida
+     */
     private JButton buttonJuga;
+
+    /**
+     * Panell per tabular entre partida maker i breaker
+     */
     private JTabbedPane tabbedPane;
 
 
@@ -51,6 +73,9 @@ public class NovaPartidaView {
         buttonJuga.addActionListener(actionEvent -> jugaButtonClick());
     }
 
+    /**
+     * Mètode que es crida en clicar el botó de jugar (crear la partida)
+     */
     private void jugaButtonClick() {
         switch (tabbedPane.getSelectedIndex()) {
             case 0:
@@ -61,7 +86,8 @@ public class NovaPartidaView {
                 List<Integer> solucio = panelMaker.getSolucio();
                 for (Integer bolaNumber : solucio) {
                     if (Objects.equals(bolaNumber, BolaColor.NUL.getNumber())) {
-                        controladorPresentacio.showWarningDialog("No s'ha pogut crear la partida", "Hi ha alguna bola buida a la seqüència solució");
+                        controladorPresentacio.showWarningDialog("No s'ha pogut crear la partida",
+                                "Hi ha alguna bola buida a la seqüència solució");
                         return;
                     }
                 }

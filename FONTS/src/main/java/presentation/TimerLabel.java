@@ -7,24 +7,48 @@ import java.awt.*;
 import java.util.Locale;
 
 /**
- * Label que representa un rellotge digital i segueix el patró Observer per alertar de quan es canvia
+ * Label que representa un comptador en format mm:ss (minuts i segons)
+ * Segueix el patró Observer que alerta en canviar el valor
  * @author Albert Canales Ros
  */
 public class TimerLabel extends Subject {
 
+    /**
+     * Període d'actualització de la label
+     */
     static final Integer PERIOD_MILLIS = 1000;
+
+    /**
+     * Panell contenidor
+     */
     private JPanel panel;
+
+    /**
+     * Label del comptador
+     */
     private JLabel label;
 
+    /**
+     * Temps que està mostrant-se en el label, en mil·lisegons
+     */
     private Long time;
 
+    /**
+     * Timer per actualizar el comptador
+     */
     private Timer timer;
 
+    /**
+     * Constructor del panell
+     */
     TimerLabel() {
         $$$setupUI$$$();
         initComponents();
     }
 
+    /**
+     * Mètode per inicialitzar el panell als valors inicials
+     */
     private void initComponents() {
         time = 0L;
         timer = new Timer(PERIOD_MILLIS, actionEvent -> {
@@ -33,14 +57,23 @@ public class TimerLabel extends Subject {
         });
     }
 
+    /**
+     * Mètode per començar/continuar amb el comptador
+     */
     void start() {
         timer.start();
     }
 
+    /**
+     * Mètode per parar el comptador
+     */
     void stop() {
         timer.stop();
     }
 
+    /**
+     * Mètode per actualitzar el text del comptador
+     */
     void updateTimeString() {
         String seconds = String.valueOf((int) (time / 1000 % 60));
         if (seconds.length() == 1)
@@ -49,6 +82,10 @@ public class TimerLabel extends Subject {
         label.setText(minutes + ":" + seconds);
     }
 
+    /**
+     * Setter per al temps del comptador
+     * @param time Temps en mil·lisegons
+     */
     void setTime(Long time) {
         this.time = time;
         updateTimeString();

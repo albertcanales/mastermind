@@ -37,7 +37,7 @@
           </component>
         </children>
       </scrollpane>
-      <component id="5ce20" class="javax.swing.JScrollBar" binding="scrollBar1" default-binding="true">
+      <component id="5ce20" class="javax.swing.JScrollBar">
         <constraints border-constraint="East"/>
         <properties>
           <unitIncrement value="20"/>

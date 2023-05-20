@@ -125,14 +125,29 @@ class BolaButton extends Subject {
      */
     private static class ColorIcon implements Icon {
 
+        /**
+         * Mida de la icona
+         */
         private final int size;
+
+        /**
+         * Color de la icona
+         */
         private final Color color;
 
+        /**
+         * Contructor de la icona
+         * @param size Mida de la icona
+         * @param color Color de la icona
+         */
         public ColorIcon(int size, Color color) {
             this.size = size;
             this.color = color;
         }
 
+        /**
+         * Mètode per pintar la icona
+         */
         @Override
         public void paintIcon(Component c, Graphics g, int x, int y) {
             Graphics2D g2d = (Graphics2D) g;
@@ -143,11 +158,17 @@ class BolaButton extends Subject {
             g2d.fillOval(x, y, size, size);
         }
 
+        /**
+         * Getter de l'amplada de la icona
+         */
         @Override
         public int getIconWidth() {
             return size;
         }
 
+        /**
+         * Getter de l'altura de la icona
+         */
         @Override
         public int getIconHeight() {
             return size;
@@ -170,9 +191,21 @@ enum BolaColor {
     TARONJA(Color.ORANGE, 5),
     ROSA(Color.PINK, 6);
 
+    /**
+     * Color per pintar la bola
+     */
     private final Color color;
+
+    /**
+     * Nombre identificador del color
+     */
     private final Integer number;
 
+    /**
+     * Constructor de la BolaColor
+     * @param color Color de la bola
+     * @param number Nombre identificador del color
+     */
     BolaColor(Color color, Integer number) {
         this.color = color;
         this.number = number;
@@ -206,6 +239,9 @@ enum BolaColor {
         throw new BolaNoExistent();
     }
 
+    /**
+     * Getter del nombre total de colors de la bola
+     */
     @SuppressWarnings("SameReturnValue")
     static int getNumColors() {
         return 7;
