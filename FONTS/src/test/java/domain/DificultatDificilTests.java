@@ -9,9 +9,14 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
+@SuppressWarnings("ALL")
 public class DificultatDificilTests {
-    static final Integer NUL = 0, BLANC = 1, NEGRE = 2;
-    static final Integer FACIL = 1, MITJA = 2, DIFICIL = 3;
+    private static final Integer NUL = 0;
+    static final Integer BLANC = 1;
+    private static final Integer NEGRE = 2;
+    static final Integer FACIL = 1;
+    static final Integer MITJA = 2;
+    private static final Integer DIFICIL = 3;
     @Test
     public void FeedbackDificultatDificilWithoutCoincidence() throws DomainException {
         Dificultat dificultat = Dificultat.create(DIFICIL);

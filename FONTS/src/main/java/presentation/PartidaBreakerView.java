@@ -8,9 +8,10 @@ import java.util.List;
 
 /**
  * Vista d'una partida en joc amb el jugador com a breaker
+ *
  * @author Albert Canales
  */
-public class PartidaBreakerView implements Observer {
+class PartidaBreakerView implements Observer {
 
     /**
      * Text de l'estat per una partida guanyada
@@ -142,8 +143,9 @@ public class PartidaBreakerView implements Observer {
 
     /**
      * Mẁetode per si l'usuari vol assignar una bola
+     *
      * @param indexBola Índex de la bola dins de la seqüència
-     * @param color Color de la bola seleccionada en la paleta
+     * @param color     Color de la bola seleccionada en la paleta
      */
     private void setBolaColor(Integer indexBola, BolaColor color) {
         try {

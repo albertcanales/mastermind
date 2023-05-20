@@ -6,7 +6,7 @@ import java.util.List;
  * Interfície d'una màquina que juga al mastermind com a breaker
  * @author Teoria
  */
-public interface Maquina {
+interface Maquina {
 
 
     /**

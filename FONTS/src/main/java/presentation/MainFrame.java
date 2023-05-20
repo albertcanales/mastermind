@@ -7,7 +7,7 @@ import java.awt.*;
  * Classe per encapsular el frame de l'aplicació
  * @author Albert Canales
  */
-public class MainFrame{
+class MainFrame{
 
     /**
      * Frame de l'aplicació

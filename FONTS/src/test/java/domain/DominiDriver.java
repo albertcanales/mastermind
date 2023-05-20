@@ -12,7 +12,7 @@ import static java.lang.System.exit;
  * Driver del ControladorDomini
  * @author Albert Canales
  */
-public class DominiDriver extends ControladorDriver {
+class DominiDriver extends ControladorDriver {
 
     private static ControladorDomini cd;
 
@@ -337,7 +337,7 @@ public class DominiDriver extends ControladorDriver {
         }
     }
 
-    public static void testIsJugadorBreaker() throws DomainException {
+    private static void testIsJugadorBreaker() throws DomainException {
         System.out.println("Testing isJugadorBreaker...");
 
         if(!cd.isPartidaBeingPlayed()) {

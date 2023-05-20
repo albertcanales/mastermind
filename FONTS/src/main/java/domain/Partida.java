@@ -53,14 +53,14 @@ class Partida {
     /**
      * Getter de la solució vista
      */
-    public Boolean isSolucioVista() {
+    Boolean isSolucioVista() {
         return solucioVista;
     }
 
     /**
      * Mètode per assignar la solució com a vista
      */
-    public void veureSolucio() {
+    void veureSolucio() {
         solucioVista = true;
     }
 }

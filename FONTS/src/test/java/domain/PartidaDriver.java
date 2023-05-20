@@ -13,11 +13,11 @@ import static java.lang.System.exit;
  * Driver del ControladorPartida
  * @author Albert Canales
  */
-public class PartidaDriver extends ControladorDriver {
+class PartidaDriver extends ControladorDriver {
 
     private static ControladorPartida cp;
 
-    static List<List<Integer>> scanIntents() {
+    private static List<List<Integer>> scanIntents() {
         System.out.println("Enter els intents de la partida.");
         System.out.println("S'aniran entrant els intents un a un, de més 'antic' a més recent");
         System.out.println("Per acabar d'inserir intents, escriu la lletra q");
@@ -52,7 +52,7 @@ public class PartidaDriver extends ControladorDriver {
         return intents;
     }
 
-    static List<List<Integer>> scanFeedbacks() {
+    private static List<List<Integer>> scanFeedbacks() {
         System.out.println("Enter els feedbacks de la partida.");
         System.out.println("S'aniran entrant els feedbacks un a un, de més 'antic' a més recent");
         System.out.println("Per acabar d'inserir feedbacks, escriu la lletra q");

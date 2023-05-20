@@ -13,12 +13,12 @@ import java.util.List;
  * Panell que representa el taulell de joc d'una partida de Mastermind, tant per la modalitat breaker com maker
  * @author Albert Canales Ros
  */
-public class TaulellPanel {
+class TaulellPanel {
 
     /**
      * Nombre de boles d'una seqüència
      */
-    final static int SEQUENCIA_SIZE = SequenciaPanel.SEQUENCIA_SIZE;
+    private final static int SEQUENCIA_SIZE = SequenciaPanel.SEQUENCIA_SIZE;
 
     /**
      * Panell contenidor del taulell

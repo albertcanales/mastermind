@@ -65,7 +65,7 @@ enum TipusAlgorisme {
      * @throws DomainException si el nombre no correspon a un algorisme
      * @return el valor de TipusAlgorisme corresponent al nombre donat
      */
-    public static TipusAlgorisme findByNumber(Integer number) throws DomainException {
+    static TipusAlgorisme findByNumber(Integer number) throws DomainException {
         for(TipusAlgorisme ta : values()){
             if( ta.number() == number){
                 return ta;
@@ -83,7 +83,7 @@ enum TipusAlgorisme {
      * Mètode per obtenir el nombre d'algorismes
      * @return enter que representa el número d'algorismes
      */
-    public static int numAlgorismes() {
+    static int numAlgorismes() {
         return (values().length);
     }
 
@@ -92,7 +92,7 @@ enum TipusAlgorisme {
      * @param num enter que representa un algorisme
      * @return un booleà cert si el número correspon a un algorisme, fals si no
      */
-    public static boolean isValid(int num) {
+    static boolean isValid(int num) {
         return (num > 0) && (num <= numAlgorismes());
     }
 }

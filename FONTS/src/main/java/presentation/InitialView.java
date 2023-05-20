@@ -7,7 +7,7 @@ import java.awt.*;
  * Vista inicial per a un usuari no registrat
  * @author Albert Canales
  */
-public class InitialView {
+class InitialView {
 
     /**
      * Controlador de presentació

@@ -10,7 +10,7 @@ import java.util.List;
  * Vista per jugar una partida on el jugador és el maker
  * @author Albert Canales Ros
  */
-public class PartidaMakerView {
+class PartidaMakerView {
 
     /**
      * Període al que mostrar les iteracions de la partida en la simulació
@@ -114,7 +114,7 @@ public class PartidaMakerView {
     /**
      * Mètode que para la simulació
      */
-    void buttonPararClick() {
+    private void buttonPararClick() {
         timer.stop();
         buttonReproduir.setEnabled(true);
         buttonAcabar.setEnabled(true);
@@ -124,7 +124,7 @@ public class PartidaMakerView {
     /**
      * Mètode que acaba la simulació
      */
-    void buttonAcabarClick() {
+    private void buttonAcabarClick() {
         timer.stop();
         buttonParar.setEnabled(false);
         buttonReproduir.setEnabled(false);
@@ -141,7 +141,7 @@ public class PartidaMakerView {
     /**
      * Mètode per començar/continuar la simulació
      */
-    void buttonReproduirClick() {
+    private void buttonReproduirClick() {
         buttonReproduir.setEnabled(false);
         buttonParar.setEnabled(true);
         timer.start();
@@ -150,7 +150,7 @@ public class PartidaMakerView {
     /**
      * Mètode per mostrar el següent intent de la simulació
      */
-    void showNextIntent() {
+    private void showNextIntent() {
         try {
             taulellPanel.setIntentColors(numIntentActual, intentList.get(numIntentActual));
             taulellPanel.setFeedbackColors(numIntentActual, feedbackList.get(numIntentActual));

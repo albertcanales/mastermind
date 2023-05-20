@@ -5,7 +5,9 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.junit.Assert.*;
+@SuppressWarnings("MissingJavadoc")
 public class BotMakerTests {
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void generaSequenciaSolucio() {
         BotMaker botmaker = new BotMaker(4,6);
@@ -18,6 +20,7 @@ public class BotMakerTests {
         }
     }
 
+    @SuppressWarnings("MissingJavadoc")
     public static void main(String[] args) {
         TestRunner.runTestClass(BotMakerTests.class);
     }

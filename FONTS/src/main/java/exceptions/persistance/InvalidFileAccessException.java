@@ -1,7 +1,7 @@
 package exceptions.persistance;
 
-public class InvalidFileAccess extends PersistanceException {
-    public InvalidFileAccess(String fileName) {
+public class InvalidFileAccessException extends PersistanceException {
+    public InvalidFileAccessException(String fileName) {
         super(String.format("Wrong Permissions to open, close, write file or folder doesn't exist %s", fileName));
     }
 }

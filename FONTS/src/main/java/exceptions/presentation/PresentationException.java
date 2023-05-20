@@ -12,7 +12,7 @@ public class PresentationException extends GeneralException {
      * Constructor de la excepció
      * @param str Missatge que es mostrarà juntament amb l'excepció
      */
-    public PresentationException(String str) {
+    PresentationException(String str) {
         super(str);
     }
 

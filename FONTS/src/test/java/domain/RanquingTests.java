@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("ALL")
 public class RanquingTests {
 
     private final Integer NUM_RANQUINGS = 3;

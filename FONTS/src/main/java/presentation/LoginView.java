@@ -12,7 +12,7 @@ import java.util.Locale;
  * Vista de l'inici de sessió d'un usuari
  * @author Mar Gonzàlez Català
  */
-public class LoginView {
+class LoginView {
 
     /**
      * Controlador de presentació
@@ -69,7 +69,7 @@ public class LoginView {
     /**
      * Mètode per inicialitzar els components de la vista
      */
-    void initComponents() {
+    private void initComponents() {
         buttonIniciaSessio.addActionListener(actionEvent -> iniciaSessioButtonClick());
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialView());
         labelRegistre.addMouseListener(new MouseAdapter() {

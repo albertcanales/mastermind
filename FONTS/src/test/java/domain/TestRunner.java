@@ -8,7 +8,7 @@ import org.junit.runner.notification.Failure;
  * Classe per poder executar els tests en forma de JAR
  * @author Albert Canales Ros
  */
-public class TestRunner {
+class TestRunner {
 
     /**
      * Punt d'entrada per executar els tests

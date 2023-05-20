@@ -60,7 +60,7 @@ class Taulell {
      * Mètode que retorna una llista amb NUMBOLES Bola.NUL
      * @return una llista amb NUMBOLES Bola.NUL
      */
-    List<Integer> getNulList() {
+    private List<Integer> getNulList() {
         List<Integer> list = new ArrayList<>(Taulell.NUMBOLES);
         for (int i = 0; i < Taulell.NUMBOLES; ++i) {
             list.add(Bola.NUL.number());
@@ -284,7 +284,7 @@ class Taulell {
      * Mètode que comprova si una unió d'intents és correcta
      * @param inten una llista d'una llista d'enters representant els intents realitzats
      */
-    static boolean isValidStateIntents(List<List<Integer>> inten) {
+    private static boolean isValidStateIntents(List<List<Integer>> inten) {
         for (int i = 0; i < inten.size() - 1; ++i) { //no mirem l'ultim intent, pot tenir nuls, només mirem si als anteriors hi ha algun nul
             if (!isPlena(inten.get(i))) return false;
         }

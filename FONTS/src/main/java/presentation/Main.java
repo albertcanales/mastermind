@@ -4,7 +4,7 @@ package presentation;
  * Punt d'entrada a l'aplicació
  * @author Albert Canales
  */
-public class Main {
+class Main {
 
     /**
      * Funció "main" d'entrada a l'aplicació

@@ -8,7 +8,7 @@ import java.awt.*;
  *
  * @author Kamil Przybyszewski
  */
-public class NormesView {
+class NormesView {
 
     /**
      * Controlador de presentació
@@ -50,7 +50,7 @@ public class NormesView {
     /**
      * Mètode per inicialitzar els components de la vista
      */
-    void initComponents() {
+    private void initComponents() {
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialOrHomeView());
     }
 

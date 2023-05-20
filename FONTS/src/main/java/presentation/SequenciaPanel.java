@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Albert Canales Ros
  */
-public class SequenciaPanel {
+class SequenciaPanel {
 
     /**
      * Nombre de boles d'una seqüència

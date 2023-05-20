@@ -9,9 +9,11 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.junit.Assert.*;
+@SuppressWarnings("MissingJavadoc")
 public class GeneticTests {
-    static ArrayList<ArrayList<Integer>> sequencies;
+    private static ArrayList<ArrayList<Integer>> sequencies;
 
+    @SuppressWarnings("MissingJavadoc")
     @BeforeClass
     public static void beforeClass() {
         sequencies = new ArrayList<>();
@@ -27,6 +29,7 @@ public class GeneticTests {
         }
     }
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void solve() throws DomainException {
         BotBreaker genetic = new Genetic();
@@ -37,6 +40,7 @@ public class GeneticTests {
         }
     }
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void solveFirstTry() throws DomainException {
         BotBreaker fiveguess = new FiveGuess();
@@ -48,6 +52,7 @@ public class GeneticTests {
 
     }
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void solveWrongSizeOfSolution() {
         BotBreaker genetic = new Genetic();
@@ -56,6 +61,7 @@ public class GeneticTests {
         assertThrows(InvalidNumBolesException.class, () -> genetic.solve(solution));
     }
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void solveWrongSolution() {
         BotBreaker genetic = new Genetic();
@@ -67,12 +73,14 @@ public class GeneticTests {
         assertThrows(InvalidEnumValueException.class, () -> genetic.solve(solution2));
     }
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void getTipusAlgorisme() {
         BotBreaker genetic = new Genetic();
         assertEquals(TipusAlgorisme.GENETIC,genetic.getTipusAlgorisme());
     }
 
+    @SuppressWarnings("MissingJavadoc")
     public static void main(String[] args) {
         TestRunner.runTestClass(GeneticTests.class);
     }

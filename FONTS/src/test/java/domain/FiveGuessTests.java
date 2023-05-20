@@ -9,9 +9,12 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.junit.Assert.*;
-public class FiveGuessTests {
-    static ArrayList<ArrayList<Integer>> sequencies;
 
+@SuppressWarnings("MissingJavadoc")
+public class FiveGuessTests {
+    private static ArrayList<ArrayList<Integer>> sequencies;
+
+    @SuppressWarnings("MissingJavadoc")
     @BeforeClass
     public static void beforeClass() {
         sequencies = new ArrayList<>();
@@ -27,6 +30,7 @@ public class FiveGuessTests {
         }
     }
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void solve() throws DomainException {
         BotBreaker fiveguess = new FiveGuess();
@@ -38,6 +42,7 @@ public class FiveGuessTests {
         }
     }
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void solveFirstTry() throws DomainException {
         BotBreaker fiveguess = new FiveGuess();
@@ -49,6 +54,7 @@ public class FiveGuessTests {
 
     }
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void solveWrongSizeOfSolution() {
         BotBreaker fiveguess = new FiveGuess();
@@ -57,6 +63,7 @@ public class FiveGuessTests {
         assertThrows(InvalidNumBolesException.class, () -> fiveguess.solve(solution));
     }
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void solveWrongSolution() {
         BotBreaker fiveguess = new FiveGuess();
@@ -68,12 +75,14 @@ public class FiveGuessTests {
         assertThrows(InvalidEnumValueException.class, () -> fiveguess.solve(solution2));
     }
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void getTipusAlgorisme() {
         BotBreaker fiveguess = new FiveGuess();
         assertEquals(TipusAlgorisme.FIVEGUESS,fiveguess.getTipusAlgorisme());
     }
 
+    @SuppressWarnings("MissingJavadoc")
     public static void main(String[] args) {
         TestRunner.runTestClass(FiveGuessTests.class);
     }

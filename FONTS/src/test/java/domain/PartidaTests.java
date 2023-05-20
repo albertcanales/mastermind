@@ -6,6 +6,7 @@ import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
 
+@SuppressWarnings("ALL")
 public class PartidaTests {
 
     @Test

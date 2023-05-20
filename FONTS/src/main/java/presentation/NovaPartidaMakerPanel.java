@@ -10,21 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class NovaPartidaMakerPanel extends JPanel implements Observer {
+class NovaPartidaMakerPanel extends JPanel implements Observer {
 
     private JPanel panel;
     private JRadioButton radioButtonFiveGuess;
     private JRadioButton radioButtonGenetic;
     private SequenciaPanel solucioPanel;
 
-    List<Integer> solucioList;
+    private List<Integer> solucioList;
 
     NovaPartidaMakerPanel() {
         $$$setupUI$$$();
         initComponents();
     }
 
-    void initComponents() {
+    private void initComponents() {
         solucioList = new ArrayList<>();
         for (int i = 0; i < SequenciaPanel.SEQUENCIA_SIZE; i++) {
             solucioPanel.setBolaID(i, "S" + i);

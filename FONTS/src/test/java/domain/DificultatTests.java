@@ -9,31 +9,39 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("MissingJavadoc")
 public class DificultatTests {
-    static final Integer FACIL = 1, MITJA = 2, DIFICIL = 3;
+    private static final Integer FACIL = 1;
+    private static final Integer MITJA = 2;
+    private static final Integer DIFICIL = 3;
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void createDificultatFacil() throws DomainException {
         Dificultat dificultat = Dificultat.create(FACIL);
         Integer nivellDificultat = dificultat.getNivellDificultat().number();
         assertEquals(FACIL, nivellDificultat);
     }
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void createDificultatMitja() throws DomainException {
         Dificultat dificultat = Dificultat.create(MITJA);
         Integer nivellDificultat = dificultat.getNivellDificultat().number();
         assertEquals(MITJA, nivellDificultat);
     }
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void createDificultatDificil() throws DomainException {
         Dificultat dificultat = Dificultat.create(DIFICIL);
         Integer nivellDificultat = dificultat.getNivellDificultat().number();
         assertEquals(DIFICIL, nivellDificultat);
     }
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void createDificultatInvalid() {
         assertThrows(InvalidEnumValueException.class, () -> Dificultat.create(500));
     }
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void countColorsOfSequencia() throws DomainException {
         Dificultat dificultat = Dificultat.create(FACIL);
@@ -42,6 +50,7 @@ public class DificultatTests {
         List<Integer> ColorCountExpected = new ArrayList<>(List.of(0, 2, 0, 1, 0, 0, 1));
         assertEquals(ColorCountExpected, dificultat.countColorsBoles(Sequencia));
     }
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void countColorsOfSequenciaWithInvalidColors() throws DomainException {
         Dificultat dificultat = Dificultat.create(FACIL);
@@ -50,6 +59,7 @@ public class DificultatTests {
         assertThrows(InvalidEnumValueException.class, () -> dificultat.countColorsBoles(Sequencia));
     }
 
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void isPlenaSequenciaPlena() throws DomainException{
         Dificultat dificultat = Dificultat.create(FACIL);
@@ -57,6 +67,7 @@ public class DificultatTests {
         List<Integer> Sequencia = new ArrayList<>(List.of(1, 1, 3, 6));
         assertTrue(dificultat.isPlena(Sequencia));
     }
+    @SuppressWarnings("MissingJavadoc")
     @Test
     public void isPlenaSequenciaNotPlena() throws DomainException {
         Dificultat dificultat = Dificultat.create(FACIL);
@@ -65,6 +76,7 @@ public class DificultatTests {
         assertFalse(dificultat.isPlena(Sequencia));
     }
 
+    @SuppressWarnings("MissingJavadoc")
     public static void main(String[] args) {
         TestRunner.runTestClass(DificultatTests.class);
     }

@@ -9,7 +9,7 @@ import java.util.List;
  * Panell que representa un conjunt de boles de les quals se'n pot seleccionar una, com si fos una paleta de colors.
  * @author Albert Canales Ros
  */
-public class BolaPalettePanel implements Observer {
+class BolaPalettePanel implements Observer {
 
     /**
      * Panell contenidor
@@ -109,7 +109,7 @@ public class BolaPalettePanel implements Observer {
     /**
      * Mètode per desseleccionar tots els colors
      */
-    void unselectAllColors() {
+    private void unselectAllColors() {
         for (BolaButton button : buttonBolaList)
             button.setBorder(false);
         selectedColor = null;

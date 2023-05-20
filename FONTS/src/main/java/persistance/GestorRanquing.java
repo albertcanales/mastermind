@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * Gestor del Rànquing guardat a ranquing/facil.csv, ranquing/normal.csv i ranquing/dificil.csv
  */
-public class GestorRanquing {
-    public static final Integer numFitxers = 3;
+class GestorRanquing {
+    static final Integer numFitxers = 3;
     private final GestorCSVFile[] csvFiles = new GestorCSVFile[numFitxers];
     private static final String[] relativePaths = new String[]{"ranquing/facil.csv", "ranquing/normal.csv", "ranquing/dificil.csv"};
 
@@ -30,7 +30,7 @@ public class GestorRanquing {
      * @return una llista d'objectes composta amb el rànquing
      * @throws PersistanceException si no es pot llegir algun fitxer
      */
-    public List<List<String>> getRanquing(Integer file) throws PersistanceException {
+    List<List<String>> getRanquing(Integer file) throws PersistanceException {
 
         List<String[]> allLines = csvFiles[file].readAllLines(true);
 
@@ -50,7 +50,7 @@ public class GestorRanquing {
      * @param ranquing una llista d'objectes composta amb el rànquing
      * @throws PersistanceException si no es pot escriure algun fitxer
      */
-    public void setRanquing(Integer file, List<List<String>> ranquing) throws PersistanceException {
+    void setRanquing(Integer file, List<List<String>> ranquing) throws PersistanceException {
         List<String[]> allLines = new ArrayList<>();
 
         for (List<String> user : ranquing) {

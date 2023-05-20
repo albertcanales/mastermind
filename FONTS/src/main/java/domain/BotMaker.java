@@ -23,7 +23,7 @@ class BotMaker {
      * @param numboles llargada de la seqüència solució.
      * @param numcolors nombre de colors.
      */
-    public BotMaker(Integer numboles, Integer numcolors) {
+    BotMaker(Integer numboles, Integer numcolors) {
         this.numboles = numboles;
         this.numcolors = numcolors;
     }
@@ -32,7 +32,7 @@ class BotMaker {
      * Genera una solució.
      * @return Solució.
      */
-    public ArrayList<Integer> generaSequenciaSolucio(){
+    ArrayList<Integer> generaSequenciaSolucio(){
         Random rand = new Random();
         ArrayList<Integer> solution = new ArrayList<>(numboles);
         for (int i = 0; i < numboles; i++)

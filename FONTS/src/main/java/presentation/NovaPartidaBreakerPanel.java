@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Hashtable;
 
-public class NovaPartidaBreakerPanel extends JPanel {
+class NovaPartidaBreakerPanel extends JPanel {
 
     private JPanel panel;
     private JSlider sliderDificultat;
@@ -14,7 +14,7 @@ public class NovaPartidaBreakerPanel extends JPanel {
         initComponents();
     }
 
-    void initComponents() {
+    private void initComponents() {
         initSlider();
     }
 

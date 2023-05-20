@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Arnau Valls Fusté
  */
-public class GestorPartidesActuals {
+class GestorPartidesActuals {
 
     private static final String relativePathPartidesActuals = "partidesActuals/partidesActuals.csv";
 
@@ -24,8 +24,8 @@ public class GestorPartidesActuals {
 
     }
 
-    public void novaPartida(String username, Boolean isBreaker, Long temps, Integer dificultat, Integer algorisme, List<Integer> solucio, List<List<Integer>> intents,
-                                   List<List<Integer>> feedback) throws PersistanceException {
+    void novaPartida(String username, Boolean isBreaker, Long temps, Integer dificultat, Integer algorisme, List<Integer> solucio, List<List<Integer>> intents,
+                     List<List<Integer>> feedback) throws PersistanceException {
         if (!csvFile.existsLinebyKey(username)) {
             String[] line = new String[HeaderPartides.getLength()];
             Arrays.fill(line, "");
@@ -49,11 +49,11 @@ public class GestorPartidesActuals {
 
     }
 
-    public Boolean existsPartidaActual(String username) throws PersistanceException {
+    Boolean existsPartidaActual(String username) throws PersistanceException {
         return csvFile.existsLinebyKey(username);
     }
 
-    public void esborrarPartidaActual(String username) throws PersistanceException {
+    void esborrarPartidaActual(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             csvFile.removeLinebyKey(username);
         } else {
@@ -61,7 +61,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public Boolean isBreaker(String username) throws  PersistanceException {
+    Boolean isBreaker(String username) throws  PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
@@ -71,7 +71,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public Long getTemps(String username) throws PersistanceException {
+    Long getTemps(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
@@ -81,7 +81,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public void setTemps(String username, Long temps) throws PersistanceException {
+    void setTemps(String username, Long temps) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
@@ -92,7 +92,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public Integer getDificultat(String username) throws PersistanceException {
+    Integer getDificultat(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
@@ -102,7 +102,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public Integer getAlgorisme(String username) throws PersistanceException {
+    Integer getAlgorisme(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
@@ -112,7 +112,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public List<Integer> getSolucio(String username) throws PersistanceException {
+    List<Integer> getSolucio(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
@@ -122,7 +122,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public List<List<Integer>> getIntents(String username) throws PersistanceException {
+    List<List<Integer>> getIntents(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
@@ -132,7 +132,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public void setIntents(String username, List<List<Integer>> intents) throws PersistanceException {
+    void setIntents(String username, List<List<Integer>> intents) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
@@ -143,7 +143,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public List<List<Integer>> getFeedbacks(String username) throws PersistanceException {
+    List<List<Integer>> getFeedbacks(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
@@ -153,7 +153,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public void setFeedbacks(String username, List<List<Integer>> feedbacks) throws PersistanceException {
+    void setFeedbacks(String username, List<List<Integer>> feedbacks) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
@@ -164,7 +164,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public Boolean getSolucioVista(String username) throws PersistanceException {
+    Boolean getSolucioVista(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 
@@ -174,7 +174,7 @@ public class GestorPartidesActuals {
         }
     }
 
-    public void setSolucioVista(String username, Boolean SolucioVista) throws PersistanceException {
+    void setSolucioVista(String username, Boolean SolucioVista) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
 

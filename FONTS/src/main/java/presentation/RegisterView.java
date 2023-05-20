@@ -7,7 +7,7 @@ import java.awt.*;
  * Vista del Registre d'un usuari
  * @author Albert Canales
  */
-public class RegisterView {
+class RegisterView {
 
     /**
      * Controlador de presentació
@@ -64,7 +64,7 @@ public class RegisterView {
     /**
      * Mètode per inicialitzar els components de la vista
      */
-    void initComponents() {
+    private void initComponents() {
         buttonRegistra.addActionListener(actionEvent -> registraButtonClick());
 
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialView());

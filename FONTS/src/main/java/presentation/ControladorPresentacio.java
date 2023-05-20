@@ -12,7 +12,7 @@ import java.util.List;
  * Segueix el patró de Singleton
  * @author Albert Canales
  */
-public class ControladorPresentacio {
+class ControladorPresentacio {
 
     /**
      * Instància de la classe per la implementació del patró Singleton
@@ -47,7 +47,7 @@ public class ControladorPresentacio {
      * Mètode per obtenir l'única instància del controlador de presentació
      * @return L'única instància de ControladorPresentació
      */
-    public static ControladorPresentacio getInstance() {
+    static ControladorPresentacio getInstance() {
         return instance;
     }
 
@@ -58,7 +58,7 @@ public class ControladorPresentacio {
      * @param password La contrasenya a comprovar
      * @return Si l'usuari és vàlid
      */
-    public Boolean isValidUser(String username, String name, String password) {
+    Boolean isValidUser(String username, String name, String password) {
         return controladorDomini.isValidUser(username, name, password);
     }
 
@@ -67,7 +67,7 @@ public class ControladorPresentacio {
      * @param username Username a comprovar
      * @return Si l'usuari existeix
      */
-    public Boolean existsUser(String username) {
+    Boolean existsUser(String username) {
         try {
             return controladorDomini.existsUser(username);
         } catch (GeneralException e) {
@@ -83,7 +83,7 @@ public class ControladorPresentacio {
      * @param name Nom a registrar
      * @param password Contrasenya a registrar
      */
-    public void registerUser(String username, String name, String password) {
+    void registerUser(String username, String name, String password) {
         try {
             controladorDomini.registerUser(username, name, password);
         } catch (GeneralException e) {
@@ -98,7 +98,7 @@ public class ControladorPresentacio {
      * @param password Contrasenya per l'inici de sessió
      * @return Si s'ha pogut iniciar sessió correctament (o pel contrari, les dades no eren correctes)
      */
-    public Boolean loginUser(String username, String password) {
+    Boolean loginUser(String username, String password) {
         try {
             return controladorDomini.loginUser(username, password);
         } catch (GeneralException e) {
@@ -111,7 +111,7 @@ public class ControladorPresentacio {
     /**
      * Mètode per tancar una sessió. Es mostra un error si no estava iniciada.
      */
-    public void logoutUser() {
+    void logoutUser() {
         try {
             controladorDomini.logoutUser();
         } catch (GeneralException e) {
@@ -124,7 +124,7 @@ public class ControladorPresentacio {
      * Mètode saber si hi ha una partida guardada. Es mostra un error si no s'ha iniciat sessió.
      * @return Si existeix la partida guardada. En cas d'error, es retorna fals.
      */
-    public Boolean existsPartidaGuardada() {
+    Boolean existsPartidaGuardada() {
         try {
             return controladorDomini.existsPartidaGuardada();
         } catch (GeneralException e) {
@@ -137,7 +137,7 @@ public class ControladorPresentacio {
     /**
      * Mètode per carregar la partida guardada. Es mostra un error si no existeix.
      */
-    public void carregarPartida() {
+    void carregarPartida() {
         try {
             controladorDomini.carregarPartida();
         } catch (GeneralException e) {
@@ -151,7 +151,7 @@ public class ControladorPresentacio {
      * @param solucio Solució per a la nova partida
      * @param algorisme ALgorisme per a la nova partida
      */
-    public void novaPartidaMaker(List<Integer> solucio, Integer algorisme){
+    void novaPartidaMaker(List<Integer> solucio, Integer algorisme){
         try {
             controladorDomini.novaPartidaMaker(solucio, algorisme);
         } catch (GeneralException e){
@@ -164,7 +164,7 @@ public class ControladorPresentacio {
      * Mètode per iniciar una nova partida com a Breaker. Es mostra un error en cas de no poder crear-la
      * @param nivellDificultat NivellDificultat per la nova partida
      */
-    public void novaPartidaBreaker(Integer nivellDificultat){
+    void novaPartidaBreaker(Integer nivellDificultat){
         try {
             controladorDomini.novaPartidaBreaker(nivellDificultat);
         } catch (GeneralException e){
@@ -177,7 +177,7 @@ public class ControladorPresentacio {
      * Getter del nom de l'usuari que ha iniciat sessió. Es mostra un error si no s'ha iniciat sessió
      * @return El nom de l'usuari que ha inciat sessió
      */
-    public String getUserName() {
+    String getUserName() {
         try {
             return controladorDomini.getUserName();
         }
@@ -193,7 +193,7 @@ public class ControladorPresentacio {
      * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
      * @return Una llista amb el rècord personal per a cada nivell de dificultat
      */
-    public List<Integer> getPersonalRecord() {
+    List<Integer> getPersonalRecord() {
         try {
             return controladorDomini.getPersonalRecord();
         }
@@ -209,7 +209,7 @@ public class ControladorPresentacio {
      * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
      * @return Una llista amb el temps jugat com a breaker per a cada nivell de dificultat
      */
-    public List<Long> getTimePlayed()  {
+    List<Long> getTimePlayed()  {
         try {
             return controladorDomini.getTimePlayed();
         }
@@ -225,7 +225,7 @@ public class ControladorPresentacio {
      * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
      * @return Una llista amb el nombre de partides guanyades per a cada nivell de dificultat
      */
-    public List<Integer> getWonGames() {
+    List<Integer> getWonGames() {
         try {
             return controladorDomini.getWonGames();
         }
@@ -241,7 +241,7 @@ public class ControladorPresentacio {
      * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
      * @return Una llista amb el nombre de partides perdudes per a cada nivell de dificultat
      */
-    public List<Integer> getLostGames() {
+    List<Integer> getLostGames() {
         try {
             return controladorDomini.getLostGames();
         }
@@ -257,7 +257,7 @@ public class ControladorPresentacio {
      * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
      * @return Una llista amb la màxima ratxa de victòries per a cada nivell de dificultat
      */
-    public List<Integer> getWinstreak() {
+    List<Integer> getWinstreak() {
         try {
             return controladorDomini.getWinstreak();
         }
@@ -273,7 +273,7 @@ public class ControladorPresentacio {
      * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
      * @return Una llista amb la mitjana d'intents de l'usuari per a cada dificultat
      */
-    public List<Double> getAverageAsBreaker() {
+    List<Double> getAverageAsBreaker() {
         try {
             return controladorDomini.getAverageAsBreaker();
         }
@@ -289,7 +289,7 @@ public class ControladorPresentacio {
      * Es mostra un error si no hi ha cap usuari que ha iniciat sessió.
      * @return Una llista amb la mitjana d'intents que ha necessitat la màquina per a cada algorisme
      */
-    public List<Double> getAverageAsMaker() {
+    List<Double> getAverageAsMaker() {
         try {
             return controladorDomini.getAverageAsMaker();
         }
@@ -306,7 +306,7 @@ public class ControladorPresentacio {
      * @param max_rows Nombre màxim d'entrades a rebre per cada rànquing
      * @return Rànquings per a cada dificultat
      */
-    public List<List<List<String>>> getRanquings(Integer max_rows){
+    List<List<List<String>>> getRanquings(Integer max_rows){
         try {
             return controladorDomini.getRanquings(max_rows);
         } catch (GeneralException e) {
@@ -318,7 +318,7 @@ public class ControladorPresentacio {
      * Mètode per esborrar l'usuari que ha iniciat sessió.
      * Es mostra un error si no estava iniciada.
      */
-    public void esborrarUsuari() {
+    void esborrarUsuari() {
         try {
             controladorDomini.esborrarUsuari();
         }
@@ -372,7 +372,7 @@ public class ControladorPresentacio {
      * @param index Índex de la bola dins de la seqüència
      * @param bola Enter que representa el color de la bola desitjat
      */
-    public void setBola(Integer index, Integer bola) {
+    void setBola(Integer index, Integer bola) {
         try {
             controladorDomini.setBola(index, bola);
         } catch (GeneralException e) {
@@ -384,7 +384,7 @@ public class ControladorPresentacio {
      * Mètode per validar l'últim intent de la partida que s'està jugant
      * @return La seqüència amb els feedbacks corresponents a l'intent aportat
      */
-    public List<Integer> validarSequencia() {
+    List<Integer> validarSequencia() {
         try {
             return controladorDomini.validarSequencia();
         } catch (GeneralException e) {
@@ -397,7 +397,7 @@ public class ControladorPresentacio {
      * Mètode per saber si el jugador fa de breaker en la partida actual
      * @return Si el jugador és breaker en la partida actual
      */
-    public Boolean isJugadorBreaker() {
+    Boolean isJugadorBreaker() {
         try {
             return controladorDomini.isJugadorBreaker();
         } catch (GeneralException e) {
@@ -410,7 +410,7 @@ public class ControladorPresentacio {
      * Mètode per saber si la partida actual està guanyada
      * @return Si la partida actual està guanyada
      */
-    public Boolean isPartidaGuanyada() {
+    Boolean isPartidaGuanyada() {
         try {
             return controladorDomini.isPartidaGuanyada();
         } catch (GeneralException e) {
@@ -423,7 +423,7 @@ public class ControladorPresentacio {
      * Mètode per saber si la partida actual està acabada
      * @return Si la partida actual està acabada (guanyada o perduda)
      */
-    public Boolean isPartidaAcabada() {
+    Boolean isPartidaAcabada() {
         try {
             return controladorDomini.isPartidaAcabada();
         } catch (GeneralException e) {
@@ -436,7 +436,7 @@ public class ControladorPresentacio {
      * Mètode per saber si l'últim intent de la partida actual està ple, és a dir, no té cap bola nul·la
      * @return Si l'últim intent està ple
      */
-    public Boolean isUltimIntentPle() {
+    Boolean isUltimIntentPle() {
         try {
             return controladorDomini.isUltimIntentPle();
         } catch (GeneralException e) {
@@ -448,7 +448,7 @@ public class ControladorPresentacio {
     /**
      * Mètode per indicar que l'usuari breaker vol veure la solució de la partida actual, perdent així la partida
      */
-    public void veureSolucio() {
+    void veureSolucio() {
         try {
             controladorDomini.veureSolucio();
         } catch (GeneralException e) {
@@ -460,7 +460,7 @@ public class ControladorPresentacio {
      * Getter dels mil·lisegons transcorreguts en la partida actual
      * @return Mil·lisegons transcorreguts en la partida actual
      */
-    public Long getTempsPartidaMillis() {
+    Long getTempsPartidaMillis() {
         try {
             return controladorDomini.getTempsPartidaMillis();
         } catch (GeneralException e) {
@@ -473,7 +473,7 @@ public class ControladorPresentacio {
      * Mètode per afegir temps transcorregut a la partida actual
      * @param millis mi·lisegons a afegir
      */
-    public void addTempsPartidaMillis(Long millis) {
+    void addTempsPartidaMillis(Long millis) {
         try {
             controladorDomini.addTempsPartidaMillis(millis);
         } catch (GeneralException e) {
@@ -484,7 +484,7 @@ public class ControladorPresentacio {
     /**
      * Mètode perquè el bot jugui la partida.
      */
-    public void botSolve() {
+    void botSolve() {
         try {
             controladorDomini.botSolve();
         } catch (GeneralException e) {
@@ -495,7 +495,7 @@ public class ControladorPresentacio {
     /**
      * Mètode per esborrar la partida carregada
      */
-    public void sortirPartida() {
+    void sortirPartida() {
         try {
             controladorDomini.sortirPartida();
         } catch (GeneralException e) {
@@ -526,7 +526,7 @@ public class ControladorPresentacio {
      * Mètode per assignar el títol del frame de l'aplicació
      * @param title Títol a assignar
      */
-    public void setTitle(String title) {
+    void setTitle(String title) {
         mainFrame.setTitle(title);
     }
 

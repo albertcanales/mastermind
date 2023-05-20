@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Arnau Valls Fusté
  */
-public class GestorUsuaris {
+class GestorUsuaris {
 
     private static final String relativeUsersPath = "users/users.csv";
 
@@ -24,11 +24,11 @@ public class GestorUsuaris {
 
     }
 
-    public Boolean existsUser(String username) throws PersistanceException {
+    Boolean existsUser(String username) throws PersistanceException {
         return csvFile.existsLinebyKey(username);
     }
 
-    public void registerUser(String username, String name, String password) throws PersistanceException {
+    void registerUser(String username, String name, String password) throws PersistanceException {
         if (!csvFile.existsLinebyKey(username))
         {
             String[] line = new String[HeaderUsuaris.getLength()];
@@ -45,7 +45,7 @@ public class GestorUsuaris {
 
     }
 
-    public String getPasswordHash(String username) throws PersistanceException {
+    String getPasswordHash(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getLinebyKey(username)[HeaderUsuaris.PASSWORD.start];
         }
@@ -54,7 +54,7 @@ public class GestorUsuaris {
         }
     }
 
-    public String getUserName(String username) throws PersistanceException {
+    String getUserName(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getLinebyKey(username)[HeaderUsuaris.NAME.start];
         }
@@ -63,7 +63,7 @@ public class GestorUsuaris {
         }
     }
 
-    public void esborrarUsuari(String username) throws PersistanceException {
+    void esborrarUsuari(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             csvFile.removeLinebyKey(username);
         }
@@ -72,9 +72,9 @@ public class GestorUsuaris {
         }
     }
 
-    public void setStats(String username, List<Integer> pr, List<Long> time, List<Integer> won, List<Integer> lost,
-                         List<Integer> currentWs, List<Integer> ws, List<Double> avgMaker, List<Double> avgBreaker,
-                         List<Integer> gamesMaker) throws PersistanceException {
+    void setStats(String username, List<Integer> pr, List<Long> time, List<Integer> won, List<Integer> lost,
+                  List<Integer> currentWs, List<Integer> ws, List<Double> avgMaker, List<Double> avgBreaker,
+                  List<Integer> gamesMaker) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
 
             String[] line = new String[HeaderUsuaris.getLength()];
@@ -98,7 +98,7 @@ public class GestorUsuaris {
         }
     }
 
-    public List<Integer> getPersonalRecord(String username) throws PersistanceException {
+    List<Integer> getPersonalRecord(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.PERSRECORD.start, HeaderUsuaris.PERSRECORD.end);
         }
@@ -107,7 +107,7 @@ public class GestorUsuaris {
         }
     }
 
-    public List<Long> getTimePlayed(String username) throws PersistanceException {
+    List<Long> getTimePlayed(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListLonginString(csvFile.getLinebyKey(username), HeaderUsuaris.TIMEPLAYED.start, HeaderUsuaris.TIMEPLAYED.end);
         }
@@ -116,7 +116,7 @@ public class GestorUsuaris {
         }
     }
 
-    public List<Integer> getWonGames(String username) throws PersistanceException {
+    List<Integer> getWonGames(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.WONGAMES.start, HeaderUsuaris.WONGAMES.end);
         }
@@ -125,7 +125,7 @@ public class GestorUsuaris {
         }
     }
 
-    public List<Integer> getLostGames(String username) throws PersistanceException {
+    List<Integer> getLostGames(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.LOSTGAMES.start, HeaderUsuaris.LOSTGAMES.end);
         }
@@ -133,7 +133,7 @@ public class GestorUsuaris {
             throw new LineNotFoundException(username, relativeUsersPath);
         }
     }
-    public List<Integer> getCurrentWinstreak(String username) throws PersistanceException {
+    List<Integer> getCurrentWinstreak(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.CURRENTWS.start, HeaderUsuaris.CURRENTWS.end);
         }
@@ -142,7 +142,7 @@ public class GestorUsuaris {
         }
     }
 
-    public List<Integer> getWinstreak(String username) throws PersistanceException {
+    List<Integer> getWinstreak(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.WINSTREAK.start, HeaderUsuaris.WINSTREAK.end);
         }
@@ -151,7 +151,7 @@ public class GestorUsuaris {
         }
     }
 
-    public List<Double> getAvgAsMaker(String username) throws PersistanceException {
+    List<Double> getAvgAsMaker(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListDoubleinString(csvFile.getLinebyKey(username), HeaderUsuaris.AVGASMAKER.start, HeaderUsuaris.AVGASMAKER.end);
         }
@@ -160,7 +160,7 @@ public class GestorUsuaris {
         }
     }
 
-    public List<Double> getAvgAsBreaker(String username) throws PersistanceException {
+    List<Double> getAvgAsBreaker(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListDoubleinString(csvFile.getLinebyKey(username), HeaderUsuaris.AVGASBREAKER.start, HeaderUsuaris.AVGASBREAKER.end);
         }
@@ -169,7 +169,7 @@ public class GestorUsuaris {
         }
     }
 
-    public List<Integer> getNumGamesAsMaker(String username) throws PersistanceException {
+    List<Integer> getNumGamesAsMaker(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.NUMGAMESMAKER.start, HeaderUsuaris.NUMGAMESMAKER.end);
         }

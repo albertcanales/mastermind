@@ -11,7 +11,7 @@ import java.util.Locale;
  * Segueix el patró Observer que alerta en canviar el valor
  * @author Albert Canales Ros
  */
-public class TimerLabel extends Subject {
+class TimerLabel extends Subject {
 
     /**
      * Període d'actualització de la label
@@ -74,7 +74,7 @@ public class TimerLabel extends Subject {
     /**
      * Mètode per actualitzar el text del comptador
      */
-    void updateTimeString() {
+    private void updateTimeString() {
         String seconds = String.valueOf((int) (time / 1000 % 60));
         if (seconds.length() == 1)
             seconds = "0" + seconds;

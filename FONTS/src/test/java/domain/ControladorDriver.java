@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Classe amb utilitats comunes entre drivers de controladors
  * @author Albert Canales
  */
-public class ControladorDriver {
+class ControladorDriver {
 
     static Scanner in;
 
@@ -39,7 +39,7 @@ public class ControladorDriver {
         return scanBoolean();
     }
 
-    static List<Integer> scanSequence() {
+    private static List<Integer> scanSequence() {
         List<Integer> sequence = new ArrayList<>();
         System.out.print("Enter the next bola (negative to stop): ");
         int num = scanInt();

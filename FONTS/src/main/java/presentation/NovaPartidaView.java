@@ -9,7 +9,7 @@ import java.util.Objects;
  * Vista per crear una nova partida
  * @author Kamil Przybyszewski
  */
-public class NovaPartidaView {
+class NovaPartidaView {
 
     /**
      * Controlador de presentació
@@ -67,7 +67,7 @@ public class NovaPartidaView {
     /**
      * Mètode per inicialitzar els components de la vista
      */
-    void initComponents() {
+    private void initComponents() {
 
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showHomeView());
         buttonJuga.addActionListener(actionEvent -> jugaButtonClick());

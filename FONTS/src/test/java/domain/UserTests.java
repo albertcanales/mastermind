@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("ALL")
 public class UserTests {
     private static List<Integer> personalRecordTest, personalRecordExpected;
     private static List<Long> timePlayedTest, timePlayedExpected;

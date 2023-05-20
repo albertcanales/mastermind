@@ -4,7 +4,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 import exceptions.persistance.InvalidCSVException;
-import exceptions.persistance.InvalidFileAccess;
+import exceptions.persistance.InvalidFileAccessException;
 import exceptions.persistance.LineNotFoundException;
 import exceptions.persistance.PersistanceException;
 
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  *
  * @author Arnau Valls Fusté
  */
-public class GestorCSVFile {
+class GestorCSVFile {
     private final File file;
 
     private final Integer keyPos;
@@ -38,7 +38,7 @@ public class GestorCSVFile {
      * @param start la posició inicial de l'String on es col·locarà la llista
      * @param end la posició final de l'String on es col·locarà la llista
      */
-    public void setListinString(List<?> list, String[] line, Integer start, Integer end) {
+    void setListinString(List<?> list, String[] line, Integer start, Integer end) {
         int i = start;
         int listPosition = 0;
         while (i <= end && listPosition < list.size()) {
@@ -55,7 +55,7 @@ public class GestorCSVFile {
      * @param end la posició final de l'String d'on es formarà la llista
      * @return una llista d'enters
      */
-    public List<Integer> getListIntinString(String[] line, Integer start, Integer end) {
+    List<Integer> getListIntinString(String[] line, Integer start, Integer end) {
         List<Integer> list = new ArrayList<>();
         int i = start;
         while (i <= end && i < line.length) {
@@ -73,7 +73,7 @@ public class GestorCSVFile {
      * @param end la posició final de l'String d'on es formarà la llista
      * @return una llista de Long(s)
      */
-    public List<Long> getListLonginString(String[] line, Integer start, Integer end) {
+    List<Long> getListLonginString(String[] line, Integer start, Integer end) {
         List<Long> list = new ArrayList<>();
         int i = start;
         while (i <= end && i < line.length) {
@@ -91,7 +91,7 @@ public class GestorCSVFile {
      * @param end la posició final de l'String d'on es formarà la llista
      * @return una llista de Double(s)
      */
-    public List<Double> getListDoubleinString(String[] line, Integer start, Integer end) {
+    List<Double> getListDoubleinString(String[] line, Integer start, Integer end) {
         List<Double> list = new ArrayList<>();
         int i = start;
         while (i <= end && i < line.length) {
@@ -109,7 +109,7 @@ public class GestorCSVFile {
      * @param start la posició inicial de l'String on es col·locarà la llista
      * @param end la posició final de l'String on es col·locarà la llista
      */
-    public void setListListinString(List<List<Integer>> list, String[] line, Integer start, Integer end) {
+    void setListListinString(List<List<Integer>> list, String[] line, Integer start, Integer end) {
         List<Integer> contiguousList = listListToList(list);
         setListinString(contiguousList, line, start, end);
     }
@@ -121,7 +121,7 @@ public class GestorCSVFile {
      * @param end la posició final de l'String d'on es formarà la llista
      * @return una llista (d'una llista d'enters)
      */
-    public List<List<Integer>> getListListinString(String[] line, Integer start, Integer end) {
+    List<List<Integer>> getListListinString(String[] line, Integer start, Integer end) {
         List<Integer> list = getListIntinString(line, start, end);
         return listToListList(list);
     }
@@ -161,7 +161,7 @@ public class GestorCSVFile {
      * @param header   un Array d'Strings amb el header a col·locar al fitxer
      * @throws PersistanceException si no es pot accedir al fitxer o si el CSV ja existeix i no té un format legal
      */
-    public GestorCSVFile(String fileName, String[] header, Integer keyPos) throws PersistanceException {
+    GestorCSVFile(String fileName, String[] header, Integer keyPos) throws PersistanceException {
 
         file = new File(fileName);
         file.getParentFile().mkdirs();
@@ -170,7 +170,7 @@ public class GestorCSVFile {
         try {
             hasJustBeenCreated = file.createNewFile();
         } catch (IOException e) {
-            throw new InvalidFileAccess(fileName);
+            throw new InvalidFileAccessException(fileName);
         }
 
         if (hasJustBeenCreated) addLine(header); //Si l'acabem de crear, posem el header
@@ -188,15 +188,15 @@ public class GestorCSVFile {
     /**
      * Afegeix la línia donada al final del fitxer
      *
-     * @param line     un Array d'Strings amb la línia a col·locar al fitxer
-     * @throws InvalidFileAccess si no es pot accedir al fitxer
+     * @param line un Array d'Strings amb la línia a col·locar al fitxer
+     * @throws InvalidFileAccessException si no es pot accedir al fitxer
      */
-    public void addLine(String[] line) throws InvalidFileAccess {
+    void addLine(String[] line) throws InvalidFileAccessException {
         CSVWriter csvWriter;
         try {
             csvWriter = new CSVWriter(new FileWriter(file, true)); //fem append
         } catch (IOException e) {
-            throw new InvalidFileAccess(file.getName());
+            throw new InvalidFileAccessException(file.getName());
         }
 
         csvWriter.writeNext(line);
@@ -204,7 +204,7 @@ public class GestorCSVFile {
         try {
             csvWriter.close();
         } catch (IOException e) {
-            throw new InvalidFileAccess(file.getName());
+            throw new InvalidFileAccessException(file.getName());
         }
 
     }
@@ -246,28 +246,28 @@ public class GestorCSVFile {
      *
      * @param removeHeader si és true es treurà el header de la llista retornada
      * @return una llista d'Strings amb totes les línies d'un fitxer
-     * @throws InvalidFileAccess   si no es pot accedir al fitxer
+     * @throws InvalidFileAccessException   si no es pot accedir al fitxer
      * @throws InvalidCSVException si el CSV no té un format legal
      */
-    public List<String[]> readAllLines(Boolean removeHeader) throws InvalidFileAccess, InvalidCSVException {
+    List<String[]> readAllLines(Boolean removeHeader) throws InvalidFileAccessException, InvalidCSVException {
         CSVReader csvReader;
         try {
             csvReader = new CSVReader(new FileReader(file));
         } catch (java.io.FileNotFoundException e) {
-            throw new InvalidFileAccess(file.getName());
+            throw new InvalidFileAccessException(file.getName());
         }
         List<String[]> allLines;
         try {
             allLines = csvReader.readAll();
         } catch (IOException e) {
-            throw new InvalidFileAccess(file.getName());
+            throw new InvalidFileAccessException(file.getName());
         } catch (CsvException e) {
             throw new InvalidCSVException(file.getName());
         }
         try {
             csvReader.close();
         } catch (IOException e) {
-            throw new InvalidFileAccess(file.getName());
+            throw new InvalidFileAccessException(file.getName());
         }
 
         if (removeHeader) allLines.remove(headerPos);
@@ -278,14 +278,14 @@ public class GestorCSVFile {
      * Escriu totes les línies d'un fitxer donat una llista d'Strings
      *
      * @param allLines una llista d'Strings amb totes les línies d'un fitxer (sense el header!!)
-     * @throws InvalidFileAccess si no es pot accedir al fitxer
+     * @throws InvalidFileAccessException si no es pot accedir al fitxer
      */
-    public void writeAllLines(List<String[]> allLines) throws InvalidFileAccess {
+    void writeAllLines(List<String[]> allLines) throws InvalidFileAccessException {
         CSVWriter csvWriter;
         try {
             csvWriter = new CSVWriter(new FileWriter(file, false));
         } catch (IOException e) {
-            throw new InvalidFileAccess(file.getName());
+            throw new InvalidFileAccessException(file.getName());
         }
         allLines.add(headerPos, header);
         csvWriter.writeAll(allLines);
@@ -293,7 +293,7 @@ public class GestorCSVFile {
         try {
             csvWriter.close();
         } catch (IOException e) {
-            throw new InvalidFileAccess(file.getName());
+            throw new InvalidFileAccessException(file.getName());
         }
     }
 
@@ -304,7 +304,7 @@ public class GestorCSVFile {
      * @return un Array d'Strings amb la línia corresponent
      * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
      */
-    public String[] getLinebyKey(String key) throws PersistanceException {
+    String[] getLinebyKey(String key) throws PersistanceException {
         List<String[]> allLines = readAllLines(true);
 
         int rowNumber = getLineNumberByKey(allLines, key);
@@ -318,7 +318,7 @@ public class GestorCSVFile {
      * @return un booleà cert o fals depenent de si la línia existeix
      * @throws PersistanceException si no es pot accedir al fitxer o si el CSV no té un format legal
      */
-    public Boolean existsLinebyKey(String key) throws PersistanceException {
+    Boolean existsLinebyKey(String key) throws PersistanceException {
         List<String[]> allLines = readAllLines(true);
 
         return foundLineByKey(allLines, key);
@@ -330,7 +330,7 @@ public class GestorCSVFile {
      * @param key      l'identificador de la línia a buscar
      * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
      */
-    public void removeLinebyKey(String key) throws PersistanceException {
+    void removeLinebyKey(String key) throws PersistanceException {
         List<String[]> allLines = readAllLines(true);
 
         int rowNumber = getLineNumberByKey(allLines, key);
@@ -346,7 +346,7 @@ public class GestorCSVFile {
      * @param line     line un Array d'Strings amb la línia a col·locar al fitxer
      * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
      */
-    public void setLinebyKey(String key, String[] line) throws PersistanceException {
+    void setLinebyKey(String key, String[] line) throws PersistanceException {
         List<String[]> allLines = readAllLines(true);
 
         int rowNumber = getLineNumberByKey(allLines, key);

@@ -140,7 +140,8 @@ class BolaButton extends Subject {
          * @param size Mida de la icona
          * @param color Color de la icona
          */
-        public ColorIcon(int size, Color color) {
+        @SuppressWarnings("SameParameterValue")
+        ColorIcon(int size, Color color) {
             this.size = size;
             this.color = color;
         }

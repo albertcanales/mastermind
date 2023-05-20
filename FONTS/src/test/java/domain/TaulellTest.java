@@ -9,9 +9,10 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("ALL")
 public class TaulellTest {
 
-    public List<Integer> getNulList() {
+    private List<Integer> getNulList() {
         List<Integer> list = new ArrayList<>(Taulell.NUMBOLES);
         for (int i = 0; i < Taulell.NUMBOLES; ++i) {
             list.add(Bola.NUL.number());
@@ -19,7 +20,7 @@ public class TaulellTest {
         return list;
     }
 
-    public List<Integer> getList(long seed, boolean putNul, boolean allowNul, boolean isFeedback) {
+    private List<Integer> getList(long seed, boolean putNul, boolean allowNul, boolean isFeedback) {
         List<Integer> list = new ArrayList<>();
         Random rand = new Random(seed);
         for (int i = 0; i < Taulell.NUMBOLES; i++) {
@@ -33,7 +34,7 @@ public class TaulellTest {
         return list;
     }
 
-    public List<List<Integer>> getListList(long seed, boolean putNul, boolean allowNul, boolean isFeedback, int size) {
+    private List<List<Integer>> getListList(long seed, boolean putNul, boolean allowNul, boolean isFeedback, int size) {
         List<List<Integer>> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             List<Integer> sequence = getList(seed+i, putNul, allowNul, isFeedback);

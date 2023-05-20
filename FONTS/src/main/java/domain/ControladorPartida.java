@@ -358,7 +358,7 @@ class ControladorPartida {
      * Mètode per assignar la solució com a vista
      * @throws DomainException si no s'està jugant cap partida
      */
-    public void veureSolucio() throws DomainException {
+    void veureSolucio() throws DomainException {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
         partida.veureSolucio();

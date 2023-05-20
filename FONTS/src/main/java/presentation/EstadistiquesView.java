@@ -11,7 +11,7 @@ import java.util.List;
  * Vista de la Zona de l'usuari
  * @author Mar Gonzàlez Català
  */
-public class EstadistiquesView {
+class EstadistiquesView {
 
     /**
      * Controlador de presentació
@@ -297,7 +297,7 @@ public class EstadistiquesView {
     /**
      * Mètode que elimina l'usuari actual i torna a la vista inicial
      */
-    void buttonEsborraUsuariClick() {
+    private void buttonEsborraUsuariClick() {
         if (controladorPresentacio.showYesNoDialog("Esborrar usuari", "Segur que vols esborrar el teu usuari?" +
                 " També esapareixerà dels rànquings! Aquesta acció és irreversible.")) {
             controladorPresentacio.esborrarUsuari();
