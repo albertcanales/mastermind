@@ -1,3 +1,7 @@
 Paquet per a les classes de persistència
 
 ControladorPersistencia.java
+GestorCSVFile.java
+GestorPartidesActuals.java
+GestorRanquing.java
+GestorUsuaris.java

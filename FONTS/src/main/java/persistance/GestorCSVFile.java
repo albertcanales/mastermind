@@ -23,12 +23,29 @@ import java.util.stream.Collectors;
  * @author Arnau Valls Fusté
  */
 class GestorCSVFile {
+    /**
+     * Instància de l'arxiu
+     */
     private final File file;
 
+    /**
+     * Columna on està situada la clau del CSV
+     */
     private final Integer keyPos;
 
+    /**
+     * Línia on està situat el Header del CSV
+     */
     private static final int headerPos = 0; //El header sempre està a la posició 0 d'un CSV
+
+    /**
+     * El header del fitxer CSV
+     */
     private final String[] header;
+
+    /**
+     * Constant que defineix que les llistes que s'insertin al CSV seràn sempre de tamany 4
+     */
     private static final int listSize = 4;
 
     /**
