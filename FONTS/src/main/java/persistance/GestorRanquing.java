@@ -9,8 +9,19 @@ import java.util.List;
  * Gestor del Rànquing guardat a ranquing/facil.csv, ranquing/normal.csv i ranquing/dificil.csv
  */
 class GestorRanquing {
+    /**
+     * Nombre de fitxers que gestionarà el Gestor
+     */
     static final Integer numFitxers = 3;
+
+    /**
+     * Instància de GestorCSVFile que representa el fitxer
+     */
     private final GestorCSVFile[] csvFiles = new GestorCSVFile[numFitxers];
+
+    /**
+     * Strings que representen els arxius que manipularà el Gestor
+     */
     private static final String[] relativePaths = new String[]{"ranquing/facil.csv", "ranquing/normal.csv", "ranquing/dificil.csv"};
 
     /**

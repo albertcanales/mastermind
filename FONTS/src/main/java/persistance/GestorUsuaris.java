@@ -15,19 +15,43 @@ import java.util.List;
  */
 class GestorUsuaris {
 
+    /**
+     * String que representa l'arxiu que manipularà el Gestor
+     */
     private static final String relativeUsersPath = "users/users.csv";
 
+    /**
+     * Instància de GestorCSVFile que representa el fitxer
+     */
     private final GestorCSVFile csvFile;
 
+    /**
+     * Constructor del Gestor d'Usuaris
+     * @param basePath directori base a partir d'on es crearan tots els arxius
+     * @throws PersistanceException si no es pot accedir al fitxer o si el CSV ja existeix i no té un format legal
+     */
     GestorUsuaris(String basePath) throws PersistanceException {
         csvFile = new GestorCSVFile(basePath + relativeUsersPath, HeaderUsuaris.getHeader(), HeaderUsuaris.USERNAME.start);
 
     }
 
+    /**
+     * Comprova si existeix una entrada al CSV de la clau username
+     * @param username nom d'usuari (clau)
+     * @return cert o fals
+     * @throws PersistanceException si no es pot accedir al fitxer o si el CSV no té un format legal
+     */
     Boolean existsUser(String username) throws PersistanceException {
         return csvFile.existsLinebyKey(username);
     }
 
+    /**
+     * Estableix els paràmetres passats a les columnes corresponents en una nova línia del CSV
+     * @param username nom d'usuari (clau)
+     * @param name nom complet
+     * @param password contrasenya
+     * @throws PersistanceException si no es pot accedir al fitxer o si el CSV no té un format legal o si la línia ja existeix
+     */
     void registerUser(String username, String name, String password) throws PersistanceException {
         if (!csvFile.existsLinebyKey(username))
         {
@@ -45,6 +69,12 @@ class GestorUsuaris {
 
     }
 
+    /**
+     * Retorna a la columna PASSWORD del CSV
+     * @param username nom d'usuari (clau)
+     * @return l'String del PASSWORD
+     * @throws PersistanceException
+     */
     String getPasswordHash(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getLinebyKey(username)[HeaderUsuaris.PASSWORD.start];
@@ -54,6 +84,12 @@ class GestorUsuaris {
         }
     }
 
+    /**
+     * Retorna a la columna USERNAME del CSV
+     * @param username nom d'usuari (clau)
+     * @return l'String del USERNAME
+     * @throws PersistanceException
+     */
     String getUserName(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getLinebyKey(username)[HeaderUsuaris.NAME.start];
@@ -63,6 +99,11 @@ class GestorUsuaris {
         }
     }
 
+    /**
+     * Esborra una línia del CSV donada la clau username
+     * @param username nom d'usuari (clau)
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     void esborrarUsuari(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             csvFile.removeLinebyKey(username);
@@ -72,6 +113,20 @@ class GestorUsuaris {
         }
     }
 
+    /**
+     * Estableix els paràmetres passats a les columnes corresponents en una línia existent del CSV
+     * @param username nom d'usuari (clau)
+     * @param pr llista de PERSRECORD
+     * @param time llista de TIMEPLAYED
+     * @param won llista de WONGAMES
+     * @param lost llista de LOSTGAMES
+     * @param currentWs llista de CURRENTWS
+     * @param ws llista de WINSTREAK
+     * @param avgMaker llista de AVGASMAKER
+     * @param avgBreaker llista de AVGASBREAKER
+     * @param gamesMaker llista de NUMGAMESMAKER
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     void setStats(String username, List<Integer> pr, List<Long> time, List<Integer> won, List<Integer> lost,
                   List<Integer> currentWs, List<Integer> ws, List<Double> avgMaker, List<Double> avgBreaker,
                   List<Integer> gamesMaker) throws PersistanceException {
@@ -98,6 +153,12 @@ class GestorUsuaris {
         }
     }
 
+    /**
+     * Retorna la columna PERSRECORD del CSV
+     * @param username nom d'usuari (clau)
+     * @return llista de PERSRECORD
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<Integer> getPersonalRecord(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.PERSRECORD.start, HeaderUsuaris.PERSRECORD.end);
@@ -107,6 +168,12 @@ class GestorUsuaris {
         }
     }
 
+    /**
+     * Retorna la columna TIMEPLAYED del CSV
+     * @param username nom d'usuari (clau)
+     * @return llista de TIMEPLAYED
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<Long> getTimePlayed(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListLonginString(csvFile.getLinebyKey(username), HeaderUsuaris.TIMEPLAYED.start, HeaderUsuaris.TIMEPLAYED.end);
@@ -116,6 +183,12 @@ class GestorUsuaris {
         }
     }
 
+    /**
+     * Retorna la columna WONGAMES del CSV
+     * @param username nom d'usuari (clau)
+     * @return llista de WONGAMES
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<Integer> getWonGames(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.WONGAMES.start, HeaderUsuaris.WONGAMES.end);
@@ -125,6 +198,12 @@ class GestorUsuaris {
         }
     }
 
+    /**
+     * Retorna la columna LOSTGAMES del CSV
+     * @param username nom d'usuari (clau)
+     * @return llista de LOSTGAMES
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<Integer> getLostGames(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.LOSTGAMES.start, HeaderUsuaris.LOSTGAMES.end);
@@ -133,6 +212,13 @@ class GestorUsuaris {
             throw new LineNotFoundException(username, relativeUsersPath);
         }
     }
+
+    /**
+     * Retorna la columna CURRENTWS del CSV
+     * @param username nom d'usuari (clau)
+     * @return llista de CURRENTWS
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<Integer> getCurrentWinstreak(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.CURRENTWS.start, HeaderUsuaris.CURRENTWS.end);
@@ -142,6 +228,12 @@ class GestorUsuaris {
         }
     }
 
+    /**
+     * Retorna la columna WINSTREAK del CSV
+     * @param username nom d'usuari (clau)
+     * @return llista de WINSTREAK
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<Integer> getWinstreak(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.WINSTREAK.start, HeaderUsuaris.WINSTREAK.end);
@@ -151,6 +243,12 @@ class GestorUsuaris {
         }
     }
 
+    /**
+     * Retorna la columna AVGASMAKER del CSV
+     * @param username nom d'usuari (clau)
+     * @return llista de AVGASMAKER
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<Double> getAvgAsMaker(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListDoubleinString(csvFile.getLinebyKey(username), HeaderUsuaris.AVGASMAKER.start, HeaderUsuaris.AVGASMAKER.end);
@@ -160,6 +258,12 @@ class GestorUsuaris {
         }
     }
 
+    /**
+     * Retorna la columna AVGASBREAKER del CSV
+     * @param username nom d'usuari (clau)
+     * @return llista de AVGASBREAKER
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<Double> getAvgAsBreaker(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListDoubleinString(csvFile.getLinebyKey(username), HeaderUsuaris.AVGASBREAKER.start, HeaderUsuaris.AVGASBREAKER.end);
@@ -169,6 +273,12 @@ class GestorUsuaris {
         }
     }
 
+    /**
+     * Retorna la columna NUMGAMESMAKER del CSV
+     * @param username nom d'usuari (clau)
+     * @return llista de NUMGAMESMAKER
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<Integer> getNumGamesAsMaker(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             return csvFile.getListIntinString(csvFile.getLinebyKey(username), HeaderUsuaris.NUMGAMESMAKER.start, HeaderUsuaris.NUMGAMESMAKER.end);
@@ -236,6 +346,10 @@ class GestorUsuaris {
             return header;
         }
 
+        /**
+         * Retorna la llargada real del header
+         * @return un enter amb la llargada del header
+         */
         private static Integer getLength() {
             return values()[(values().length - 1)].end + 1;
         }

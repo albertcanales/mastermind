@@ -15,15 +15,38 @@ import java.util.List;
  */
 class GestorPartidesActuals {
 
+    /**
+     * String que representa l'arxiu que manipularà el Gestor
+     */
     private static final String relativePathPartidesActuals = "partidesActuals/partidesActuals.csv";
 
+    /**
+     * Instància de GestorCSVFile que representa el fitxer
+     */
     private final GestorCSVFile csvFile;
 
+    /**
+     * Constructor del Gestor de Partides Actuals
+     * @param basePath directori base a partir d'on es crearan tots els arxius
+     * @throws PersistanceException si no es pot accedir al fitxer o si el CSV ja existeix i no té un format legal
+     */
     GestorPartidesActuals(String basePath) throws PersistanceException {
         csvFile = new GestorCSVFile(basePath + relativePathPartidesActuals, HeaderPartides.getHeader(), HeaderPartides.USERNAME.start);
 
     }
 
+    /**
+     * Estableix els paràmetres passats a les columnes corresponents en una nova línia del CSV
+     * @param username nom d'usuari (clau)
+     * @param isBreaker la columna ISBREAKER
+     * @param temps la columna TEMPS
+     * @param dificultat la columna DIFICULTAT
+     * @param algorisme la columna ALGORISME
+     * @param solucio la columna SOLUCIO
+     * @param intents la columna INTENTS
+     * @param feedback la columna FEEDBACKS
+     * @throws PersistanceException si no es pot accedir al fitxer o si el CSV no té un format legal o si la línia ja existeix
+     */
     void novaPartida(String username, Boolean isBreaker, Long temps, Integer dificultat, Integer algorisme, List<Integer> solucio, List<List<Integer>> intents,
                      List<List<Integer>> feedback) throws PersistanceException {
         if (!csvFile.existsLinebyKey(username)) {
@@ -49,10 +72,21 @@ class GestorPartidesActuals {
 
     }
 
+    /**
+     * Comprova si existeix una entrada al CSV de la clau username
+     * @param username nom d'usuari (clau)
+     * @return cert o fals
+     * @throws PersistanceException si no es pot accedir al fitxer o si el CSV no té un format legal
+     */
     Boolean existsPartidaActual(String username) throws PersistanceException {
         return csvFile.existsLinebyKey(username);
     }
 
+    /**
+     * Esborra una línia del CSV donada la clau username
+     * @param username nom d'usuari (clau)
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     void esborrarPartidaActual(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             csvFile.removeLinebyKey(username);
@@ -61,6 +95,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Retorna a la columna ISBREAKER del CSV
+     * @param username nom d'usuari (clau)
+     * @return el Booleà ISBREAKER
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     Boolean isBreaker(String username) throws  PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -71,6 +111,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Retorna la columna TEMPS del CSV
+     * @param username nom d'usuari (clau)
+     * @return un Long del TEMPS
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     Long getTemps(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -81,6 +127,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Estableix la columna TEMPS del CSV
+     * @param username nom d'usuari (clau)
+     * @param temps un Long del TEMPS
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     void setTemps(String username, Long temps) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -92,6 +144,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Retorna la columna DIFICULTAT del CSV
+     * @param username nom d'usuari (clau)
+     * @return un enter de la DIFICULTAT
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     Integer getDificultat(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -102,6 +160,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Retorna la columna ALGORISME del CSV
+     * @param username nom d'usuari (clau)
+     * @return un enter de l'ALGORISME
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     Integer getAlgorisme(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -112,6 +176,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Retorna les columnes de la SOLUCIO del CSV
+     * @param username nom d'usuari (clau)
+     * @return una llista de la SOLUCIO
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<Integer> getSolucio(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -122,6 +192,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Retorna les columnes dels INTENTS del CSV
+     * @param username nom d'usuari (clau)
+     * @return llista d'una llista d'enters dels INTENTS
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<List<Integer>> getIntents(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -132,6 +208,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Estableix les columnes dels INTENTS del CSV
+     * @param username nom d'usuari (clau)
+     * @param intents llista d'una llista d'enters dels INTENTS
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     void setIntents(String username, List<List<Integer>> intents) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -143,6 +225,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Retorna les columnes dels FEEDBACKS del CSV
+     * @param username nom d'usuari (clau)
+     * @return llista d'una llista d'enters dels FEEDBACKS
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     List<List<Integer>> getFeedbacks(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -153,6 +241,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Estableix les columnes dels FEEDBACKS del CSV
+     * @param username nom d'usuari (clau)
+     * @param feedbacks llista d'una llista d'enters dels FEEDBACKS
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     void setFeedbacks(String username, List<List<Integer>> feedbacks) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -164,6 +258,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Retorna la columna de SOLUCIOVISTA del CSV
+     * @param username nom d'usuari (clau)
+     * @return un booleà de SOLUCIOVISTA
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     Boolean getSolucioVista(String username) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -174,6 +274,12 @@ class GestorPartidesActuals {
         }
     }
 
+    /**
+     * Estableix la columna de SOLUCIOVISTA del CSV
+     * @param username nom d'usuari (clau)
+     * @param SolucioVista un booleà de SOLUCIOVISTA
+     * @throws PersistanceException si no es pot accedir al fitxer, si el CSV no té un format legal o la línia no existeix
+     */
     void setSolucioVista(String username, Boolean SolucioVista) throws PersistanceException {
         if (csvFile.existsLinebyKey(username)) {
             String[] gotline = csvFile.getLinebyKey(username);
@@ -214,9 +320,9 @@ class GestorPartidesActuals {
         }
 
         /**
-         * Genera un array d'strings amb el Header corresponent
+         * Genera un array d'Strings amb el Header corresponent
          *
-         * @return un array d'strings
+         * @return un array d'Strings
          */
         private static String[] getHeader() {
             String[] header = new String[getLength()];
@@ -242,6 +348,10 @@ class GestorPartidesActuals {
             return header;
         }
 
+        /**
+         * Retorna la llargada real del header
+         * @return un enter amb la llargada del header
+         */
         private static Integer getLength() {
             return values()[(values().length - 1)].end + 1;
         }
