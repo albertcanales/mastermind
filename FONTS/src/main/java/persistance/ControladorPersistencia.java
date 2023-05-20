@@ -1,5 +1,6 @@
 package persistance;
 
+import domain.ControladorDomini;
 import exceptions.GeneralException;
 import exceptions.persistance.PersistanceException;
 
@@ -8,14 +9,31 @@ import java.util.List;
 
 public class ControladorPersistencia {
 
+    /**
+     * Instància de la classe per la implementació del patró Singleton
+     */
+    private static ControladorPersistencia instance = null;
+
     private final GestorUsuaris gestorUsuaris;
     private final GestorPartidesActuals gestorPartidesActuals;
     private final GestorRanquing gestorRanquing;
-    private static final String basePath = "./db/"; //TODO: directoris dinàmics
-    public ControladorPersistencia() throws PersistanceException {
+    private static final String basePath = "./db/";
+
+    private ControladorPersistencia() throws PersistanceException {
         gestorUsuaris = new GestorUsuaris(basePath);
         gestorPartidesActuals = new GestorPartidesActuals(basePath);
         gestorRanquing = new GestorRanquing(basePath);
+    }
+
+    /**
+     * Mètode per obtenir l'única instància del controlador de persistència
+     * @return L'única instància de ControladorPersistència
+     * @throws PersistanceException Si no es pot iniciar la base de dades
+     */
+    public static ControladorPersistencia getInstance() throws GeneralException {
+        if(instance == null)
+            instance = new ControladorPersistencia();
+        return instance;
     }
     public Boolean existsUser(String username) throws PersistanceException {
         return gestorUsuaris.existsUser(username);

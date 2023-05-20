@@ -41,7 +41,7 @@ jocProvesDomini: jocProvesDomini1 jocProvesDomini2 jocProvesDomini3
 jocProves: jocProvesPartida jocProvesDomini
 
 run: exe
-	java -jar ../EXE/release/Mastermind.jar
+	cd ../EXE/release && java -jar Mastermind.jar
 
 javadoc:
 	./gradlew javadoc

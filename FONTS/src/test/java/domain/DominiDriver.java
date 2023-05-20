@@ -64,7 +64,7 @@ class DominiDriver extends ControladorDriver {
     private static void testConstructor() throws GeneralException {
         System.out.println("Testing constructor...");
 
-        cd = new ControladorDomini();
+        cd = ControladorDomini.getInstance();
     }
 
     private static void testUserLoggedIn() {
@@ -581,7 +581,7 @@ class DominiDriver extends ControladorDriver {
     }
 
     public static void main(String[] args) throws GeneralException {
-        cd = new ControladorDomini();
+        cd = ControladorDomini.getInstance();
         in = new Scanner(System.in);
         System.out.println("A continuació es mostren les comandes possibles:");
         showUsage();

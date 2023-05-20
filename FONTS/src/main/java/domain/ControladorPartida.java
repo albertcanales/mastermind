@@ -1,5 +1,6 @@
 package domain;
 
+import exceptions.GeneralException;
 import exceptions.domain.DomainException;
 import exceptions.domain.InvalidPartidaTypeException;
 import exceptions.domain.NotPlayingPartidaException;
@@ -14,6 +15,11 @@ import java.util.List;
  * @author Albert Canales
  */
 class ControladorPartida {
+
+    /**
+     * Instància de la classe per la implementació del patró Singleton
+     */
+    private static final ControladorPartida instance = new ControladorPartida();
 
     /**
      * Estat de la partida actual
@@ -39,6 +45,20 @@ class ControladorPartida {
      * BotMaker de la partida actual (null si ho és el jugador)
      */
     private BotMaker botMaker;
+
+    /**
+     * Constructor del Controlador de Partida, privat perquè és un Singleton
+     */
+    private ControladorPartida() {
+    }
+
+    /**
+     * Mètode per obtenir l'única instància del controlador de partida
+     * @return L'única instància de ControladorPartida
+     */
+    static ControladorPartida getInstance() {
+        return instance;
+    }
 
     /**
      * Mètode per saber si s'està jugant una partida actualment

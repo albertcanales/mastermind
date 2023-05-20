@@ -8,11 +8,16 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Controlador de la capa de domini
+ * Controlador de la capa de domini.
+ * Segueix el patró de Singleton
  * @author Albert Canales
  */
 public class ControladorDomini {
 
+    /**
+     * Instància de la classe per la implementació del patró Singleton
+     */
+    private static ControladorDomini instance = null;
 
     /**
      * Instància del controlador de partida
@@ -38,11 +43,22 @@ public class ControladorDomini {
      * Constructor del Controlador de Domini
      * @throws GeneralException si no es pot iniciar la base de dades
      */
-    public ControladorDomini() throws GeneralException {
-        controladorPartida = new ControladorPartida();
-        controladorPersistencia = new ControladorPersistencia();
+    private ControladorDomini() throws GeneralException {
+        controladorPartida = ControladorPartida.getInstance();
+        controladorPersistencia = ControladorPersistencia.getInstance();
         user = null;
         ranquing = null;
+    }
+
+    /**
+     * Mètode per obtenir l'única instància del controlador de domini
+     * @return L'única instància de ControladorDomini
+     * @throws GeneralException Si no es pot iniciar la base de dades
+     */
+    public static ControladorDomini getInstance() throws GeneralException {
+        if(instance == null)
+            instance = new ControladorDomini();
+        return instance;
     }
 
     /**

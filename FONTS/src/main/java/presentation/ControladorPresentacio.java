@@ -36,7 +36,7 @@ class ControladorPresentacio {
         ControladorDomini controladorDomini;
         mainFrame = new MainFrame();
         try {
-            controladorDomini = new ControladorDomini();
+            controladorDomini = ControladorDomini.getInstance();
         } catch (GeneralException e) {
             controladorDomini = null;
         }
