@@ -229,7 +229,7 @@ public class DominiDriver extends ControladorDriver {
             return;
         }
 
-        List<List<List<String>>> ranquings = cd.getRanquings();
+        List<List<List<String>>> ranquings = cd.getRanquings(20);
 
             System.out.println("USUARI | INTENTS | TEMPS");
             for(List<List<String>> ranquing : ranquings)

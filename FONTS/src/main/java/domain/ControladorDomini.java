@@ -234,13 +234,14 @@ public class ControladorDomini {
     /**
      * Mètode per obtenir els rànquings. Hi ha un rànquing per dificultat, cada un amb entrades de tres valors
      * que són {username, intents, time}
+     * @param max_rows Nombre màxim de files que es volen obtenir
      * @return Tots els rànquings
      * @throws GeneralException Si persistència no pot proporcionar els rànquings
      */
-    public List<List<List<String>>> getRanquings() throws GeneralException {
+    public List<List<List<String>>> getRanquings(Integer max_rows) throws GeneralException {
         if(ranquing == null)
             ranquing = new Ranquing(controladorPersistencia.getRanquings());
-        return ranquing.getRanquings();
+        return ranquing.getRanquings(max_rows);
     }
 
     /**

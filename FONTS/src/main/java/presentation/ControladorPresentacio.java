@@ -305,9 +305,9 @@ public class ControladorPresentacio {
      * una llista amb entrades del tipus {username, intents, temps}
      * @return Rànquings per a cada dificultat
      */
-    public List<List<List<String>>> getRanquings(){
+    public List<List<List<String>>> getRanquings(Integer max_rows){
         try {
-            return controladorDomini.getRanquings();
+            return controladorDomini.getRanquings(max_rows);
         } catch (GeneralException e) {
             showErrorDialog("No s'han pogut obtenir els rànquings");
         }

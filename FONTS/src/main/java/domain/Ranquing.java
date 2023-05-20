@@ -44,10 +44,13 @@ public class Ranquing {
         ranquingDificultat.add(indexNovaPartida,novaPartida);
     }
 
-    List<List<List<String>>> getRanquings(){
+    List<List<List<String>>> getRanquings(Integer max_rows){
         return ranquings;
     }
 
+    List<List<List<String>>> getRanquings(){
+        return ranquings;
+    }
 
     void esborrarUserFromRanquing(String username){
         for (int i = 0; i < NivellDificultat.numDificultats(); ++i){

@@ -27,6 +27,7 @@ public class RankingView {
     private ArrayList<JTable> rankingTableList;
 
     private final int NUM_RANKINGS = 3;
+    private final int MAX_ROWS = 20;
 
     /**
      * Constructor per defecte de la vista
@@ -66,7 +67,7 @@ public class RankingView {
     }
 
     private void initRanking() {
-        List<List<List<String>>> ranking = controladorPresentacio.getRanquings();
+        List<List<List<String>>> ranking = controladorPresentacio.getRanquings(MAX_ROWS);
 
         for (int i = 0; i < NUM_RANKINGS; ++i) fillRanking(i, ranking.get(i));
     }
