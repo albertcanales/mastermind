@@ -306,6 +306,7 @@ class ControladorPresentacio {
      * @param max_rows Nombre màxim d'entrades a rebre per cada rànquing
      * @return Rànquings per a cada dificultat
      */
+    @SuppressWarnings("SameParameterValue")
     List<List<List<String>>> getRanquings(Integer max_rows){
         try {
             return controladorDomini.getRanquings(max_rows);

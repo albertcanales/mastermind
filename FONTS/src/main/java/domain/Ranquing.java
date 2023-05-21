@@ -49,9 +49,9 @@ class Ranquing {
      * Mètode per actualitzar els ranquings quan es guanya una partida com a CodeBreaker, conservant l'ordre
      * @param username username de l'usuari de la partida
      * @param dificultat dificultat de la partida
-     * @param intents intents amb els quals s'ha guanyat la partida
-     * @param temps duració de la partida
-     * @throws DomainException
+     * @param intents intents amb els quals s'ha guanyat la partida (estrictament positiu)
+     * @param temps duració de la partida (positiu o zero)
+     * @throws DomainException Si cap dels paràmetres donats és invàlid
      */
     void acabarPartidaBreaker(String username, Integer dificultat, Integer intents, Long temps) throws DomainException {
         if (!NivellDificultat.isValid(dificultat)) throw new InvalidEnumValueException("NivellDificultat", dificultat.toString());
@@ -77,6 +77,11 @@ class Ranquing {
         ranquingDificultat.add(indexNovaPartida,novaPartida);
     }
 
+    /**
+     * Mètode per obtenir els rànquings de totes les dificultats. Cada dificultat té una llista que té elements
+     * de la forma [username, intents, temps].ç
+     * @param max_rows Nombre d'entrades màxim a obtenir per a cada dificultat
+     */
     List<List<List<String>>> getRanquings(Integer max_rows){
         List<List<List<String>>> ranquingMaxRows = new ArrayList<>();
         for (int i = 0; i < NivellDificultat.numDificultats(); ++i){
@@ -87,6 +92,10 @@ class Ranquing {
         return ranquingMaxRows;
     }
 
+    /**
+     * Mètode per obtenir els rànquings de totes les dificultats. Cada dificultat té una llista que té elements
+     * de la forma [username, intents, temps].
+     */
     List<List<List<String>>> getRanquings(){
         return ranquings;
     }
