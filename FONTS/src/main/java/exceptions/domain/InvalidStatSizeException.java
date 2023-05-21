@@ -2,6 +2,7 @@ package exceptions.domain;
 
 /**
  * Excepció per indicar que una llista d'estadístiques no té la mida esperada
+ * @author Kamil Przybyszewski
  */
 public class InvalidStatSizeException extends DomainException {
 

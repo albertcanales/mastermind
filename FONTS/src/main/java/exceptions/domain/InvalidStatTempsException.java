@@ -2,6 +2,7 @@ package exceptions.domain;
 
 /**
  * Excepció per indicar que una estadística temps té un valor incorrecte, és a dir, no positiu
+ * @author Kamil Przybyszewski
  */
 public class InvalidStatTempsException extends DomainException {
     /**

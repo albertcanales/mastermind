@@ -2,6 +2,7 @@ package exceptions.domain;
 
 /**
  * Excepció per indicar que el número de ranquings no és l'esperat
+ * @author Kamil Przybyszewski
  */
 public class InvalidNumRanquingsException extends DomainException {
     /**

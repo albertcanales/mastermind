@@ -1,0 +1,6 @@
+Excepcions per la capa de Persistència
+
+InvalidCSVException.java
+InvalidFileAccessException.java
+LineAlreadyExistsException.java
+LineNotFoundException.java

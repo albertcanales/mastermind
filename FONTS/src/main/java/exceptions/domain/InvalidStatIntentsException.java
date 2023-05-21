@@ -2,6 +2,7 @@ package exceptions.domain;
 
 /**
  * Excepció per indicar que una estadística intents té un valor incorrecte, és a dir, negatiu o 0 a una partida guanyada
+ * @author Kamil Przybyszewski
  */
 public class InvalidStatIntentsException extends DomainException {
     /**
