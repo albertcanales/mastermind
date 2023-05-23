@@ -92,6 +92,33 @@ public class ControladorDomini {
     /**
      * Mètode per saber si els paràmetres d'un usuari són vàlids
      * @param username Username a comprovar
+     * @return si el nom d'usuari donat és vàlid
+     */
+    public Boolean isValidUsername(String username) {
+        return User.isValidUsername(username);
+    }
+
+    /**
+     * Mètode per saber si el nom complet d'un usuari és vàlid
+     * @param name Nom a comprovar
+     * @return si el nom donat és vàlid
+     */
+    public Boolean isValidName(String name) {
+        return User.isValidName(name);
+    }
+
+    /**
+     * Mètode per saber si els paràmetres d'un usuari són vàlids
+     * @param password Contrasenya a comprovar
+     * @return si la contrasenya és vàlida
+     */
+    public Boolean isValidPassword(String password) {
+        return User.isValidPassword(password);
+    }
+
+    /**
+     * Mètode per saber si els paràmetres d'un usuari són vàlids
+     * @param username Username a comprovar
      * @param name Nom a comprovar
      * @param password Contrasenya a comprovar
      * @return si l'usuari donat és vàlid

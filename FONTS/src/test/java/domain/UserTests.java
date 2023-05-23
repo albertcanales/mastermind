@@ -274,9 +274,18 @@ public class UserTests {
     }
 
     @Test
-    public void invalidName() {
+    public void emptyName() {
         String username = "pau";
         String name = "";
+        String password = "socsegura";
+
+        assertEquals(false, User.isValidUser(username, name, password));
+    }
+
+    @Test
+    public void invalidName() {
+        String username = "pau";
+        String name = "pau123 fernández";
         String password = "socsegura";
 
         assertEquals(false, User.isValidUser(username, name, password));

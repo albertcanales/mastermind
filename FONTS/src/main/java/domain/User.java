@@ -1,11 +1,13 @@
 package domain;
 
 import exceptions.domain.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -353,13 +355,38 @@ class User {
     }
 
     /**
+     * Mètode per determinar si un nom d'usuari és adequat
+     * @param username Nom d'usuari a provar
+     */
+    static Boolean isValidUsername(String username) {
+        return !username.isBlank() && username.length() <= 20 && !username.contains(" ");
+    }
+
+    /**
+     * Mètode per determinar si un nom complet és adequat
+     * @param name Nom complet a provar
+     */
+    static Boolean isValidName(String name) {
+        String normalisedName = StringUtils.stripAccents(name);
+        return normalisedName.matches("[a-zA-Z -]+");
+    }
+
+    /**
+     * Mètode per determinar si un nom complet és adequat
+     * @param password Contrasenya a provar
+     */
+    static Boolean isValidPassword(String password) {
+        return !password.isBlank();
+    }
+
+    /**
      * Mètode per determinar si els paràmetres d'usuari són adequats (bon format)
-     * @param username contrasenya a comprovar
-     * @param name nom a comprovar
-     * @param password contrasenya a comprovar
+     * @param username Nom d'usuari a comprovar
+     * @param name Nom complet a comprovar
+     * @param password Contrasenya a comprovar
      */
     static Boolean isValidUser(String username, String name, String password) {
-        return !(username.isBlank() || name.isBlank() || password.isBlank());
+        return isValidUsername(username) && isValidName(name) && isValidPassword(password);
     }
 
     /**
