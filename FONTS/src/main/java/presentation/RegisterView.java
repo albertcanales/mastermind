@@ -78,10 +78,18 @@ class RegisterView {
         String name = textFieldNomComplet.getText();
         String password = String.valueOf(textFieldContrasenya.getPassword());
 
-        if (!controladorPresentacio.isValidUser(username, name, password))
-            controladorPresentacio.showWarningDialog("Could not register", "Invalid input data");
+        if(!controladorPresentacio.isValidUsername(username))
+            controladorPresentacio.showWarningDialog("No s'ha pogut registrar",
+                    "El nom d'usuari no és vàlid");
+        else if(!controladorPresentacio.isValidName(name))
+            controladorPresentacio.showWarningDialog("No s'ha pogut registrar",
+                    "El nom complet no és vàlid");
+        else if(!controladorPresentacio.isValidPassword(password))
+            controladorPresentacio.showWarningDialog("No s'ha pogut registrar",
+                    "La contrasenya no és vàlida");
         else if (controladorPresentacio.existsUser(username))
-            controladorPresentacio.showWarningDialog("Could not register", "Username already exists");
+            controladorPresentacio.showWarningDialog("No s'ha pogut registrar",
+                    "Ja existeix un usuari amb el mateix nom d'usuari");
         else {
             controladorPresentacio.registerUser(username, name, password);
             controladorPresentacio.loginUser(username, password);

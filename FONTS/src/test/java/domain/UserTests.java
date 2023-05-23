@@ -265,8 +265,26 @@ public class UserTests {
     }
 
     @Test
-    public void invalidUsername() {
+    public void emptyUsername() {
         String username = "";
+        String name = "Albert Canales";
+        String password = "contrasenya";
+
+        assertEquals(false, User.isValidUser(username, name, password));
+    }
+
+    @Test
+    public void longUsername() {
+        String username = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        String name = "Albert Canales";
+        String password = "contrasenya";
+
+        assertEquals(false, User.isValidUser(username, name, password));
+    }
+
+    @Test
+    public void usernameWithSpaces() {
+        String username = "hola usuari";
         String name = "Albert Canales";
         String password = "contrasenya";
 
