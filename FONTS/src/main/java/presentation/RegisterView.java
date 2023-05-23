@@ -5,6 +5,7 @@ import java.awt.*;
 
 /**
  * Vista del Registre d'un usuari
+ *
  * @author Albert Canales
  */
 class RegisterView {
@@ -78,13 +79,13 @@ class RegisterView {
         String name = textFieldNomComplet.getText();
         String password = String.valueOf(textFieldContrasenya.getPassword());
 
-        if(!controladorPresentacio.isValidUsername(username))
+        if (!controladorPresentacio.isValidUsername(username))
             controladorPresentacio.showWarningDialog("No s'ha pogut registrar",
                     "El nom d'usuari no és vàlid");
-        else if(!controladorPresentacio.isValidName(name))
+        else if (!controladorPresentacio.isValidName(name))
             controladorPresentacio.showWarningDialog("No s'ha pogut registrar",
                     "El nom complet no és vàlid");
-        else if(!controladorPresentacio.isValidPassword(password))
+        else if (!controladorPresentacio.isValidPassword(password))
             controladorPresentacio.showWarningDialog("No s'ha pogut registrar",
                     "La contrasenya no és vàlida");
         else if (controladorPresentacio.existsUser(username))

@@ -37,15 +37,11 @@ class Genetic extends BotBreaker {
      * Inicialitza el conjunt de 1296 codis possibles.
      */
     private void initializeSetS() {
-        for (int it1 = 1; it1 <= Bola.numColors(); it1++) {
-            for (int it2 = 1; it2 <= Bola.numColors(); it2++) {
-                for (int it3 = 1; it3 <= Bola.numColors(); it3++) {
-                    for (int it4 = 1; it4 <= Bola.numColors(); it4++) {
+        for (int it1 = 1; it1 <= Bola.numColors(); it1++)
+            for (int it2 = 1; it2 <= Bola.numColors(); it2++)
+                for (int it3 = 1; it3 <= Bola.numColors(); it3++)
+                    for (int it4 = 1; it4 <= Bola.numColors(); it4++)
                         possibleSolutions.add(it1 * 1000 + it2 * 100 + it3 * 10 + it4);
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -55,10 +51,10 @@ class Genetic extends BotBreaker {
      * @param list2 segona llista a comparar.
      * @return Nombre de boles amb color i posició coincidents.
      */
-    private Integer compareTwoSequencesBlack(ArrayList<Integer> list1, ArrayList<Integer> list2) {
+    private Integer compareTwoSequencesBlack(List<Integer> list1, List<Integer> list2) {
         Integer count = 0;
         for (int it = 0; it < this.numboles; ++it) {
-            if (Objects.equals(list1.get(it), list2.get(it))) {
+            if (list1.get(it).equals(list2.get(it))) {
                 count++;
             }
         }
@@ -70,13 +66,13 @@ class Genetic extends BotBreaker {
      *
      * @param list1 primera llista a comparar.
      * @param list2 segona llista a comparar.
-     * @return Nombre de boles amb color i posició coincidents.
+     * @return Nombre de boles amb color però no posició coincidents.
      */
-    private Integer compareTwoSequencesWhite(ArrayList<Integer> list1, ArrayList<Integer> list2) {
+    private Integer compareTwoSequencesWhite(List<Integer> list1, List<Integer> list2) {
         Integer count = 0;
         boolean counted;
-        ArrayList<Integer> added = new ArrayList<>(4);
-        for (int it = 0; it < 4; it++) {
+        List<Integer> added = new ArrayList<>(this.numboles);
+        for (int it = 0; it < this.numboles; it++) {
             added.add(0);
         }
         for (int it1 = 0; it1 < this.numboles; it1++) {
@@ -99,8 +95,8 @@ class Genetic extends BotBreaker {
      *
      * @return Vector de dígits de l'enter.
      */
-    private ArrayList<Integer> getSequence(Integer intToTranslate) {
-        ArrayList<Integer> digits = new ArrayList<>();
+    private List<Integer> getSequence(Integer intToTranslate) {
+        List<Integer> digits = new ArrayList<>();
         for (int it = 0; it < this.numboles; it++) {
             digits.add(0, intToTranslate % 10);
             intToTranslate = intToTranslate / 10;
@@ -116,24 +112,15 @@ class Genetic extends BotBreaker {
      * @param white    nombre de boles blanques en el feedback.
      * @param sequence seqüència donada.
      */
-    private void eraseNotPossibleSolutionsfromSetS(int black, int white, ArrayList<Integer> sequence) {
+    private void eraseNotPossibleSolutionsfromSetS(int black, int white, List<Integer> sequence) {
         Iterator<Integer> it = possibleSolutions.iterator();
         while (it.hasNext()) {
-            ArrayList<Integer> seqIteration = getSequence(it.next());
+            List<Integer> seqIteration = getSequence(it.next());
             if ((black != compareTwoSequencesBlack(seqIteration, sequence)) || white != compareTwoSequencesWhite(seqIteration, sequence)) {
                 it.remove();
             }
         }
     }
-
-    /**
-     * Genera una població inicial
-     */
-    private void getInitialPopulation() {
-        population = new HashSet<>();
-        population.addAll(possibleSolutions);
-    }
-
 
     /**
      * Combina dues seqüències per obtenir-ne una tercera que és combinació de les dues anteriors.
@@ -164,8 +151,7 @@ class Genetic extends BotBreaker {
                 }
             }
         }
-        population.clear();
-        population.addAll(aux);
+        population = aux;
     }
 
     /**
@@ -173,8 +159,8 @@ class Genetic extends BotBreaker {
      *
      * @return Candidat a solució.
      */
-    private ArrayList<Integer> geneticCandidate() {
-        getInitialPopulation();
+    private List<Integer> geneticCandidate() {
+        population = possibleSolutions;
         while (population.size() > 1) {
             getNextGeneration();
         }
@@ -184,13 +170,29 @@ class Genetic extends BotBreaker {
     }
 
     /**
+     * Comprova si la guess donada és la solució. Si no ho és, l'elimina de les solucions possibles.
+     *
+     * @param currentGuess Guess a comprovar
+     * @param solution Solució a comprovar
+     * @return Si la solució és correcta
+     */
+    private Boolean checkGuess(List<Integer> currentGuess, List<Integer> solution) {
+        int black = compareTwoSequencesBlack(currentGuess, solution);
+        int white = compareTwoSequencesWhite(currentGuess, solution);
+
+        if (black == this.numboles)
+            return true;
+        eraseNotPossibleSolutionsfromSetS(black, white, currentGuess);
+        return false;
+    }
+
+    /**
      * Donada una solució genera la llista d'intents fins a arribar a ella si utilitzem un algorisme genetic.
      *
-     * @param sol Solució per la generació
+     * @param solution Solució per la generació
      * @return Llista d'intents.
      */
-    public List<List<Integer>> solve(List<Integer> sol) throws DomainException {
-        ArrayList<Integer> solution = new ArrayList<>(sol);
+    public List<List<Integer>> solve(List<Integer> solution) throws DomainException {
 
         if (solution.size() != 4) {
             throw new InvalidNumBolesException(solution.size(), 4);
@@ -207,38 +209,14 @@ class Genetic extends BotBreaker {
         possibleSolutions = new HashSet<>();
         initializeSetS();
 
-        ArrayList<ArrayList<Integer>> guesses = new ArrayList<>();
-        ArrayList<Integer> currentGuess = new ArrayList<>();
-        boolean won = false;
-
-        currentGuess.add(1);
-        currentGuess.add(1);
-        currentGuess.add(2);
-        currentGuess.add(2);
+        List<List<Integer>> guesses = new ArrayList<>();
+        List<Integer> currentGuess = new ArrayList<>(List.of(1, 1, 2, 2));
         guesses.add(currentGuess);
         tried.add(1122);
 
-        int black = compareTwoSequencesBlack(currentGuess, solution);
-        int white = compareTwoSequencesWhite(currentGuess, solution);
-
-        if (black == 4) {
-            won = true;
-        }
-        else {
-            eraseNotPossibleSolutionsfromSetS(black, white, currentGuess);
-        }
-
-        while (!won) {
+        while (!checkGuess(currentGuess, solution)) {
             currentGuess = geneticCandidate();
             guesses.add(currentGuess);
-
-            black = compareTwoSequencesBlack(currentGuess, solution);
-            white = compareTwoSequencesWhite(currentGuess, solution);
-            if (black == 4) {
-                won = true;
-            } else {
-                eraseNotPossibleSolutionsfromSetS(black, white, currentGuess);
-            }
         }
         return new ArrayList<>(guesses);
     }
