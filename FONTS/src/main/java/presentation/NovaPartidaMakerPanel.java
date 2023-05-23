@@ -1,6 +1,6 @@
 package presentation;
 
-import exceptions.presentation.BolaNoExistent;
+import exceptions.presentation.BolaNoExistentException;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
@@ -87,7 +87,7 @@ class NovaPartidaMakerPanel extends JPanel implements Observer {
             if (newNumberColor == 0) newNumberColor = 1;
             solucioList.set(index, newNumberColor);
             solucioPanel.setBolaColor(index, BolaColor.findByNumber(newNumberColor));
-        } catch (BolaNoExistent e) {
+        } catch (BolaNoExistentException e) {
             // TODO wtf puc fer aquí
         }
     }

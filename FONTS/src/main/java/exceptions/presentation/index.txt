@@ -1,0 +1,6 @@
+Excepcions per la capa de Presentació
+
+BolaNoExistentException.java
+package-info.java
+PresentationException.java
+SequenciaNoExistentException.java

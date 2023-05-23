@@ -4,3 +4,5 @@ InvalidCSVException.java
 InvalidFileAccessException.java
 LineAlreadyExistsException.java
 LineNotFoundException.java
+package-info.java
+PersistanceException.java

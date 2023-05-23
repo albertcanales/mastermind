@@ -1,6 +1,5 @@
 Paquet per a les classes de domini
 
-exceptions/
 Bola.java
 BotBreaker.java
 BotMaker.java
@@ -12,6 +11,8 @@ DificultatFacil.java
 DificultatMitja.java
 FiveGuess.java
 Genetic.java
+Maquina.java
+package-info.java
 Partida.java
 Taulell.java
 User.java

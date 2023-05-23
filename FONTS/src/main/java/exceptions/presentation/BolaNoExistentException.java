@@ -4,12 +4,12 @@ package exceptions.presentation;
  * Excepció per indicar que es vol accedir a una bola inexistent
  * @author Albert Canales Ros
  */
-public class BolaNoExistent extends PresentationException {
+public class BolaNoExistentException extends PresentationException {
 
     /**
      * Constructor de l'excepció
      */
-    public BolaNoExistent() {
+    public BolaNoExistentException() {
         super("La bola no existeix");
     }
 

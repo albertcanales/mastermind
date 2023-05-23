@@ -1,6 +1,6 @@
 package presentation;
 
-import exceptions.presentation.BolaNoExistent;
+import exceptions.presentation.BolaNoExistentException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,11 +80,11 @@ class SequenciaPanel {
      *
      * @param index Posició de la bola [0, ..., 3]
      * @param color Color amb el qual es vol pintar la bola
-     * @throws BolaNoExistent si l'índex no correspon a cap bola
+     * @throws BolaNoExistentException si l'índex no correspon a cap bola
      */
-    void setBolaColor(Integer index, BolaColor color) throws BolaNoExistent {
+    void setBolaColor(Integer index, BolaColor color) throws BolaNoExistentException {
         if (index < 0 || index >= bolaButtonList.size())
-            throw new BolaNoExistent();
+            throw new BolaNoExistentException();
         bolaButtonList.get(index).setBolaColor(color);
     }
 
@@ -92,11 +92,11 @@ class SequenciaPanel {
      * Setter dels colors de tota la seqüència
      *
      * @param sequenciaColors Llista d'enters amb els colors de la seqüència
-     * @throws BolaNoExistent si l'índex no correspon a cap bola
+     * @throws BolaNoExistentException si l'índex no correspon a cap bola
      */
-    void setSequenciaColors(List<Integer> sequenciaColors) throws BolaNoExistent {
+    void setSequenciaColors(List<Integer> sequenciaColors) throws BolaNoExistentException {
         if (sequenciaColors.size() != bolaButtonList.size())
-            throw new BolaNoExistent();
+            throw new BolaNoExistentException();
         for (int i = 0; i < bolaButtonList.size(); i++) {
             BolaColor bolaColor = BolaColor.findByNumber(sequenciaColors.get(i));
             bolaButtonList.get(i).setBolaColor(bolaColor);

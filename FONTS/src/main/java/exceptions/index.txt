@@ -1,0 +1,7 @@
+Paquet de les excepcions
+
+domain/
+persistance/
+presentation/
+GeneralException.java
+package-info.java

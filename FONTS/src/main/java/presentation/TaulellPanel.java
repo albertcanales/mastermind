@@ -1,8 +1,8 @@
 package presentation;
 
-import exceptions.presentation.BolaNoExistent;
+import exceptions.presentation.BolaNoExistentException;
 import exceptions.presentation.PresentationException;
-import exceptions.presentation.SequenciaNoExistent;
+import exceptions.presentation.SequenciaNoExistentException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -129,7 +129,7 @@ class TaulellPanel {
      */
     void setBolaIntentColor(Integer indexIntent, Integer indexBola, BolaColor bolaColor) throws PresentationException {
         if (indexIntent < 0 || indexIntent >= sequenciaIntentList.size())
-            throw new SequenciaNoExistent();
+            throw new SequenciaNoExistentException();
         sequenciaIntentList.get(indexIntent).setBolaColor(indexBola, bolaColor);
     }
 
@@ -142,7 +142,7 @@ class TaulellPanel {
      */
     void setFeedbackColors(Integer index, List<Integer> feedback) throws PresentationException {
         if (index < 0 || index >= sequenciaFeedbackList.size())
-            throw new SequenciaNoExistent();
+            throw new SequenciaNoExistentException();
         sequenciaFeedbackList.get(index).setSequenciaColors(feedback);
     }
 
@@ -155,7 +155,7 @@ class TaulellPanel {
      */
     void setIntentColors(Integer index, List<Integer> intent) throws PresentationException {
         if (index < 0 || index >= sequenciaIntentList.size())
-            throw new SequenciaNoExistent();
+            throw new SequenciaNoExistentException();
         sequenciaIntentList.get(index).setSequenciaColors(intent);
     }
 
@@ -167,7 +167,7 @@ class TaulellPanel {
      */
     void setIntentsColors(List<List<Integer>> intents) throws PresentationException {
         if (intents.size() > sequenciaIntentList.size() + 1)
-            throw new SequenciaNoExistent();
+            throw new SequenciaNoExistentException();
         for (int i = 0; i < intents.size(); i++)
             if (i < sequenciaIntentList.size())
                 sequenciaIntentList.get(i).setSequenciaColors(intents.get(i));
@@ -181,7 +181,7 @@ class TaulellPanel {
      */
     void setFeedbacksColors(List<List<Integer>> feedbacks) throws PresentationException {
         if (feedbacks.size() > sequenciaFeedbackList.size())
-            throw new SequenciaNoExistent();
+            throw new SequenciaNoExistentException();
         for (int i = 0; i < feedbacks.size(); i++)
             sequenciaFeedbackList.get(i).setSequenciaColors(feedbacks.get(i));
     }
@@ -190,9 +190,9 @@ class TaulellPanel {
      * Mètode per assignar els valors de la seqüència solució
      *
      * @param solucio Llista amb els valors dels colors per la solució
-     * @throws BolaNoExistent si la mida de la solució no és correcta
+     * @throws BolaNoExistentException si la mida de la solució no és correcta
      */
-    void setSolucioColors(List<Integer> solucio) throws BolaNoExistent {
+    void setSolucioColors(List<Integer> solucio) throws BolaNoExistentException {
         sequenciaSolucio.setSequenciaColors(solucio);
     }
 
@@ -210,11 +210,11 @@ class TaulellPanel {
      *
      * @param index   Índex de l'intent a activar
      * @param enabled Si es vol activar o desactivar
-     * @throws SequenciaNoExistent si l'índex no correspon a cap intent
+     * @throws SequenciaNoExistentException si l'índex no correspon a cap intent
      */
-    void setIntentEnabled(Integer index, Boolean enabled) throws SequenciaNoExistent {
+    void setIntentEnabled(Integer index, Boolean enabled) throws SequenciaNoExistentException {
         if (index < 0 || index >= sequenciaIntentList.size())
-            throw new SequenciaNoExistent();
+            throw new SequenciaNoExistentException();
         sequenciaIntentList.get(index).setEnabled(enabled);
     }
 

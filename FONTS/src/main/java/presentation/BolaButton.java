@@ -1,6 +1,6 @@
 package presentation;
 
-import exceptions.presentation.BolaNoExistent;
+import exceptions.presentation.BolaNoExistentException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -231,13 +231,13 @@ enum BolaColor {
      * @param number és el valor que representa el color de la bola
      * @return el BolaColor corresponent al nombre donat
      */
-    static BolaColor findByNumber(Integer number) throws BolaNoExistent {
+    static BolaColor findByNumber(Integer number) throws BolaNoExistentException {
         for(BolaColor nd : values()){
             if(nd.getNumber().equals(number)){
                 return nd;
             }
         }
-        throw new BolaNoExistent();
+        throw new BolaNoExistentException();
     }
 
     /**

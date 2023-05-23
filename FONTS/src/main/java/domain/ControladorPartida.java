@@ -1,10 +1,9 @@
 package domain;
 
-import exceptions.GeneralException;
 import exceptions.domain.DomainException;
 import exceptions.domain.InvalidPartidaTypeException;
 import exceptions.domain.NotPlayingPartidaException;
-import exceptions.domain.PartidaAlreadyFinished;
+import exceptions.domain.PartidaAlreadyFinishedException;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -159,7 +158,7 @@ class ControladorPartida {
         if(!isJugadorBreaker())
             throw new InvalidPartidaTypeException("Breaker");
         if(isPartidaAcabada())
-            throw new PartidaAlreadyFinished();
+            throw new PartidaAlreadyFinishedException();
         List<Integer> ultimIntent = taulell.getUltimIntent();
         List<Integer> solucio = taulell.getSolucio();
 
@@ -180,7 +179,7 @@ class ControladorPartida {
         if(isJugadorBreaker())
             throw new InvalidPartidaTypeException("Maker");
         if(isPartidaAcabada())
-            throw new PartidaAlreadyFinished();
+            throw new PartidaAlreadyFinishedException();
 
         List<Integer> solution = taulell.getSolucio();
         List<List<Integer>> intents = botBreaker.solve(new ArrayList<>(solution));

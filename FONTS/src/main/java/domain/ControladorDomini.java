@@ -105,11 +105,11 @@ public class ControladorDomini {
      * @param username username del l'usuari
      * @param password contrasenya de l'usuari
      * @return si la contrasenya donada és correcta
-     * @throws UserNotExistsExeption si l'usuari no existeix
+     * @throws UserNotExistsException si l'usuari no existeix
      */
     public Boolean loginUser(String username, String password) throws GeneralException {
         if(!existsUser(username))
-            throw new UserNotExistsExeption(username);
+            throw new UserNotExistsException(username);
         String hash = controladorPersistencia.getPasswordHash(username);
         if(!Objects.equals(hash, User.getPasswordHash(password)))
             return false;

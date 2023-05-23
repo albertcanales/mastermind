@@ -5,3 +5,4 @@ GestorCSVFile.java
 GestorPartidesActuals.java
 GestorRanquing.java
 GestorUsuaris.java
+package-info.java
