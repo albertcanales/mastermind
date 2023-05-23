@@ -85,8 +85,10 @@ class HomeView {
      * Mètode que efectua les accions pertinents en clicar el botó per sortir
      */
     private void sortirButtonClick() {
-        controladorPresentacio.logoutUser();
-        controladorPresentacio.showInitialView();
+        if (controladorPresentacio.showYesNoDialog("Tancar sessió", "Segur que vols esborrar el tancar sessió?")) {
+            controladorPresentacio.logoutUser();
+            controladorPresentacio.showInitialView();
+        }
     }
 
     /**

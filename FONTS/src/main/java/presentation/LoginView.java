@@ -10,6 +10,7 @@ import java.util.Locale;
 
 /**
  * Vista de l'inici de sessió d'un usuari
+ *
  * @author Mar Gonzàlez Català
  */
 class LoginView {
@@ -192,7 +193,7 @@ class LoginView {
         gbc.fill = GridBagConstraints.BOTH;
         panel3.add(panel5, gbc);
         final JLabel label3 = new JLabel();
-        label3.setText("No tens una compta?");
+        label3.setText("No estàs registrat?");
         panel5.add(label3);
         labelRegistre = new JLabel();
         Font labelRegistreFont = this.$$$getFont$$$(null, Font.BOLD, -1, labelRegistre.getFont());

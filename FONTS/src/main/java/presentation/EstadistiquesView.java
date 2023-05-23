@@ -5,6 +5,8 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -229,15 +231,19 @@ class EstadistiquesView {
         JLabelRecordPersonalTotal.setText(Integer.toString(record.get(3)));
     }
 
+    private String formatTempsJugat(Long millis) {
+        return String.format("%d:%02d:%02d", millis / 3600000L, (millis / 1000 % 3600) / 60, (millis / 1000 % 60));
+    }
+
     /**
      * Mètode que escriu el temps jugat de l'usuari
      */
     private void setTemps() {
         List<Long> temps = controladorPresentacio.getTimePlayed();
-        JLabelTempsFacil.setText(Long.toString(temps.get(0)));
-        JLabelTempsMig.setText(Long.toString(temps.get(1)));
-        JLabelTempsDificil.setText(Long.toString(temps.get(2)));
-        JLabelTempsTotal.setText(Long.toString(temps.get(3)));
+        JLabelTempsFacil.setText(formatTempsJugat(temps.get(0)));
+        JLabelTempsMig.setText(formatTempsJugat(temps.get(1)));
+        JLabelTempsDificil.setText(formatTempsJugat(temps.get(2)));
+        JLabelTempsTotal.setText(formatTempsJugat(temps.get(3)));
     }
 
     /**
@@ -278,10 +284,10 @@ class EstadistiquesView {
      */
     private void setMitjanaIntentsBreaker() {
         List<Double> average = controladorPresentacio.getAverageAsBreaker();
-        JLabelMitjanaIntentsFacil.setText(Double.toString(average.get(0)));
-        JLabelMitjanaIntentsMig.setText(Double.toString(average.get(1)));
-        JLabelMitjanaIntentsDificil.setText(Double.toString(average.get(2)));
-        JLabelMitjanaIntentsBreakerTotal.setText(Double.toString(average.get(3)));
+        JLabelMitjanaIntentsFacil.setText(String.format("%.2f", average.get(0)));
+        JLabelMitjanaIntentsMig.setText(String.format("%.2f", average.get(1)));
+        JLabelMitjanaIntentsDificil.setText(String.format("%.2f", average.get(2)));
+        JLabelMitjanaIntentsBreakerTotal.setText(String.format("%.2f", average.get(3)));
     }
 
     /**
@@ -289,9 +295,9 @@ class EstadistiquesView {
      */
     private void setMitjanaIntentsMaker() {
         List<Double> average = controladorPresentacio.getAverageAsMaker();
-        JLabelMitjanaIntentsFiveGuess.setText(Double.toString(average.get(0)));
-        JLabelMitjanaIntentsGenetic.setText(Double.toString(average.get(1)));
-        JLabelMitjanaIntentsMakerTotal.setText(Double.toString(average.get(2)));
+        JLabelMitjanaIntentsFiveGuess.setText(String.format("%.2f", average.get(0)));
+        JLabelMitjanaIntentsGenetic.setText(String.format("%.2f", average.get(1)));
+        JLabelMitjanaIntentsMakerTotal.setText(String.format("%.2f", average.get(2)));
     }
 
     /**

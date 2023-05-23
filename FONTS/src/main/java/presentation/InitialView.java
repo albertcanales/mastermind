@@ -5,6 +5,7 @@ import java.awt.*;
 
 /**
  * Vista inicial per a un usuari no registrat
+ *
  * @author Albert Canales
  */
 class InitialView {
@@ -82,16 +83,16 @@ class InitialView {
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel1.add(panel2, BorderLayout.WEST);
-        buttonRanquing = new JButton();
-        buttonRanquing.setHorizontalAlignment(0);
-        buttonRanquing.setText("Rànquing");
-        panel2.add(buttonRanquing);
+        buttonNormes = new JButton();
+        buttonNormes.setText("Normes");
+        panel2.add(buttonNormes);
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel1.add(panel3, BorderLayout.EAST);
-        buttonNormes = new JButton();
-        buttonNormes.setText("Normes");
-        panel3.add(buttonNormes);
+        buttonRanquing = new JButton();
+        buttonRanquing.setHorizontalAlignment(0);
+        buttonRanquing.setText("Rànquing");
+        panel3.add(buttonRanquing);
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new GridBagLayout());
         panel.add(panel4, BorderLayout.CENTER);

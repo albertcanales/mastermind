@@ -17,11 +17,10 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="59c81" class="javax.swing.JButton" binding="buttonRanquing">
+              <component id="5b752" class="javax.swing.JButton" binding="buttonNormes">
                 <constraints/>
                 <properties>
-                  <horizontalAlignment value="0"/>
-                  <text value="Rànquing"/>
+                  <text value="Normes"/>
                 </properties>
               </component>
             </children>
@@ -31,10 +30,11 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="5b752" class="javax.swing.JButton" binding="buttonNormes">
+              <component id="59c81" class="javax.swing.JButton" binding="buttonRanquing">
                 <constraints/>
                 <properties>
-                  <text value="Normes"/>
+                  <horizontalAlignment value="0"/>
+                  <text value="Rànquing"/>
                 </properties>
               </component>
             </children>

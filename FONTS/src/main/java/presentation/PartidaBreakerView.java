@@ -123,7 +123,7 @@ class PartidaBreakerView implements Observer {
      */
     private void showSolution() {
         Boolean dialogResponse = controladorPresentacio.showYesNoDialog("Veure solució",
-                "Segur que voleu veure la solució? Perdreu immediatament la partida");
+                "Segur que voleu veure la solució? \nPerdreu immediatament la partida");
         if (dialogResponse) {
             List<Integer> solution = controladorPresentacio.getSolucio();
             try {

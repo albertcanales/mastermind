@@ -116,7 +116,7 @@
               <component id="745bc" class="javax.swing.JLabel">
                 <constraints/>
                 <properties>
-                  <text value="No tens una compta?"/>
+                  <text value="No estàs registrat?"/>
                 </properties>
               </component>
               <component id="cd46c" class="javax.swing.JLabel" binding="labelRegistre">
