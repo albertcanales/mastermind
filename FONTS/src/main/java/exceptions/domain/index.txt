@@ -11,6 +11,7 @@ InvalidNumBolesException.java
 InvalidNumIntentsException.java
 InvalidNumRanquingsException.java
 InvalidPartidaTypeException.java
+InvalidPasswordHashingException.java
 InvalidSolutionException.java
 InvalidStatIntentsException.java
 InvalidStatSizeException.java

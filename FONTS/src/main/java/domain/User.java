@@ -392,14 +392,14 @@ class User {
      * Mètode per obtenir el hash en SHA256 (encoded en base64) d'una contrasenya
      * @param password contrasenya per la qual se'n vol obtenir el hash
      */
-    static String getPasswordHash(String password) {
+    static String getPasswordHash(String password) throws InvalidPasswordHashingException {
         MessageDigest md;
         try {
             md = MessageDigest.getInstance("SHA-256");
             md.reset();
             md.update(password.getBytes(StandardCharsets.UTF_8));
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+            throw new InvalidPasswordHashingException();
         }
         return String.format("%064x", new BigInteger(1, md.digest()));
     }

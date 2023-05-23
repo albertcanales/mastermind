@@ -14,7 +14,7 @@ import java.util.Locale;
  * Panell amb les opcions per crear una nova partida com a maker
  * @author Kamil Przybyszewski
  */
-class NovaPartidaMakerPanel extends JPanel implements Observer {
+class NovaPartidaMakerPanel extends JPanel {
 
     /**
      * Panell contenidor
@@ -55,7 +55,6 @@ class NovaPartidaMakerPanel extends JPanel implements Observer {
             solucioPanel.setBolaID(i, "S" + i);
             solucioList.add(BolaColor.NUL.getNumber());
         }
-        solucioPanel.attachToBoles(this);
     }
 
     /**
@@ -76,20 +75,23 @@ class NovaPartidaMakerPanel extends JPanel implements Observer {
     }
 
     /**
-     * Mètode perquè per cada actualització dels botons de selecció de la solució, adoptin el color seleccionat
-     * @param s Botó de selecció del qual prové la notificació
+     * Mètode per adjuntar un observador a la seqüència solució del panell
+     * @param o Observador a adjuntar
      */
-    @Override
-    public void Update(Subject s) {
-        int index = Integer.parseInt(((BolaButton) s).getID().substring(1));
-        try {
-            int newNumberColor = (solucioList.get(index) + 1) % BolaColor.getNumColors();
-            if (newNumberColor == 0) newNumberColor = 1;
-            solucioList.set(index, newNumberColor);
-            solucioPanel.setBolaColor(index, BolaColor.findByNumber(newNumberColor));
-        } catch (BolaNoExistentException e) {
-            // TODO wtf puc fer aquí
-        }
+    void attachSolucio(Observer o) {
+        solucioPanel.attachToBoles(o);
+    }
+
+    /**
+     * Mètode a executar quan es clica una bola de la seqüència solució
+     * @param id Identificador de la bola clicada
+     */
+    void bolaSolucioClicked(String id) throws BolaNoExistentException {
+        int index = Integer.parseInt(id.substring(1));
+        int newNumberColor = (solucioList.get(index) + 1) % BolaColor.getNumColors();
+        if (newNumberColor == 0) newNumberColor = 1;
+        solucioList.set(index, newNumberColor);
+        solucioPanel.setBolaColor(index, BolaColor.findByNumber(newNumberColor));
     }
 
     /**

@@ -304,8 +304,8 @@ class EstadistiquesView {
      * Mètode que elimina l'usuari actual i torna a la vista inicial
      */
     private void buttonEsborraUsuariClick() {
-        if (controladorPresentacio.showYesNoDialog("Esborrar usuari", "Segur que vols esborrar el teu usuari?" +
-                " També esapareixerà dels rànquings! Aquesta acció és irreversible.")) {
+        if (controladorPresentacio.showYesNoDialog("Esborrar usuari", "Segur que vols esborrar el teu usuari?\n" +
+                " També desapareixerà dels rànquings!\n Aquesta acció és irreversible.")) {
             controladorPresentacio.esborrarUsuari();
             controladorPresentacio.showInitialView();
         }

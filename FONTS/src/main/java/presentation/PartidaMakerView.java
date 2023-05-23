@@ -161,8 +161,7 @@ class PartidaMakerView {
                 buttonParar.setEnabled(false);
             }
         } catch (PresentationException e) {
-            // TODO Això està mal
-            throw new RuntimeException(e);
+            controladorPresentacio.showErrorDialog("No s'ha pogut mostrar la següent iteració");
         }
     }
 

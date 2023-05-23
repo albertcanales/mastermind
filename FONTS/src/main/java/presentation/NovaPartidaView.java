@@ -1,5 +1,7 @@
 package presentation;
 
+import exceptions.presentation.BolaNoExistentException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.Objects;
  * Vista per crear una nova partida
  * @author Kamil Przybyszewski
  */
-class NovaPartidaView {
+class NovaPartidaView implements Observer {
 
     /**
      * Controlador de presentació
@@ -68,6 +70,7 @@ class NovaPartidaView {
      * Mètode per inicialitzar els components de la vista
      */
     private void initComponents() {
+        panelMaker.attachSolucio(this);
 
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showHomeView());
         buttonJuga.addActionListener(actionEvent -> jugaButtonClick());
@@ -94,6 +97,19 @@ class NovaPartidaView {
                 controladorPresentacio.novaPartidaMaker(solucio, panelMaker.getAlgorisme());
                 controladorPresentacio.showPartidaMakerView();
                 break;
+        }
+    }
+
+    /**
+     * Mètode perquè per cada actualització dels botons de selecció de la solució, adoptin el color seleccionat
+     * @param s Botó de selecció del qual prové la notificació
+     */
+    @Override
+    public void Update(Subject s) {
+        try {
+            panelMaker.bolaSolucioClicked(((BolaButton) s).getID());
+        } catch (BolaNoExistentException e) {
+            controladorPresentacio.showErrorDialog("No s'ha pogut canviar el color de la bola");
         }
     }
 

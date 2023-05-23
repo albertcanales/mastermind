@@ -319,7 +319,7 @@ public class UserTests {
     }
 
     @Test
-    public void validPasswordHash() {
+    public void validPasswordHash() throws InvalidPasswordHashingException {
         String password = "patata";
         String hash = "da248eeaffa573da8c323c3eb56aaf32ec6ce244e401a24c55f30c907d0bbfb5";
 
@@ -327,7 +327,7 @@ public class UserTests {
     }
 
     @Test
-    public void emptyPasswordHash() {
+    public void emptyPasswordHash() throws InvalidPasswordHashingException {
         String hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
 
         assertEquals(hash, User.getPasswordHash(""));
