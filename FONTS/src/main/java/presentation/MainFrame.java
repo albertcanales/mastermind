@@ -1,7 +1,10 @@
 package presentation;
 
+import com.formdev.flatlaf.*;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Collections;
 
 /**
  * Classe per encapsular el frame de l'aplicació
@@ -18,6 +21,8 @@ class MainFrame{
      * Constructor del frame de l'aplicació
      */
     MainFrame() {
+        FlatLaf.setGlobalExtraDefaults( Collections.singletonMap( "@accentColor", "#F47F18" ) );
+        FlatDarkLaf.setup();
         frame = new JFrame();
         frame.setTitle("Mastermind");
         frame.setSize(new Dimension(400, 600));

@@ -19,6 +19,7 @@ dependencies {
     testRuntimeOnly 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.+'
     implementation 'com.opencsv:opencsv:5.7.1'
+    implementation 'com.formdev:flatlaf:3.1.1'
 }
 
 application {
