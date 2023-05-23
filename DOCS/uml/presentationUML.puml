@@ -1,0 +1,461 @@
+@startuml
+class presentation.BolaPalettePanel {
+- JPanel panel
+- BolaButton buttonNul
+- BolaButton buttonBlanc
+- BolaButton buttonNegre
+- BolaButton buttonVermell
+- BolaButton buttonBlau
+- BolaButton buttonTaronja
+- BolaButton buttonRosa
+- List<BolaButton> buttonBolaList
+- BolaColor selectedColor
+~ <<Create>> BolaPalettePanel()
+- void initComponents()
+~ Boolean isColorSelected()
+~ BolaColor getSelectedColor()
+- void unselectAllColors()
++ void Update(Subject)
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.RankingView {
+- ControladorPresentacio controladorPresentacio
+- JPanel panel
+- JButton buttonTorna
+- JTabbedPane tabbedPane
+- ArrayList<JTable> rankingTableList
+- int NUM_RANKINGS
+- int MAX_ROWS
+~ <<Create>> RankingView()
+~ void show()
+- void initComponents()
+- void initRankingTableList()
+- void initRanking()
+- void initTabbedPanel()
+- void fillRanking(int,List<List<String>>)
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.Main {
++ {static} void main(String[])
+}
+class presentation.LoginView {
+- ControladorPresentacio controladorPresentacio
+- JPanel panel
+- JButton buttonTorna
+- JTextField textFieldNomUsuari
+- JPasswordField textFieldContrasenya
+- JButton buttonIniciaSessio
+- JLabel labelRegistre
+~ <<Create>> LoginView()
+~ void show()
+- void initComponents()
+- void iniciaSessioButtonClick()
+- void $$$setupUI$$$()
+- Font $$$getFont$$$(String,int,int,Font)
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.PartidaBreakerView {
+- {static} String GUANYADA_TEXT
+- {static} String PERDUDA_TEXT
+- ControladorPresentacio controladorPresentacio
+- JPanel panel
+- TaulellPanel taulellPanel
+- BolaPalettePanel bolaPalettePanel
+- JButton buttonValidar
+- JButton buttonTorna
+- TimerLabel timerLabel
+- JLabel labelEstatPartida
+- Integer numIntentActual
+~ <<Create>> PartidaBreakerView()
+~ void show()
+- void initComponents()
+- void showSolution()
+- void setBolaColor(Integer,BolaColor)
+- void partidaAcabada()
+- void bolaIntentClicked(Integer)
+- void buttonValidarClicked()
+- void buttonTornaClick()
++ void Update(Subject)
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.BolaButton {
+- JButton button
+- String id
+- BolaColor bolaColor
+- JPanel panel
+~ <<Create>> BolaButton()
+- void initComponents()
+~ String getID()
+~ void setID(String)
+~ BolaColor getBolaColor()
+~ void setBolaColor(BolaColor)
+~ void setEnabled(Boolean)
+~ void setBorder(Boolean)
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.BolaButton$ColorIcon {
+- int size
+- Color color
+~ <<Create>> ColorIcon(int,Color)
++ void paintIcon(Component,Graphics,int,int)
++ int getIconWidth()
++ int getIconHeight()
+}
+enum presentation.BolaColor {
++  NUL
++  BLANC
++  NEGRE
++  VERMELL
++  BLAU
++  TARONJA
++  ROSA
+- Color color
+- Integer number
+~ <<Create>> BolaColor(Color,Integer)
+~ Color getColor()
+~ Integer getNumber()
+~ {static} BolaColor findByNumber(Integer)
+~ {static} int getNumColors()
+}
+class presentation.NovaPartidaView {
+- ControladorPresentacio controladorPresentacio
+- JPanel panel
+- JButton buttonTorna
+- NovaPartidaBreakerPanel panelBreaker
+- NovaPartidaMakerPanel panelMaker
+- JButton buttonJuga
+- JTabbedPane tabbedPane
+~ <<Create>> NovaPartidaView()
+~ void show()
+- void initComponents()
+- void jugaButtonClick()
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.NovaPartidaBreakerPanel {
+- JPanel panel
+- JSlider sliderDificultat
+~ <<Create>> NovaPartidaBreakerPanel()
+- void initComponents()
+- void initSlider()
+~ Integer getDificultat()
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.HomeView {
+- ControladorPresentacio controladorPresentacio
+- JPanel panel
+- JButton buttonNovaPartida
+- JButton buttonCarregarPartida
+- JButton buttonZonaUsuari
+- JButton buttonRanquing
+- JButton buttonSortir
+- JButton buttonNormes
+~ <<Create>> HomeView()
+~ void show()
+- void initComponents()
+- void sortirButtonClick()
+- void carregarPartidaButtonClick()
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.PartidaMakerView {
+- {static} Integer PERIOD_TIMER_MILLIS
+- ControladorPresentacio controladorPresentacio
+- JPanel panel
+- JButton tornaButton
+- TaulellPanel taulellPanel
+- JButton buttonParar
+- JButton buttonAcabar
+- JButton buttonReproduir
+- List<List<Integer>> intentList
+- List<List<Integer>> feedbackList
+- Integer numIntentActual
+- Timer timer
+~ <<Create>> PartidaMakerView()
+~ void show()
+- void initComponents()
+- void buttonPararClick()
+- void buttonAcabarClick()
+- void buttonReproduirClick()
+- void showNextIntent()
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.EstadistiquesView {
+- ControladorPresentacio controladorPresentacio
+- JPanel panel
+- JButton buttonTorna
+- JTabbedPane tabbedPaneBreaker
+- JTabbedPane tabbedPaneMaker
+- JLabel JLabelRecordPersonalFacil
+- JLabel JLabelTempsFacil
+- JLabel JLabelGuanyadesFacil
+- JLabel JLabelPerdudesFacil
+- JLabel JLabelRatxaVictoriesFacil
+- JLabel JLabelMitjanaIntentsFacil
+- JLabel JLabelRecordPersonalMig
+- JLabel JLabelTempsMig
+- JLabel JLabelGuanyadesMig
+- JLabel JLabelPerdudesMig
+- JLabel JLabelRatxaVictoriesMig
+- JLabel JLabelMitjanaIntentsMig
+- JLabel JLabelRecordPersonalDificil
+- JLabel JLabelTempsDificil
+- JLabel JLabelGuanyadesDificil
+- JLabel JLabelPerdudesDificil
+- JLabel JLabelRatxaVictoriesDificil
+- JLabel JLabelMitjanaIntentsDificil
+- JLabel JLabelRecordPersonalTotal
+- JLabel JLabelTempsTotal
+- JLabel JLabelGuanyadesTotal
+- JLabel JLabelPerdudesTotal
+- JLabel JLabelRatxaVictoriesTotal
+- JLabel JLabelMitjanaIntentsBreakerTotal
+- JLabel JLabelMitjanaIntentsFiveGuess
+- JLabel JLabelMitjanaIntentsGenetic
+- JLabel JLabelMitjanaIntentsMakerTotal
+- JButton buttonEsborraUsuari
+- JTextArea textAreaUserName
+~ <<Create>> EstadistiquesView()
+~ void show()
+- void initComponents()
+- void setRecordPersonal()
+- void setTemps()
+- void setGuanyades()
+- void setPerdudes()
+- void setRatxaVictories()
+- void setMitjanaIntentsBreaker()
+- void setMitjanaIntentsMaker()
+- void buttonEsborraUsuariClick()
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.MainFrame {
+- JFrame frame
+~ <<Create>> MainFrame()
+~ void setTitle(String)
+~ void setContent(Container)
+~ Boolean showYesNoDialog(String,String)
+~ void showInformationDialog(String,String)
+~ void showWarningDialog(String,String)
+~ void showErrorDialog(String)
+}
+interface presentation.Observer {
+~ void Update(Subject)
+}
+class presentation.TaulellPanel {
+- {static} int SEQUENCIA_SIZE
+- JPanel panel
+- SequenciaPanel sequenciaIntent0
+- SequenciaPanel sequenciaIntent1
+- SequenciaPanel sequenciaIntent2
+- SequenciaPanel sequenciaIntent3
+- SequenciaPanel sequenciaIntent4
+- SequenciaPanel sequenciaIntent5
+- SequenciaPanel sequenciaIntent6
+- SequenciaPanel sequenciaIntent7
+- SequenciaPanel sequenciaIntent8
+- SequenciaPanel sequenciaIntent9
+- SequenciaPanel sequenciaIntent10
+- SequenciaPanel sequenciaIntent11
+- SequenciaPanel sequenciaFeedback0
+- SequenciaPanel sequenciaFeedback1
+- SequenciaPanel sequenciaFeedback2
+- SequenciaPanel sequenciaFeedback3
+- SequenciaPanel sequenciaFeedback4
+- SequenciaPanel sequenciaFeedback5
+- SequenciaPanel sequenciaFeedback6
+- SequenciaPanel sequenciaFeedback7
+- SequenciaPanel sequenciaFeedback8
+- SequenciaPanel sequenciaFeedback9
+- SequenciaPanel sequenciaFeedback10
+- SequenciaPanel sequenciaFeedback11
+- SequenciaPanel sequenciaSolucio
+- ArrayList<SequenciaPanel> sequenciaIntentList
+- ArrayList<SequenciaPanel> sequenciaFeedbackList
+~ <<Create>> TaulellPanel()
+- void initComponents()
+- void initSolucio()
+- void initFeedbacks()
+- void initIntents()
+~ void setBolaIntentColor(Integer,Integer,BolaColor)
+~ void setFeedbackColors(Integer,List<Integer>)
+~ void setIntentColors(Integer,List<Integer>)
+~ void setIntentsColors(List<List<Integer>>)
+~ void setFeedbacksColors(List<List<Integer>>)
+~ void setSolucioColors(List<Integer>)
+~ void setSolucioEnabled(Boolean)
+~ void setIntentEnabled(Integer,Boolean)
+~ void attachToBoles(Observer)
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.TimerLabel {
+~ {static} Integer PERIOD_MILLIS
+- JPanel panel
+- JLabel label
+- Long time
+- Timer timer
+~ <<Create>> TimerLabel()
+- void initComponents()
+~ void start()
+~ void stop()
+- void updateTimeString()
+~ void setTime(Long)
+- void $$$setupUI$$$()
+- Font $$$getFont$$$(String,int,int,Font)
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.NovaPartidaMakerPanel {
+- JPanel panel
+- JRadioButton radioButtonFiveGuess
+- JRadioButton radioButtonGenetic
+- SequenciaPanel solucioPanel
+- List<Integer> solucioList
+~ <<Create>> NovaPartidaMakerPanel()
+- void initComponents()
+~ Integer getAlgorisme()
+~ List<Integer> getSolucio()
++ void Update(Subject)
+- void $$$setupUI$$$()
+- Font $$$getFont$$$(String,int,int,Font)
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.RegisterView {
+- ControladorPresentacio controladorPresentacio
+- JPanel panel
+- JTextField textFieldNomUsuari
+- JTextField textFieldNomComplet
+- JPasswordField textFieldContrasenya
+- JButton buttonRegistra
+- JButton buttonTorna
+~ <<Create>> RegisterView()
+~ void show()
+- void initComponents()
+- void registraButtonClick()
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.SequenciaPanel {
+~ {static} int SEQUENCIA_SIZE
+- JPanel panel
+- ArrayList<BolaButton> bolaButtonList
+- BolaButton bolaButton1
+- BolaButton bolaButton2
+- BolaButton bolaButton3
+- BolaButton bolaButton4
+~ <<Create>> SequenciaPanel()
+~ void attachToBoles(Observer)
+~ void setEnabled(Boolean)
+~ void setBolaID(Integer,String)
+~ void setBolaColor(Integer,BolaColor)
+~ void setSequenciaColors(List<Integer>)
+~ List<Integer> getSequenciaColors()
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.ControladorPresentacio {
+- {static} ControladorPresentacio instance
+- ControladorDomini controladorDomini
+- MainFrame mainFrame
+- <<Create>> ControladorPresentacio()
+~ {static} ControladorPresentacio getInstance()
+~ Boolean isValidUser(String,String,String)
+~ Boolean existsUser(String)
+~ void registerUser(String,String,String)
+~ Boolean loginUser(String,String)
+~ void logoutUser()
+~ Boolean existsPartidaGuardada()
+~ void carregarPartida()
+~ void novaPartidaMaker(List<Integer>,Integer)
+~ void novaPartidaBreaker(Integer)
+~ String getUserName()
+~ List<Integer> getPersonalRecord()
+~ List<Long> getTimePlayed()
+~ List<Integer> getWonGames()
+~ List<Integer> getLostGames()
+~ List<Integer> getWinstreak()
+~ List<Double> getAverageAsBreaker()
+~ List<Double> getAverageAsMaker()
+~ List<List<List<String>>> getRanquings(Integer)
+~ void esborrarUsuari()
+~ List<List<Integer>> getIntents()
+~ List<List<Integer>> getFeedbacks()
+~ List<Integer> getSolucio()
+~ void setBola(Integer,Integer)
+~ List<Integer> validarSequencia()
+~ Boolean isJugadorBreaker()
+~ Boolean isPartidaGuanyada()
+~ Boolean isPartidaAcabada()
+~ Boolean isUltimIntentPle()
+~ void veureSolucio()
+~ Long getTempsPartidaMillis()
+~ void addTempsPartidaMillis(Long)
+~ void botSolve()
+~ void sortirPartida()
+~ void run()
+~ void setContent(JPanel)
+~ void setTitle(String)
+~ void showInitialView()
+~ void showRegisterView()
+~ void showLoginView()
+~ void showHomeView()
+~ void showNormesView()
+~ void showInitialOrHomeView()
+~ void showRankingView()
+~ void showNovaPartidaView()
+~ void showEstadistiquesView()
+~ void showPartidaBreakerView()
+~ void showPartidaMakerView()
+~ Boolean showYesNoDialog(String,String)
+~ void showInformationDialog(String,String)
+~ void showWarningDialog(String,String)
+~ void showErrorDialog(String)
+}
+class presentation.NormesView {
+- ControladorPresentacio controladorPresentacio
+- JPanel panel
+- JButton buttonTorna
+- JEditorPane editorPaneNormes
+~ <<Create>> NormesView()
+~ void show()
+- void initComponents()
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+class presentation.InitialView {
+- ControladorPresentacio controladorPresentacio
+- JPanel panel
+- JButton buttonRanquing
+- JButton buttonNormes
+- JButton buttonIniciaSessio
+- JButton buttonRegistra
+~ <<Create>> InitialView()
+~ void show()
+- void initComponents()
+- void $$$setupUI$$$()
++ JComponent $$$getRootComponent$$$()
+}
+abstract class presentation.Subject {
+- List<Observer> observersList
+~ void Attach(Observer)
+~ void Detach(Observer)
+~ void Notify()
+}
+
+
+presentation.Observer <|.. presentation.BolaPalettePanel
+presentation.Observer <|.. presentation.PartidaBreakerView
+presentation.Subject <|-- presentation.BolaButton
+presentation.BolaButton +.. presentation.BolaButton$ColorIcon
+presentation.Icon <|.. presentation.BolaButton$ColorIcon
+presentation.JPanel <|-- presentation.NovaPartidaBreakerPanel
+presentation.Subject <|-- presentation.TimerLabel
+presentation.Observer <|.. presentation.NovaPartidaMakerPanel
+presentation.JPanel <|-- presentation.NovaPartidaMakerPanel
+@enduml

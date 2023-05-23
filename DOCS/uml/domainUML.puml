@@ -1,0 +1,287 @@
+@startuml
+
+class domain.DificultatDificil {
+~ NivellDificultat getNivellDificultat()
+~ List<Integer> validarSequencia(List<Integer>,List<Integer>)
+}
+class domain.DificultatMitja {
+~ NivellDificultat getNivellDificultat()
+~ List<Integer> validarSequencia(List<Integer>,List<Integer>)
+}
+class domain.ControladorDomini {
+- {static} ControladorDomini instance
+- ControladorPartida controladorPartida
+- ControladorPersistencia controladorPersistencia
+- User user
+- Ranquing ranquing
+- <<Create>> ControladorDomini()
++ {static} ControladorDomini getInstance()
++ Boolean userLoggedIn()
++ Boolean isPartidaBeingPlayed()
++ Boolean existsUser(String)
++ Boolean isValidUser(String,String,String)
++ Boolean loginUser(String,String)
++ void registerUser(String,String,String)
++ void logoutUser()
++ void novaPartidaMaker(List<Integer>,Integer)
++ void novaPartidaBreaker(Integer)
++ Boolean existsPartidaGuardada()
++ void carregarPartida()
+- void carregarPartidaBreaker(String,List<List<Integer>>,List<List<Integer>>,List<Integer>)
+- void carregarPartidaMaker(String,List<List<Integer>>,List<List<Integer>>,List<Integer>)
++ List<List<List<String>>> getRanquings(Integer)
++ String getUserName()
++ List<Integer> getPersonalRecord()
++ List<Long> getTimePlayed()
++ List<Integer> getWonGames()
++ List<Integer> getLostGames()
++ List<Integer> getWinstreak()
++ List<Double> getAverageAsBreaker()
++ List<Double> getAverageAsMaker()
++ Boolean isJugadorBreaker()
++ List<Integer> getSolucio()
++ List<List<Integer>> getIntents()
++ List<List<Integer>> getFeedbacks()
++ Long getTempsPartidaMillis()
++ void addTempsPartidaMillis(Long)
++ void veureSolucio()
++ void setBola(Integer,Integer)
++ List<Integer> validarSequencia()
++ void botSolve()
++ Boolean isPartidaGuanyada()
++ Boolean isPartidaAcabada()
++ Boolean isUltimIntentPle()
++ void sortirPartida()
++ void esborrarUsuari()
+}
+interface domain.Maquina {
+~ List<List<Integer>> solve(List<Integer>)
+}
+class domain.DificultatFacil {
+~ NivellDificultat getNivellDificultat()
+~ List<Integer> validarSequencia(List<Integer>,List<Integer>)
+}
+enum domain.Bola {
++  NUL
++  BLANC
++  NEGRE
++  VERMELL
++  BLAU
++  TARONJA
++  ROSA
+- int number
+~ <<Create>> Bola(int)
+~ int number()
+~ {static} int numColors()
+~ {static} boolean isColor(int)
+~ {static} boolean isValid(int)
+}
+class domain.ControladorPartida {
+- {static} ControladorPartida instance
+- Partida partida
+- Dificultat dificultat
+- Taulell taulell
+- BotBreaker botBreaker
+- BotMaker botMaker
+- <<Create>> ControladorPartida()
+~ {static} ControladorPartida getInstance()
+~ Boolean isPartidaPresent()
+~ void novaPartidaMaker(List<Integer>,Integer)
+~ void novaPartidaBreaker(Integer)
+~ void carregarPartidaMaker(Integer,List<List<Integer>>,
+List<List<Integer>>,List<Integer>)
+~ void carregarPartidaBreaker(Integer,List<List<Integer>>,
+List<List<Integer>>,List<Integer>,Long,Boolean)
+~ void sortirPartida()
+~ List<Integer> validarSequencia()
+~ void botSolve()
+~ Long getTempsMillis()
+~ void addTempsMillis(Long)
+~ {static} Integer getNumBoles()
+~ Integer getNivellDificultat()
+~ Integer getAlgorisme()
+~ List<Integer> getSequenciaSolucio()
+~ Integer getNumIntents()
+~ List<List<Integer>> getIntents()
+~ List<List<Integer>> getFeedbacks()
+~ Boolean isJugadorBreaker()
+~ Boolean isPartidaGuanyada()
+~ Boolean isPartidaPerduda()
+~ Boolean isPartidaAcabada()
+~ Boolean isUltimIntentPle()
+~ void setBola(Integer,Integer)
+~ Boolean isValidIntentsFeedbacks(List<List<Integer>>,List<List<Integer>>)
+~ void veureSolucio()
+}
+class domain.Genetic {
+- Integer numboles
+- HashSet<Integer> possibleSolutions
+- HashSet<Integer> population
+- HashSet<Integer> tried
+- void initializeSetS()
+- Integer compareTwoSequencesBlack(ArrayList<Integer>,ArrayList<Integer>)
+- Integer compareTwoSequencesWhite(ArrayList<Integer>,ArrayList<Integer>)
+- ArrayList<Integer> getSequence(Integer)
+- void eraseNotPossibleSolutionsfromSetS(int,int,ArrayList<Integer>)
+- void getInitialPopulation()
+- Integer combineTwoSequences(Integer,Integer)
+- void getNextGeneration()
+- ArrayList<Integer> geneticCandidate()
++ List<List<Integer>> solve(List<Integer>)
+~ TipusAlgorisme getTipusAlgorisme()
+}
+abstract class domain.BotBreaker {
+~ {static} BotBreaker create(Integer)
+~ {abstract}TipusAlgorisme getTipusAlgorisme()
++ {abstract}List<List<Integer>> solve(List<Integer>)
+}
+enum domain.TipusAlgorisme {
++  FIVEGUESS
++  GENETIC
+- int number
+~ <<Create>> TipusAlgorisme(int)
+~ {static} TipusAlgorisme findByNumber(Integer)
+~ int number()
+~ {static} int numAlgorismes()
+~ {static} boolean isValid(int)
+}
+class domain.Partida {
+- Duration temps
+- Boolean solucioVista
+~ <<Create>> Partida()
+~ <<Create>> Partida(Duration,Boolean)
+~ Duration getTemps()
+~ void addMillis(Long)
+~ Boolean isSolucioVista()
+~ void veureSolucio()
+}
+class domain.FiveGuess {
+- Integer numboles
+- HashSet<Integer> possibleSolutions
+- void initializeSetS()
+- Integer compareTwoSequencesBlack(ArrayList<Integer>,ArrayList<Integer>)
+- Integer compareTwoSequencesWhite(ArrayList<Integer>,ArrayList<Integer>)
+- ArrayList<Integer> getSequence(Integer)
+- void eraseNotPossibleSolutionsfromSetS(int,int,ArrayList<Integer>)
+- ArrayList<Integer> minimax()
+~ TipusAlgorisme getTipusAlgorisme()
++ List<List<Integer>> solve(List<Integer>)
+}
+class domain.User {
+- String name
+- String username
+- List<Integer> personalRecord
+- List<Long> timePlayedFinishedGames
+- List<Integer> wonGames
+- List<Integer> lostGames
+- List<Integer> currentWinStreak
+- List<Integer> winStreak
+- List<Double> averageAsBreaker
+- List<Double> averageAsMaker
+- List<Integer> numGamesAsMaker
+~ <<Create>> User(String,String)
+~ <<Create>> User(String,String,List<Integer>,List<Long>,List<Integer>,List<Integer>,
+List<Integer>,List<Integer>,List<Double>,List<Double>,List<Integer>)
+- void initializeBreakerStats()
+- void initializeMakerStats()
+- void comprovaSizeStats(List<Integer>,List<Long>,List<Integer>,List<Integer>,
+List<Integer>,List<Integer>,List<Double>,List<Double>,List<Integer>)
+- void calculaTotalStatsBreaker()
+- void calculaTotalStatsMaker()
+~ void acabarPartidaBreaker(Integer,Integer,Boolean,Long)
+~ void acabarPartidaMaker(Integer,Integer)
+~ String getName()
+~ String getUsername()
+~ List<Integer> getPersonalRecord()
+~ List<Long> getTimePlayed()
+~ List<Integer> getWonGames()
+~ List<Integer> getLostGames()
+~ List<Integer> getCurrentWinStreak()
+~ List<Integer> getWinStreak()
+~ List<Double> getAvgAsBreaker()
+~ List<Double> getAvgAsMaker()
+~ List<Integer> getNumGamesAsMaker()
+~ {static} Boolean isValidUser(String,String,String)
+~ {static} String getPasswordHash(String)
+}
+class domain.BotMaker {
+- Integer numboles
+- Integer numcolors
+~ <<Create>> BotMaker(Integer,Integer)
+~ ArrayList<Integer> generaSequenciaSolucio()
+}
+class domain.Taulell {
+~ {static} int NUMINTENTS
+~ {static} int NUMBOLES
+- int intentActual
+- List<List<Integer>> intents
+- List<List<Integer>> feedbacks
+- List<Integer> solucio
+~ <<Create>> Taulell(List<Integer>)
+~ <<Create>> Taulell(List<Integer>,List<List<Integer>>,List<List<Integer>>)
+- {static} boolean isPlena(List<Integer>)
+- List<Integer> getNulList()
+- {static} boolean isValidFeedback(List<Integer>)
+- {static} boolean isValidIntent(List<Integer>)
+~ Boolean isUltimIntentPle()
+~ List<Integer> getUltimIntent()
+~ List<Integer> getUltimFeedback()
+~ List<List<Integer>> getIntents()
+~ List<List<Integer>> getFeedbacks()
+~ int getNumeroIntent()
+~ void addFeedback(List<Integer>)
+~ List<Integer> getSolucio()
+~ void setBola(Integer,Integer)
+- {static} boolean isValidStateIntents(List<List<Integer>>)
+~ {static} boolean isValidIntentsFeedbacks(List<List<Integer>>,List<List<Integer>>)
+}
+abstract class domain.Dificultat {
+~ {static} Dificultat create(Integer)
+~ {abstract}NivellDificultat getNivellDificultat()
+~ {abstract}List<Integer> validarSequencia(List<Integer>,List<Integer>)
+~ List<Integer> countColorsBoles(List<Integer>)
+~ Boolean isPlena(List<Integer>)
+}
+enum domain.NivellDificultat {
++  FACIL
++  MITJA
++  DIFICIL
+- int number
+~ <<Create>> NivellDificultat(int)
+~ {static} NivellDificultat findByNumber(Integer)
+~ int number()
+~ {static} int numDificultats()
+~ {static} boolean isValid(int)
+}
+class domain.Ranquing {
+- List<List<List<String>>> ranquings
+~ <<Create>> Ranquing(List<List<List<String>>>)
+- Boolean compare(List<String>,List<String>)
+~ void acabarPartidaBreaker(String,Integer,Integer,Long)
+~ List<List<List<String>>> getRanquings(Integer)
+~ List<List<List<String>>> getRanquings()
+~ void esborrarUserFromRanquings(String)
+}
+
+
+left to right direction
+domain.ControladorDomini "1" *--d "1" domain.ControladorPartida
+domain.ControladorDomini "1" *--d "1" domain.Ranquing
+domain.ControladorDomini "1" *---d "1" domain.User
+domain.ControladorPartida "1" *--- "1" domain.BotBreaker
+domain.ControladorPartida "1" *-- "1" domain.BotMaker
+domain.ControladorPartida "1" *---- "1" domain.Dificultat
+domain.ControladorPartida "1" *-- "1" domain.Partida
+domain.ControladorPartida "1" *-- "1" domain.Taulell
+domain.Dificultat <|-- domain.DificultatFacil
+domain.Dificultat <|-- domain.DificultatMitja
+domain.Dificultat <|-- domain.DificultatDificil
+domain.BotMaker <-[hidden]d domain.BotBreaker
+domain.NivellDificultat -[hidden]u> domain.Dificultat
+domain.TipusAlgorisme -[hidden]u> domain.FiveGuess
+domain.Bola -[hidden]r> domain.Taulell
+domain.BotBreaker <|-- domain.Genetic
+domain.BotBreaker <|-- domain.FiveGuess
+domain.Maquina <|.up domain.BotBreaker
+
+@enduml

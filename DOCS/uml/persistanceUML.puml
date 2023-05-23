@@ -1,0 +1,175 @@
+@startuml
+class persistance.GestorCSVFile {
+- File file
+- Integer keyPos
+- {static} int headerPos
+- String[] header
+- {static} int listSize
+~ <<Create>> GestorCSVFile(String,String[],Integer)
+~ void setListinString(List<?>,String[],Integer,Integer)
+~ List<Integer> getListIntinString(String[],Integer,Integer)
+~ List<Long> getListLonginString(String[],Integer,Integer)
+~ List<Double> getListDoubleinString(String[],Integer,Integer)
+~ void setListListinString(List<List<Integer>>,String[],Integer,Integer)
+~ List<List<Integer>> getListListinString(String[],Integer,Integer)
+- List<Integer> listListToList(List<List<Integer>>)
+- List<List<Integer>> listToListList(List<Integer>)
+~ void addLine(String[])
+- Integer getLineNumberByKey(List<String[]>,String)
+- Boolean foundLineByKey(List<String[]>,String)
+~ List<String[]> readAllLines(Boolean)
+~ void writeAllLines(List<String[]>)
+~ String[] getLinebyKey(String)
+~ Boolean existsLinebyKey(String)
+~ void removeLinebyKey(String)
+~ void setLinebyKey(String,String[])
+}
+class persistance.GestorPartidesActuals {
+- {static} String relativePathPartidesActuals
+- GestorCSVFile csvFile
+~ <<Create>> GestorPartidesActuals(String)
+~ void novaPartida(String,Boolean,Long,Integer,Integer,
+List<Integer>,List<List<Integer>>,List<List<Integer>>)
+~ Boolean existsPartidaActual(String)
+~ void esborrarPartidaActual(String)
+~ Boolean isBreaker(String)
+~ Long getTemps(String)
+~ void setTemps(String,Long)
+~ Integer getDificultat(String)
+~ Integer getAlgorisme(String)
+~ List<Integer> getSolucio(String)
+~ List<List<Integer>> getIntents(String)
+~ void setIntents(String,List<List<Integer>>)
+~ List<List<Integer>> getFeedbacks(String)
+~ void setFeedbacks(String,List<List<Integer>>)
+~ Boolean getSolucioVista(String)
+~ void setSolucioVista(String,Boolean)
+}
+enum persistance.HeaderPartides {
++  USERNAME
++  ISBREAKER
++  SOLUCIOVISTA
++  TEMPS
++  DIFICULTAT
++  ALGORISME
++  SOLUCIO
++  INTENTS
++  FEEDBACKS
+- int start
+- int end
+~ <<Create>> HeaderPartides(int,int)
+- {static} String[] getHeader()
+- {static} Integer getLength()
+}
+class persistance.GestorRanquing {
+~ {static} Integer numFitxers
+- GestorCSVFile[] csvFiles
+- {static} String[] relativePaths
+~ <<Create>> GestorRanquing(String)
+~ List<List<String>> getRanquing(Integer)
+~ void setRanquing(Integer,List<List<String>>)
+}
+enum persistance.HeaderRanquing {
++  USERNAME
++  NUMINTENTS
++  TEMPS
+- int number
+~ <<Create>> HeaderRanquing(int)
+- {static} String[] getHeader()
+}
+class persistance.GestorUsuaris {
+- {static} String relativeUsersPath
+- GestorCSVFile csvFile
+~ <<Create>> GestorUsuaris(String)
+~ Boolean existsUser(String)
+~ void registerUser(String,String,String)
+~ String getPasswordHash(String)
+~ String getUserName(String)
+~ void esborrarUsuari(String)
+~ void setStats(String,List<Integer>,List<Long>,List<Integer>,List<Integer>,
+List<Integer>,List<Integer>,List<Double>,List<Double>,List<Integer>)
+~ List<Integer> getPersonalRecord(String)
+~ List<Long> getTimePlayed(String)
+~ List<Integer> getWonGames(String)
+~ List<Integer> getLostGames(String)
+~ List<Integer> getCurrentWinstreak(String)
+~ List<Integer> getWinstreak(String)
+~ List<Double> getAvgAsMaker(String)
+~ List<Double> getAvgAsBreaker(String)
+~ List<Integer> getNumGamesAsMaker(String)
+}
+enum persistance.HeaderUsuaris {
++  USERNAME
++  NAME
++  PASSWORD
++  PERSRECORD
++  TIMEPLAYED
++  WONGAMES
++  LOSTGAMES
++  CURRENTWS
++  WINSTREAK
++  AVGASMAKER
++  AVGASBREAKER
++  NUMGAMESMAKER
+- int start
+- int end
+~ <<Create>> HeaderUsuaris(int,int)
+- {static} String[] getHeader()
+- {static} Integer getLength()
+}
+class persistance.ControladorPersistencia {
+- {static} ControladorPersistencia instance
+- GestorUsuaris gestorUsuaris
+- GestorPartidesActuals gestorPartidesActuals
+- GestorRanquing gestorRanquing
+- {static} String basePath
+- <<Create>> ControladorPersistencia()
++ {static} ControladorPersistencia getInstance()
++ Boolean existsUser(String)
++ void registerUser(String,String,String)
++ String getPasswordHash(String)
++ String getUserName(String)
++ List<List<List<String>>> getRanquings()
++ void setRanquings(List<List<List<String>>>)
++ List<Integer> getUserPersonalRecord(String)
++ List<Long> getUserTimePlayed(String)
++ List<Integer> getUserWonGames(String)
++ List<Integer> getUserLostGames(String)
++ List<Integer> getUserCurrentWinstreak(String)
++ List<Integer> getUserWinstreak(String)
++ List<Double> getUserAvgAsMaker(String)
++ List<Double> getUserAvgAsBreaker(String)
++ List<Integer> getUserNumGamesAsMaker(String)
++ void setUserStats(String,List<Integer>,List<Long>,List<Integer>,List<Integer>,
+List<Integer>,List<Integer>,List<Double>,List<Double>,List<Integer>)
++ Integer getNivellDificultatPartidaGuardada(String)
++ Integer getAlgorismePartidaGuardada(String)
++ List<List<Integer>> getIntentsPartidaGuardada(String)
++ void setIntentsPartidaGuardada(String,List<List<Integer>>)
++ List<List<Integer>> getFeedbackPartidaGuardada(String)
++ void setFeedbacksPartidaGuardada(String,List<List<Integer>>)
++ List<Integer> getSolucioPartidaGuardada(String)
++ Boolean existsPartidaGuardada(String)
++ Boolean partidaGuardadaisBreaker(String)
++ Long getTempsPartidaGuardada(String)
++ void setTempsPartidaGuardada(String,Long)
++ Boolean getSolucioVistaPartidaGuardada(String)
++ void setSolucioVistaPartidaGuardada(String,Boolean)
++ void esborrarUsuari(String)
++ void esborrarPartida(String)
++ void novaPartidaMaker(String,List<Integer>,Integer,List<List<Integer>>,
+List<List<Integer>>)
++ void novaPartidaBreaker(String,Integer,Long,
+List<Integer>,List<List<Integer>>,List<List<Integer>>)
+}
+
+left to right direction
+persistance.ControladorPersistencia "1" *-- "1" persistance.GestorPartidesActuals
+persistance.ControladorPersistencia "1" *-- "1" persistance.GestorUsuaris
+persistance.ControladorPersistencia "1" *-- "1" persistance.GestorRanquing
+persistance.GestorPartidesActuals "1" *-- "1" persistance.GestorCSVFile
+persistance.GestorUsuaris "1" *-- "1" persistance.GestorCSVFile
+persistance.GestorRanquing "1" *-- "*" persistance.GestorCSVFile
+persistance.GestorPartidesActuals <-[hidden]- persistance.HeaderPartides
+persistance.GestorUsuaris <-[hidden]- persistance.HeaderUsuaris
+@enduml
