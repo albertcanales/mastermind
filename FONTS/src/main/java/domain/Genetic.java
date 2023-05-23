@@ -87,12 +87,12 @@ class Genetic extends BotBreaker {
         numboles = solution.size();
         
         tried = new HashSet<>();
-        initializeSetS();
+        initializePossibleSolutions();
 
         List<List<Integer>> guesses = new ArrayList<>();
         List<Integer> currentGuess = new ArrayList<>(List.of(1, 1, 2, 2));
         guesses.add(currentGuess);
-        tried.add(1122);
+        tried.add(getInt(currentGuess));
 
         while (!checkGuess(currentGuess, solution)) {
             currentGuess = geneticCandidate();

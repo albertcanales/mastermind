@@ -2,7 +2,6 @@ package domain;
 
 import exceptions.domain.DomainException;
 import exceptions.domain.InvalidEnumValueException;
-import exceptions.domain.InvalidNumBolesException;
 
 import java.util.*;
 
@@ -51,13 +50,28 @@ abstract class BotBreaker implements Maquina {
     /**
      * Inicialitza el conjunt de 1296 codis possibles.
      */
-    void initializeSetS() {
+    void initializePossibleSolutions() {
         possibleSolutions = new HashSet<>();
         for (int it1 = 1; it1 <= Bola.numColors(); it1++)
             for (int it2 = 1; it2 <= Bola.numColors(); it2++)
                 for (int it3 = 1; it3 <= Bola.numColors(); it3++)
                     for (int it4 = 1; it4 <= Bola.numColors(); it4++)
-                        possibleSolutions.add(it1 * 1000 + it2 * 100 + it3 * 10 + it4);
+                        possibleSolutions.add(getInt(List.of(it1, it2, it3, it4)));
+    }
+
+    /**
+     * Donat un vector de dígit el converteix en un enter
+     *
+     * @return Enter del vector de dígits
+     */
+    Integer getInt(List<Integer> sequenceToTranslate) {
+        int result = 0;
+        int base = 1;
+        for(int i = this.numboles - 1; i >= 0; i--) {
+            result += base * sequenceToTranslate.get(i);
+            base *= 10;
+        }
+        return result;
     }
 
     /**
