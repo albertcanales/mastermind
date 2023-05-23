@@ -18,12 +18,23 @@ class Genetic extends BotBreaker {
      */
     private Integer numboles;
 
+    /**
+     * Conjunt de codis possibles
+     */
     private HashSet<Integer> possibleSolutions;
+
+    /**
+     * Població actual
+     */
     private HashSet<Integer> population;
+
+    /**
+     * Conjunt de seqüències que ja s'han intentat
+     */
     private HashSet<Integer> tried;
 
     /**
-     * Inicialitza el conjunt S de 1296 codis possibles.
+     * Inicialitza el conjunt de 1296 codis possibles.
      */
     private void initializeSetS() {
         for (int it1 = 1; it1 <= Bola.numColors(); it1++) {
@@ -207,15 +218,12 @@ class Genetic extends BotBreaker {
         guesses.add(currentGuess);
         tried.add(1122);
 
-        //play the guess to get a response of colored and white pegs
         int black = compareTwoSequencesBlack(currentGuess, solution);
         int white = compareTwoSequencesWhite(currentGuess, solution);
 
-        //if the response is four colored pegs, the game is won
         if (black == 4) {
             won = true;
         }
-        //remove from S any code that would not give the same response
         else {
             eraseNotPossibleSolutionsfromSetS(black, white, currentGuess);
         }
