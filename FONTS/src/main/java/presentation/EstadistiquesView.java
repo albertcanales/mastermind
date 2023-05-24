@@ -231,6 +231,11 @@ class EstadistiquesView {
         JLabelRecordPersonalTotal.setText(Integer.toString(record.get(3)));
     }
 
+    /**
+     * Mètode per escriure una duració de temps mesurada en mil·lisegons en un string amb el format HH:MM:SS
+     * @param millis duració de temps mesurada en mil·lisegons
+     * @return la duració de temps en un string amb el format HH:MM:SS
+     */
     private String formatTempsJugat(Long millis) {
         return String.format("%d:%02d:%02d", millis / 3600000L, (millis / 1000 % 3600) / 60, (millis / 1000 % 60));
     }

@@ -13,7 +13,7 @@ import java.util.Objects;
 class Ranquing {
 
     /**
-     * Llista dels ranquings, un per cada dificultat. Cada ranquing és una llista de les partides ordenades pel nombre d'intents, per cada partida es guarda el nom de l'user, els intents i el temps
+     * Llista dels ranquings, un per cada dificultat. Cada ranquing és una llista de les partides ordenades pel nombre d'intents, cada partida es guarda amb el format [username, intents, temps]
      */
     private final List<List<List<String>>> ranquings;
 
@@ -79,7 +79,7 @@ class Ranquing {
 
     /**
      * Mètode per obtenir els rànquings de totes les dificultats. Cada dificultat té una llista que té elements
-     * de la forma [username, intents, temps].ç
+     * de la forma [username, intents, temps].
      * @param max_rows Nombre d'entrades màxim a obtenir per a cada dificultat
      */
     List<List<List<String>>> getRanquings(Integer max_rows){

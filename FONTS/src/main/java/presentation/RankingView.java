@@ -94,24 +94,38 @@ class RankingView {
     }
 
     /**
-     * Mètode que inicialitza una taula de la llista de taules amb un ranquing, afegint-li la columna de posició dins el ranquing
+     * Mètode que inicialitza amb un rànquing una taula de la llista de taules, afegint-hi la columna de posició i canviant el format del temps
      * @param index índex de la taula a inicialitzar dins la llista de taules
-     * @param ranking Llista amb les partides ordenades que representa el ranquing
+     * @param ranking Llista amb les partides ordenades que representa el rànquing
      */
     private void fillRanking(int index, List<List<String>> ranking) {
+
         String[] columnNames = {"#", "Username", "Intents", "Temps"};
+
         int rankingSize = ranking.size();
-        String[][] rankingArray = new String[rankingSize][];
+        String[][] rankingArray = new String[rankingSize][]; //La taula només reb arrays com paràmetres
         for (int i = 0; i < rankingSize; ++i) {
-            List<String> rankingWithPositon = new ArrayList<>(ranking.get(i));
+            List<String> partidaWithPosition = new ArrayList<>(ranking.get(i));
+            partidaWithPosition.set(2, formatTempsJugat(Long.parseLong(partidaWithPosition.get(2)))); //Es canvia el format del temps
             int position = i + 1;
-            rankingWithPositon.add(0, Integer.toString(position));
-            rankingArray[i] = rankingWithPositon.toArray(new String[0]);
+            partidaWithPosition.add(0, Integer.toString(position));
+
+            rankingArray[i] = partidaWithPosition.toArray(new String[0]);
         }
+
         JTable rankingTable = new JTable(rankingArray, columnNames);
-        rankingTable.setDefaultEditor(Object.class, null);
+        rankingTable.setDefaultEditor(Object.class, null); //La taula no és editable
 
         rankingTableList.set(index, rankingTable);
+    }
+
+    /**
+     * Mètode per escriure una duració de temps mesurada en mil·lisegons en un string amb el format HH:MM:SS
+     * @param millis duració de temps mesurada en mil·lisegons
+     * @return la duració de temps en un string amb el format HH:MM:SS
+     */
+    private String formatTempsJugat(Long millis) {
+        return String.format("%d:%02d:%02d", millis / 3600000L, (millis / 1000 % 3600) / 60, (millis / 1000 % 60));
     }
 
     /**
