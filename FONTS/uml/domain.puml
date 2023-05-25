@@ -1,5 +1,4 @@
 @startuml
-
 class domain.DificultatDificil {
 ~ NivellDificultat getNivellDificultat()
 ~ List<Integer> validarSequencia(List<Integer>,List<Integer>)
@@ -19,6 +18,9 @@ class domain.ControladorDomini {
 + Boolean userLoggedIn()
 + Boolean isPartidaBeingPlayed()
 + Boolean existsUser(String)
++ Boolean isValidUsername(String)
++ Boolean isValidName(String)
++ Boolean isValidPassword(String)
 + Boolean isValidUser(String,String,String)
 + Boolean loginUser(String,String)
 + void registerUser(String,String,String)
@@ -114,26 +116,27 @@ List<List<Integer>>,List<Integer>,Long,Boolean)
 ~ void veureSolucio()
 }
 class domain.Genetic {
-- Integer numboles
-- HashSet<Integer> possibleSolutions
 - HashSet<Integer> population
 - HashSet<Integer> tried
-- void initializeSetS()
-- Integer compareTwoSequencesBlack(ArrayList<Integer>,ArrayList<Integer>)
-- Integer compareTwoSequencesWhite(ArrayList<Integer>,ArrayList<Integer>)
-- ArrayList<Integer> getSequence(Integer)
-- void eraseNotPossibleSolutionsfromSetS(int,int,ArrayList<Integer>)
-- void getInitialPopulation()
 - Integer combineTwoSequences(Integer,Integer)
 - void getNextGeneration()
-- ArrayList<Integer> geneticCandidate()
+- List<Integer> geneticCandidate()
 + List<List<Integer>> solve(List<Integer>)
 ~ TipusAlgorisme getTipusAlgorisme()
 }
 abstract class domain.BotBreaker {
+~ Integer numboles
+~ HashSet<Integer> possibleSolutions
 ~ {static} BotBreaker create(Integer)
 ~ {abstract}TipusAlgorisme getTipusAlgorisme()
 + {abstract}List<List<Integer>> solve(List<Integer>)
+~ void initializePossibleSolutions()
+~ Integer getInt(List<Integer>)
+~ List<Integer> getSequence(Integer)
+~ Integer compareTwoSequencesBlack(List<Integer>,List<Integer>)
+~ Integer compareTwoSequencesWhite(List<Integer>,List<Integer>)
+- void eraseNotPossibleSolution(int,int,List<Integer>)
+~ Boolean checkGuess(List<Integer>,List<Integer>)
 }
 enum domain.TipusAlgorisme {
 +  FIVEGUESS
@@ -156,16 +159,10 @@ class domain.Partida {
 ~ void veureSolucio()
 }
 class domain.FiveGuess {
-- Integer numboles
-- HashSet<Integer> possibleSolutions
-- void initializeSetS()
-- Integer compareTwoSequencesBlack(ArrayList<Integer>,ArrayList<Integer>)
-- Integer compareTwoSequencesWhite(ArrayList<Integer>,ArrayList<Integer>)
-- ArrayList<Integer> getSequence(Integer)
-- void eraseNotPossibleSolutionsfromSetS(int,int,ArrayList<Integer>)
-- ArrayList<Integer> minimax()
-~ TipusAlgorisme getTipusAlgorisme()
+- Integer getCurrentMax(List<Integer>)
+- List<Integer> minimax()
 + List<List<Integer>> solve(List<Integer>)
+~ TipusAlgorisme getTipusAlgorisme()
 }
 class domain.User {
 - String name
@@ -201,6 +198,9 @@ List<Integer>,List<Integer>,List<Double>,List<Double>,List<Integer>)
 ~ List<Double> getAvgAsBreaker()
 ~ List<Double> getAvgAsMaker()
 ~ List<Integer> getNumGamesAsMaker()
+~ {static} Boolean isValidUsername(String)
+~ {static} Boolean isValidName(String)
+~ {static} Boolean isValidPassword(String)
 ~ {static} Boolean isValidUser(String,String,String)
 ~ {static} String getPasswordHash(String)
 }
