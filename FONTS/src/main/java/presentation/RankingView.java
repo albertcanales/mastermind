@@ -9,6 +9,10 @@ import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Vista per veure els rànquings de les millors partides
+ * @author Kamil Przybyszewski
+ */
 class RankingView {
 
     /**
