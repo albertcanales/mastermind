@@ -23,14 +23,6 @@ abstract class Subject {
     }
 
     /**
-     * Mètode perquè els observadors es puguin desadjuntar al subjecte
-     * @param o Observador a desadjuntar
-     */
-    void Detach(Observer o) {
-        observersList.remove(o);
-    }
-
-    /**
      * Mètode per poder notificar als observadors
      */
     void Notify() {

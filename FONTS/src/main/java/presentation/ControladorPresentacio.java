@@ -56,7 +56,7 @@ class ControladorPresentacio {
      * @param username Username a comprovar
      * @return si el nom d'usuari donat és vàlid
      */
-    public Boolean isValidUsername(String username) {
+    Boolean isValidUsername(String username) {
         return controladorDomini.isValidUsername(username);
     }
 
@@ -65,7 +65,7 @@ class ControladorPresentacio {
      * @param name Nom a comprovar
      * @return si el nom donat és vàlid
      */
-    public Boolean isValidName(String name) {
+    Boolean isValidName(String name) {
         return controladorDomini.isValidName(name);
     }
 
@@ -74,19 +74,8 @@ class ControladorPresentacio {
      * @param password Contrasenya a comprovar
      * @return si la contrasenya és vàlida
      */
-    public Boolean isValidPassword(String password) {
+    Boolean isValidPassword(String password) {
         return controladorDomini.isValidPassword(password);
-    }
-
-    /**
-     * Mètode per saber si un usuari donat és vàlid (bon format)
-     * @param username Username a comprovar
-     * @param name Nom a comprovar
-     * @param password La contrasenya a comprovar
-     * @return Si l'usuari és vàlid
-     */
-    Boolean isValidUser(String username, String name, String password) {
-        return controladorDomini.isValidUser(username, name, password);
     }
 
     /**

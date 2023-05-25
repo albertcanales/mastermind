@@ -36,6 +36,11 @@ class RegisterView {
     private JPasswordField textFieldContrasenya;
 
     /**
+     * Camp de text per la confirmació de contrasenya
+     */
+    private JPasswordField textFieldConfirmacioContrasenya;
+
+    /**
      * Botó per registrar l'usuari
      */
     private JButton buttonRegistra;
@@ -44,7 +49,6 @@ class RegisterView {
      * Botó per tornar a la vista anterior
      */
     private JButton buttonTorna;
-    private JPasswordField textFieldConfirmacioContrasenya;
 
     /**
      * Constructor per defecte de la vista

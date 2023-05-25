@@ -275,7 +275,7 @@ class Taulell {
         if (intentActual == NUMINTENTS) {
             throw new InvalidNumIntentsException(intentActual, NUMINTENTS - 1);
         }
-        ArrayList<Integer> ultimIntent = new ArrayList<>(intents.get(intentActual));
+        List<Integer> ultimIntent = new ArrayList<>(intents.get(intentActual));
         ultimIntent.set(index, bola);
         intents.set(intentActual, ultimIntent);
     }

@@ -50,7 +50,7 @@ class MainFrame{
     }
 
     /**
-     * Mètode per mostrar un diàleg amb si o no com a opcions
+     * Mètode per mostrar un diàleg amb Sí o No com a opcions
      * @param title Títol del diàleg
      * @param message Missatge del diàleg
      * @return La resposta de l'usuari
