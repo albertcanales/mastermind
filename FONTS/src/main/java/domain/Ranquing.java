@@ -22,8 +22,8 @@ class Ranquing {
      * @param ranquings llista que representa els ranquings amb els que s'ha d'inicialitzar la classe
      */
     Ranquing(List<List<List<String>>> ranquings) throws DomainException{
-        Integer ranquingsSize = ranquings.size();
-        if (ranquingsSize != NivellDificultat.numDificultats()) throw new InvalidNumRanquingsException(ranquingsSize.toString());
+        int ranquingsSize = ranquings.size();
+        if (ranquingsSize != NivellDificultat.numDificultats()) throw new InvalidNumRanquingsException(Integer.toString(ranquingsSize));
 
         this.ranquings = ranquings;
     }

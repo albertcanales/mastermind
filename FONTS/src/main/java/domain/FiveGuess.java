@@ -12,6 +12,10 @@ import java.util.*;
  */
 class FiveGuess extends BotBreaker {
 
+    /**
+     * Getter pel pitjor cas per la seqüència donada i solucions possibles
+     * @return Pitjor cas
+     */
     private Integer getCurrentMax(List<Integer> sequence) {
         List<Integer> counts = new ArrayList<>(45);
         for (int it = 0; it < 45; it++){

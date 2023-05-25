@@ -10,18 +10,22 @@ import java.util.List;
 import java.util.ArrayList;
 
 class RankingView {
+
     /**
      * Controlador de presentació
      */
     private final ControladorPresentacio controladorPresentacio;
+
     /**
      * Panell contenidor
      */
     private JPanel panel;
+
     /**
      * Botó per tornar a la pantalla d'inici o home, segons si un usuari ha iniciat sessió
      */
     private JButton buttonTorna;
+
     /**
      * Panell per tabular entre els diferents ranquings
      */
@@ -36,6 +40,7 @@ class RankingView {
      * Numero de ranquings
      */
     private final int NUM_RANKINGS = 3;
+
     /**
      * Numero de files màximes que es presenten del ranquing
      */
@@ -68,7 +73,7 @@ class RankingView {
     }
 
     /**
-     * Mètode per inicialitzar la llista de les taules on es guarden els ranquings
+     * Mètode per inicialitzar la llista de les taules on es guarden els rànquings
      */
     private void initRankingTableList() {
         rankingTableList = new ArrayList<>();
@@ -76,7 +81,7 @@ class RankingView {
     }
 
     /**
-     * Mètode per inicialitzar cada taula amb el corresponent ranquing
+     * Mètode per inicialitzar cada taula amb el corresponent rànquing
      */
     private void initRanking() {
         List<List<List<String>>> ranking = controladorPresentacio.getRanquings(MAX_ROWS);
@@ -85,7 +90,7 @@ class RankingView {
     }
 
     /**
-     * Mètode per inicialitzar els panells tabulats amb les taules que contenen els ranquings
+     * Mètode per inicialitzar els panells tabulats amb les taules que contenen els rànquings
      */
     private void initTabbedPanel() {
         tabbedPane.addTab("Fàcil", new JScrollPane(rankingTableList.get(0)));

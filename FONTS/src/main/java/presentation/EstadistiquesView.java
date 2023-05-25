@@ -310,7 +310,7 @@ class EstadistiquesView {
      */
     private void buttonEsborraUsuariClick() {
         if (controladorPresentacio.showYesNoDialog("Esborrar usuari", "Segur que vols esborrar el teu usuari?\n" +
-                " També desapareixerà dels rànquings!\n Aquesta acció és irreversible.")) {
+                "També desapareixerà dels rànquings!\n Aquesta acció és irreversible.")) {
             controladorPresentacio.esborrarUsuari();
             controladorPresentacio.showInitialView();
         }
