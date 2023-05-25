@@ -169,7 +169,7 @@ persistance.ControladorPersistencia "1" *-- "1" persistance.GestorUsuaris
 persistance.ControladorPersistencia "1" *-- "1" persistance.GestorRanquing
 persistance.GestorPartidesActuals "1" *-- "1" persistance.GestorCSVFile
 persistance.GestorUsuaris "1" *-- "1" persistance.GestorCSVFile
-persistance.GestorRanquing "1" *-- "*" persistance.GestorCSVFile
+persistance.GestorRanquing "1" *-- "3" persistance.GestorCSVFile
 persistance.GestorPartidesActuals <-[hidden]- persistance.HeaderPartides
 persistance.GestorUsuaris <-[hidden]- persistance.HeaderUsuaris
 @enduml
