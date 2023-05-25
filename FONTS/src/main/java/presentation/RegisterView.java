@@ -44,6 +44,7 @@ class RegisterView {
      * Botó per tornar a la vista anterior
      */
     private JButton buttonTorna;
+    private JPasswordField textFieldConfirmacioContrasenya;
 
     /**
      * Constructor per defecte de la vista
@@ -78,6 +79,7 @@ class RegisterView {
         String username = textFieldNomUsuari.getText();
         String name = textFieldNomComplet.getText();
         String password = String.valueOf(textFieldContrasenya.getPassword());
+        String confirmationPassword = String.valueOf(textFieldConfirmacioContrasenya.getPassword());
 
         if (!controladorPresentacio.isValidUsername(username))
             controladorPresentacio.showWarningDialog("No s'ha pogut registrar",
@@ -88,6 +90,10 @@ class RegisterView {
         else if (!controladorPresentacio.isValidPassword(password))
             controladorPresentacio.showWarningDialog("No s'ha pogut registrar",
                     "La contrasenya no és vàlida");
+        else if (!password.equals(confirmationPassword))
+            controladorPresentacio.showWarningDialog("No s'ha pogut registrar",
+                    "Les dues contrasenyes no coincideixen");
+
         else if (controladorPresentacio.existsUser(username))
             controladorPresentacio.showWarningDialog("No s'ha pogut registrar",
                     "Ja existeix un usuari amb el mateix nom d'usuari");
@@ -172,6 +178,28 @@ class RegisterView {
         gbc.gridy = 3;
         gbc.weightx = 1.0;
         panel1.add(label3, gbc);
+        final JLabel label4 = new JLabel();
+        label4.setEnabled(true);
+        label4.setText("Confirmació de contrasenya");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 9;
+        gbc.weightx = 1.0;
+        panel1.add(label4, gbc);
+        textFieldConfirmacioContrasenya = new JPasswordField();
+        textFieldConfirmacioContrasenya.setHorizontalAlignment(0);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 40, 0, 40);
+        panel1.add(textFieldConfirmacioContrasenya, gbc);
+        final JPanel spacer3 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel1.add(spacer3, gbc);
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel.add(panel2, BorderLayout.SOUTH);
@@ -187,6 +215,7 @@ class RegisterView {
         label1.setLabelFor(textFieldNomUsuari);
         label2.setLabelFor(textFieldContrasenya);
         label3.setLabelFor(textFieldNomComplet);
+        label4.setLabelFor(textFieldContrasenya);
     }
 
     /**

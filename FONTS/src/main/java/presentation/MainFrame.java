@@ -56,8 +56,9 @@ class MainFrame{
      * @return La resposta de l'usuari
      */
     Boolean showYesNoDialog(String title, String message) {
-        int result = JOptionPane.showConfirmDialog(frame,
-                message, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        String[] options = {"Sí", "No"};
+        int result = JOptionPane.showOptionDialog(frame,
+                message, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
         return result == JOptionPane.YES_OPTION;
     }
 
