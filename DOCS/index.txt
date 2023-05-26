@@ -1,4 +1,4 @@
-Carpeta amb els documents relacionats amb el projecte
+Directori amb els documents relacionats amb el projecte
 
 javadoc/ -> Carpeta on es troba la documentació generada amb javadoc
 uml/ -> Carpeta amb els diagrames UML

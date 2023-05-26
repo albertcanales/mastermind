@@ -1,0 +1,17 @@
+Els canvis respecte a la primera entrega són:
+
+# Diagrama casos d'ús
+S'ha inclòs el casos d'ús principals (Jugar Partida codeX) que es deien en la correció
+
+# Descripció dels casos d'ús
+S'han reescrit per tal de solucionar els errors mencionats en les notes, a més d'altres que s'han vist posteriorment a partir de la correcció.
+
+# Model
+S'ha afegit la classe de rànquing com vam parlar a classe, a més d'afegir algun mètode auxiliar que no es va preveure correctament en el seu moment.
+
+# EDA
+S'han referenciat en més detall els costos dels algorismes
+
+# Codi
+S'ha millorat considerablement el codi dels algorismes, vist que efectivament es violava el principi de Single Responsability en algunes funcions. També s'han fet millores menors i una inspecció general, que arregla coses concretes en algunes implementacions.
+

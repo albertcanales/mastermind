@@ -3,6 +3,10 @@ Directori arrel del projecte
 DOCS/
 EXE/
 FONTS/
+canvis-1a-entrega.txt
 equip.txt
 
 El Makefile del projecte es troba a FONTS, juntament amb indicacions per utilitzar-lo.
+
+També hi ha un document en aquest mateix directori amb les millores que s'han fet a la primera entrega.
+

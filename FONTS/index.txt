@@ -2,6 +2,8 @@ Codi font del projecte i gradle
 
 gradle/
 src/
+uml/
+build.gradle
 .gitignore
 gradlew
 gradlew.bat
