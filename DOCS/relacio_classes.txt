@@ -1,23 +1,46 @@
 Albert Canales Ros:
+BolaButton
+BolaPalette
+ControladorPresentacio
 Controlador Domini
 Controlador Partida
-NivellDificultat
+InitialView
+Main
+MainFrame
 Partida
-
+PartidaBreakerView
+PartidaMakerView
+RegisterView
+SequenciaPanel
+TaulellPanel
+TimerPanel
 
 Mar Gonzàlez Català:
 BotBreaker
+EstadistiquesView
+HomeView
 FiveGuess
+LoginView
 Genetic
 BotMaker
-TipusAlgorisme
 
 Kamil Przybyszewski:
-User
+Dificultat
 DificultatFacil
 DificultatMitja
 DificultatDificil
+NormesView
+NovaPartidaBreakerPanel
+NovaPartidaMakerPanel
+NovaPartidaView
+Ranquing
+RanquingView
+User
 
-Arnau Valls Fusté
+Arnau Valls Fusté:
+ControladorPersistencia
+GestorCSVFile
+GestorPartidesActuals
+GestorRanquing
+GestorUsuaris
 Taulell
-Bola
