@@ -467,16 +467,16 @@ presentation.JPanel <|-- presentation.NovaPartidaMakerPanel
 
 
 
-presentation.ControladorPresentacio "1" *-- "1" presentation.InitialView
-presentation.ControladorPresentacio "1" *-- "1" presentation.NormesView
-presentation.ControladorPresentacio "1" *-- "1" presentation.RegisterView
-presentation.ControladorPresentacio "1" *-- "1" presentation.EstadistiquesView
-presentation.ControladorPresentacio "1" *-- "1" presentation.RankingView
-presentation.ControladorPresentacio "1" *-- "1" presentation.LoginView
-presentation.ControladorPresentacio "1" *-- "1" presentation.HomeView
-presentation.ControladorPresentacio "1" *-- "1" presentation.PartidaMakerView
-presentation.ControladorPresentacio "1" *-- "1" presentation.NovaPartidaView
-presentation.ControladorPresentacio "1" *-- "1" presentation.PartidaBreakerView
+presentation.ControladorPresentacio "1" *-- "0..1" presentation.InitialView
+presentation.ControladorPresentacio "1" *-- "0..1" presentation.NormesView
+presentation.ControladorPresentacio "1" *-- "0..1" presentation.RegisterView
+presentation.ControladorPresentacio "1" *-- "0..1" presentation.EstadistiquesView
+presentation.ControladorPresentacio "1" *-- "0..1" presentation.RankingView
+presentation.ControladorPresentacio "1" *-- "0..1" presentation.LoginView
+presentation.ControladorPresentacio "1" *-- "0..1" presentation.HomeView
+presentation.ControladorPresentacio "1" *-- "0..1" presentation.PartidaMakerView
+presentation.ControladorPresentacio "1" *-- "0..1" presentation.NovaPartidaView
+presentation.ControladorPresentacio "1" *-- "0..1" presentation.PartidaBreakerView
 presentation.Main "1" *--> "1" presentation.ControladorPresentacio
 presentation.ControladorPresentacio "1" *-- "1" presentation.MainFrame
 presentation.SequenciaPanel "1" *--> "4" presentation.BolaButton
@@ -486,7 +486,7 @@ presentation.PartidaMakerView "1" *--> "1" presentation.TaulellPanel
 presentation.PartidaBreakerView "1" *--> "1" presentation.TaulellPanel
 presentation.PartidaBreakerView "1" *--> "1" presentation.TimerLabel
 presentation.PartidaBreakerView "1" *--> "1" presentation.BolaPalettePanel
-presentation.BolaPalettePanel "1" *--> "*" presentation.BolaButton
+presentation.BolaPalettePanel "1" *--> "7" presentation.BolaButton
 presentation.NovaPartidaView "1" *--> "1" presentation.NovaPartidaMakerPanel
 presentation.NovaPartidaView "1" *--> "1" presentation.NovaPartidaBreakerPanel
 presentation.BolaColor -[hidden] presentation.BolaButton

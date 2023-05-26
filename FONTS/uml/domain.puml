@@ -267,12 +267,12 @@ class domain.Ranquing {
 left to right direction
 domain.ControladorDomini "1" *--d> "1" domain.ControladorPartida
 domain.ControladorDomini "1" *--d> "1" domain.Ranquing
-domain.ControladorDomini "1" *---d> "1" domain.User
-domain.ControladorPartida "1" *---> "1" domain.BotBreaker
-domain.ControladorPartida "1" *--> "1" domain.BotMaker
-domain.ControladorPartida "1" *----> "1" domain.Dificultat
-domain.ControladorPartida "1" *--> "1" domain.Partida
-domain.ControladorPartida "1" *--> "1" domain.Taulell
+domain.ControladorDomini "1" *---d> "0..1" domain.User
+domain.ControladorPartida "1" *---> "0..1" domain.BotBreaker
+domain.ControladorPartida "1" *--> "0..1" domain.BotMaker
+domain.ControladorPartida "1" *----> "0..1" domain.Dificultat
+domain.ControladorPartida "1" *--> "0..1" domain.Partida
+domain.ControladorPartida "1" *--> "0..1" domain.Taulell
 domain.Dificultat <|-- domain.DificultatFacil
 domain.Dificultat <|-- domain.DificultatMitja
 domain.Dificultat <|-- domain.DificultatDificil
