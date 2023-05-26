@@ -457,11 +457,11 @@ abstract class presentation.Subject {
 
 presentation.Observer <|.. presentation.BolaPalettePanel
 presentation.Observer <|.. presentation.PartidaBreakerView
-presentation.Subject <|-- presentation.BolaButton
+presentation.Subject <|--u presentation.BolaButton
 presentation.BolaButton +.. presentation.BolaButton$ColorIcon
 presentation.Icon <|.. presentation.BolaButton$ColorIcon
-presentation.Observer <|.. presentation.NovaPartidaView
-presentation.JPanel <|-- presentation.NovaPartidaBreakerPanel
+presentation.Observer <|..u presentation.NovaPartidaView
+presentation.JPanel <|--u presentation.NovaPartidaBreakerPanel
 presentation.Subject <|-- presentation.TimerLabel
 presentation.JPanel <|-- presentation.NovaPartidaMakerPanel
 
@@ -489,5 +489,7 @@ presentation.PartidaBreakerView "1" *--> "1" presentation.BolaPalettePanel
 presentation.BolaPalettePanel "1" *--> "*" presentation.BolaButton
 presentation.NovaPartidaView "1" *--> "1" presentation.NovaPartidaMakerPanel
 presentation.NovaPartidaView "1" *--> "1" presentation.NovaPartidaBreakerPanel
+presentation.BolaColor -[hidden] presentation.BolaButton
+
 
 @enduml
