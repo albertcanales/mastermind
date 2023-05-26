@@ -1,0 +1,7 @@
+Diagrames UML en format vectorial
+
+casos-dus.svg -> Diagrama de casos d'ús
+domain.svg -> Diagrama de classes de domini
+persistance.svg -> Diagrama de classes de persistència
+presentation.svg -> Diagrama de classes de presentació
+

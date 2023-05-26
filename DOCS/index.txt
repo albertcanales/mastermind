@@ -1,3 +1,6 @@
-DiagramaClasses.pdf -> Diagrama estàtic complet del model conceptual de dades en versió disseny
-Casos_dus_Breu_Descripcio.pdf -> Breu descripció de cada cas d’ús i de les estructures de dades i algorismes
+Carpeta amb els documents relacionats amb el projecte
+
+javadoc/ -> Carpeta on es troba la documentació generada amb javadoc
+uml/ -> Carpeta amb els diagrames UML
+casos-dus-i-eda.pdf -> Document amb les descripcions dels casos d'ús, les estructures de dades i els algorismes
 relacio_classes.txt -> Relació de les classes implementades per cada membre de l’equip
