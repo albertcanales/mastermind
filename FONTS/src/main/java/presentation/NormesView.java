@@ -52,6 +52,7 @@ class NormesView {
      */
     private void initComponents() {
         buttonTorna.addActionListener(actionEvent -> controladorPresentacio.showInitialOrHomeView());
+        editorPaneNormes.setCaretPosition(0);
     }
 
     /**

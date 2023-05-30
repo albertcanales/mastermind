@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Vista per veure els rànquings de les millors partides
+ *
  * @author Kamil Przybyszewski
  */
 class RankingView {
@@ -48,7 +49,7 @@ class RankingView {
     /**
      * Numero de files màximes que es presenten del ranquing
      */
-    private final int MAX_ROWS = 20;
+    private final int MAX_ROWS = 25;
 
     /**
      * Constructor per defecte de la vista
@@ -58,6 +59,7 @@ class RankingView {
         $$$setupUI$$$();
         initComponents();
     }
+
     /**
      * Mètode per mostrar la vista
      */
@@ -65,6 +67,7 @@ class RankingView {
         controladorPresentacio.setContent(panel);
         controladorPresentacio.setTitle("Rànquing");
     }
+
     /**
      * Mètode per inicialitzar els components de la vista
      */
@@ -104,7 +107,8 @@ class RankingView {
 
     /**
      * Mètode que inicialitza amb un rànquing una taula de la llista de taules, afegint-hi la columna de posició i canviant el format del temps
-     * @param index índex de la taula a inicialitzar dins la llista de taules
+     *
+     * @param index   índex de la taula a inicialitzar dins la llista de taules
      * @param ranking Llista amb les partides ordenades que representa el rànquing
      */
     private void fillRanking(int index, List<List<String>> ranking) {
@@ -130,6 +134,7 @@ class RankingView {
 
     /**
      * Mètode per escriure una duració de temps mesurada en mil·lisegons en un string amb el format HH:MM:SS
+     *
      * @param millis duració de temps mesurada en mil·lisegons
      * @return la duració de temps en un string amb el format HH:MM:SS
      */
@@ -156,7 +161,7 @@ class RankingView {
         final Spacer spacer1 = new Spacer();
         panel1.add(spacer1);
         final JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayoutManager(1, 1, new Insets(0, 10, 0, 10), -1, -1));
+        panel2.setLayout(new GridLayoutManager(1, 1, new Insets(0, 10, 10, 10), -1, -1));
         panel.add(panel2, BorderLayout.CENTER);
         tabbedPane = new JTabbedPane();
         panel2.add(tabbedPane, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(200, 200), null, 0, false));
