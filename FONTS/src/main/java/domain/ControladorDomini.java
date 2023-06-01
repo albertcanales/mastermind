@@ -478,6 +478,8 @@ public class ControladorDomini {
             controladorPersistencia.setUserStats(user.getUsername(), user.getPersonalRecord(), user.getTimePlayed(), user.getWonGames(), user.getLostGames(),
                     user.getCurrentWinStreak(), user.getWinStreak(), user.getAvgAsMaker(), user.getAvgAsBreaker(), user.getNumGamesAsMaker());
             if (guanyada){
+                if(ranquing == null)
+                    ranquing = new Ranquing(controladorPersistencia.getRanquings());
                 ranquing.acabarPartidaBreaker(user.getUsername(), nivellDificultat, numIntents, temps);
                 controladorPersistencia.setRanquings(ranquing.getRanquings());
             }
@@ -551,6 +553,8 @@ public class ControladorDomini {
         controladorPersistencia.esborrarUsuari(username);
         if (controladorPersistencia.existsPartidaGuardada(username))
             controladorPersistencia.esborrarPartida(username);
+        if(ranquing == null)
+            ranquing = new Ranquing(controladorPersistencia.getRanquings());
         ranquing.esborrarUserFromRanquings(username);
         controladorPersistencia.setRanquings(ranquing.getRanquings());
     }
