@@ -1,0 +1,5 @@
+Directori amb els binaris de l'aplicació
+
+jocs/
+tests/
+jocs-de-prova.pdf
