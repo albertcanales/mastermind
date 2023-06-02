@@ -3,4 +3,5 @@ Directori amb els documents relacionats amb el projecte
 javadoc/ -> Carpeta on es troba la documentació generada amb javadoc
 uml/ -> Carpeta amb els diagrames UML
 casos-dus-i-eda.pdf -> Document amb les descripcions dels casos d'ús, les estructures de dades i els algorismes
+Manual_d_usuari.pdf -> Document amb el manual d'usuari, el qual inclou: instruccions de com executar l'aplicació, descripcions de les funcionalitats, exemples d'ús, descripció de les limitacions del sistema, i un apèndix amb les normes del joc
 relacio_classes.txt -> Relació de les classes implementades per cada membre de l’equip
