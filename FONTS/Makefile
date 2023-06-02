@@ -43,6 +43,15 @@ jocProves: jocProvesPartida jocProvesDomini
 run: exe
 	cd ../EXE/release && java -jar Mastermind.jar
 
+run_db0: exe
+	rm -rf ../EXE/release/db && cd ../EXE/release && java -jar Mastermind.jar
+
+run_db1: exe
+	cp -R ../EXE/jocs/db1/. ../EXE/release/db && cd ../EXE/release && java -jar Mastermind.jar
+
+run_db2: exe
+	cp -R ../EXE/jocs/db2/. ../EXE/release/db && cd ../EXE/release && java -jar Mastermind.jar
+
 javadoc:
 	./gradlew javadoc
 

@@ -16,6 +16,11 @@ Té els següents targets:
 Per a executar el programa:
     make run
 
+Per executar el programa amb bases de dades predefinides:
+    make run_db0                -- DB buida
+    make run_db1                -- DB corrupta
+    make run_db2                -- DB completa
+
 Per generar els JAR en el directori EXE, executa:
     make exe
 
