@@ -130,6 +130,7 @@ class PartidaBreakerView implements Observer {
                 taulellPanel.setSolucioColors(solution);
                 taulellPanel.setSolucioEnabled(false);
                 taulellPanel.setIntentEnabled(numIntentActual, false);
+                buttonValidar.setEnabled(false);
                 timerLabel.stop();
                 controladorPresentacio.veureSolucio();
                 labelEstatPartida.setText(PERDUDA_TEXT);

@@ -315,12 +315,12 @@ class ControladorPartida {
         if(!isPartidaPresent())
             throw new NotPlayingPartidaException();
         List<Integer> ultimFeedback = taulell.getUltimFeedback();
-        if(ultimFeedback == null) return Boolean.FALSE;
+        if(ultimFeedback == null) return false;
         for (Integer bola : ultimFeedback) {
             if (!bola.equals(Bola.NEGRE.number()))
-                return Boolean.FALSE;
+                return false;
         }
-        return Boolean.TRUE;
+        return !partida.isSolucioVista();
     }
 
     /**
